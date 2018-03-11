@@ -1,5 +1,5 @@
 CREATE TABLE `league` (
-  `id` int(11) NOT NULL COMMENT '联赛ID',
+  `id` int(11) UNSIGNED NOT NULL COMMENT '联赛ID',
   `color` char(7) DEFAULT '#000000' COMMENT '颜色值',
   `gb_short` varchar(16) DEFAULT NULL COMMENT '中文简体简称',
   `big_short` varchar(16) DEFAULT NULL COMMENT '中文繁体简称',

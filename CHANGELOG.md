@@ -72,4 +72,20 @@
 | 修改参数 | 修改类型 | 修改后 | 参数类型 |
 |:----:|:----:|:----:|:----:|
 | match_id | 修改 | odd_id | 请求参数 |
+| rec_type | 修改 | option_id | 请求参数 |
 
+- 14：49 修改【推荐详情-推荐信息】
+
+| 修改参数 | 修改类型 | 修改后 | 参数类型 |
+|:----:|:----:|:----:|:----:|
+| home_rate | 删除 |  | 响应参数 |
+| draw_rate | 删除 |  | 响应参数 |
+| away_rate | 删除 |  | 响应参数 |
+| handicap_num | 删除 |  | 响应参数 |
+| rec_type | 删除 |  | 响应参数 |
+| option[].option_id | 增加 | option[].option_id | 响应参数 |
+| option[].odds_rate | 增加 | option[].odds_rate | 响应参数 |
+| option[].option_name | 增加 | option[].option_name | 响应参数 |
+| extra.{key} | 增加 | extra.{key} | 响应参数 |
+| option_id | 增加 | option_id | 响应参数 |
+| odd_type | 增加 | odd_type | 响应参数 |

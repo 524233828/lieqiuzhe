@@ -89,3 +89,5 @@
 | extra.{key} | 增加 | extra.{key} | 响应参数 |
 | option_id | 增加 | option_id | 响应参数 |
 | odd_type | 增加 | odd_type | 响应参数 |
+
+- 15:20~16:32 数据库设计

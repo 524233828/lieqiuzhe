@@ -37,6 +37,9 @@ class MatchConsole extends Command
             $res = Match::get(null, $v['id']);
 
             $match_data = [];
+            if(!isset($res['match'])){
+                continue;
+            }
             foreach ($res['match'] as $match) {
                 list($home_gb,$home_big,$home_en,$home_id) = explode(",",$match['h']);
                 list($away_gb,$away_big,$away_en,$away_id) = explode(",",$match['i']);

@@ -49,7 +49,7 @@ class LeagueConsole extends Command
                 "sum_round" => $v['sum_round'],
                 "country_id" => $v['countryID'],
                 "area_id" => $v['areaID'],
-                "sub_sclass" => $v['subSclass'],
+                "sub_sclass" => isset($v['subSclass'])?$v['subSclass']:"",
                 "logo" => $v['logo'],
             ];
 

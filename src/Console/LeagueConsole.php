@@ -26,10 +26,7 @@ class LeagueConsole extends Command
     public function execute(InputInterface $input, OutputInterface $output)
     {
 
-        $conf = app()->get('config')->get('redis');
-        League::$redis = new \Redis();
-        League::$redis->connect($conf['hostname'], $conf['port']);
-        League::$redis->select($conf['database']);
+        League::$redis = redis();
         $res = League::get();
 
         $league_data = [];

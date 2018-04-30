@@ -92,8 +92,7 @@ class MatchConsole extends Command
                     "sub_id" => $match["subID"]
                 ];
             }
+            database()->insert("match", $match_data);
         }
-
-        database()->insert("match", $match_data);
     }
 }

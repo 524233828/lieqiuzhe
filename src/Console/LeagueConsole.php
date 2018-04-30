@@ -63,6 +63,8 @@ class LeagueConsole extends Command
             ];
         }
 
+        $country_data = array_values($country_data);
+
         database()->insert("league", $league_data);
         database()->insert("country", $country_data);
     }

@@ -36,7 +36,7 @@ class LeagueConsole extends Command
         {
 
             $league_data[] = [
-                "id" => "",
+                "id" => $v['id'],
                 "create_time" => $time,
                 "type" => $v['type'],
                 "color" => $v['color'],

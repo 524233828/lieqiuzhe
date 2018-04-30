@@ -2,32 +2,43 @@
 /**
  * Created by PhpStorm.
  * User: chenyu
- * Date: 2018/4/28
- * Time: 14:28
+ * Date: 2018/4/30
+ * Time: 16:29
  */
 
 namespace Console;
 
-
 use Qiutan\League;
+use Qiutan\Match;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class LeagueConsole extends Command
+class MatchConsole extends Command
 {
 
     public function configure()
     {
-        $this->setName('fetch_league')
-            ->setDescription('获取联赛信息');
+        $this->setName('fetch_match')
+            ->setDescription('获取比赛信息');
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
 
-        League::$redis = redis();
-        $res = League::get();
+        $league = database()->select("league", ["id"]);
+
+        foreach ($league as $v)
+        {
+            $res = Match::get(null, $league['id']);
+
+            $match_data = [];
+            foreach ($res['match'] as $match) {
+
+            }
+        }
+
+
 
         $league_data = [];
         $country_data = [];

@@ -28,6 +28,8 @@ class MatchConsole extends Command
 
         $league = database()->select("league", ["id"]);
 
+        Match::$redis = redis();
+
         $time = time();
         $match_data = [];
         foreach ($league as $v)

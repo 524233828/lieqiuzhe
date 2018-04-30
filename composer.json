@@ -14,7 +14,8 @@
         "php": ">=5.6",
         "fastd/fastd": "^3.1",
         "squizlabs/php_codesniffer": "^3.2",
-        "paragonie/easyrsa" : "v0.5.0"
+        "paragonie/easyrsa" : "v0.5.0",
+        "524233828/qiutan-sdk" : "dev-master"
     },
     "require-dev": {
         "phpunit/dbunit": "^2.0"
@@ -27,5 +28,11 @@
         "psr-4": {
             "": "src"
         }
-    }
+    },
+    "repositories": [
+        {
+            "type": "git",
+            "url": "git@github.com:524233828/qiutan-sdk.git"
+        }
+    ]
 }

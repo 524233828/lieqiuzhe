@@ -32,7 +32,7 @@ class MatchConsole extends Command
         $match_data = [];
         foreach ($league as $v)
         {
-            $res = Match::get(null, $league['id']);
+            $res = Match::get(null, $v['id']);
 
             $match_data = [];
             foreach ($res['match'] as $match) {

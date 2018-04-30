@@ -41,6 +41,9 @@ class MatchConsole extends Command
                 continue;
             }
             foreach ($res['match'] as $match) {
+                if(!isset($match['a'])){
+                    continue;
+                }
                 if(isset($match['h']) && is_string($match['h'])){
                     list($home_gb,$home_big,$home_en,$home_id) = explode(",",$match['h']);
                 }else{

@@ -41,19 +41,19 @@ class MatchConsole extends Command
                 continue;
             }
             foreach ($res['match'] as $match) {
-                if(is_string($match['h'])){
+                if(isset($match['h']) && is_string($match['h'])){
                     list($home_gb,$home_big,$home_en,$home_id) = explode(",",$match['h']);
                 }else{
                     $home_id = 0;
                 }
 
-                if(is_string($match['i'])){
+                if(isset($match['i']) && is_string($match['i'])){
                     list($away_gb,$away_big,$away_en,$away_id) = explode(",",$match['i']);
                 }else{
                     $away_id = 0;
                 }
 
-                if(is_string($match['c'])){
+                if(isset($match['c']) && is_string($match['c'])){
                     list($league_gb,$league_big,$league_en,$league_id,$is_simple) = explode(",",$match['c']);
                 }else{
                     $league_id = 0;

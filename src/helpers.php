@@ -2,7 +2,7 @@
 
 /**
  * Redis实例
- * @return Redis
+ * @return \Service\RedisService
  */
 function redis()
 {

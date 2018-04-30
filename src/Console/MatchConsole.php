@@ -41,7 +41,7 @@ class MatchConsole extends Command
                 continue;
             }
             foreach ($res['match'] as $match) {
-                if(!isset($match['a'])){
+                if(!isset($match['a']) || $match['a'] == 0){
                     continue;
                 }
                 if(isset($match['h']) && is_string($match['h'])){

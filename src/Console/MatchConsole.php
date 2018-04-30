@@ -41,7 +41,7 @@ class MatchConsole extends Command
                 continue;
             }
             foreach ($res['match'] as $match) {
-                if(!isset($match['a']) || $match['a'] == 0){
+                if(!isset($match['a']) || empty($match['a'])){
                     continue;
                 }
                 if(isset($match['h']) && is_string($match['h'])){
@@ -92,7 +92,9 @@ class MatchConsole extends Command
                     "sub_id" => $match["subID"]
                 ];
             }
-            database()->insert("match", $match_data);
+            if(count($match_data) > 0) {
+                database()->insert("match", $match_data);
+            }
         }
     }
 }

@@ -12,6 +12,4 @@ route()->group(["prefix"=>"/match","middleware" => "dispatch"], function(){
     route()->delete("/collect", 'MatchListController@collectionMatchCancel')->withAddMiddleware("login");
 });
 
-route()->group(["prefix"=>"/login","middleware" => "dispatch"], function(){
-    route()->get("/get", 'LoginController@get');
-});
+route()->get(["prefix"=>"/login","middleware" => "dispatch"], 'LoginController@get');

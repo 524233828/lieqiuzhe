@@ -96,6 +96,10 @@ class MatchListLogic extends BaseLogic
                 break;
         }
 
+        foreach ($res as $k => $v){
+            $res[$k]['match_time'] = date("Y-m-d H:i:s", $v['match_time']);
+        }
+
         $page = new Pager($page,$size);
 
         return ["list" => $res, "meta"=>$page->getPager($count)];

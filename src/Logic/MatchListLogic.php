@@ -28,7 +28,7 @@ class MatchListLogic extends BaseLogic
                         "m.id(match_id)",
                         "l.gb_short(league_name)",
                         "l.color(league_color)",
-                        "m.start_time(match_time)",
+                        "FROM_UNIXTIME(m.start_time)(match_time)",
                         "h.gb(home)",
                         "h.flag(home_flag)",
                         "a.gb(away)",
@@ -37,6 +37,8 @@ class MatchListLogic extends BaseLogic
                         "m.away_score",
                     ]
                 );
+            break;
+            case 1:
         }
 
         return ["list" => $res];

@@ -1,6 +1,6 @@
 <?php
 
-namespace Component;
+namespace Service;
 
 class Pager {
 

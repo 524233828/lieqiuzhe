@@ -8,9 +8,8 @@
 
 namespace Logic;
 
-
-use Component\Pager;
 use Model\MatchModel;
+use Service\Pager;
 
 class MatchListLogic extends BaseLogic
 {

@@ -39,5 +39,7 @@ class MatchListLogic extends BaseLogic
                 );
         }
 
+        return ["list" => $res];
+
     }
 }

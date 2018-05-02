@@ -48,4 +48,12 @@ SQL;
         return database()->query($sql);
 
     }
+
+    public static function count($where)
+    {
+        return database()->count(
+            self::MATCH_TABLE."(m)",
+            $where
+        );
+    }
 }

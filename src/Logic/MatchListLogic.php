@@ -9,6 +9,7 @@
 namespace Logic;
 
 
+use Component\Pager;
 use Model\MatchModel;
 
 class MatchListLogic extends BaseLogic
@@ -17,6 +18,8 @@ class MatchListLogic extends BaseLogic
     {
 
         $first_index =  $size * ($page-1);
+        $res = [];
+        $count = 0;
         switch ($type){
             case 0://即时比分
                 $res = MatchModel::fetch(
@@ -28,7 +31,7 @@ class MatchListLogic extends BaseLogic
                         "m.id(match_id)",
                         "l.gb_short(league_name)",
                         "l.color(league_color)",
-                        "FROM_UNIXTIME(m.start_time)(match_time)",
+                        "m.start_time(match_time)",
                         "h.gb(home)",
                         "h.flag(home_flag)",
                         "a.gb(away)",
@@ -37,11 +40,66 @@ class MatchListLogic extends BaseLogic
                         "m.away_score",
                     ]
                 );
-            break;
-            case 1:
+                $count = MatchModel::count([
+                    "status" => [0, 1, 2, 3, 4],
+                ]);
+                break;
+            case 1://赛果
+                $res = MatchModel::fetch(
+                    [
+                        "m.status" => [-1],
+                        "ORDER" => ["start_time", "desc"],
+                        "LIMIT" => [$first_index, $size]
+                    ],
+                    [
+                        "m.id(match_id)",
+                        "l.gb_short(league_name)",
+                        "l.color(league_color)",
+                        "m.start_time(match_time)",
+                        "h.gb(home)",
+                        "h.flag(home_flag)",
+                        "a.gb(away)",
+                        "a.flag(away_flag)",
+                        "m.home_score",
+                        "m.away_score",
+                    ]
+                );
+                $count = MatchModel::count([
+                    "status" => [-1],
+                ]);
+                break;
+            case 2://赛程
+                $res = MatchModel::fetch(
+                    [
+                        "m.status" => [0],
+                        "LIMIT" => [$first_index, $size]
+                    ],
+                    [
+                        "m.id(match_id)",
+                        "l.gb_short(league_name)",
+                        "l.color(league_color)",
+                        "m.start_time(match_time)",
+                        "h.gb(home)",
+                        "h.flag(home_flag)",
+                        "a.gb(away)",
+                        "a.flag(away_flag)",
+                        "m.home_score",
+                        "m.away_score",
+                    ]
+                );
+                $count = MatchModel::count([
+                    "status" => [0],
+                ]);
+                break;
+            case 3://胜负彩
+                break;
+            default:
+                break;
         }
 
-        return ["list" => $res];
+        $page = new Pager($page,$size);
+
+        return ["list" => $res, "meta"=>$page->getPager($count)];
 
     }
 }

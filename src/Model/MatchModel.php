@@ -53,6 +53,7 @@ SQL;
     {
         return database()->count(
             self::MATCH_TABLE."(m)",
+            ["id"],
             $where
         );
     }

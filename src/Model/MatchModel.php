@@ -18,10 +18,10 @@ class MatchModel extends BaseModel
             return database()->select(
                 self::MATCH_TABLE."(m)",
                 [
-                    "[>]".TeamModel::TEAM_TABLE."(h)" => ["home_id" => "id"],
-                    "[>]".TeamModel::TEAM_TABLE."(a)" => ["away_id" => "id"],
-                    "[>]".LeagueModel::LEAGUE_TABLE."(l)" => ["league_id" => "id"],
-                    "[>]".WeatherModel::WEATHER_TABLE."(w)" => ["weather_id" => "id"],
+                    "[>]".TeamModel::TEAM_TABLE."(h)" => ["m.home_id" => "id"],
+                    "[>]".TeamModel::TEAM_TABLE."(a)" => ["m.away_id" => "id"],
+                    "[>]".LeagueModel::LEAGUE_TABLE."(l)" => ["m.league_id" => "id"],
+                    "[>]".WeatherModel::WEATHER_TABLE."(w)" => ["m.weather_id" => "id"],
                 ],
                 $columns,
                 $where

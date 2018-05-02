@@ -29,13 +29,12 @@ class TeamConsole extends Command
         Team::$redis = redis();
         $res = Team::get();
 
-        $league_data = [];
-        $country_data = [];
         $time = time();
+
         foreach ($res['i'] as $v)
         {
 
-            $team_data[] = [
+            $team_data = [
                 "id" => $v['id'],
                 "create_time" => $time,
                 "league_id" => $v['lsID'],
@@ -51,8 +50,9 @@ class TeamConsole extends Command
                 "url" => $v['URL'],
                 "master" => $v['master'],
             ];
+            database()->insert("team", $team_data);
         }
 
-        database()->insert("team", $team_data);
+
     }
 }

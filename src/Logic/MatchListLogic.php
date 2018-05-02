@@ -47,7 +47,7 @@ class MatchListLogic extends BaseLogic
                 $res = MatchModel::fetch(
                     [
                         "m.status" => [-1],
-                        "ORDER" => ["start_time", "desc"],
+                        "ORDER" => ["start_time" => "desc"],
                         "LIMIT" => [$first_index, $size]
                     ],
                     [

@@ -8,4 +8,6 @@ route()->post('/test/rsa', 'RSAController@test')->withAddMiddleware(['rsa','veri
 
 route()->group(["prefix"=>"/match","middleware" => "dispatch"], function(){
     route()->get("/list", 'MatchListController@fetchMatchList');
+    route()->post("/collect", 'MatchListController@collectionMatch')->withAddMiddleware("login");
+    route()->delete("/collect", 'MatchListController@collectionMatchCancel')->withAddMiddleware("login");
 });

@@ -8,6 +8,7 @@
 
 namespace Logic;
 
+use Model\MatchCollectionModel;
 use Model\MatchModel;
 use Service\Pager;
 
@@ -104,5 +105,30 @@ class MatchListLogic extends BaseLogic
 
         return ["list" => $res, "meta"=>$page->getPager($count)];
 
+    }
+
+    public function collect($match_id)
+    {
+        $user_id = UserLogic::$user["id"];
+
+        $data = [
+            "match_id" => $match_id,
+            "user_id" => $user_id,
+            "create_time" => time()
+        ];
+
+        return MatchCollectionModel::add($data);
+    }
+
+    public function collectCancel($match_id)
+    {
+        $user_id = UserLogic::$user["id"];
+
+        $where = [
+            "match_id" => $match_id,
+            "user_id" => $user_id,
+        ];
+
+        return MatchCollectionModel::delete($where);
     }
 }

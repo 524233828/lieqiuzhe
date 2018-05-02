@@ -7,6 +7,8 @@
  */
 
 namespace Logic;
+use Constant\JWTKey;
+use Firebase\JWT\JWT;
 
 /**
  * 逻辑层，做逻辑处理进行数据组装，供控制层调用，单例模式
@@ -35,4 +37,21 @@ class BaseLogic
 
         return self::$instance[$class_name];
     }
+
+    /**
+     * 生成JWT
+     * @param $uid
+     * @return string
+     */
+    protected function generateJWT($uid)
+    {
+        $token = [
+            'iss' => JWTKey::ISS,
+            'aud' => (string)$uid,
+            'iat' => time(),
+            'exp' => time() + (3600 * 24 * 365), // 有效期一年
+        ];
+
+        return JWT::encode($token, JWTKey::KEY, JWTKey::ALG);
+}
 }

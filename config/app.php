@@ -88,6 +88,8 @@ return [
         //rsa验签
         'verify' => new \Middleware\RSAVerifyMiddleware(),
         //防止重放攻击
-        'reply'  => new \Middleware\TimestampMiddleware()
+        'reply'  => new \Middleware\TimestampMiddleware(),
+        //登录检查
+        'login' => new \Middleware\LoginCheck(),
     ],
 ];

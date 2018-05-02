@@ -15,7 +15,10 @@
         "fastd/fastd": "^3.1",
         "squizlabs/php_codesniffer": "^3.2",
         "paragonie/easyrsa" : "v0.5.0",
-        "524233828/qiutan-sdk" : "dev-master"
+        "524233828/qiutan-sdk" : "dev-master",
+        "firebase/php-jwt": "v5.0.*",
+        "anerg2046/sns_auth": "^1.1",
+        "524233828/Wxapp": "dev-master"
     },
     "require-dev": {
         "phpunit/dbunit": "^2.0"
@@ -33,6 +36,10 @@
         {
             "type": "git",
             "url": "git@github.com:524233828/qiutan-sdk.git"
+        },
+        {
+            "type": "git",
+            "url": "git@github.com:524233828/Wxapp.git"
         }
     ]
 }

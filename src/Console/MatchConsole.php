@@ -61,13 +61,20 @@ class MatchConsole extends Command
                 }else{
                     $league_id = 0;
                 }
+                $home_yellow = 0;
+                $away_yellow = 0;
+                if(isset($match['yellow']) && is_string($match['yellow'])){
+                    list($home_yellow, $away_yellow) = explode("-",$match['yellow']);
+                }else{
+                    $league_id = 0;
+                }
 
 
                 $match_data[] = [
                     "id" => $match["a"],
                     "create_time" => $time,
                     "status" => $match["f"],
-                    "start_time" => $match["d"],
+                    "start_time" => strtotime($match["d"]),
                     "home_id" => $home_id,
                     "away_id" => $away_id,
                     "league_id" => $league_id,
@@ -77,15 +84,15 @@ class MatchConsole extends Command
                     "away_half_score" => $match["m"],
                     "home_red" => $match["n"],
                     "away_red" => $match["o"],
-                    "home_yellow" => $match["o"],
-                    "away_yellow" => $match["o"],
+                    "home_yellow" => $home_yellow,
+                    "away_yellow" => $away_yellow,
                     "home_rank" => $match["p"],
                     "away_rank" => $match["q"],
-                    "match_desc" => $match["r"],
+                    "match_desc" => is_array($match["r"]) ? "" : $match["r"],
                     "round" => $match["s"],
-                    "area" => $match["t"],
+                    "area" => is_array($match["t"]) ? "" : $match["t"],
                     "weather_id" => $match["v"],
-                    "temperature" => $match["w"],
+                    "temperature" => is_array($match["w"]) ? "" : $match["w"],
                     "season" => $match["x"],
                     "group" => $match["y"],
                     "is_neutral" => $match["z"],

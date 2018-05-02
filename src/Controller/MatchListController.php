@@ -10,16 +10,17 @@ namespace Controller;
 
 
 use FastD\Http\ServerRequest;
+use Logic\MatchListLogic;
 
 class MatchListController extends BaseController
 {
 
     public function fetchMatchList(ServerRequest $request)
     {
-        $request->getParam("type");
-        $request->getParam("page", 1);
+        $type = $request->getParam("type");
+        $page = $request->getParam("page", 1);
 
-        return $this->response([]);
+        return $this->response(MatchListLogic::getInstance()->fetchMatchList($type, $page));
     }
 
 }

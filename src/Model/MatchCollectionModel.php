@@ -25,4 +25,9 @@ class MatchCollectionModel extends Model
     {
         return database()->delete(self::MATCH_COLLECT_TABLE, $where);
     }
+
+    public static function fetch($where)
+    {
+        return database()->select(self::MATCH_COLLECT_TABLE, $where);
+    }
 }

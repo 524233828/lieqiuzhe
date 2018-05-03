@@ -21,7 +21,7 @@ class MatchListLogic extends BaseLogic
 
         $where = [];
         if(!empty($league_id)){
-            $where["l.id"] = $league_id;
+            $where["m.league_id"] = $league_id;
         }
 
         if(!empty($date))

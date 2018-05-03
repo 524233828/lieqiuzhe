@@ -52,4 +52,15 @@ class MatchListController extends BaseController
         return $this->response(MatchListLogic::getInstance()->collectCancel($match_id));
     }
 
+
+    /**
+     * 获取联赛列表
+     * @param ServerRequest $request
+     * @return \Service\ApiResponse
+     */
+    public function fetchLeague(ServerRequest $request)
+    {
+        return $this->response(MatchListLogic::getInstance()->fetchLeague());
+    }
+
 }

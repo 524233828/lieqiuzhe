@@ -8,6 +8,7 @@
 
 namespace Logic;
 
+use Model\LeagueModel;
 use Model\MatchCollectionModel;
 use Model\MatchModel;
 use Service\Pager;
@@ -130,5 +131,10 @@ class MatchListLogic extends BaseLogic
         ];
 
         return MatchCollectionModel::delete($where);
+    }
+
+    public function fetchLeague()
+    {
+        return LeagueModel::fetch(null, ["id","gb(league_name)"]);
     }
 }

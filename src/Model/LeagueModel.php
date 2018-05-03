@@ -12,4 +12,9 @@ namespace Model;
 class LeagueModel
 {
     const LEAGUE_TABLE = "league";
+
+    public static function fetch($where = [], $columns = "*")
+    {
+        return database()->select(self::LEAGUE_TABLE, $columns, $where);
+    }
 }

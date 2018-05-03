@@ -53,5 +53,5 @@ class BaseLogic
         ];
 
         return JWT::encode($token, JWTKey::KEY, JWTKey::ALG);
-}
+    }
 }

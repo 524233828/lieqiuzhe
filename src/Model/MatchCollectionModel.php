@@ -28,6 +28,6 @@ class MatchCollectionModel extends Model
 
     public static function fetch($where)
     {
-        return database()->select(self::MATCH_COLLECT_TABLE, $where);
+        return database()->select(self::MATCH_COLLECT_TABLE, "*", $where);
     }
 }

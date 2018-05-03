@@ -13,4 +13,4 @@ route()->group(["prefix"=>"/match","middleware" => "dispatch"], function(){
     route()->get("/league/list", 'MatchListController@fetchLeague');
 });
 
-route()->get(["prefix"=>"/login","middleware" => "dispatch"], 'LoginController@get');
+route()->get("/login", 'LoginController@get')->withAddMiddleware("dispatch");

@@ -26,7 +26,7 @@ class IncomeFilter extends Middleware
             $data = $request->getParsedBody();
         }
         if ($this->requestFilter($data)) {
-            return $next($request);
+            return $next->process($request);
         } else {
             BaseException::ParamsError();
         }

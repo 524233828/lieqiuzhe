@@ -22,7 +22,7 @@ class LoginCheck extends Middleware
     public function handle(ServerRequestInterface $request, DelegateInterface $next)
     {
         if (!empty(UserLogic::$user['id'])) {
-            $response = $next($request);
+            $response = $next->process($request);
         } else {
             UserException::UserNotFound();
         }

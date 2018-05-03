@@ -35,6 +35,6 @@ class TimestampMiddleware extends Middleware
             BaseException::RequestOvertime();
         }
 
-        return $next($request);
+        return $next->process($request);
     }
 }

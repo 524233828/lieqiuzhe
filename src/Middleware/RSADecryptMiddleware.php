@@ -31,7 +31,7 @@ class RSADecryptMiddleware extends Middleware
         } else {
             $request->withParsedBody($data);
         }
-        return $next($request);
+        return $next->process($request);
 
     }
 }

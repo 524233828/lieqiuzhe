@@ -42,7 +42,7 @@ class RSAVerifyMiddleware extends Middleware
 
         if(EasyRSA::verify($unsign_str, $sign, $public_key))
         {
-            $response = $next($request);
+            $response = $next->process($request);
 
             return $response;
         }else{

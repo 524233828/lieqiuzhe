@@ -36,7 +36,7 @@ class Dispatch extends Middleware
         }
 
         try {
-            $response = $next($request);
+            $response = $next->process($request);
         } catch (\Exception $e) {
             if ($e->getCode()!==0) {
                 $response = new ApiResponse(

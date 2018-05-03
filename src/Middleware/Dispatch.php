@@ -42,7 +42,7 @@ class Dispatch extends Middleware
                 $response = new ApiResponse(
                     $e->getMessage(),
                     $e->getCode(),
-                    null,
+                    ["file" => $e->getFile(),"line"=>$e->getLine()],
                     ErrorCode::status($e->getCode())
                 );
             } else {

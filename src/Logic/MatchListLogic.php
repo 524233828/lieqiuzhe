@@ -65,6 +65,10 @@ class MatchListLogic extends BaseLogic
                 "a.flag(away_flag)",
                 "m.home_score",
                 "m.away_score",
+                "m.home_red",
+                "m.away_red",
+                "m.home_yellow",
+                "m.away_yellow",
             ]
         );
 

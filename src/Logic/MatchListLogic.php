@@ -76,7 +76,7 @@ class MatchListLogic extends BaseLogic
         foreach ($res as $k => $v){
             $res[$k]['match_time'] = date("Y-m-d H:i:s", $v['match_time']);
             $res[$k]['is_collect'] = 0;
-            $match_index[$v['id']] = $res[$k];
+            $match_index[$v['match_id']] = $res[$k];
         }
 
         //获取我关注的

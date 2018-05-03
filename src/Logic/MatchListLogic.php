@@ -115,6 +115,6 @@ class MatchListLogic extends BaseLogic
 
     public function fetchLeague()
     {
-        return LeagueModel::fetch(null, ["id","gb(league_name)"]);
+        return LeagueModel::fetch(null, ["id","gb_short(league_name)"]);
     }
 }

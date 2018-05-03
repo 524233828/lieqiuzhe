@@ -24,7 +24,7 @@ class LoginCheck extends Middleware
         if (!empty(UserLogic::$user['id'])) {
             $response = $next->process($request);
         } else {
-            UserException::UserNotFound();
+            UserException::UserNotLogin();
         }
 
         return $response;

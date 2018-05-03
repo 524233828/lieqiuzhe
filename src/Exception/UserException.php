@@ -12,6 +12,12 @@ use Constant\ErrorCode;
 
 class UserException extends BaseException
 {
+
+    public static function UserNotLogin()
+    {
+        throw new self(ErrorCode::msg(ErrorCode::USER_NOT_LOGIN),ErrorCode::USER_NOT_LOGIN);
+    }
+
     public static function UserNotFound()
     {
         throw new self(ErrorCode::msg(ErrorCode::USER_NOT_EXISTS),ErrorCode::USER_NOT_EXISTS);

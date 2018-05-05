@@ -119,8 +119,53 @@ class MatchListLogic extends BaseLogic
         return MatchCollectionModel::delete($where);
     }
 
-    public function fetchLeague()
+    public function fetchLeague($type = 0, $date = null)
     {
-        return LeagueModel::fetch(null, ["id","gb_short(league_name)"]);
+
+        if(empty($date)){
+            return ["list" => LeagueModel::fetch(null, ["id","gb_short(league_name)"])];
+        }
+
+        $start_time = strtotime($date);
+
+        $end_time = strtotime($date . "+1 day");
+
+        switch ($type){
+            case 0://即时比分
+                $where["m.status"] = [0, 1, 2, 3, 4];
+                $status = "0,1,2,3,4";
+                break;
+            case 1://赛果
+                $status = "-1";
+                $where["ORDER"] = ["start_time" => "DESC"];
+                break;
+            case 2://赛程
+                $status = "0";
+                break;
+            case 3://胜负彩
+                break;
+            default:
+                break;
+        }
+
+        $sql = <<<SQL
+SELECT
+	count(*) as match_num,
+	league_id as id,
+	league.gb_short as league_name
+FROM
+	`match`
+LEFT JOIN league on `match`.league_id=league.id
+WHERE
+	`match`.`status` IN ({$status})
+AND `match`.start_time >= 1525449600
+AND `match`.start_time < 1525536000
+GROUP BY
+	`match`.league_id
+SQL;
+
+        $res = database()->query($sql);
+
+        return ["list" => $res];
     }
 }

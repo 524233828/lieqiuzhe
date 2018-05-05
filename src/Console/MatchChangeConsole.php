@@ -8,7 +8,6 @@
 
 namespace Console;
 
-use Qiutan\Match;
 use Service\MatchChangeService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

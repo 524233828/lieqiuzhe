@@ -22,6 +22,9 @@ class MatchListLogic extends BaseLogic
 
         $where = [];
         if(!empty($league_id)){
+            if(strpos($league_id,",")!==false){
+                $league_id = explode(",",$league_id);
+            }
             $where["m.league_id"] = $league_id;
         }
 

@@ -35,6 +35,15 @@ class Dispatch extends Middleware
             }
         }
 
+        $content_type = $request->getHeaderLine("Content-Type");
+
+        if($content_type == "application/json"){
+            $body = (string)$request->getBody();
+            $params = json_decode($body, true);
+
+            $request->withQueryParams($params);
+        }
+
         try {
             $response = $next->process($request);
         } catch (\Exception $e) {

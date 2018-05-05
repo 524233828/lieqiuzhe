@@ -36,6 +36,8 @@ class MatchListLogic extends BaseLogic
         switch ($type){
             case 0://即时比分
                 $where["m.status"] = [0, 1, 2, 3, 4];
+
+
                 break;
             case 1://赛果
                 $where["m.status"] = [-1];

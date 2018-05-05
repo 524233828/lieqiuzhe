@@ -54,6 +54,7 @@ class MatchCollectionLogic extends BaseLogic
                 "m.away_red",
                 "m.home_yellow",
                 "m.away_yellow",
+                "m.status",
             ]
         );
 

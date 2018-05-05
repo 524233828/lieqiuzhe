@@ -45,7 +45,6 @@ class LoginLogic extends BaseLogic
      */
     private function wxapp($params)
     {
-        try{
         $log = myLog("wxapp_login");
         $conf = config()->get("wxapp");
 
@@ -58,7 +57,7 @@ class LoginLogic extends BaseLogic
         $log->addDebug("code:".$code);
         $result = $wxapp->login($code);
         $log->addDebug("result:".json_encode($result));
-        if(!isset($result['open_id'])){
+        if(!isset($result['openid'])){
             UserException::LoginFail();
         }
 
@@ -84,9 +83,7 @@ class LoginLogic extends BaseLogic
         }
 
         return $my_user['id'];
-        }catch (\Exception $e){
-            echo $e->getTraceAsString();
-        }
+
     }
 
 }

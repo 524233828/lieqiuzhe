@@ -8,6 +8,7 @@
 
 namespace Logic;
 
+use Exception\BaseException;
 use Model\LeagueModel;
 use Model\MatchCollectionModel;
 use Model\MatchModel;
@@ -98,6 +99,10 @@ class MatchListLogic extends BaseLogic
     {
         $user_id = UserLogic::$user["id"];
 
+        if(empty($match_id)){
+            BaseException::ParamsMissing();
+        }
+
         $data = [
             "match_id" => $match_id,
             "user_id" => $user_id,
@@ -110,6 +115,10 @@ class MatchListLogic extends BaseLogic
     public function collectCancel($match_id)
     {
         $user_id = UserLogic::$user["id"];
+
+        if(empty($match_id)){
+            BaseException::ParamsMissing();
+        }
 
         $where = [
             "match_id" => $match_id,

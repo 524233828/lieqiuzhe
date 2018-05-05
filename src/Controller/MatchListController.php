@@ -27,7 +27,6 @@ class MatchListController extends BaseController
 
         $league_id = $request->getParam("league_id", null);
         $date = $request->getParam("date", null);
-        $request->queryParams
 
         return $this->response(MatchListLogic::getInstance()->fetchMatchList($type, $league_id, $date, $page));
     }

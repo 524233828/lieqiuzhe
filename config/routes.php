@@ -16,5 +16,5 @@ route()->group(["prefix"=>"/match","middleware" => "dispatch"], function(){
 });
 
 route()->group(["prefix"=>"/match_collect","middleware" => "dispatch"], function(){
-    route()->get("/list", 'MatchCollectionController@fetchAction')->withAddMiddleware("login");;
+    route()->get("/list", 'MatchCollectionController@fetchAction')->withAddMiddleware("login");
 });

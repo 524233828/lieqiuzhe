@@ -41,7 +41,9 @@ class Dispatch extends Middleware
             $body = (string)$request->getBody();
             $params = json_decode($body, true);
 
-            $request->withQueryParams($params);
+            if($params){
+                $request->withQueryParams($params);
+            }
         }
 
         try {

@@ -83,7 +83,9 @@ class MatchListLogic extends BaseLogic
         $my_collect = MatchCollectionModel::fetch(["user_id" => UserLogic::$user['id']]);
 
         foreach ($my_collect as $value){
-            $match_index[$value['match_id']]["is_collect"] = 1;
+            if(isset($match_index[$value['match_id']])){
+                $match_index[$value['match_id']]["is_collect"] = 1;
+            }
         }
 
         $page = new Pager($page,$size);

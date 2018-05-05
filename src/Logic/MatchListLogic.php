@@ -176,7 +176,7 @@ GROUP BY
 	`match`.league_id
 SQL;
 
-        $res = database()->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+        $res = database()->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 
         return ["list" => $res];
     }

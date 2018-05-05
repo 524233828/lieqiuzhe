@@ -6,6 +6,8 @@ route()->get('/hello/foo', 'WelcomeController@sayHello');
 
 route()->post('/test/rsa', 'RSAController@test')->withAddMiddleware(['rsa','verify','reply']);
 
+route()->get("/login", 'LoginController@get')->withAddMiddleware("dispatch");
+
 route()->group(["prefix"=>"/match","middleware" => "dispatch"], function(){
     route()->get("/list", 'MatchListController@fetchMatchList')->withAddMiddleware("login");;
     route()->post("/collect", 'MatchListController@collectionMatch')->withAddMiddleware("login");
@@ -13,4 +15,6 @@ route()->group(["prefix"=>"/match","middleware" => "dispatch"], function(){
     route()->get("/league/list", 'MatchListController@fetchLeague');
 });
 
-route()->get("/login", 'LoginController@get')->withAddMiddleware("dispatch");
+route()->group(["prefix"=>"/match_collect","middleware" => "dispatch"], function(){
+    route()->get("/list", 'MatchCollectionController@fetchAction')->withAddMiddleware("login");;
+});

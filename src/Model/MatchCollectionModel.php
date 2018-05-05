@@ -30,4 +30,5 @@ class MatchCollectionModel extends Model
     {
         return database()->select(self::MATCH_COLLECT_TABLE, "*", $where);
     }
+
 }

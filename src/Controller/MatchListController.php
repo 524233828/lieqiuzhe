@@ -63,7 +63,9 @@ class MatchListController extends BaseController
      */
     public function fetchLeague(ServerRequest $request)
     {
-        return $this->response(MatchListLogic::getInstance()->fetchLeague());
+        $type = $request->getParam("type", 0);
+        $date = $request->getParam("date");
+        return $this->response(MatchListLogic::getInstance()->fetchLeague($type, $date));
     }
 
 }

@@ -8,7 +8,6 @@
 
 namespace Console;
 
-use Qiutan\League;
 use Qiutan\Match;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

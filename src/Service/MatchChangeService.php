@@ -18,6 +18,7 @@ class MatchChangeService
 
     public static function change()
     {
+        date_default_timezone_set("PRC");
         Match::$redis = redis();
 
         if(Match::$redis->exists(Constant::MATCH_CHANGE_CACHE)){

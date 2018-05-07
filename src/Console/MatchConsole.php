@@ -24,7 +24,7 @@ class MatchConsole extends Command
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
-
+        date_default_timezone_set("PRC");
         $league = database()->select("league", ["id"]);
 
         Match::$redis = redis();

@@ -24,6 +24,7 @@ class MatchDateConsole extends Command
     public function execute(InputInterface $input, OutputInterface $output)
     {
 
+        date_default_timezone_set("PRC");
         Match::$redis = redis();
 
         $time = time();

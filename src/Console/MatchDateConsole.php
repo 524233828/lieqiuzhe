@@ -17,7 +17,7 @@ class MatchDateConsole extends Command
 
     public function configure()
     {
-        $this->setName('fetch_match')
+        $this->setName('fetch_match_date')
             ->setDescription('获取比赛信息');
     }
 

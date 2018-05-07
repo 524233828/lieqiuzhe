@@ -71,7 +71,11 @@ class MatchChangeService
                 "current_minutes" => $current_minutes,
             ];
 
-            database()->update(MatchModel::MATCH_TABLE,$data, $where);
+            try {
+                database()->update(MatchModel::MATCH_TABLE, $data, $where);
+            }catch (\Exception $e){
+
+            }
         }
 
         return false;

@@ -12,6 +12,7 @@ use Exception\BaseException;
 use Model\LeagueModel;
 use Model\MatchCollectionModel;
 use Model\MatchModel;
+use Service\MatchChangeService;
 use Service\Pager;
 
 class MatchListLogic extends BaseLogic
@@ -38,8 +39,8 @@ class MatchListLogic extends BaseLogic
 
         switch ($type){
             case 0://即时比分
+                MatchChangeService::change();
                 $where["m.status"] = [0, 1, 2, 3, 4];
-
 
                 break;
             case 1://赛果

@@ -26,7 +26,6 @@ class MatchChangeService
         }
 
         $res = Match::matchChange();
-        var_dump($res);
 
         if(!isset($res['h'])){
             return false;

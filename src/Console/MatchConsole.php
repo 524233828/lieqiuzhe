@@ -40,6 +40,11 @@ class MatchConsole extends Command
                 continue;
             }
             foreach ($res['match'] as $match) {
+
+                if(strtotime($match["d"]) >= strtotime(date("Y-m-d")))
+                {
+                    break;
+                }
                 if(!isset($match['a']) || empty($match['a'])){
                     continue;
                 }

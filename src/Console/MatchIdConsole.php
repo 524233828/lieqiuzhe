@@ -13,7 +13,13 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class MatchIdConsole
+class MatchIdConsole extends Command
 {
+
+    public function configure()
+    {
+        $this->setName('fetch_match_id')
+            ->setDescription('获取比赛信息');
+    }
 
 }

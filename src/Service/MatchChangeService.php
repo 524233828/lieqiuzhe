@@ -28,7 +28,7 @@ class MatchChangeService
 
         $res = Match::matchChange();
 
-        if(!isset($res['h'])){
+        if(!isset($res['h']) || !is_array($res['h'])){
             return false;
         }
         foreach ($res['h'] as $v){

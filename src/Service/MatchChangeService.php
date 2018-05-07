@@ -118,7 +118,7 @@ class MatchChangeService
                 $away_corner
                 ) = explode("^",$v);
 
-            $current_minutes = floor(time()-strtotime($real_start_time)/60);
+            $current_minutes = floor((time()-strtotime($real_start_time))/60);
             $where = ["id" => $match_id];
 
             $data = [

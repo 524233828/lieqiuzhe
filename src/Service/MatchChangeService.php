@@ -55,6 +55,8 @@ class MatchChangeService
 
             list($y, $m, $d, $h, $i, $s) = explode(",",$real_start_time);
 
+            $m++;
+
             $current_minutes = floor((time()-strtotime("{$y}-{$m}-{$d} {$h}:{$i}:{$s}"))/60);
             $where = ["id" => $match_id];
 
@@ -121,6 +123,8 @@ class MatchChangeService
                 ) = explode("^",$v);
 
             list($y, $m, $d, $h, $i, $s) = explode(",",$real_start_time);
+
+            $m++;
 
             $current_minutes = floor((time()-strtotime("{$y}-{$m}-{$d} {$h}:{$i}:{$s}"))/60);
             $where = ["id" => $match_id];

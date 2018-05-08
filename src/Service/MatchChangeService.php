@@ -9,6 +9,7 @@
 namespace Service;
 
 
+use Model\MatchCollectionModel;
 use Model\MatchModel;
 use Qiutan\Constant;
 use Qiutan\Match;
@@ -31,6 +32,7 @@ class MatchChangeService
         if(!isset($res['h']) || !is_array($res['h'])){
             return false;
         }
+        $ids = [];
         foreach ($res['h'] as $v){
             list(
                 $match_id,
@@ -60,6 +62,11 @@ class MatchChangeService
             $current_minutes = floor((time()-strtotime("{$y}-{$m}-{$d} {$h}:{$i}:{$s}"))/60);
             $where = ["id" => $match_id];
 
+            $count = MatchModel::count(["id" => $match_id, "status" => 0]);
+            if($count){
+                $ids[] = $match_id;
+            }
+
             $data = [
                 "status" => $status,
                 "home_score" => $home_score,
@@ -80,6 +87,42 @@ class MatchChangeService
             }catch (\Exception $e){
 
             }
+        }
+
+        $collect = MatchCollectionModel::fetch(["match_id"=>$ids]);
+
+        $where['m.id'] = $ids;
+        $res = MatchModel::fetch(
+            $where,
+            [
+                "m.id(match_id)",
+                "l.gb_short(league_name)",
+                "l.color(league_color)",
+                "m.start_time(match_time)",
+                "h.gb(home)",
+                "h.flag(home_flag)",
+                "a.gb(away)",
+                "a.flag(away_flag)",
+                "m.home_score",
+                "m.away_score",
+                "m.home_red",
+                "m.away_red",
+                "m.home_yellow",
+                "m.away_yellow",
+                "m.status",
+                "m.current_minutes",
+            ]
+        );
+
+        $match_index = [];
+        foreach ($res as $k => $v){
+            $res[$k]['match_time'] = date("Y-m-d H:i:s", $v['match_time']);
+            $res[$k]['is_collect'] = 0;
+            $match_index[$v['match_id']] = $res[$k];
+        }
+
+        foreach ($collect as $v){
+
         }
 
         return false;

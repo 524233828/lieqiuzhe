@@ -104,7 +104,7 @@ class MatchListLogic extends BaseLogic
 
     }
 
-    public function collect($match_id)
+    public function collect($match_id, $from_id = null)
     {
         $user_id = UserLogic::$user["id"];
 
@@ -117,6 +117,10 @@ class MatchListLogic extends BaseLogic
             "user_id" => $user_id,
             "create_time" => time()
         ];
+
+        if(!empty($from_id)){
+            $data['from_id'] = $from_id;
+        }
 
         return MatchCollectionModel::add($data);
     }

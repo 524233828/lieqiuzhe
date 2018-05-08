@@ -9,6 +9,7 @@
 namespace Console;
 
 use Model\MatchModel;
+use Qiutan\Constant;
 use Qiutan\Match;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -24,7 +25,6 @@ class MatchDateConsole extends Command
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
-
         date_default_timezone_set("PRC");
         Match::$redis = redis();
 
@@ -34,7 +34,9 @@ class MatchDateConsole extends Command
 
         for($i = 0; $i < $day; $i++){
 
-            $res = Match::get(date("Y-m-d", $time + $i * 86400));
+            $date = date("Y-m-d", $time + $i * 86400);
+
+            $res = Match::get($date);
 
             $match_data = [];
             if(!isset($res['match'])){
@@ -109,6 +111,7 @@ class MatchDateConsole extends Command
             if(count($match_data) > 0) {
                 database()->insert("match", $match_data);
             }
+            sleep(61);
         }
     }
 }

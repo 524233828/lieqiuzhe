@@ -38,7 +38,7 @@ class MatchDateConsole extends Command
 
             $match_data = [];
             if(!isset($res['match'])){
-                return false;
+                continue;
             }
             foreach ($res['match'] as $match) {
 
@@ -105,6 +105,7 @@ class MatchDateConsole extends Command
                     "sub_id" => $match["subID"]
                 ];
             }
+            echo "写入比赛{$match['a']}";
             if(count($match_data) > 0) {
                 database()->insert("match", $match_data);
             }

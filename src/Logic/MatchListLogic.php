@@ -176,8 +176,8 @@ FROM
 LEFT JOIN league on `match`.league_id=league.id
 WHERE
 	`match`.`status` IN ({$status})
-AND `match`.start_time >= 1525449600
-AND `match`.start_time < 1525536000
+AND `match`.start_time >= {$start_time}
+AND `match`.start_time < {$end_time}
 GROUP BY
 	`match`.league_id
 SQL;

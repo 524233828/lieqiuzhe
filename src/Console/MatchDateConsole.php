@@ -111,7 +111,7 @@ class MatchDateConsole extends Command
             if(count($match_data) > 0) {
                 database()->insert("match", $match_data);
             }
-            sleep(61);
         }
+        sleep(61);
     }
 }

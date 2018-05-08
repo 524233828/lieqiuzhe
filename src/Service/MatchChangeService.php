@@ -53,7 +53,9 @@ class MatchChangeService
                 $away_corner
                 ) = explode("^",$v);
 
-            $current_minutes = floor((time()-strtotime($real_start_time))/60);
+            list($y, $m, $d, $h, $i, $s) = explode(",",$real_start_time);
+
+            $current_minutes = floor((time()-strtotime("{$y}-{$m}-{$d} {$h}:{$i}:{$s}"))/60);
             $where = ["id" => $match_id];
 
             $data = [
@@ -118,7 +120,9 @@ class MatchChangeService
                 $away_corner
                 ) = explode("^",$v);
 
-            $current_minutes = floor((time()-strtotime($real_start_time))/60);
+            list($y, $m, $d, $h, $i, $s) = explode(",",$real_start_time);
+
+            $current_minutes = floor((time()-strtotime("{$y}-{$m}-{$d} {$h}:{$i}:{$s}"))/60);
             $where = ["id" => $match_id];
 
             $data = [

@@ -55,6 +55,7 @@ class MatchCollectionLogic extends BaseLogic
                 "m.home_yellow",
                 "m.away_yellow",
                 "m.status",
+                "m.current_minutes",
             ]
         );
 

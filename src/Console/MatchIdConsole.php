@@ -42,10 +42,25 @@ class MatchIdConsole extends Command
         if(!isset($res['match'])){
             return false;
         }
-        foreach ($res['match'] as $match) {
+        if(isset($res['match'][0])){
+            foreach ($res['match'] as $match) {
+
+                if(!isset($match['a']) || empty($match['a'])){
+                    continue;
+                }
+
+                $match_data = [
+                    "status" => $match["f"],
+                ];
+                if(count($match_data) > 0) {
+                    database()->update("match", $match_data, ["id"=>$match["a"]]);
+                }
+            }
+        }else{
+            $match = $res['match'];
 
             if(!isset($match['a']) || empty($match['a'])){
-                continue;
+                return false;
             }
 
             $match_data = [

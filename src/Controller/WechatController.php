@@ -9,7 +9,6 @@
 namespace Controller;
 
 
-use EasyWeChat\Foundation\Application;
 use FastD\Http\ServerRequest;
 use Wxapp\Wxapp;
 

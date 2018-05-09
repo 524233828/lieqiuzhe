@@ -12,7 +12,7 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:524233828/Wxapp.git",
-                "reference": "2c507cda3071098197b4b1ee326b6d8f52d905f5"
+                "reference": "6de6b6d04b32800c7f784aceaaf33653885cbb88"
             },
             "require": {
                 "php": ">=5.6"
@@ -29,7 +29,7 @@
                     "email": "chenyu01@linghit.com"
                 }
             ],
-            "time": "2018-05-02 07:46:17"
+            "time": "2018-05-09 03:56:57"
         },
         {
             "name": "524233828/qiutan-sdk",

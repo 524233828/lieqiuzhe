@@ -34,6 +34,9 @@ class MatchChangeService
         if(!isset($res['h']) || !is_array($res['h'])){
             return false;
         }
+        if(!isset($res['h'][0])){
+            $res['h'] = [0=> $res['h']];
+        }
         $ids = [];
         foreach ($res['h'] as $v){
             list(
@@ -176,6 +179,10 @@ class MatchChangeService
 
         if(!isset($res['h']) || !is_array($res['h'])){
             return false;
+        }
+
+        if(!isset($res['h'][0])){
+            $res['h'] = [0=> $res['h']];
         }
         $ids = [];
         foreach ($res['h'] as $v){

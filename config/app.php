@@ -13,6 +13,8 @@ return [
      */
     'name' => 'ant-fd',
 
+    'timezone' => 'PRC',
+
     /**
      * Application logger path
      */

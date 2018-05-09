@@ -11,8 +11,6 @@ include __DIR__ . '/../vendor/autoload.php';
 
 use FastD\Application;
 
-date_default_timezone_set("PRC");
-
 $app = new Application(__DIR__ . '/..');
 
 $app->run();

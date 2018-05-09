@@ -50,6 +50,7 @@ class MatchListLogic extends BaseLogic
                 break;
             case 2://赛程
                 $where["m.status"] = [0];
+                $where["ORDER"] = ["start_time" => "ASC"];
                 break;
             case 3://胜负彩
                 break;

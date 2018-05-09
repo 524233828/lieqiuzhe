@@ -39,9 +39,9 @@ class MatchListController extends BaseController
     public function collectionMatch(ServerRequest $request)
     {
         $match_id = $request->getParam("match_id");
-        $from_id = $request->getParam("from_id", null);
+        $form_id = $request->getParam("form_id", null);
 
-        return $this->response(MatchListLogic::getInstance()->collect($match_id, $from_id));
+        return $this->response(MatchListLogic::getInstance()->collect($match_id, $form_id));
     }
 
     /**

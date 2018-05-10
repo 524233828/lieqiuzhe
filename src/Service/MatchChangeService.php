@@ -96,6 +96,10 @@ class MatchChangeService
         }
 
         //增加开始比赛状态改变，做推送
+        if(empty($ids)||count($ids)<1)
+        {
+            return false;
+        }
         $collect = MatchCollectionModel::fetch(["match_id"=>$ids]);
 
         $where['m.id'] = $ids;
@@ -242,6 +246,10 @@ class MatchChangeService
         }
 
         //增加开始比赛状态改变，做推送
+        if(empty($ids)||count($ids)<1)
+        {
+            return false;
+        }
         $collect = MatchCollectionModel::fetch(["match_id"=>$ids]);
 
         $where['m.id'] = $ids;

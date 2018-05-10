@@ -27,8 +27,11 @@ class LoginLogic extends BaseLogic
                 break;
             case 3://微博登录
                 break;
-            case 4://小程序登录
+            case 4://赛事比分小程序
                 $uid = $this->wxapp($params);
+                break;
+            case 5://小程序登录
+                $uid = $this->zuQiuBiSai1($params);
                 break;
             default:
                 break;
@@ -40,6 +43,7 @@ class LoginLogic extends BaseLogic
     }
 
     /**
+     * 赛事比分小程序
      * @param $params
      * @return int|string
      */
@@ -65,7 +69,55 @@ class LoginLogic extends BaseLogic
             $data = [
                 "openid" => $result['openid'],
                 "unionid" => isset($result['unionid'])?$result['unionid']:"",
-                "openid_type" => 1,
+                "openid_type" => 4,
+            ];
+            $my_user = UserModel::getUserByOpenId($data['openid']);
+            if(!$my_user)
+            {
+                $my_user['id'] = UserModel::addUser($data);
+            }
+
+        }else{
+            $my_user['id'] = $user['id'];
+        }
+
+        $log->addDebug("my_user:".json_encode($my_user));
+        if(!$my_user['id']){
+            UserException::LoginFail();
+        }
+
+        return $my_user['id'];
+
+    }
+
+   /**
+    * 足球比赛1小程序
+    * @param $params
+    * @return int|string
+    */
+    private function zuQiuBiSai1($params)
+    {
+        $log = myLog("wxapp_login");
+        $conf = config()->get("zuqiubisai1");
+
+        $log->addDebug("conf:".json_encode($conf));
+
+        $wxapp = new Wxapp($conf['app_id'], $conf['app_secret']);
+
+        $code = $params['code'];
+
+        $log->addDebug("code:".$code);
+        $result = $wxapp->login($code);
+        $log->addDebug("result:".json_encode($result));
+        if(!isset($result['openid'])){
+            UserException::LoginFail();
+        }
+
+        if(!isset($result['unionid'])||empty($result['unionid'])||!$user = UserModel::getUserByUnionId($result['unionid'])){
+            $data = [
+                "openid" => $result['openid'],
+                "unionid" => isset($result['unionid'])?$result['unionid']:"",
+                "openid_type" => 5,
             ];
             $my_user = UserModel::getUserByOpenId($data['openid']);
             if(!$my_user)

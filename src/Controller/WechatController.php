@@ -17,13 +17,11 @@ class WechatController
     public function wxapp(ServerRequest $request)
     {
         $log = myLog("wxappCustomer");
-        $params = $request->getQueryParams();
-//        $open_id = $params['openid'];
-        $body = $request->getBody()->getContents();
-//        $log->addDebug("params:".json_encode($params));
-        $log->addDebug("body:".$body);
-        $header = $request->getHeaders();
-        $log->addDebug("header:".json_encode($header));exit;
+        $open_id = $request->getParam("FromUserName");
+        $log->addDebug("open_id:".$open_id);
+        if(empty($open_id)){
+            return [];
+        }
         $conf = config()->get("wxapp");
         $app_id = $conf['app_id'];
         $app_secret = $conf['app_secret'];

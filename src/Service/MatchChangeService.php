@@ -102,9 +102,9 @@ class MatchChangeService
         }
         $collect = MatchCollectionModel::fetch(["match_id"=>$ids]);
 
-        $where['m.id'] = $ids;
+        $where2['m.id'] = $ids;
         $res = MatchModel::fetch(
-            $where,
+            $where2,
             [
                 "m.id(match_id)",
                 "l.gb_short(league_name)",
@@ -252,9 +252,9 @@ class MatchChangeService
         }
         $collect = MatchCollectionModel::fetch(["match_id"=>$ids]);
 
-        $where['m.id'] = $ids;
+        $where2['m.id'] = $ids;
         $res = MatchModel::fetch(
-            $where,
+            $where2,
             [
                 "m.id(match_id)",
                 "l.gb_short(league_name)",

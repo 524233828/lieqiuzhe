@@ -20,7 +20,7 @@ route()->group(["prefix"=>"/match_collect","middleware" => "dispatch"], function
 });
 
 //微信客服消息接口
-route()->group("/wechat",function(){
+route()->group(["prefix"=>"/wechat","middleware" => "dispatch"],function(){
     route()->get("/customer","WechatController@wxapp");
     route()->post("/customer","WechatController@wxapp");
     route()->put("/customer","WechatController@wxapp");

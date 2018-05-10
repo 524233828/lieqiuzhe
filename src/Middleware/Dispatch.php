@@ -9,6 +9,7 @@ use FastD\Middleware\Middleware;
 use Firebase\JWT\JWT;
 use Logic\UserLogic;
 use Model\UserModel;
+use Monolog\Logger;
 use Psr\Http\Message\ServerRequestInterface;
 use Service\ApiResponse;
 
@@ -49,6 +50,9 @@ class Dispatch extends Middleware
         try {
             $response = $next->process($request);
         } catch (\Exception $e) {
+            $log = myLog("error",Logger::ERROR);
+
+            $log->addError($e->getTraceAsString());
             if ($e->getCode()!==0) {
                 $response = new ApiResponse(
                     $e->getMessage(),

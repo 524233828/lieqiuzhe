@@ -19,16 +19,18 @@ class WechatController
     {
         $log = myLog("wxappCustomer");
         $open_id = $request->getParam("FromUserName");
+        $app = $request->getParam("ToUserName");
         $log->addDebug("open_id:".$open_id);
         if(empty($open_id)){
             return [];
         }
 
-        $user = UserModel::getUserByOpenId($open_id);
-        if($user['openid_type'] == 4){
+        if($app == "gh_be06a818716e"){
             $conf = config()->get("wxapp");
-        }else{
+        }else if($app == "gh_438526ca0b5f"){
             $conf = config()->get("zuqiubisai1");
+        }else{
+            return ;
         }
 
         $app_id = $conf['app_id'];

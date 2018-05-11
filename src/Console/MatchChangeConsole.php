@@ -23,6 +23,6 @@ class MatchChangeConsole extends Command
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        return MatchChangeService::change2();
+        return MatchChangeService::change(true);
     }
 }

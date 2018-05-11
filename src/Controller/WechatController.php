@@ -44,7 +44,7 @@ class WechatController
                 "title" => "【稳稳收米】欢迎关注夜猫情报局！",
                 "description" => "夜猫情报局一直致力于给大家提供迅捷实用的足彩情报 分享足彩技巧干货，帮助大家更稳地收米",
                 "url" => "http://mp.weixin.qq.com/s/yfgZZzxVOfwI9a37O7-Uig",
-                "thumb_url" => "http://www.ym8800.com/upload/maozhentan.png"
+                "thumb_url" => "https://mp.weixin.qq.com/s/d388Le78Tb6sZqgoYDlQ3g"
             ]
         ];
 

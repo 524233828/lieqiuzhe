@@ -10,6 +10,7 @@ namespace Controller;
 
 
 use FastD\Http\ServerRequest;
+use Model\UserModel;
 use Wxapp\Wxapp;
 
 class WechatController
@@ -22,7 +23,14 @@ class WechatController
         if(empty($open_id)){
             return [];
         }
-        $conf = config()->get("wxapp");
+
+        $user = UserModel::getUserByOpenId($open_id);
+        if($user['openid_type'] == 4){
+            $conf = config()->get("wxapp");
+        }else{
+            $conf = config()->get("zuqiubisai1");
+        }
+
         $app_id = $conf['app_id'];
         $app_secret = $conf['app_secret'];
         $wxapp = new Wxapp($app_id,$app_secret);

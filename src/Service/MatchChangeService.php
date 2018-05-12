@@ -23,7 +23,7 @@ class MatchChangeService
     {
         date_default_timezone_set("PRC");
         Match::$redis = redis();
-
+        $log = myLog("start_push");
         if(Match::$redis->exists(Constant::MATCH_CHANGE_CACHE)){
 
             return true;
@@ -46,6 +46,7 @@ class MatchChangeService
         }
 
 
+        $log->addDebug("res:".json_encode($res));
         if(!isset($res['h']) || !is_array($res['h'])){
             return false;
         }
@@ -110,16 +111,16 @@ class MatchChangeService
 
             }
         }
-
+        $log->addDebug("match_ids:".json_encode($ids));
         //增加开始比赛状态改变，做推送
         if(empty($ids)||count($ids)<1)
         {
             return false;
         }
-        $log = myLog("start_push");
+
         $collect = MatchCollectionModel::fetch(["match_id"=>$ids]);
 
-        $log->addDebug("match_ids:".json_encode($ids));
+
         $where2['m.id'] = $ids;
         $res = MatchModel::fetch(
             $where2,

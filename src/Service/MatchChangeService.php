@@ -29,14 +29,14 @@ class MatchChangeService
             return true;
         }
 
-        if($is_long){
+        if($is_long){//使用球探150秒更新一次接口
 
             if(Match::$redis->exists(Constant::MATCH_CHANGE_LONG_CACHE)){
 
                 return true;
             }
             $res = Match::matchChangeLong();
-        }else{
+        }else{//20秒更新接口
 
             if(Match::$redis->exists(Constant::MATCH_CHANGE_CACHE)){
 
@@ -77,6 +77,7 @@ class MatchChangeService
 
             list($y, $m, $d, $h, $i, $s) = explode(",",$real_start_time);
 
+            //球探的月份从0开始排序
             $m++;
 
             $current_minutes = floor((time()-strtotime("{$y}-{$m}-{$d} {$h}:{$i}:{$s}"))/60);
@@ -115,8 +116,10 @@ class MatchChangeService
         {
             return false;
         }
+        $log = myLog("start_push");
         $collect = MatchCollectionModel::fetch(["match_id"=>$ids]);
 
+        $log->addDebug("match_ids:".json_encode($ids));
         $where2['m.id'] = $ids;
         $res = MatchModel::fetch(
             $where2,
@@ -151,6 +154,7 @@ class MatchChangeService
         $wxapp = new Wxapp($conf['app_id'], $conf['app_secret']);
         $template_id = "CqlL_4sZ3Axfcth7vFd0bREMM0ayWt4loscCk8hhnBQ";
         foreach ($collect as $v){
+            $log->addDebug("用户：{$v['user_id']}，关注了{$v['match_id']}");
             $user = UserModel::getUserInfo($v['user_id'], ["openid"]);
             if(!empty($v['from_id'])){
 
@@ -170,14 +174,20 @@ class MatchChangeService
                     ]
                 ];
 
-                $wxapp->bindRedis(redis())
+                $log->addDebug("open_id:".json_encode($user['openid']));
+                $log->addDebug("template_id:".$template_id);
+                $log->addDebug("form_id:".$v['form_id']);
+                $log->addDebug("data:".json_encode($data));
+
+                $res = $wxapp->bindRedis(redis())
                     ->sendTemplateMsg(
                     $user['openid'],
                     $template_id,
-                    $v['from_id'],
+                    $v['form_id'],
                     $data,
                     "pages/index"
                 );
+                $log->addDebug("res:".$res);
             }
         }
 

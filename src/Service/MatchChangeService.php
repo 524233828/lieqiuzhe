@@ -44,9 +44,6 @@ class MatchChangeService
             }
             $res = Match::matchChange();
         }
-
-
-        $log->addDebug("res:".json_encode($res));
         if(!isset($res['h']) || !is_array($res['h'])){
             return false;
         }

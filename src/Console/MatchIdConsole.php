@@ -146,7 +146,7 @@ class MatchIdConsole extends Command
                     }else{
                         $away_id = 0;
                     }
-                    if(!empty($v['from_id'])){
+                    if(!empty($v['form_id'])){
 
                         $data = [
                             "keyword1"=>[
@@ -167,7 +167,7 @@ class MatchIdConsole extends Command
                             ->sendTemplateMsg(
                                 $user['openid'],
                                 $template_id,
-                                $v['from_id'],
+                                $v['form_id'],
                                 $data,
                                 "pages/index"
                             );

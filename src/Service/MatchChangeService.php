@@ -156,7 +156,7 @@ class MatchChangeService
         foreach ($collect as $v){
             $log->addDebug("用户：{$v['user_id']}，关注了{$v['match_id']}");
             $user = UserModel::getUserInfo($v['user_id'], ["openid"]);
-            if(!empty($v['from_id'])){
+            if(!empty($v['form_id'])){
 
                 $match = $match_index[$v['match_id']];
                 $data = [

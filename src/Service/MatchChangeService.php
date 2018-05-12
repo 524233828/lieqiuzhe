@@ -44,6 +44,7 @@ class MatchChangeService
             }
             $res = Match::matchChange();
         }
+
         if(!isset($res['h']) || !is_array($res['h'])){
             return false;
         }
@@ -108,12 +109,13 @@ class MatchChangeService
 
             }
         }
-        $log->addDebug("match_ids:".json_encode($ids));
         //增加开始比赛状态改变，做推送
         if(empty($ids)||count($ids)<1)
         {
             return false;
         }
+
+        $log->addDebug("match_ids:".json_encode($ids));
 
         $collect = MatchCollectionModel::fetch(["match_id"=>$ids]);
 

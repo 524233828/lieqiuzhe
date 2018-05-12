@@ -23,6 +23,7 @@ class MatchChangeService
     {
         date_default_timezone_set("PRC");
         Match::$redis = redis();
+        $log = myLog("start_push");
         if(Match::$redis->exists(Constant::MATCH_CHANGE_CACHE)){
 
             return true;
@@ -44,6 +45,8 @@ class MatchChangeService
             $res = Match::matchChange();
         }
 
+
+        $log->addDebug("res:".json_encode($res));
         if(!isset($res['h']) || !is_array($res['h'])){
             return false;
         }
@@ -108,15 +111,14 @@ class MatchChangeService
 
             }
         }
+        $log->addDebug("match_ids:".json_encode($ids));
         //增加开始比赛状态改变，做推送
         if(empty($ids)||count($ids)<1)
         {
             return false;
         }
 
-
         $collect = MatchCollectionModel::fetch(["match_id"=>$ids]);
-
 
         $where2['m.id'] = $ids;
         $res = MatchModel::fetch(
@@ -152,6 +154,7 @@ class MatchChangeService
         $wxapp = new Wxapp($conf['app_id'], $conf['app_secret']);
         $template_id = "CqlL_4sZ3Axfcth7vFd0bREMM0ayWt4loscCk8hhnBQ";
         foreach ($collect as $v){
+            $log->addDebug("用户：{$v['user_id']}，关注了{$v['match_id']}");
             $user = UserModel::getUserInfo($v['user_id'], ["openid"]);
             if(!empty($v['form_id'])){
 
@@ -171,6 +174,11 @@ class MatchChangeService
                     ]
                 ];
 
+                $log->addDebug("open_id:".json_encode($user['openid']));
+                $log->addDebug("template_id:".$template_id);
+                $log->addDebug("form_id:".$v['form_id']);
+                $log->addDebug("data:".json_encode($data));
+
                 $res = $wxapp->bindRedis(redis())
                     ->sendTemplateMsg(
                     $user['openid'],
@@ -179,6 +187,7 @@ class MatchChangeService
                     $data,
                     "pages/index"
                 );
+                $log->addDebug("res:".$res);
             }
         }
 

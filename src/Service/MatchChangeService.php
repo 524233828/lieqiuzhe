@@ -24,10 +24,6 @@ class MatchChangeService
         date_default_timezone_set("PRC");
         Match::$redis = redis();
         $log = myLog("start_push");
-        if(Match::$redis->exists(Constant::MATCH_CHANGE_CACHE)){
-
-            return true;
-        }
 
         if($is_long){//使用球探150秒更新一次接口
 

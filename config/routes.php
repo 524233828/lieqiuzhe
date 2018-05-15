@@ -29,7 +29,7 @@ route()->group(["prefix"=>"/wechat","middleware" => "dispatch"],function(){
 //微信app tab 接口
 
 route()->group(["prefix" => "/wxapp", "middleware" => "dispatch"],function (){
-    route()->get("/tab/list", "WxappTabController@fetchTab");
-    route()->post("/tab", "WxappTabController@addTab");
-    route()->delete("/tab", "WxappTabController@deleteTab");
+    route()->get("/tab/list", "Wxapp\WxappTabController@fetchTab");
+    route()->post("/tab", "Wxapp\WxappTabController@addTab");
+    route()->delete("/tab", "Wxapp\WxappTabController@deleteTab");
 });

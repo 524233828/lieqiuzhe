@@ -26,7 +26,8 @@ class WxappTabLogic extends BaseLogic
                 "type",
                 "img",
                 "url",
-                "appid"
+                "appid",
+                "title"
             ],
             [
                 "status" => 1

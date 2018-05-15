@@ -27,11 +27,13 @@ class WxappTabController extends BaseController
 
         $type = $request->getParam("type");
         $img = $request->getParam("img");
+        $title = $request->getParam("title");
         $url = $request->getParam("url", null);
         $app_id = $request->getParam("app_id", null);
 
         $data['type'] = $type;
         $data['img'] = $img;
+        $data['title'] = $title;
 
         if(!empty($url)){
             $data['url'] = $url;

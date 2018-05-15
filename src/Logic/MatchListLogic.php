@@ -91,7 +91,7 @@ class MatchListLogic extends BaseLogic
         }
 
         //获取我关注的
-        $my_collect = MatchCollectionModel::fetch(["user_id" => UserLogic::$user['id']]);
+        $my_collect = MatchCollectionModel::fetch("*", ["user_id" => UserLogic::$user['id']]);
 
         foreach ($my_collect as $value){
             if(isset($match_index[$value['match_id']])){

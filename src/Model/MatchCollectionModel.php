@@ -19,10 +19,4 @@ class MatchCollectionModel extends BaseModel
     {
         return database()->delete(self::$table, $where);
     }
-
-    public static function fetch($where)
-    {
-        return parent::fetch("*", $where);
-    }
-
 }

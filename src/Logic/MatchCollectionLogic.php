@@ -20,7 +20,7 @@ class MatchCollectionLogic extends BaseLogic
     {
 
         $first_index =  $size * ($page-1);
-        $collect = MatchCollectionModel::fetch([
+        $collect = MatchCollectionModel::fetch("*", [
             "user_id" => UserLogic::$user['id']
         ]);
 

@@ -114,7 +114,7 @@ class MatchChangeService
             return false;
         }
 
-        $collect = MatchCollectionModel::fetch(["match_id"=>$ids]);
+        $collect = MatchCollectionModel::fetch("*", ["match_id"=>$ids]);
 
         $where2['m.id'] = $ids;
         $res = MatchModel::fetch(

@@ -126,7 +126,7 @@ class MatchIdConsole extends Command
 
             //比赛完结的话，做推送
             if($match["f"] == -1){
-                $collect = MatchCollectionModel::fetch("*", ["match_id"=>$match["a"]]);
+                $collect = MatchCollectionModel::fetch(["*", "match_id"=>$match["a"]]);
 
                 $conf = config()->get("wxapp");
                 $wxapp = new Wxapp($conf['app_id'], $conf['app_secret']);

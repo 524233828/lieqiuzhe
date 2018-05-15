@@ -20,35 +20,41 @@ class BaseModel
 
     public static function add($data)
     {
-        return database()->insert(self::$table, $data);
+        $class = get_called_class();
+        return database()->insert($class::$table, $data);
     }
 
     public static function fetch($columns = "*" ,$where = null)
     {
-        return database()->select(self::$table, $columns, $where);
+        $class = get_called_class();
+        return database()->select($class::$table, $columns, $where);
     }
 
     public static function update($data, $where)
     {
-        return database()->update(self::$table, $data, $where);
+        $class = get_called_class();
+        return database()->update($class::$table, $data, $where);
     }
 
     public static function get($id, $columns = "*")
     {
+        $class = get_called_class();
         $where = ["id" => $id];
 
-        return database()->get(self::$table, $columns, $where);
+        return database()->get($class::$table, $columns, $where);
     }
 
     public static function delete($id)
     {
+        $class = get_called_class();
         $where = ["id" => $id];
 
-        return database()->delete(self::$table, $where);
+        return database()->delete($class::$table, $where);
     }
 
     public static function count($where)
     {
-        return database()->count(self::$table, "*", $where);
+        $class = get_called_class();
+        return database()->count($class::$table, "*", $where);
     }
 }

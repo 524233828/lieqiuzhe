@@ -25,3 +25,11 @@ route()->group(["prefix"=>"/wechat","middleware" => "dispatch"],function(){
     route()->post("/customer","WechatController@wxapp");
     route()->put("/customer","WechatController@wxapp");
 });
+
+//微信app tab 接口
+
+route()->group(["prefix" => "/wxapp", "middleware" => "dispatch"],function (){
+    route()->get("/tab/list", "WxappTabController@fetchTab");
+    route()->post("/tab", "WxappTabController@addTab");
+    route()->delete("/tab", "WxappTabController@deleteTab");
+});

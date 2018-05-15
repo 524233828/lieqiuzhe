@@ -102,7 +102,7 @@ class MatchChangeService
             ];
 
             try {
-                database()->update(MatchModel::MATCH_TABLE, $data, $where);
+                database()->update(MatchModel::$table, $data, $where);
             }catch (\Exception $e){
 
             }

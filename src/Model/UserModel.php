@@ -9,9 +9,8 @@ use Exception\BaseException;
 class UserModel extends BaseModel
 {
 
-    const USER_TABLE = 'user';
+    public static $table = "user";
 
-    static public $user;
 
     /**
      * 获取用户信息
@@ -28,7 +27,7 @@ class UserModel extends BaseModel
         }
 
         $user = database()->get(
-            self::USER_TABLE,
+            self::$table,
             $columns,
             [
                 'id' => $uid
@@ -40,7 +39,7 @@ class UserModel extends BaseModel
 
     public static function getUser($uid)
     {
-        $user = database()->get(self::USER_TABLE,"*",[
+        $user = database()->get(self::$table,"*",[
             "id" => $uid
         ]);
 
@@ -50,7 +49,7 @@ class UserModel extends BaseModel
     public static function addUser($data)
     {
         $data['create_time'] = time();
-        $user = database()->insert(self::USER_TABLE,$data);
+        $user = database()->insert(self::$table,$data);
 
         if(!$user){
             BaseException::SystemError();
@@ -60,7 +59,7 @@ class UserModel extends BaseModel
 
     public static function getUserByOpenId($openid)
     {
-        $user = database()->get(self::USER_TABLE,"*",[
+        $user = database()->get(self::$table,"*",[
             "openid" => $openid
         ]);
 
@@ -69,17 +68,17 @@ class UserModel extends BaseModel
 
     public static function listUser($where = [])
     {
-        return database()->select(self::USER_TABLE,"*",$where);
+        return database()->select(self::$table,"*",$where);
     }
 
     public static function countUser($where = [])
     {
-        return database()->count(self::USER_TABLE,[],$where);
+        return database()->count(self::$table,[],$where);
     }
 
     public static function getUserByUnionId($unionid)
     {
-        $user = database()->get(self::USER_TABLE,"*",[
+        $user = database()->get(self::$table,"*",[
             "unionid" => $unionid
         ]);
 
@@ -88,7 +87,7 @@ class UserModel extends BaseModel
 
     public static function updateUserByUid($uid, $data)
     {
-        return database()->update(self::USER_TABLE, $data, ["id" => $uid]);
+        return database()->update(self::$table, $data, ["id" => $uid]);
     }
 
 }

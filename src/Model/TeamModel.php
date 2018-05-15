@@ -9,7 +9,8 @@
 namespace Model;
 
 
-class TeamModel
+class TeamModel extends BaseModel
 {
     const TEAM_TABLE = "team";
+    public static $table = "team";
 }

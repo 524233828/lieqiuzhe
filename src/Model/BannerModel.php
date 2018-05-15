@@ -12,8 +12,6 @@ namespace Model;
 class BannerModel extends BaseModel
 {
 
-    public static function fetch($where = [], $columns = [])
-    {
+    public static $table = "banner";
 
-    }
 }

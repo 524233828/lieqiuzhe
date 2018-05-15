@@ -27,7 +27,6 @@ route()->group(["prefix"=>"/wechat","middleware" => "dispatch"],function(){
 });
 
 //微信app tab 接口
-
 route()->group(["prefix" => "/wxapp", "middleware" => "dispatch"],function (){
     route()->get("/tab/list", "Wxapp\WxappTabController@fetchTab");
     route()->post("/tab", "Wxapp\WxappTabController@addTab");

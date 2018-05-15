@@ -9,26 +9,20 @@
 namespace Model;
 
 
-use FastD\Model\Model;
 
-class MatchCollectionModel extends Model
+class MatchCollectionModel extends BaseModel
 {
 
-    const MATCH_COLLECT_TABLE = "match_collection";
-
-    public static function add($data)
-    {
-        return database()->insert(self::MATCH_COLLECT_TABLE,$data);
-    }
+    public static $table = "match_collection";
 
     public static function delete($where)
     {
-        return database()->delete(self::MATCH_COLLECT_TABLE, $where);
+        return database()->delete(self::$table, $where);
     }
 
     public static function fetch($where)
     {
-        return database()->select(self::MATCH_COLLECT_TABLE, "*", $where);
+        return parent::fetch("*", $where);
     }
 
 }

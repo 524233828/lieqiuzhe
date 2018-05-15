@@ -10,27 +10,27 @@ namespace Model;
 
 class MatchModel extends BaseModel
 {
-    const MATCH_TABLE = "match";
+    public static $table = "match";
     public static function fetch($where = [], $columns = "*")
     {
         if(is_array($where))
         {
             return database()->select(
-                self::MATCH_TABLE."(m)",
+                self::$table."(m)",
                 [
-                    "[>]".TeamModel::TEAM_TABLE."(h)" => ["m.home_id" => "id"],
-                    "[>]".TeamModel::TEAM_TABLE."(a)" => ["m.away_id" => "id"],
-                    "[>]".LeagueModel::LEAGUE_TABLE."(l)" => ["m.league_id" => "id"],
-                    "[>]".WeatherModel::WEATHER_TABLE."(w)" => ["m.weather_id" => "id"],
+                    "[>]".TeamModel::$table."(h)" => ["m.home_id" => "id"],
+                    "[>]".TeamModel::$table."(a)" => ["m.away_id" => "id"],
+                    "[>]".LeagueModel::$table."(l)" => ["m.league_id" => "id"],
+                    "[>]".WeatherModel::$table."(w)" => ["m.weather_id" => "id"],
                 ],
                 $columns,
                 $where
             );
         }
 
-        $team_table = TeamModel::TEAM_TABLE;
-        $league_table = LeagueModel::LEAGUE_TABLE;
-        $weather_table = WeatherModel::WEATHER_TABLE;
+        $team_table = TeamModel::$table;
+        $league_table = LeagueModel::$table;
+        $weather_table = WeatherModel::$table;
         $column = implode(",", $columns);
         $sql = <<<SQL
 SELECT {$column}
@@ -52,7 +52,7 @@ SQL;
     public static function count($where)
     {
         return database()->count(
-            self::MATCH_TABLE."(m)",
+            self::$table."(m)",
             ["id"],
             $where
         );

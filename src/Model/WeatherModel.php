@@ -9,7 +9,7 @@
 namespace Model;
 
 
-class WeatherModel
+class WeatherModel extends BaseModel
 {
-    const WEATHER_TABLE = "weather";
+    public static $table = "weather";
 }

@@ -16,4 +16,39 @@ namespace Model;
 class BaseModel
 {
 
+    public static $table;
+
+    public static function add($data)
+    {
+        return database()->insert(self::$table, $data);
+    }
+
+    public static function fetch($columns = "*" ,$where = null)
+    {
+        return database()->select(self::$table, $columns, $where);
+    }
+
+    public static function update($data, $where)
+    {
+        return database()->update(self::$table, $data, $where);
+    }
+
+    public static function get($id, $columns = "*")
+    {
+        $where = ["id" => $id];
+
+        return database()->get(self::$table, $columns, $where);
+    }
+
+    public static function delete($id)
+    {
+        $where = ["id" => $id];
+
+        return database()->delete(self::$table, $where);
+    }
+
+    public static function count($where)
+    {
+        return database()->count(self::$table, "*", $where);
+    }
 }

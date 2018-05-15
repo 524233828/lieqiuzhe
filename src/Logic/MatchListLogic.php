@@ -146,7 +146,7 @@ class MatchListLogic extends BaseLogic
     {
 
         if(empty($date)){
-            return ["list" => LeagueModel::fetch(null, ["id","gb_short(league_name)"])];
+            return ["list" => LeagueModel::fetch(["id","gb_short(league_name)"])];
         }
 
         $start_time = strtotime($date);
@@ -155,12 +155,10 @@ class MatchListLogic extends BaseLogic
 
         switch ($type){
             case 0://即时比分
-                $where["m.status"] = [0, 1, 2, 3, 4];
                 $status = "0,1,2,3,4";
                 break;
             case 1://赛果
                 $status = "-1";
-                $where["ORDER"] = ["start_time" => "DESC"];
                 break;
             case 2://赛程
                 $status = "0";

@@ -45,4 +45,9 @@ class WxappTabLogic extends BaseLogic
     {
         return WxappTabModel::delete($id);
     }
+
+    public function updateTab($data, $where)
+    {
+        return WxappTabModel::update($data, $where);
+    }
 }

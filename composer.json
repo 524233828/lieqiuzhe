@@ -18,7 +18,8 @@
         "524233828/qiutan-sdk" : "dev-master",
         "firebase/php-jwt": "v5.0.*",
         "anerg2046/sns_auth": "^1.1",
-        "524233828/Wxapp": "dev-master"
+        "524233828/Wxapp": "dev-master",
+        "runner/validation":"v1.0.16"
     },
     "require-dev": {
         "phpunit/dbunit": "^2.0"
@@ -40,6 +41,10 @@
         {
             "type": "git",
             "url": "git@github.com:524233828/Wxapp.git"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/RunnerLee/validation.git"
         }
     ]
 }

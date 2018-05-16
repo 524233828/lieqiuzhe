@@ -30,5 +30,6 @@ route()->group(["prefix"=>"/wechat","middleware" => "dispatch"],function(){
 route()->group(["prefix" => "/wxapp", "middleware" => "dispatch"],function (){
     route()->get("/tab/list", "Wxapp\WxappTabController@fetchTab");
     route()->post("/tab", "Wxapp\WxappTabController@addTab");
+    route()->post("/tab/update", "Wxapp\WxappTabController@updateTab");
     route()->delete("/tab", "Wxapp\WxappTabController@deleteTab");
 });

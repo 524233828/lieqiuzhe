@@ -28,6 +28,15 @@ class MatchModifyConsole extends Command
 
         $res = Match::modifyRecord();
 
-        var_dump($res);
+        if(!isset($res['match']))
+        {
+            return false;
+        }
+
+        if(!isset($res['match'][0])){
+            $res['match'] = [ 0 => $res['match'] ];
+        }
+
+        var_dump($res['match'][0]);
     }
 }

@@ -9,6 +9,7 @@
 namespace Console;
 
 
+use Model\MatchModel;
 use Qiutan\Match;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -28,7 +29,7 @@ class MatchModifyConsole extends Command
 
         $res = Match::modifyRecord();
 
-        if(!isset($res['match']))
+        if(!isset($res['match']) || !is_array($res['match']))
         {
             return false;
         }
@@ -37,6 +38,18 @@ class MatchModifyConsole extends Command
             $res['match'] = [ 0 => $res['match'] ];
         }
 
-        var_dump($res['match'][0]);
+        foreach ($res['match'] as $v)
+        {
+            switch ($v['type'])
+            {
+                case "modify":
+                    $start_time = strtotime($v['matchtime']);
+                    MatchModel::update(["start_time" => $start_time], ["id" => $v['ID']]);
+                    break;
+                case "delete":
+                    MatchModel::update(["status" => -10],["id" => $v['ID']]);
+                    break;
+            }
+        }
     }
 }

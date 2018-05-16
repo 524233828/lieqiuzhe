@@ -16,6 +16,10 @@ class WxappTabLogic extends BaseLogic
 
     public function add($data)
     {
+
+        $data['status'] = 1;
+        $data['create_time'] = time();
+        $data['update_time'] = time();
         return WxappTabModel::add($data);
     }
 

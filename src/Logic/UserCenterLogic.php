@@ -15,7 +15,5 @@ class UserCenterLogic extends BaseLogic
     public function getInfo()
     {
         $uid = UserLogic::$user['id'];
-
-
     }
 }

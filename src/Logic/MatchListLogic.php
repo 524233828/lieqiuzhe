@@ -56,13 +56,35 @@ class MatchListLogic extends BaseLogic
                 $where["ORDER"] = ["start_time" => "ASC"];
                 break;
             case 3://胜负彩
-                RedisHelper::get(CacheKey::SHENGFUCAI_KEY,redis(),function(){
+                $match_ids = RedisHelper::get(CacheKey::SHENGFUCAI_KEY,redis(),function(){
                     Lottery::$redis = redis();
 
                     $res = Lottery::matchIdInterface();
 
+                    if(!isset($res['i']) || !is_array($res['i'])){
+                        return false;
+                    }
+                    if(!isset($res['i'][0])){
+                        $res['i'] = [0=> $res['i']];
+                    }
+
+                    $match_ids = [];
+
+                    foreach ($res['i'] as $lottery)
+                    {
+                        if(strpos($lottery['LotteryName'],"胜负彩")){
+                            $match_ids[] = $lottery['ID_bet007'];
+                        }
+                    }
+
+                    return json_encode($match_ids);
 
                 },600);
+
+                $match_ids = json_decode($match_ids, true);
+
+                $where["m.id"] = $match_ids;
+                $where["ORDER"] = ["start_time" => "ASC"];
                 break;
             default:
                 break;

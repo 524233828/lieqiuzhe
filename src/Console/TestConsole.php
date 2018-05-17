@@ -11,6 +11,7 @@ namespace Console;
 
 use Qiutan\League;
 use Qiutan\Lottery;
+use Qiutan\Odds;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -27,26 +28,26 @@ class TestConsole extends Command
     public function execute(InputInterface $input, OutputInterface $output)
     {
 
-        Lottery::$redis = redis();
+        Odds::$redis = redis();
 
-        $res = Lottery::matchIdInterface();
+        $res = Odds::odd();
 
-        if(!isset($res['i']) || !is_array($res['i'])){
-            return false;
-        }
-        if(!isset($res['i'][0])){
-            $res['i'] = [0=> $res['i']];
-        }
+//        if(!isset($res['i']) || !is_array($res['i'])){
+//            return false;
+//        }
+//        if(!isset($res['i'][0])){
+//            $res['i'] = [0=> $res['i']];
+//        }
+//
+//        $match_ids = [];
+//
+//        foreach ($res['i'] as $lottery)
+//        {
+//            if(strpos($lottery['LotteryName'],"胜负彩")){
+//                $match_ids[] = $lottery['ID_bet007'];
+//            }
+//        }
 
-        $match_ids = [];
-
-        foreach ($res['i'] as $lottery)
-        {
-            if(strpos($lottery['LotteryName'],"胜负彩")){
-                $match_ids[] = $lottery['ID_bet007'];
-            }
-        }
-
-        var_dump($match_ids);
+        var_dump($res);
     }
 }

@@ -8,10 +8,13 @@
 
 namespace Logic;
 
+use Constant\CacheKey;
 use Exception\BaseException;
 use Model\LeagueModel;
 use Model\MatchCollectionModel;
 use Model\MatchModel;
+use Qiutan\Lottery;
+use Qiutan\RedisHelper;
 use Service\MatchChangeService;
 use Service\Pager;
 
@@ -53,6 +56,13 @@ class MatchListLogic extends BaseLogic
                 $where["ORDER"] = ["start_time" => "ASC"];
                 break;
             case 3://胜负彩
+                RedisHelper::get(CacheKey::SHENGFUCAI_KEY,redis(),function(){
+                    Lottery::$redis = redis();
+
+                    $res = Lottery::matchIdInterface();
+
+
+                },600);
                 break;
             default:
                 break;

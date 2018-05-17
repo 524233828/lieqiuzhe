@@ -11,4 +11,5 @@ namespace Constant;
 class CacheKey
 {
 
+    const SHENGFUCAI_KEY = "qiuwen:shengfucai";
 }

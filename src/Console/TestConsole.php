@@ -31,6 +31,22 @@ class TestConsole extends Command
 
         $res = Lottery::matchIdInterface();
 
-        var_dump($res);
+        if(!isset($res['i']) || !is_array($res['i'])){
+            return false;
+        }
+        if(!isset($res['i'][0])){
+            $res['i'] = [0=> $res['i']];
+        }
+
+        $match_ids = [];
+
+        foreach ($res['i'] as $lottery)
+        {
+            if(strpos($lottery['LotteryName'],"胜负彩")){
+                $match_ids[] = $lottery['ID_bet007'];
+            }
+        }
+
+        var_dump($match_ids);
     }
 }

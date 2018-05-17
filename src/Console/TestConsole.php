@@ -50,6 +50,8 @@ class TestConsole extends Command
 
         $res = explode("$",$res, 4);
 
-        var_dump($res[2]);
+        $odds = explode(";",$res[2]);
+
+        var_dump($odds);
     }
 }

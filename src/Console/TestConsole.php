@@ -48,6 +48,8 @@ class TestConsole extends Command
 //            }
 //        }
 
-        var_dump($res);
+        $res = explode("$",$res, 4);
+
+        var_dump($res[2]);
     }
 }

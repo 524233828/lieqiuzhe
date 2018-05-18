@@ -150,6 +150,6 @@ class TestConsole extends Command
             }
         }
 
-        var_dump($odds);
+        echo $count;
     }
 }

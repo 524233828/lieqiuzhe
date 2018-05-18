@@ -23,7 +23,7 @@ class OddConsole extends Command
 
     public function configure()
     {
-        $this->setName('odd')
+        $this->setName('fetch_odd')
             ->setDescription('赔率更新');
     }
 

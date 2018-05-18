@@ -6,3 +6,7 @@ bin/console change_match
 
 # 每分钟更新比赛状态
 bin/console fetch_match_id
+
+
+# 每分钟更新赔率
+bin/console fetch_odd

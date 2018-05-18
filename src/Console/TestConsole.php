@@ -56,7 +56,7 @@ class TestConsole extends Command
 
         $time = time();
 
-        database()->pdo->beginTransaction();
+
 
         $count = 0;
 
@@ -95,7 +95,7 @@ class TestConsole extends Command
                 ];
 
                 $odd = OddModel::getOddByMatchId($match_id, ['id']);
-
+                database()->pdo->beginTransaction();
                 if(!$odd)
                 {
 

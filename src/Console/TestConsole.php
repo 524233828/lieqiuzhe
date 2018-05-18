@@ -101,6 +101,10 @@ class TestConsole extends Command
 
                     $odd_id = OddModel::add($odd_data);
 
+                    if($odd_id){
+                        $odd_id = database()->pdo->lastInsertId();
+                    }
+
                     echo $odd_id;
 
                     $option_data = [

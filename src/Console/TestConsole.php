@@ -101,6 +101,8 @@ class TestConsole extends Command
 
                     $odd_id = OddModel::add($odd_data);
 
+                    echo $odd_id;
+
                     $option_data = [
                         [
                             "odd_id" => $odd_id,

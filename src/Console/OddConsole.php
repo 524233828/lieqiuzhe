@@ -18,13 +18,13 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class TestConsole extends Command
+class OddConsole extends Command
 {
 
     public function configure()
     {
-        $this->setName('test')
-            ->setDescription('测试专用');
+        $this->setName('odd')
+            ->setDescription('赔率更新');
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
@@ -34,29 +34,11 @@ class TestConsole extends Command
 
         $res = Odds::odd();
 
-//        if(!isset($res['i']) || !is_array($res['i'])){
-//            return false;
-//        }
-//        if(!isset($res['i'][0])){
-//            $res['i'] = [0=> $res['i']];
-//        }
-//
-//        $match_ids = [];
-//
-//        foreach ($res['i'] as $lottery)
-//        {
-//            if(strpos($lottery['LotteryName'],"胜负彩")){
-//                $match_ids[] = $lottery['ID_bet007'];
-//            }
-//        }
-
         $res = explode("$",$res, 4);
 
         $odds = explode(";",$res[2]);
 
         $time = time();
-
-
 
         $count = 0;
 
@@ -149,11 +131,7 @@ class TestConsole extends Command
                         database()->pdo->rollBack();
                     }
                 }
-
-
             }
         }
-
-        echo $count;
     }
 }

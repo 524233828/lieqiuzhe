@@ -27,6 +27,10 @@ route()->group(["prefix" => "/index", "middleware" => "dispatch"], function(){
     route()->get("/top_line", 'IndexController@topLine');
 });
 
+//发推荐选择页
+route()->group(["prefix" => "/recommend", "middleware" => "dispatch"], function(){
+    route()->get("/match_list", 'RecommendMatchChoseController@matchList');
+});
 
 //微信客服消息接口
 route()->group(["prefix"=>"/wechat","middleware" => "dispatch"],function(){

@@ -38,7 +38,7 @@ class OddModel extends BaseModel
         $sql = <<<SQL
 SELECT
 	count(*) as match_num,
-	FROM_UNIXTIME(start_time, "%Y-%m-%d") as date
+	FROM_UNIXTIME(start_time, '%Y-%m-%d') as date
 FROM
 	`match`
 LEFT JOIN odd ON `match`.id = odd.match_id
@@ -47,7 +47,7 @@ WHERE
 AND start_time < $end_time
 AND odd.`status` = 1
 GROUP BY
-	FROM_UNIXTIME(start_time, "%Y-%m-%d");
+	FROM_UNIXTIME(start_time, '%Y-%m-%d');
 SQL;
 
         return database()->query($sql)->fetchAll(\PDO::FETCH_ASSOC);

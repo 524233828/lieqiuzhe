@@ -9,6 +9,7 @@
 namespace Logic;
 
 
+use Model\LeagueModel;
 use Model\MatchModel;
 use Model\OddModel;
 use Service\Pager;
@@ -26,13 +27,15 @@ class RecommendMatchChoseLogic extends BaseLogic
         //七天后
         $week_time = strtotime(date("Ymd", $today_time + 7 * 86400));
 
-
+        $date_list = OddModel::countDateMatch($today_time, $week_time);
 
         $first_index =  $size * ($page-1);
 
         $start_time = strtotime($date);
 
         $end_time = strtotime($date ."+1 day");
+
+        $league_list = OddModel::getOddLeague($start_time, $end_time);
 
         $where = [
             MatchModel::$table.".start_time[>=]" => $start_time,
@@ -44,11 +47,13 @@ class RecommendMatchChoseLogic extends BaseLogic
             $where[MatchModel::$table.".league_id"] = $league_id;
         }
 
-        $res = OddModel::fetchOddMatchList([OddModel::$table.".match_id(mid)"],$where);
+        $res = OddModel::fetchOddMatchList([OddModel::$table.".match_id(mid)", OddModel::$table.".id"],$where);
 
         $match_ids = [];
+        $match_index = [];
         foreach ($res as $v){
             $match_ids[] = $v['mid'];
+            $match_index[$v['mid']] = $v['id'];
         }
 
         $where = [];
@@ -65,23 +70,23 @@ class RecommendMatchChoseLogic extends BaseLogic
                 "l.color(league_color)",
                 "m.start_time(match_time)",
                 "h.gb(home)",
-                "h.flag(home_flag)",
                 "a.gb(away)",
-                "a.flag(away_flag)",
-                "m.home_score",
-                "m.away_score",
-                "m.home_red",
-                "m.away_red",
-                "m.home_yellow",
-                "m.away_yellow",
-                "m.status",
-                "m.current_minutes",
             ]
         );
 
+        foreach ($list as $k => $v)
+        {
+            $list[$k]['odd_id'] = $match_index[$v['match_id']];
+        }
+
         $page = new Pager($page, $size);
 
-        $page->getPager($count);
+        return [
+            "date_list" => $date_list,
+            "league_list" => $league_list,
+            "match_list" => $list,
+            "meta" => $page->getPager($count)
+        ];
 
     }
 }

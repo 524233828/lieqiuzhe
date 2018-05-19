@@ -40,7 +40,7 @@ class RecommendMatchChoseLogic extends BaseLogic
         $where = [
             MatchModel::$table.".start_time[>=]" => $start_time,
             MatchModel::$table.".start_time[<]" => $end_time,
-            OddModel::$table.".odd_type" => $odd_type
+            OddModel::$table.".type" => $odd_type
         ];
         if(!empty($league_id))
         {

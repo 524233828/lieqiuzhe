@@ -116,7 +116,7 @@ class OddConsole extends Command
                         "status" => ($is_fengpan=="True")? 0 : 1,
                     ];
 
-                    OddModel::update($odd_id, ["id" => $odd_id]);
+                    OddModel::update($odd_data, ["id" => $odd_id]);
 
                     $option = OptionModel::fetch(['id'],['odd_id' => $odd_id, 'option' => "主胜"]);
 

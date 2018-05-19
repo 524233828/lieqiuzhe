@@ -8,6 +8,7 @@ route()->post('/test/rsa', 'RSAController@test')->withAddMiddleware(['rsa','veri
 
 route()->get("/login", 'LoginController@get')->withAddMiddleware("dispatch");
 
+//比赛列表页
 route()->group(["prefix"=>"/match","middleware" => "dispatch"], function(){
     route()->get("/list", 'MatchListController@fetchMatchList')->withAddMiddleware("login");;
     route()->post("/collect", 'MatchListController@collectionMatch')->withAddMiddleware("login");
@@ -15,9 +16,17 @@ route()->group(["prefix"=>"/match","middleware" => "dispatch"], function(){
     route()->get("/league/list", 'MatchListController@fetchLeague');
 });
 
+//比赛收藏页
 route()->group(["prefix"=>"/match_collect","middleware" => "dispatch"], function(){
     route()->get("/list", 'MatchCollectionController@fetchAction')->withAddMiddleware("login");
 });
+
+//首页
+route()->group(["prefix" => "/index", "middleware" => "dispatch"], function(){
+    route()->get("/banner", 'IndexController@banner');
+    route()->get("/top_line", 'IndexController@topLine');
+});
+
 
 //微信客服消息接口
 route()->group(["prefix"=>"/wechat","middleware" => "dispatch"],function(){

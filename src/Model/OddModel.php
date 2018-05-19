@@ -20,4 +20,16 @@ class OddModel extends BaseModel
 
         return database()->get(self::$table, $columns, $where);
     }
+
+    public static function fetchOddMatchList($columns = "*",$where = null)
+    {
+        return database()->select(
+            self::$table,
+            [
+                "[>]".MatchModel::$table => [ "match_id" => "id" ]
+            ],
+            $columns,
+            $where
+        );
+    }
 }

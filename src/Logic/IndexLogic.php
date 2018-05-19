@@ -10,6 +10,7 @@ namespace Logic;
 
 
 use Model\BannerModel;
+use Model\TopLineModel;
 use Model\UserModel;
 
 class IndexLogic extends BaseLogic
@@ -41,13 +42,13 @@ class IndexLogic extends BaseLogic
 
     public function topLine()
     {
-        $list =  BannerModel::fetch(
+        $list =  TopLineModel::fetch(
             [
                 "status" => 1,
                 "ORDER" => ["sort" => "DESC"]
             ],
             [
-                "image_url",
+                "content",
                 "page_id",
                 "url",
                 "params",

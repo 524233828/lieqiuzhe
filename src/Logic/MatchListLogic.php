@@ -221,4 +221,9 @@ SQL;
 
         return ["list" => $res];
     }
+
+    public static function countDateMatch($start_time, $end_time)
+    {
+        
+    }
 }

@@ -84,7 +84,7 @@ class RecommendLogic extends BaseLogic
             "home" => $home['home'],
             "home_flag" => $home['home_flag'],
             "away" => $away['away'],
-            "away_flag" => $home['away_flag'],
+            "away_flag" => $away['away_flag'],
             "option" => $option,
             "extra" => json_decode($odd['extra'],true),
             "home_info" => $home_info,

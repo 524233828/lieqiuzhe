@@ -9,8 +9,10 @@
 namespace Console;
 
 
+use Model\MatchInfoModel;
 use Model\OddModel;
 use Model\OptionModel;
+use PHPHtmlParser\Dom;
 use Qiutan\League;
 use Qiutan\Lottery;
 use Qiutan\Match;
@@ -35,16 +37,15 @@ class OddConsole extends Command
 
         $res = Odds::odd();
 
-        $res = explode("$",$res, 4);
+        $res = explode("$", $res, 4);
 
-        $odds = explode(";",$res[2]);
+        $odds = explode(";", $res[2]);
 
         $time = time();
 
         $count = 0;
 
-        foreach ($odds as $odd)
-        {
+        foreach ($odds as $odd) {
             list(
                 $match_id,
                 $company_id,
@@ -58,13 +59,13 @@ class OddConsole extends Command
                 $is_zoudi
                 ) = explode(",", $odd);
 
-            if($company_id == 3){
+            if ($company_id == 3) {
                 $count++;
                 $odd_data = [
                     "match_id" => $match_id,
                     "extra" => json_encode(
                         [
-                            "first_handicap"=>$pankou,
+                            "first_handicap" => $pankou,
                             "first_home" => $home_chupan,
                             "first_away" => $away_chupan,
                             "current_handicap" => $jishi_pankou,
@@ -73,18 +74,17 @@ class OddConsole extends Command
                         ]
                     ),
                     "type" => 1,
-                    "status" => ($is_fengpan=="True")? 0 : 1,
+                    "status" => ($is_fengpan == "True") ? 0 : 1,
                     "create_time" => $time
                 ];
 
                 $odd = OddModel::getOddByMatchId($match_id, ['id']);
                 database()->pdo->beginTransaction();
-                if(!$odd)
-                {
+                if (!$odd) {
 
                     $odd_id = OddModel::add($odd_data);
 
-                    if($odd_id){
+                    if ($odd_id) {
                         $odd_id = database()->pdo->lastInsertId();
                     }
 
@@ -104,47 +104,106 @@ class OddConsole extends Command
                     $option = OptionModel::add($option_data);
 
                     //增加赛前情报
-                    Match::$redis = redis();
-                    $res = Match::matchInfo($match_id);
+                    $this->fetchMatchInfo($match_id);
 
-
-
-                    if($odd_id && $option)
-                    {
+                    if ($odd_id && $option) {
                         database()->pdo->commit();
-                    }else{
+                    } else {
                         database()->pdo->rollBack();
                     }
 
-                }else{
+                } else {
                     $odd_id = $odd['id'];
 
                     $odd_data = [
-                        "status" => ($is_fengpan=="True")? 0 : 1,
+                        "status" => ($is_fengpan == "True") ? 0 : 1,
                     ];
 
                     OddModel::update($odd_data, ["id" => $odd_id]);
 
-                    $option = OptionModel::fetch(['id'],['odd_id' => $odd_id, 'option' => "主胜"]);
+                    $option = OptionModel::fetch(['id'], ['odd_id' => $odd_id, 'option' => "主胜"]);
 
                     $home_id = $option[0]['id'];
 
                     $home = OptionModel::update(["odds_rate" => $home_jishi], ["id" => $home_id]);
 
-                    $option = OptionModel::fetch(['id'],['odd_id' => $odd_id, 'option' => "客胜"]);
+                    $option = OptionModel::fetch(['id'], ['odd_id' => $odd_id, 'option' => "客胜"]);
 
                     $away_id = $option[0]['id'];
 
                     $away = OptionModel::update(["odds_rate" => $away_jishi], ["id" => $away_id]);
 
-                    if($home && $away)
-                    {
+                    if ($home && $away) {
                         database()->pdo->commit();
-                    }else{
+                    } else {
                         database()->pdo->rollBack();
                     }
                 }
             }
+        }
+    }
+
+    public function fetchMatchInfo($match_id)
+    {
+        Match::$redis = redis();
+        $res = Match::matchInfo($match_id);
+
+        if (!isset($res['match']) || !is_array($res['match'])) {
+            return false;
+        }
+
+        if (!isset($res['match'][0])) {
+            $res['match'] = [0 => $res['match']];
+        }
+
+        foreach ($res['match'] as $info) {
+            $match_id = $info['ID'];
+
+            $html = $info['Briefing'];
+
+//            $player_suspend = $info['PlayerSuspend'];
+
+            $dom = new Dom();
+
+            $dom->load($html);
+
+            $red_t1 = $dom->find('.red_t1')[0]->getParent()->find('tr');
+
+            unset($red_t1[0]);
+
+            $home_info = [];
+
+            foreach ($red_t1 as $red) {
+
+                $home_info[] = [
+                    "match_id" => $match_id,
+                    "team_type" => 0,
+                    "desc" => $red->find('td')[0]->innerhtml,
+                    "create_time" => time(),
+                ];
+//                var_dump($red->find('td')[0]->innerhtml);
+            }
+
+            $blue_t1 = $dom->find('.blue_t1')[0]->getParent()->find('tr');
+
+            unset($blue_t1[0]);
+
+            foreach ($blue_t1 as $blue) {
+
+                $away_info[] = [
+                    "match_id" => $match_id,
+                    "team_type" => 1,
+                    "desc" => $blue->find('td')[0]->innerhtml,
+                    "create_time" => time(),
+                ];
+            }
+
+            unset($dom);
+
+            $info = array_merge($home_info, $away_info);
+
+            MatchInfoModel::add($info);
+
         }
     }
 }

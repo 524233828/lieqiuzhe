@@ -37,7 +37,7 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:524233828/qiutan-sdk.git",
-                "reference": "44db3e39999ff6588f2ca97c31eeb94c2b15471d"
+                "reference": "318c8c9681c30fd2d97d38c82c1b6f398f5068e2"
             },
             "require": {
                 "guzzlehttp/guzzle": "^6.3",
@@ -52,7 +52,7 @@
                     "Qiutan\\": "src"
                 }
             },
-            "time": "2018-05-19 09:14:54"
+            "time": "2018-05-20 02:51:00"
         },
         {
             "name": "anerg2046/helper",

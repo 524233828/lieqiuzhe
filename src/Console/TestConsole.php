@@ -51,11 +51,52 @@ class TestConsole extends Command
 
             $html = $info['Briefing'];
 
-            $player_suspend = $info['PlayerSuspend'];
+//            $player_suspend = $info['PlayerSuspend'];
 
-            var_dump($match_id);
-            var_dump($html);
-            var_dump($player_suspend);
+            $dom = new Dom();
+
+            $dom->load($html);
+
+            $red_t1 = $dom->find('.red_t1')[0]->getParent()->find('tr');
+
+            unset($red_t1[0]);
+
+            $home_info = [];
+
+            foreach ($red_t1 as $red)
+            {
+
+                $home_info[] = [
+                    "match_id" => $match_id,
+                    "team_type" => 0,
+                    "desc" => $red->find('td')[0]->innerhtml,
+                    "create_time" => time(),
+                ];
+//                var_dump($red->find('td')[0]->innerhtml);
+            }
+
+            $blue_t1 = $dom->find('.blue_t1')[0]->getParent()->find('tr');
+
+            unset($blue_t1[0]);
+
+            foreach ($blue_t1 as $blue)
+            {
+
+                $away_info[] = [
+                    "match_id" => $match_id,
+                    "team_type" => 1,
+                    "desc" => $blue->find('td')[0]->innerhtml,
+                    "create_time" => time(),
+                ];
+            }
+
+            unset($dom);
+
+            $info = array_merge($home_info, $away_info);
+
+            var_dump($info);
+//            var_dump($html);
+//            var_dump($player_suspend);
         }
 
         $html = "<table cellspacing=0 cellpadding=0 width='100%' border=0>
@@ -93,28 +134,28 @@ class TestConsole extends Command
 	</tr>
 </table>";
 
-//        $dom = new Dom();
-//
-//        $dom->load($html);
-//
-//        $red_t1 = $dom->find('.red_t1')[0]->getParent()->find('tr');
-//
-//        unset($red_t1[0]);
-//
-//        foreach ($red_t1 as $red)
-//        {
-//            var_dump($red->find('td')[0]->innerhtml);
-//        }
-//
-//        $blue_t1 = $dom->find('.blue_t1')[0]->getParent()->find('tr');
-//
-//        unset($blue_t1[0]);
-//
-//        foreach ($blue_t1 as $blue)
-//        {
-//            var_dump($blue->find('td')[0]->innerhtml);
-//        }
-//        echo count($red_t1);exit;
+        $dom = new Dom();
+
+        $dom->load($html);
+
+        $red_t1 = $dom->find('.red_t1')[0]->getParent()->find('tr');
+
+        unset($red_t1[0]);
+
+        foreach ($red_t1 as $red)
+        {
+            var_dump($red->find('td')[0]->innerhtml);
+        }
+
+        $blue_t1 = $dom->find('.blue_t1')[0]->getParent()->find('tr');
+
+        unset($blue_t1[0]);
+
+        foreach ($blue_t1 as $blue)
+        {
+            var_dump($blue->find('td')[0]->innerhtml);
+        }
+        echo count($red_t1);exit;
 
     }
 }

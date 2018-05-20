@@ -117,6 +117,16 @@ class OddConsole extends Command
 
                     $odd_data = [
                         "status" => ($is_fengpan == "True") ? 0 : 1,
+                        "extra" => json_encode(
+                            [
+                                "first_handicap" => $pankou,
+                                "first_home" => $home_chupan,
+                                "first_away" => $away_chupan,
+                                "current_handicap" => $jishi_pankou,
+                                "current_home" => $home_jishi,
+                                "current_away" => $away_jishi
+                            ]
+                        ),
                     ];
 
                     OddModel::update($odd_data, ["id" => $odd_id]);

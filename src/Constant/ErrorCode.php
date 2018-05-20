@@ -36,6 +36,17 @@ class ErrorCode
     const LOGIN_FAIL = 1002; //登录失败
 
     /**
+     * 11xx分析师系统错误
+     */
+    const USER_NOT_ANALYST = 1100; // 用户不是分析师
+    const ANALYST_LEVEL_TOO_LOW = 1101;
+
+    /**
+     * 12xx推荐系统错误
+     */
+    const RECOMMEND_FAIL = 1200;
+
+    /**
      * 错误代码与消息的对应数组
      *
      * @var array
@@ -52,6 +63,13 @@ class ErrorCode
         self::USER_NOT_LOGIN        => ['未登录', Response::HTTP_FORBIDDEN],
         self::USER_NOT_EXISTS       => ['用户名或密码错误', Response::HTTP_FORBIDDEN],
         self::LOGIN_FAIL            => ['登录失败', Response::HTTP_BAD_GATEWAY],
+
+        //分析师系统错误
+        self::USER_NOT_ANALYST      => ['用户不是分析师', Response::HTTP_FORBIDDEN],
+        self::ANALYST_LEVEL_TOO_LOW => ['分析师等级太低', Response::HTTP_FORBIDDEN],
+
+        //
+        self::RECOMMEND_FAIL        => ['推荐失败', Response::HTTP_INTERNAL_SERVER_ERROR],
     ];
 
     /**

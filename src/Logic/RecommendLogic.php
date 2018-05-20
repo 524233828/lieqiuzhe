@@ -9,12 +9,17 @@
 namespace Logic;
 
 
+use Exception\AnalystException;
+use Exception\RecommendException;
+use Model\AnalystInfoModel;
 use Model\LeagueModel;
 use Model\MatchInfoModel;
 use Model\MatchModel;
 use Model\OddModel;
 use Model\OptionModel;
+use Model\RecommendModel;
 use Model\TeamModel;
+use Model\UserModel;
 use Qiutan\Match;
 
 class RecommendLogic extends BaseLogic
@@ -92,5 +97,68 @@ class RecommendLogic extends BaseLogic
         ];
 
         return $response;
+    }
+
+
+    public function addRecommend($params)
+    {
+        $uid = UserLogic::$user['id'];
+
+        $user = UserModel::getUserInfo($uid,['type']);
+
+        if($user['type'] != 1)
+        {
+            AnalystException::userNotAnalyst();
+        }
+
+        $analyst = AnalystInfoModel::getInfoByUserId($uid,['level']);
+
+        $today = date("Y-m-d");
+
+        $start_time = strtotime($today);
+        $end_time = strtotime($today."+1 day");
+        $recommend_count = RecommendModel::count([
+            "create_time[>=]" => $start_time,
+            "end_time[<]" => $end_time,
+            "analyst_id" => $uid
+        ]);
+
+        //TODO: 更换成根据分析师等级变动
+        $can_add = 5;
+
+        if($recommend_count >= $can_add)
+        {
+            AnalystException::analystLevelTooLow();
+        }
+
+        $info_ids = explode(",", $params['info_id']);
+
+        $info = MatchInfoModel::fetch("desc", ["id" => $info_ids]);
+
+        $desc = "";
+        foreach ($info as $v)
+        {
+            $desc .= $info['desc']."\r\n";
+        }
+
+        $data = [
+            "create_time"=>time(),
+            "status" => 1,
+            "title" => $params['rec_title'],
+            "desc" => $params['rec_desc'],
+            "odd_id" => $params['odd_id'],
+            "option_id" => $params['option_id'],
+            "analyst_id" => $uid,
+            "info" => $desc
+        ];
+
+        $recommend = RecommendModel::add($data);
+
+        if($recommend)
+        {
+            return [];
+        }else{
+            RecommendException::recommendFail();
+        }
     }
 }

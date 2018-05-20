@@ -31,6 +31,7 @@ route()->group(["prefix" => "/index", "middleware" => "dispatch"], function(){
 route()->group(["prefix" => "/recommend", "middleware" => "dispatch"], function(){
     route()->get("/match_list", 'RecommendMatchChoseController@matchList');
     route()->get("/odd", 'RecommendController@matchInfo');
+    route()->post("/add", 'RecommendController@addRecommend')->withAddMiddleware("login");
 });
 
 //微信客服消息接口

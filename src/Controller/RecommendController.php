@@ -17,7 +17,7 @@ class RecommendController extends BaseController
 
     public function matchInfo(ServerRequest $request)
     {
-        validator($request,[
+        validator($request, [
             "odd_id" => "required"
         ]);
 
@@ -28,7 +28,20 @@ class RecommendController extends BaseController
 
     public function addRecommend(ServerRequest $request)
     {
+        $validate = validator($request, [
+            "odd_id" => "required",
+            "option_id" => "required",
+            "rec_title" => "required",
+            "rec_desc" => "required",
+        ]);
 
+        $params = $validate->data();
+
+        $info_id = $request->getParam("info_id", null);
+
+        $params['info_id'] = $info_id;
+
+        return $this->response(RecommendLogic::getInstance()->addRecommend($params));
     }
 
 }

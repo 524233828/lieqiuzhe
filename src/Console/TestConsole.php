@@ -94,7 +94,7 @@ class TestConsole extends Command
 
             $info = array_merge($home_info, $away_info);
 
-//            var_dump($info);
+            var_dump($info);
 //            var_dump($html);
 //            var_dump($player_suspend);
         }

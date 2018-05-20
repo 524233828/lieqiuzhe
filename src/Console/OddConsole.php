@@ -161,6 +161,10 @@ class OddConsole extends Command
 
             $html = $info['Briefing'];
 
+            if(!is_string($html)){
+                continue;
+            }
+
 //            $player_suspend = $info['PlayerSuspend'];
 
             $dom = new Dom();

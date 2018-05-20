@@ -19,7 +19,7 @@ class RecommendMatchChoseLogic extends BaseLogic
 
     public function matchList($date, $league_id = null, $odd_type = 1, $page = 1, $size = 20)
     {
-        //计算最近七天每天比赛数
+        //计算最近七天每天有亚盘的比赛数
 
         //今日
         $today_time = time();

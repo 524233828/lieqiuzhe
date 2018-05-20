@@ -13,6 +13,7 @@ use Model\OddModel;
 use Model\OptionModel;
 use Qiutan\League;
 use Qiutan\Lottery;
+use Qiutan\Match;
 use Qiutan\Odds;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -101,6 +102,12 @@ class OddConsole extends Command
                     ];
 
                     $option = OptionModel::add($option_data);
+
+                    //增加赛前情报
+                    Match::$redis = redis();
+                    $res = Match::matchInfo($match_id);
+
+
 
                     if($odd_id && $option)
                     {

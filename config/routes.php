@@ -30,6 +30,7 @@ route()->group(["prefix" => "/index", "middleware" => "dispatch"], function(){
 //发推荐选择页
 route()->group(["prefix" => "/recommend", "middleware" => "dispatch"], function(){
     route()->get("/match_list", 'RecommendMatchChoseController@matchList');
+    route()->get("/odd", 'RecommendController@matchInfo');
 });
 
 //微信客服消息接口

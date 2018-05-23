@@ -9,7 +9,7 @@
 namespace Model;
 
 
-class AnalystModel extends BaseModel
+class AnalystInfoModel extends BaseModel
 {
     const ANALYST_TABLE = "analyst_info";
 
@@ -17,7 +17,7 @@ class AnalystModel extends BaseModel
 
     public static function getAnalystById($id)
     {
-        $analyst_table = AnalystModel::$table;
+        $analyst_table = AnalystInfoModel::$table;
         $user_table = UserModel::$table;
         $recommend_table = RecommendModel::$table;
         $icon_table = IconsModel::$table;
@@ -46,5 +46,10 @@ WHERE t.type = 2
 SQL;
 
         return database()->query($sql)->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    public static function getInfoByUserId($user_id, $columns = "*")
+    {
+        return database()->get(self::$table, $columns, ["user_id"=>$user_id]);
     }
 }

@@ -13,4 +13,10 @@ class TeamModel extends BaseModel
 {
     const TEAM_TABLE = "team";
     public static $table = "team";
+
+    public static function getTeamDetailById($id, $columns = "*")
+    {
+        $where = ["id" => $id];
+        return database()->get(self::$table, $columns, $where);
+    }
 }

@@ -45,7 +45,7 @@ class TeamConsole extends Command
                 "area" => $v['Area'],
                 "gym" => $v['gym'],
                 "capacity" => $v['Capacity'],
-                "flag" => "http://zq.win007.com/Image/team/".$v['Flag'],
+                "flag" => is_string($v['Flag'])?"http://zq.win007.com/Image/team/".$v['Flag']:"",
                 "addr" => $v['addr'],
                 "url" => $v['URL'],
                 "master" => $v['master'],

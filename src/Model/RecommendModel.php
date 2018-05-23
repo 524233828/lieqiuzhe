@@ -14,7 +14,7 @@ class RecommendModel extends BaseModel
     public static function fetchOne($id, $columns = "*")
     {
         $match_table = MatchModel::$table;
-        $analyst_table = AnalystModel::$table;
+        $analyst_table = AnalystInfoModel::$table;
         $odd_table = OddModel::$table;
         $option_table = OptionModel::$table;
         $user_table = UserModel::$table;

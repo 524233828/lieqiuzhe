@@ -12,7 +12,7 @@ use Constant\CacheKey;
 use Controller\AnalystController;
 use Exception\BaseException;
 use Helper\FuntionHelper;
-use Model\AnalystModel;
+use Model\AnalystInfoModel;
 use Model\LeagueModel;
 use Model\FansModel;
 use Model\MatchCollectionModel;
@@ -27,7 +27,7 @@ class AnalystLogic extends BaseLogic
 {
     public function fetchAnalystInfo($analyst_id)
     {
-        $analyst_info = AnalystModel::getAnalystById(
+        $analyst_info = AnalystInfoModel::getAnalystById(
             $analyst_id
         );
 

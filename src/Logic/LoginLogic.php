@@ -9,7 +9,6 @@
 namespace Logic;
 
 
-use anerg\OAuth2\OAuth;
 use Exception\UserException;
 use Model\UserModel;
 use Wxapp\Wxapp;
@@ -23,7 +22,6 @@ class LoginLogic extends BaseLogic
             case 0://手机登陆
                 break;
             case 1://微信登录
-                $uid = $this->wechat($params);
                 break;
             case 2://QQ登录
                 break;
@@ -138,18 +136,6 @@ class LoginLogic extends BaseLogic
 
         return $my_user['id'];
 
-    }
-
-    private function wechat($params)
-    {
-        $config = [
-            'appid'         => $this->config['app_key'],
-            'redirect_uri'  => $this->config['callback'],
-            'response_type' => $this->config['response_type'],
-            'scope'         => $this->config['scope'],
-            'state'         => $this->timestamp,
-        ];
-        $OAuth = OAuth::getInstance($config, "weixin");
     }
 
 }

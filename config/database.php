@@ -8,12 +8,21 @@
  */
 
 return [
+//    'default' => [
+//        'adapter' => 'mysql',
+//        'name' => 'lieqiuzhe',
+//        'host' => '127.0.0.1',
+//        'user' => 'root',
+//        'pass' => 'admin',
+//        'charset' => 'utf8',
+//        'port' => 3306,
+//    ],
     'default' => [
         'adapter' => 'mysql',
-        'name' => 'demo',
+        'name' => 'lieqiuzhe',
         'host' => '127.0.0.1',
         'user' => 'root',
-        'pass' => '',
+        'pass' => 'sure12580',
         'charset' => 'utf8',
         'port' => 3306,
     ]

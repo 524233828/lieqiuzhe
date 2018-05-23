@@ -13,4 +13,10 @@ class OptionModel extends BaseModel
 {
 
     public static $table = "odd_option";
+
+    public static function getOptionByOddId($oddid, $columns = "*")
+    {
+        $where = ["odd_id" => $oddid];
+        return database()->select(self::$table, $columns, $where);
+    }
 }

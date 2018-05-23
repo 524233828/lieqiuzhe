@@ -9,7 +9,7 @@ use Exception\BaseException;
 class UserModel extends BaseModel
 {
 
-    public static $table = "user";
+    public static $table = "`user`";
 
 
     /**

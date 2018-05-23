@@ -14,3 +14,10 @@ use FastD\Application;
 $app = new Application(__DIR__ . '/..');
 
 $app->run();
+
+
+
+
+
+
+

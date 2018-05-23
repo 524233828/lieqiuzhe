@@ -27,11 +27,18 @@ route()->group(["prefix" => "/index", "middleware" => "dispatch"], function(){
     route()->get("/top_line", 'IndexController@topLine');
 });
 
+//分析师
+route()->group(["prefix" => "/analyst", "middleware" => "dispatch"], function(){
+    route()->get("/detail/{analyst_id}", 'AnalystController@fetchAnalystInfo');
+    route()->get("/recommendlist/{analyst_id}/{page}", 'AnalystController@fetchAnalystRecommendList');
+});
+
 //发推荐选择页
 route()->group(["prefix" => "/recommend", "middleware" => "dispatch"], function(){
     route()->get("/match_list", 'RecommendMatchChoseController@matchList');
     route()->get("/odd", 'RecommendController@matchInfo');
     route()->post("/add", 'RecommendController@addRecommend')->withAddMiddleware("login");
+    route()->get("/detail/{rec_id}", 'RecommendController@RecommendDetail');
 });
 
 //微信客服消息接口

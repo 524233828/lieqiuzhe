@@ -30,6 +30,6 @@ class FuntionHelper
 
         $win = substr_count($record,'1');
         $all = strlen($record);
-        return round($win/$all,3);
+        return sprintf("%01.2f", $win/$all*100).'%'; ;
     }
 }

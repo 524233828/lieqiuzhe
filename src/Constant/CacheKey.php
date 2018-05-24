@@ -12,4 +12,6 @@ class CacheKey
 {
 
     const SHENGFUCAI_KEY = "qiuwen:shengfucai";
+
+    const REGISTER_CODE_KEY = "qiuwen:register_code";
 }

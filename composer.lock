@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1ed6b102c58e7bf944871e8c0f3d9039",
+    "content-hash": "6ea7452234a8cf137ab76338df6fe269",
     "packages": [
         {
             "name": "524233828/Wxapp",
@@ -12,7 +12,7 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:524233828/Wxapp.git",
-                "reference": "6de6b6d04b32800c7f784aceaaf33653885cbb88"
+                "reference": "df644c639f42e064eb15f754b679d78a9bd1ddaa"
             },
             "require": {
                 "php": ">=5.6"
@@ -29,7 +29,7 @@
                     "email": "chenyu01@linghit.com"
                 }
             ],
-            "time": "2018-05-09 03:56:57"
+            "time": "2018-05-11 03:39:28"
         },
         {
             "name": "524233828/qiutan-sdk",
@@ -95,16 +95,16 @@
         },
         {
             "name": "anerg2046/sns_auth",
-            "version": "1.1.2",
+            "version": "1.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/anerg2046/sns_auth.git",
-                "reference": "670e7e85dbf42958661d5a3951668fc21fa51bed"
+                "reference": "5a81fb48f2e971f2a6d9ee0b92cfc7b7cb02fb84"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/anerg2046/sns_auth/670e7e85dbf42958661d5a3951668fc21fa51bed.zip",
-                "reference": "670e7e85dbf42958661d5a3951668fc21fa51bed",
+                "url": "https://files.phpcomposer.com/files/anerg2046/sns_auth/5a81fb48f2e971f2a6d9ee0b92cfc7b7cb02fb84.zip",
+                "reference": "5a81fb48f2e971f2a6d9ee0b92cfc7b7cb02fb84",
                 "shasum": ""
             },
             "require": {
@@ -128,7 +128,7 @@
                 }
             ],
             "description": "weixin weibo qq sns oauth",
-            "time": "2017-11-02T08:09:08+00:00"
+            "time": "2018-05-21T15:27:52+00:00"
         },
         {
             "name": "catfan/medoo",
@@ -478,16 +478,16 @@
         },
         {
             "name": "fastd/http",
-            "version": "v3.0.27",
+            "version": "v3.0.28",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fastdlabs/http.git",
-                "reference": "e0d9114486f15aaad9a6c7642e03e643202a97d6"
+                "reference": "9532877fe2dce05bd77d33d644ec7cb7ce974cea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/fastdlabs/http/e0d9114486f15aaad9a6c7642e03e643202a97d6.zip",
-                "reference": "e0d9114486f15aaad9a6c7642e03e643202a97d6",
+                "url": "https://files.phpcomposer.com/files/fastdlabs/http/9532877fe2dce05bd77d33d644ec7cb7ce974cea.zip",
+                "reference": "9532877fe2dce05bd77d33d644ec7cb7ce974cea",
                 "shasum": ""
             },
             "require": {
@@ -518,7 +518,7 @@
                 "FastD",
                 "http"
             ],
-            "time": "2018-04-02T12:01:28+00:00"
+            "time": "2018-05-09T12:17:42+00:00"
         },
         {
             "name": "fastd/middleware",
@@ -721,16 +721,16 @@
         },
         {
             "name": "fastd/swoole",
-            "version": "v2.2.0",
+            "version": "v2.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fastdlabs/swoole.git",
-                "reference": "5ef4085a5c277fd6e018236271658272421b8be6"
+                "reference": "c7ac4375e4cada4a5ec738bfcc43d34ba7aeece1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/fastdlabs/swoole/5ef4085a5c277fd6e018236271658272421b8be6.zip",
-                "reference": "5ef4085a5c277fd6e018236271658272421b8be6",
+                "url": "https://files.phpcomposer.com/files/fastdlabs/swoole/c7ac4375e4cada4a5ec738bfcc43d34ba7aeece1.zip",
+                "reference": "c7ac4375e4cada4a5ec738bfcc43d34ba7aeece1",
                 "shasum": ""
             },
             "require": {
@@ -762,7 +762,7 @@
                 }
             ],
             "description": "FastD swoole.",
-            "time": "2018-01-24T00:30:48+00:00"
+            "time": "2018-05-08T06:42:50+00:00"
         },
         {
             "name": "fastd/testing",
@@ -1393,16 +1393,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "1.27.0",
+            "version": "1.28.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "ef81c39b67200dcd7401c24363dcac05ac3a4fe9"
+                "reference": "00149d95fc91ef10f19d3a66889bc3bb7500fa7b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/briannesbitt/Carbon/ef81c39b67200dcd7401c24363dcac05ac3a4fe9.zip",
-                "reference": "ef81c39b67200dcd7401c24363dcac05ac3a4fe9",
+                "url": "https://files.phpcomposer.com/files/briannesbitt/Carbon/00149d95fc91ef10f19d3a66889bc3bb7500fa7b.zip",
+                "reference": "00149d95fc91ef10f19d3a66889bc3bb7500fa7b",
                 "shasum": ""
             },
             "require": {
@@ -1437,7 +1437,57 @@
                 "datetime",
                 "time"
             ],
-            "time": "2018-04-23T09:02:57+00:00"
+            "time": "2018-05-18T15:26:18+00:00"
+        },
+        {
+            "name": "overtrue/socialite",
+            "version": "2.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/overtrue/socialite.git",
+                "reference": "20bc0ac598aa41365c209bbe4cb5c0cf314d46b3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/overtrue/socialite/20bc0ac598aa41365c209bbe4cb5c0cf314d46b3.zip",
+                "reference": "20bc0ac598aa41365c209bbe4cb5c0cf314d46b3",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "~5.0|~6.0",
+                "php": ">=7.0",
+                "symfony/http-foundation": "^2.7|^3.0|^4.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "~0.9",
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Overtrue\\Socialite\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "overtrue",
+                    "email": "anzhengchao@gmail.com"
+                }
+            ],
+            "description": "A collection of OAuth 2 packages that extracts from laravel/socialite.",
+            "keywords": [
+                "login",
+                "oauth",
+                "qq",
+                "social",
+                "wechat",
+                "weibo"
+            ],
+            "time": "2018-03-28T02:22:49+00:00"
         },
         {
             "name": "paquettg/php-html-parser",
@@ -2237,16 +2287,16 @@
         },
         {
             "name": "symfony/cache",
-            "version": "v3.4.9",
+            "version": "v3.4.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/cache.git",
-                "reference": "51a9eef3091b2c06f63d8b1b98de9d101b5e0e77"
+                "reference": "b6f157d4529a3484f60ebc40661b5232526fb432"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/symfony/cache/51a9eef3091b2c06f63d8b1b98de9d101b5e0e77.zip",
-                "reference": "51a9eef3091b2c06f63d8b1b98de9d101b5e0e77",
+                "url": "https://files.phpcomposer.com/files/symfony/cache/b6f157d4529a3484f60ebc40661b5232526fb432.zip",
+                "reference": "b6f157d4529a3484f60ebc40661b5232526fb432",
                 "shasum": ""
             },
             "require": {
@@ -2303,20 +2353,20 @@
                 "caching",
                 "psr6"
             ],
-            "time": "2018-04-27T05:49:57+00:00"
+            "time": "2018-05-16T12:49:49+00:00"
         },
         {
             "name": "symfony/console",
-            "version": "v3.4.9",
+            "version": "v3.4.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "5b1fdfa8eb93464bcc36c34da39cedffef822cdf"
+                "reference": "36f83f642443c46f3cf751d4d2ee5d047d757a27"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/symfony/console/5b1fdfa8eb93464bcc36c34da39cedffef822cdf.zip",
-                "reference": "5b1fdfa8eb93464bcc36c34da39cedffef822cdf",
+                "url": "https://files.phpcomposer.com/files/symfony/console/36f83f642443c46f3cf751d4d2ee5d047d757a27.zip",
+                "reference": "36f83f642443c46f3cf751d4d2ee5d047d757a27",
                 "shasum": ""
             },
             "require": {
@@ -2372,20 +2422,20 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2018-04-30T01:22:56+00:00"
+            "time": "2018-05-16T08:49:21+00:00"
         },
         {
             "name": "symfony/debug",
-            "version": "v3.4.9",
+            "version": "v3.4.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
-                "reference": "1b95888cfd996484527cb41e8952d9a5eaf7454f"
+                "reference": "b28fd73fefbac341f673f5efd707d539d6a19f68"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/symfony/debug/1b95888cfd996484527cb41e8952d9a5eaf7454f.zip",
-                "reference": "1b95888cfd996484527cb41e8952d9a5eaf7454f",
+                "url": "https://files.phpcomposer.com/files/symfony/debug/b28fd73fefbac341f673f5efd707d539d6a19f68.zip",
+                "reference": "b28fd73fefbac341f673f5efd707d539d6a19f68",
                 "shasum": ""
             },
             "require": {
@@ -2428,7 +2478,61 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2018-04-30T16:53:52+00:00"
+            "time": "2018-05-16T14:03:39+00:00"
+        },
+        {
+            "name": "symfony/http-foundation",
+            "version": "v3.4.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/http-foundation.git",
+                "reference": "9a7469ec3e0225e7f0e14264bcd9e838e16186fe"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/symfony/http-foundation/9a7469ec3e0225e7f0e14264bcd9e838e16186fe.zip",
+                "reference": "9a7469ec3e0225e7f0e14264bcd9e838e16186fe",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.5.9|>=7.0.8",
+                "symfony/polyfill-mbstring": "~1.1",
+                "symfony/polyfill-php70": "~1.6"
+            },
+            "require-dev": {
+                "symfony/expression-language": "~2.8|~3.0|~4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\HttpFoundation\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony HttpFoundation Component",
+            "homepage": "https://symfony.com",
+            "time": "2018-05-16T08:49:21+00:00"
         },
         {
             "name": "symfony/polyfill-apcu",
@@ -2485,6 +2589,61 @@
                 "shim"
             ],
             "time": "2018-04-26T10:06:28+00:00"
+        },
+        {
+            "name": "symfony/polyfill-ctype",
+            "version": "v1.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-ctype.git",
+                "reference": "7cc359f1b7b80fc25ed7796be7d96adc9b354bae"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/symfony/polyfill-ctype/7cc359f1b7b80fc25ed7796be7d96adc9b354bae.zip",
+                "reference": "7cc359f1b7b80fc25ed7796be7d96adc9b354bae",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.8-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Polyfill\\Ctype\\": ""
+                },
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                },
+                {
+                    "name": "Gert de Pagter",
+                    "email": "BackEndTea@gmail.com"
+                }
+            ],
+            "description": "Symfony polyfill for ctype functions",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "ctype",
+                "polyfill",
+                "portable"
+            ],
+            "time": "2018-04-30T19:57:29+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -2546,17 +2705,76 @@
             "time": "2018-04-26T10:06:28+00:00"
         },
         {
-            "name": "symfony/translation",
-            "version": "v3.4.9",
+            "name": "symfony/polyfill-php70",
+            "version": "v1.8.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/translation.git",
-                "reference": "d4af50f46cd8171fd5c1cdebdb9a8bbcd8078c6c"
+                "url": "https://github.com/symfony/polyfill-php70.git",
+                "reference": "77454693d8f10dd23bb24955cffd2d82db1007a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/symfony/translation/d4af50f46cd8171fd5c1cdebdb9a8bbcd8078c6c.zip",
-                "reference": "d4af50f46cd8171fd5c1cdebdb9a8bbcd8078c6c",
+                "url": "https://files.phpcomposer.com/files/symfony/polyfill-php70/77454693d8f10dd23bb24955cffd2d82db1007a6.zip",
+                "reference": "77454693d8f10dd23bb24955cffd2d82db1007a6",
+                "shasum": ""
+            },
+            "require": {
+                "paragonie/random_compat": "~1.0|~2.0",
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.8-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Polyfill\\Php70\\": ""
+                },
+                "files": [
+                    "bootstrap.php"
+                ],
+                "classmap": [
+                    "Resources/stubs"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony polyfill backporting some PHP 7.0+ features to lower PHP versions",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "polyfill",
+                "portable",
+                "shim"
+            ],
+            "time": "2018-04-26T10:06:28+00:00"
+        },
+        {
+            "name": "symfony/translation",
+            "version": "v3.4.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/translation.git",
+                "reference": "7047f725e35eab768137c677f8c38e4a2a8e38fb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/symfony/translation/7047f725e35eab768137c677f8c38e4a2a8e38fb.zip",
+                "reference": "7047f725e35eab768137c677f8c38e4a2a8e38fb",
                 "shasum": ""
             },
             "require": {
@@ -2611,24 +2829,25 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2018-04-30T01:22:56+00:00"
+            "time": "2018-05-21T10:06:52+00:00"
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.4.9",
+            "version": "v3.4.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "033cfa61ef06ee0847e056e530201842b6e926c3"
+                "reference": "c5010cc1692ce1fa328b1fb666961eb3d4a85bb0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/symfony/yaml/033cfa61ef06ee0847e056e530201842b6e926c3.zip",
-                "reference": "033cfa61ef06ee0847e056e530201842b6e926c3",
+                "url": "https://files.phpcomposer.com/files/symfony/yaml/c5010cc1692ce1fa328b1fb666961eb3d4a85bb0.zip",
+                "reference": "c5010cc1692ce1fa328b1fb666961eb3d4a85bb0",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.5.9|>=7.0.8"
+                "php": "^5.5.9|>=7.0.8",
+                "symfony/polyfill-ctype": "~1.8"
             },
             "conflict": {
                 "symfony/console": "<3.4"
@@ -2669,7 +2888,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2018-04-08T08:21:29+00:00"
+            "time": "2018-05-03T23:18:14+00:00"
         }
     ],
     "packages-dev": [

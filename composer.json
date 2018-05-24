@@ -20,7 +20,8 @@
         "anerg2046/sns_auth": "^1.1",
         "524233828/Wxapp": "dev-master",
         "runner/validation":"v1.0.16",
-        "paquettg/php-html-parser": "^1.7"
+        "paquettg/php-html-parser": "^1.7",
+        "overtrue/socialite": "2.0.3"
     },
     "require-dev": {
         "phpunit/dbunit": "^2.0"

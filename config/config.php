@@ -17,5 +17,10 @@ return [
     "zuqiubisai1"=>[
         "app_id" => "wxe0a4c5b9f85f9cf5",
         "app_secret" => "87d22ff09ec5a09748dc6249f354c0bd"
+    ],
+
+    "wechat_open"=>[
+        "app_id" => "wx45d4e558ae0284a4",
+        "app_secret" => "789d683ce4306dca61b3b768421f9a5b"
     ]
 ];

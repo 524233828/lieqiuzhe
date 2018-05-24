@@ -9,9 +9,9 @@
 namespace Logic;
 
 
-use anerg\OAuth2\OAuth;
 use Exception\UserException;
 use Model\UserModel;
+use Overtrue\Socialite\SocialiteManager;
 use Wxapp\Wxapp;
 
 class LoginLogic extends BaseLogic
@@ -142,14 +142,18 @@ class LoginLogic extends BaseLogic
 
     private function wechat($params)
     {
-        $config = [
-            'appid'         => $this->config['app_key'],
-            'redirect_uri'  => $this->config['callback'],
-            'response_type' => $this->config['response_type'],
-            'scope'         => $this->config['scope'],
-            'state'         => $this->timestamp,
-        ];
-        $OAuth = OAuth::getInstance($config, "weixin");
+        $log = myLog("wxapp_login");
+        $socialite = new SocialiteManager(config()->get("socialite"),request());
+        $user = $socialite->driver("wechat")->user();
+
+        $log->addDebug("user",$user);
+
+        return $user['id'];
+    }
+
+    private function mobile()
+    {
+
     }
 
 }

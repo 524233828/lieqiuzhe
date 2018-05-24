@@ -27,4 +27,14 @@ class UserException extends BaseException
     {
         throw new self(ErrorCode::msg(ErrorCode::LOGIN_FAIL),ErrorCode::LOGIN_FAIL);
     }
+
+    public static function sendCodeFail()
+    {
+        throw new self(ErrorCode::msg(ErrorCode::SEND_CODE_FAIL),ErrorCode::SEND_CODE_FAIL);
+    }
+
+    public static function sendCodeTooMuch()
+    {
+        throw new self(ErrorCode::msg(ErrorCode::SEND_CODE_TOO_MUCH),ErrorCode::SEND_CODE_TOO_MUCH);
+    }
 }

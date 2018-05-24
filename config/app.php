@@ -53,6 +53,7 @@ return [
         \FastD\ServiceProvider\DatabaseServiceProvider::class,
         \FastD\ServiceProvider\CacheServiceProvider::class,
         \ServiceProvider\RedisServiceProvider::class,
+        \ServiceProvider\ValidationServiceProvider::class
     ],
 
     /**

@@ -34,6 +34,8 @@ class ErrorCode
     const USER_NOT_LOGIN = 1000; // 未登录
     const USER_NOT_EXISTS = 1001; // 用户不存在
     const LOGIN_FAIL = 1002; //登录失败
+    const SEND_CODE_FAIL = 1003; //登录失败
+    const SEND_CODE_TOO_MUCH = 1004; //登录失败
 
     /**
      * 11xx分析师系统错误
@@ -45,6 +47,7 @@ class ErrorCode
      * 12xx推荐系统错误
      */
     const RECOMMEND_FAIL = 1200;
+
 
     /**
      * 错误代码与消息的对应数组
@@ -62,7 +65,9 @@ class ErrorCode
         //用户系统错误
         self::USER_NOT_LOGIN        => ['未登录', Response::HTTP_FORBIDDEN],
         self::USER_NOT_EXISTS       => ['用户名或密码错误', Response::HTTP_FORBIDDEN],
-        self::LOGIN_FAIL            => ['登录失败', Response::HTTP_BAD_GATEWAY],
+        self::LOGIN_FAIL            => ['登录失败', Response::HTTP_INTERNAL_SERVER_ERROR],
+        self::SEND_CODE_FAIL        => ['发送验证码失败', Response::HTTP_INTERNAL_SERVER_ERROR],
+        self::SEND_CODE_TOO_MUCH   => ['请求太频繁', Response::HTTP_FORBIDDEN],
 
         //分析师系统错误
         self::USER_NOT_ANALYST      => ['用户不是分析师', Response::HTTP_FORBIDDEN],

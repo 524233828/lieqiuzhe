@@ -55,15 +55,15 @@ FROM (
   FROM `recommend`
   WHERE id = {$id}
 ) as m
-LEFT JOIN {$odd_table} as g ON m.odd_id = g.id
-LEFT JOIN {$match_table} as h ON g.match_id = h.id
-LEFT JOIN {$analyst_table} as a ON m.analyst_id = a.id
-LEFT JOIN {$option_table} as b ON m.option_id = b.id
-LEFT JOIN {$user_table} as c ON c.id = a.user_id
-LEFT JOIN {$league_table} as d ON d.id = h.league_id
-LEFT JOIN {$team_table} as r ON h.home_id = r.id
-LEFT JOIN {$team_table} as f ON h.away_id = f.id
-LEFT JOIN {$icon_table} as t ON t.level = a.level
+LEFT JOIN `{$odd_table}` as g ON m.odd_id = g.id
+LEFT JOIN `{$match_table}` as h ON g.match_id = h.id
+LEFT JOIN `{$analyst_table}` as a ON m.analyst_id = a.id
+LEFT JOIN `{$option_table}` as b ON m.option_id = b.id
+LEFT JOIN `{$user_table}` as c ON c.id = a.user_id
+LEFT JOIN `{$league_table}` as d ON d.id = h.league_id
+LEFT JOIN `{$team_table}` as r ON h.home_id = r.id
+LEFT JOIN `{$team_table}` as f ON h.away_id = f.id
+LEFT JOIN `{$icon_table}` as t ON t.level = a.level
 WHERE t.type = 2
 SQL;
 

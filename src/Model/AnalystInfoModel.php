@@ -39,9 +39,9 @@ FROM (
   FROM `{$analyst_table}`
   WHERE id = {$id}
 ) as m
-LEFT JOIN {$user_table} as c ON c.id = m.user_id
-LEFT JOIN {$recommend_table} as d ON d.analyst_id = m.id
-LEFT JOIN {$icon_table} as t ON t.level = m.level
+LEFT JOIN `{$user_table}` as c ON c.id = m.user_id
+LEFT JOIN `{$recommend_table}` as d ON d.analyst_id = m.id
+LEFT JOIN `{$icon_table}` as t ON t.level = m.level
 WHERE t.type = 2
 SQL;
 

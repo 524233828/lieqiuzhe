@@ -36,6 +36,10 @@ class ErrorCode
     const LOGIN_FAIL = 1002; //登录失败
     const SEND_CODE_FAIL = 1003; //登录失败
     const SEND_CODE_TOO_MUCH = 1004; //登录失败
+    const CODE_INVALID = 1005; //登录失败
+    const CODE_NOT_FOUND = 1006; //登录失败
+    const PHONE_EXISTS = 1007; //登录失败
+    const PASSWORD_NOT_CONFIRM = 1008; //登录失败
 
     /**
      * 11xx分析师系统错误
@@ -67,7 +71,11 @@ class ErrorCode
         self::USER_NOT_EXISTS       => ['用户名或密码错误', Response::HTTP_FORBIDDEN],
         self::LOGIN_FAIL            => ['登录失败', Response::HTTP_INTERNAL_SERVER_ERROR],
         self::SEND_CODE_FAIL        => ['发送验证码失败', Response::HTTP_INTERNAL_SERVER_ERROR],
-        self::SEND_CODE_TOO_MUCH   => ['请求太频繁', Response::HTTP_FORBIDDEN],
+        self::SEND_CODE_TOO_MUCH    => ['请求太频繁', Response::HTTP_FORBIDDEN],
+        self::CODE_INVALID          => ['验证码错误', Response::HTTP_BAD_REQUEST],
+        self::CODE_NOT_FOUND        => ['验证码不存在或已过期', Response::HTTP_NOT_FOUND],
+        self::PHONE_EXISTS          => ['手机号码已存在', Response::HTTP_BAD_REQUEST],
+        self::PASSWORD_NOT_CONFIRM  => ['两次密码不相同', Response::HTTP_BAD_REQUEST],
 
         //分析师系统错误
         self::USER_NOT_ANALYST      => ['用户不是分析师', Response::HTTP_FORBIDDEN],

@@ -12,6 +12,7 @@ namespace Logic;
 use Constant\CacheKey;
 use Exception\UserException;
 use Helper\Aliyun\DySDKLite\SignatureHelper;
+use Model\UserModel;
 use Qiutan\RedisHelper;
 
 class RegisterLogic extends BaseLogic
@@ -28,6 +29,12 @@ class RegisterLogic extends BaseLogic
         $params["SignName"] = $config['signName'];
 
         $params["TemplateCode"] = "SMS_126650401";
+
+        $my_user = UserModel::getUserByPhone($phone);
+        if($my_user)
+        {
+            UserException::phoneExists();
+        }
 
         $key = CacheKey::REGISTER_CODE_KEY.":{$phone}";
 
@@ -66,6 +73,61 @@ class RegisterLogic extends BaseLogic
         }
         if($content)
         {
+            return [];
+        }
+    }
+
+    public function validCode($phone, $code)
+    {
+
+        $key = CacheKey::REGISTER_CODE_KEY.":{$phone}";
+        if(!redis()->exists($key))
+        {
+            UserException::codeNotFound();
+        }
+
+        $mycode = redis()->get($key);
+
+        if($mycode != $code)
+        {
+            UserException::codeInvalid();
+        }
+
+        $data = [
+            "phone" => $phone,
+        ];
+
+        $my_user = UserModel::getUserByPhone($phone);
+        if($my_user)
+        {
+            UserException::phoneExists();
+        }
+
+        $user['id'] = UserModel::addUser($data);
+        return [
+            "token" => $this->generateJWT($user['id'])
+        ];
+    }
+
+    public function addInfo($nickname, $password, $confirm)
+    {
+        $uid = UserLogic::$user['id'];
+        if($password!==$confirm)
+        {
+            UserException::passwordNotConfirm();
+        }
+
+        $password = md5($password);
+
+        $data = [
+            "nickname" => $nickname,
+            "password" => $password
+        ];
+
+        $where = ["id" => $uid];
+
+        $user = UserModel::update($data, $where);
+        if($user){
             return [];
         }
     }

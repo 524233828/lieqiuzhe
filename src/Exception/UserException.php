@@ -37,4 +37,24 @@ class UserException extends BaseException
     {
         throw new self(ErrorCode::msg(ErrorCode::SEND_CODE_TOO_MUCH),ErrorCode::SEND_CODE_TOO_MUCH);
     }
+
+    public static function codeInvalid()
+    {
+        throw new self(ErrorCode::msg(ErrorCode::CODE_INVALID),ErrorCode::CODE_INVALID);
+    }
+
+    public static function codeNotFound()
+    {
+        throw new self(ErrorCode::msg(ErrorCode::CODE_NOT_FOUND),ErrorCode::CODE_NOT_FOUND);
+    }
+
+    public static function phoneExists()
+    {
+        throw new self(ErrorCode::msg(ErrorCode::PHONE_EXISTS),ErrorCode::PHONE_EXISTS);
+    }
+
+    public static function passwordNotConfirm()
+    {
+        throw new self(ErrorCode::msg(ErrorCode::PASSWORD_NOT_CONFIRM),ErrorCode::PASSWORD_NOT_CONFIRM);
+    }
 }

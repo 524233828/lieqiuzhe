@@ -41,6 +41,13 @@ route()->group(["prefix" => "/recommend", "middleware" => "dispatch"], function(
     route()->get("/detail/{rec_id}", 'RecommendController@RecommendDetail');
 });
 
+//注册页
+route()->group(["prefix" => "/register", "middleware" => "dispatch"], function(){
+    route()->get("/code/send", 'RegisterController@sendCode');
+    route()->post("/code/valid", 'RegisterController@validCode');
+    route()->post("/info", 'RegisterController@addInfo')->withAddMiddleware("login");
+});
+
 //微信客服消息接口
 route()->group(["prefix"=>"/wechat","middleware" => "dispatch"],function(){
     route()->get("/customer","WechatController@wxapp");

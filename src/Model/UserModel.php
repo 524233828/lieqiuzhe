@@ -90,4 +90,9 @@ class UserModel extends BaseModel
         return database()->update(self::$table, $data, ["id" => $uid]);
     }
 
+    public static function getUserByPhone($phone)
+    {
+        return database()->get(self::$table, "*", ["phone" => $phone]);
+    }
+
 }

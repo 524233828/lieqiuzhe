@@ -10,7 +10,7 @@ namespace Model;
 
 class MatchModel extends BaseModel
 {
-    public static $table = "`match`";
+    public static $table = "match";
     public static function fetch($where = [], $columns = "*")
     {
         if(is_array($where))

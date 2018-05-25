@@ -95,6 +95,9 @@ class RegisterLogic extends BaseLogic
 
         $data = [
             "phone" => $phone,
+            "openid" => $phone,
+            "unionid" => $phone,
+            "openid_type" => 0
         ];
 
         $my_user = UserModel::getUserByPhone($phone);

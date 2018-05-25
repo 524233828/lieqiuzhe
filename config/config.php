@@ -22,5 +22,20 @@ return [
     "wechat_open"=>[
         "app_id" => "wx45d4e558ae0284a4",
         "app_secret" => "789d683ce4306dca61b3b768421f9a5b"
+    ],
+
+    "sms" => [
+        "accessKeyId" => "",
+        "accessKeySecret" => "",
+        "signName" => "阿里云短信测试专用"
+    ],
+
+    "socialite" => [
+
+        "wechat"=>[
+            "client_id" => "wx45d4e558ae0284a4",
+            "client_secret" => "789d683ce4306dca61b3b768421f9a5b"
+        ]
+
     ]
 ];

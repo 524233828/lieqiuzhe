@@ -50,6 +50,13 @@ route()->group(["prefix" => "/register", "middleware" => "dispatch"], function()
     route()->post("/info", 'RegisterController@addInfo')->withAddMiddleware("login");
 });
 
+//购买
+route()->group(["prefix" => "/buy", "middleware" => "dispatch"], function(){
+    route()->post("/user_level", 'BuyController@userLevel')->withAddMiddleware("login");
+    route()->post("/analyst_level", 'BuyController@analystLevel')->withAddMiddleware("login");
+    route()->post("/coin", 'BuyController@coin')->withAddMiddleware("login");
+});
+
 //微信客服消息接口
 route()->group(["prefix"=>"/wechat","middleware" => "dispatch"],function(){
     route()->get("/customer","WechatController@wxapp");

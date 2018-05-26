@@ -40,6 +40,7 @@ class ErrorCode
     const CODE_NOT_FOUND = 1006; //登录失败
     const PHONE_EXISTS = 1007; //登录失败
     const PASSWORD_NOT_CONFIRM = 1008; //登录失败
+    const USER_LEVEL_EXISTS = 1009; //登录失败
 
     /**
      * 11xx分析师系统错误
@@ -57,6 +58,11 @@ class ErrorCode
      * 12xx推荐系统错误
      */
     const RECOMMEND_FAIL = 1200;
+
+    /**
+     * 13xx订单系统错误
+     */
+    const CREATE_ORDER_FAIL = 1300;
 
 
     /**
@@ -82,6 +88,7 @@ class ErrorCode
         self::CODE_NOT_FOUND        => ['验证码不存在或已过期', Response::HTTP_NOT_FOUND],
         self::PHONE_EXISTS          => ['手机号码已存在', Response::HTTP_BAD_REQUEST],
         self::PASSWORD_NOT_CONFIRM  => ['两次密码不相同', Response::HTTP_BAD_REQUEST],
+        self::USER_LEVEL_EXISTS     => ['您已经购买该等级', Response::HTTP_BAD_REQUEST],
 
         //分析师系统错误
         self::USER_NOT_ANALYST      => ['用户不是分析师', Response::HTTP_FORBIDDEN],
@@ -95,6 +102,8 @@ class ErrorCode
 
         //
         self::RECOMMEND_FAIL        => ['推荐失败', Response::HTTP_INTERNAL_SERVER_ERROR],
+
+        self::CREATE_ORDER_FAIL     => ['创建订单失败', Response::HTTP_INTERNAL_SERVER_ERROR],
     ];
 
     /**

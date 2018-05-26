@@ -29,8 +29,8 @@ route()->group(["prefix" => "/index", "middleware" => "dispatch"], function(){
 
 //分析师
 route()->group(["prefix" => "/analyst", "middleware" => "dispatch"], function(){
-    route()->get("/detail/{analyst_id}", 'AnalystController@fetchAnalystInfo');
-    route()->get("/recommendlist/{analyst_id}/{page}", 'AnalystController@fetchAnalystRecommendList');
+    route()->post("/detail", 'AnalystController@fetchAnalystInfo');
+    route()->post("/recommendlist", 'AnalystController@fetchAnalystRecommendList');
     route()->post("/follow", 'AnalystController@analystFollow')->withAddMiddleware("login");
     route()->post("/unfollow", 'AnalystController@analystUnfollow')->withAddMiddleware("login");
 });

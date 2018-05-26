@@ -22,9 +22,12 @@ class AnalystController extends BaseController
      */
     public function fetchAnalystInfo(ServerRequest $request)
     {
-        $analyst_id = $request->getParam("analyst_id", 1);
+        $validate = validator($request, [
+            "user_id" => "required",
+        ]);
+        $params = $validate->data();
 
-        return $this->response(AnalystLogic::getInstance()->fetchAnalystInfo($analyst_id));
+        return $this->response(AnalystLogic::getInstance()->fetchAnalystInfoByUserId($params['user_id']));
     }
 
     /**
@@ -34,10 +37,15 @@ class AnalystController extends BaseController
      */
     public function fetchAnalystRecommendList(ServerRequest $request)
     {
-        $analyst_id = $request->getParam("analyst_id", 1);
+        $validate = validator($request, [
+            "user_id" => "required",
+        ]);
+
+        $params = $validate->data();
+
         $page = $request->getParam("page", 1);
 
-        return $this->response(AnalystLogic::getInstance()->fetchAnalystMatchList($analyst_id, $page, 5));
+        return $this->response(AnalystLogic::getInstance()->fetchAnalystMatchList($params['user_id'], $page, 5));
     }
 
 
@@ -50,7 +58,7 @@ class AnalystController extends BaseController
     public function analystFollow(ServerRequest $request)
     {
         $validate = validator($request, [
-            "analyst_id" => "required",
+            "user_id" => "required",
         ]);
         $params = $validate->data();
 
@@ -66,7 +74,7 @@ class AnalystController extends BaseController
     public function analystUnfollow(ServerRequest $request)
     {
         $validate = validator($request, [
-            "analyst_id" => "required",
+            "user_id" => "required",
         ]);
         $params = $validate->data();
 

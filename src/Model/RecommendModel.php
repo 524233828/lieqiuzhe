@@ -22,7 +22,7 @@ class RecommendModel extends BaseModel
         $team_table = TeamModel::$table;
         $icon_table = IconsModel::$table;
         $columns = [
-            'a.id as analyst_id',
+            'a.user_id as user_id',
             'c.nickname',
             'c.avatar',
             'a.tag',
@@ -80,9 +80,10 @@ SQL;
         );
     }
 
-    public static function getRecommendByAnalystId($analyst_id, $start, $count = 5)
+    public static function getRecommendByUserId($user_id, $start, $count = 5)
     {
         $match_table = MatchModel::$table;
+        $analyst_table = AnalystInfoModel::$table;
         $odd_table = OddModel::$table;
         $league_table = LeagueModel::$table;
         $team_table = TeamModel::$table;
@@ -99,12 +100,13 @@ SQL;
         $sql = <<<SQL
 SELECT {$column}
 FROM `recommend` as m
-LEFT JOIN {$odd_table} as g ON m.odd_id = g.id
-LEFT JOIN {$match_table} as h ON g.match_id = h.id
-LEFT JOIN {$league_table} as d ON d.id = h.league_id
-LEFT JOIN {$team_table} as r ON h.home_id = r.id
-LEFT JOIN {$team_table} as f ON h.away_id = f.id
-WHERE m.analyst_id = {$analyst_id}
+LEFT JOIN `{$odd_table}` as g ON m.odd_id = g.id
+LEFT JOIN `{$match_table}` as h ON g.match_id = h.id
+LEFT JOIN `{$league_table}` as d ON d.id = h.league_id
+LEFT JOIN `{$team_table}` as r ON h.home_id = r.id
+LEFT JOIN `{$team_table}` as f ON h.away_id = f.id
+LEFT JOIN `{$analyst_table}` as k ON k.id = m.analyst_id
+WHERE k.user_id = {$user_id}
 LIMIT {$start}, {$count}
 SQL;
 

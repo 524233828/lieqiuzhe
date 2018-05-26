@@ -27,11 +27,15 @@ use Service\Pager;
 
 class AnalystLogic extends BaseLogic
 {
-    public function fetchAnalystInfo($analyst_id)
+    public function fetchAnalystInfoByUserId($user_id)
     {
-        $analyst_info = AnalystInfoModel::getAnalystById(
-            $analyst_id
+        $analyst_info = AnalystInfoModel::getInfoByUserId(
+            $user_id
         );
+
+        if(!$analyst_info) {
+            AnalystException::userNotAnalyst();
+        }
 
         //统计
         $analyst_info['win_streak'] = FuntionHelper::continuityWin($analyst_info['record']);
@@ -39,7 +43,8 @@ class AnalystLogic extends BaseLogic
         $analyst_info['hit_rate'] = FuntionHelper::winRate($analyst_info['record']);
 
         //粉丝
-        $analyst_info['fans'] = FansModel::getCountFansByAnalystId($analyst_id);
+        $analyst_info['fans'] = FansModel::getCountFansByAnalystId($analyst_info['id']);
+        unset($analyst_info['analyst_id']);
         //饭票
         $analyst_info['gifts'] = '3W';
 
@@ -79,15 +84,16 @@ class AnalystLogic extends BaseLogic
             ],
         ];
         unset($analyst_info['record']);
+        unset($analyst_info['id']);
 
         return $analyst_info;
 
     }
 
-    public function fetchAnalystMatchList($analyst_id, $page, $size)
+    public function fetchAnalystMatchList($user_id, $page, $size)
     {
         $start =  $size * ($page-1);
-        $rs = RecommendModel::getRecommendByAnalystId($analyst_id, $start, $size);
+        $rs = RecommendModel::getRecommendByUserId($user_id, $start, $size);
         return $rs;
     }
 
@@ -97,7 +103,7 @@ class AnalystLogic extends BaseLogic
     {
         $uid = UserLogic::$user['id'];
 
-        $analyst = AnalystInfoModel::getAnalystRecordById($params['analyst_id'], ['id','user_id']);
+        $analyst = AnalystInfoModel::getInfoByUserId($params['user_id'], ['id','user_id']);
 
         if(!$analyst)
         {
@@ -109,7 +115,7 @@ class AnalystLogic extends BaseLogic
             AnalystException::userCanNotFollowSelf();
         }
 
-        if(FansModel::getFansRecordByUidAndAnalystId($params['analyst_id'], $uid))
+        if(FansModel::getFansRecordByUidAndAnalystId($analyst['id'], $uid))
         {
             AnalystException::alreadyFollow();
         }
@@ -117,14 +123,14 @@ class AnalystLogic extends BaseLogic
         $data = [
             "create_time"=>time(),
             "user_id" => $uid,
-            "analyst_id" => $params['analyst_id'],
+            "analyst_id" => $analyst['id'],
         ];
 
         $fans = FansModel::add($data);
 
         if($fans)
         {
-            return [];
+            AnalystException::analystFollowOk();
         }else{
             AnalystException::failFollow();
         }
@@ -135,14 +141,14 @@ class AnalystLogic extends BaseLogic
     {
         $uid = UserLogic::$user['id'];
 
-        $analyst = AnalystInfoModel::getAnalystRecordById($params['analyst_id'],['id']);
+        $analyst = AnalystInfoModel::getInfoByUserId($params['user_id'], ['id']);
 
         if(!$analyst)
         {
-            AnalystException::analystNotExist();
+            AnalystException::alreadyUnfollow();
         }
 
-        $record_id = FansModel::getFansRecordByUidAndAnalystId($params['analyst_id'], $uid);
+        $record_id = FansModel::getFansRecordByUidAndAnalystId($analyst['id'], $uid);
 
         if(!$record_id)
         {
@@ -153,7 +159,7 @@ class AnalystLogic extends BaseLogic
 
         if($res)
         {
-            return [];
+            AnalystException::analystUnfollowOk();
         }else{
             AnalystException::failUnfollow();
         }

@@ -15,13 +15,14 @@ class AnalystInfoModel extends BaseModel
 
     public static $table = "analyst_info";
 
-    public static function getAnalystById($id)
+    public static function getAnalystDetailByUserId($id)
     {
         $analyst_table = AnalystInfoModel::$table;
         $user_table = UserModel::$table;
         $recommend_table = RecommendModel::$table;
         $icon_table = IconsModel::$table;
         $columns = [
+            'm.user_id as user_id',
             'm.id as analyst_id',
             'c.nickname as nickname',
             'c.avatar as avatar',

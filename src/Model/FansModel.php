@@ -21,4 +21,18 @@ class FansModel extends BaseModel
             $where
         );
     }
+
+    //查找粉丝记录
+    public static function getFansRecordByUidAndAnalystId($analyst_id, $uid)
+    {
+        $where = [
+            'analyst_id' => $analyst_id,
+            'user_id' => $uid,
+        ];
+        return database()->get(
+            self::$table."(m)",
+            ["id"],
+            $where
+        );
+    }
 }

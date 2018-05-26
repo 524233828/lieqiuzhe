@@ -10,6 +10,7 @@ namespace Logic;
 
 use Constant\CacheKey;
 use Controller\AnalystController;
+use Exception\AnalystException;
 use Exception\BaseException;
 use Helper\FuntionHelper;
 use Model\AnalystInfoModel;
@@ -18,6 +19,7 @@ use Model\FansModel;
 use Model\MatchCollectionModel;
 use Model\MatchModel;
 use Model\RecommendModel;
+use Model\UserModel;
 use Qiutan\Lottery;
 use Qiutan\RedisHelper;
 use Service\MatchChangeService;
@@ -89,6 +91,74 @@ class AnalystLogic extends BaseLogic
         return $rs;
     }
 
+
+
+    public function followAnalyst($params)
+    {
+        $uid = UserLogic::$user['id'];
+
+        $user = UserModel::getUserInfo($uid,['type']);
+        $analyst = AnalystInfoModel::getAnalystRecordById($params['analyst_id'], ['id']);
+
+        if(!$analyst)
+        {
+            AnalystException::analystNotExist();
+        }
+
+        if($analyst['id'] == $params['analyst_id'])
+        {
+            AnalystException::userCanNotFollowSelf();
+        }
+
+        if(FansModel::getFansRecordByUidAndAnalystId($params['analyst_id'], $uid))
+        {
+            AnalystException::alreadyFollow();
+        }
+
+        $data = [
+            "create_time"=>time(),
+            "user_id" => $uid,
+            "analyst_id" => $params['analyst_id'],
+        ];
+
+        $fans = FansModel::add($data);
+
+        if($fans)
+        {
+            return [];
+        }else{
+            AnalystException::failFollow();
+        }
+    }
+
+
+    public function unfollowAnalyst($params)
+    {
+        $uid = UserLogic::$user['id'];
+
+        $analyst = AnalystInfoModel::getAnalystRecordById($params['analyst_id'],['id']);
+
+        if(!$analyst)
+        {
+            AnalystException::analystNotExist();
+        }
+
+        $record_id = FansModel::getFansRecordByUidAndAnalystId($params['analyst_id'], $uid);
+
+        if(!$record_id)
+        {
+            AnalystException::alreadyUnfollow();
+        }
+
+        $res = FansModel::delete($record_id);
+
+        if($res)
+        {
+            return [];
+        }else{
+            AnalystException::failUnfollow();
+        }
+    }
 
 
 }

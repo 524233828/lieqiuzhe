@@ -39,4 +39,37 @@ class AnalystController extends BaseController
 
         return $this->response(AnalystLogic::getInstance()->fetchAnalystMatchList($analyst_id, $page, 5));
     }
+
+
+
+    /**
+     * 分析师关注
+     * @param ServerRequest $request
+     * @return \Service\ApiResponse
+     */
+    public function analystFollow(ServerRequest $request)
+    {
+        $validate = validator($request, [
+            "analyst_id" => "required",
+        ]);
+        $params = $validate->data();
+
+        return $this->response(AnalystLogic::getInstance()->followAnalyst($params));
+    }
+
+
+    /**
+     * 分析师取关
+     * @param ServerRequest $request
+     * @return \Service\ApiResponse
+     */
+    public function analystUnfollow(ServerRequest $request)
+    {
+        $validate = validator($request, [
+            "analyst_id" => "required",
+        ]);
+        $params = $validate->data();
+
+        return $this->response(AnalystLogic::getInstance()->unfollowAnalyst($params));
+    }
 }

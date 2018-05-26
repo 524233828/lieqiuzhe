@@ -46,6 +46,12 @@ class ErrorCode
      */
     const USER_NOT_ANALYST = 1100; // 用户不是分析师
     const ANALYST_LEVEL_TOO_LOW = 1101;
+    const ANALYST_IS_USERSELF = 1102; //用户关注分析师自己
+    const FOLLOW_ANALYST_FAIL = 1103; //关注失败
+    const UNFOLLOW_ANALYST_FAIL = 1106; //取关失败
+    const FOLLOW_ANALYST_ALREADY = 1104; //已经关注过了
+    const UNFOLLOW_ANALYST_ALREADY = 1105; //已经取关过了
+    const ANALYST_NOT_EXITST = 1107; // 分析师不存在
 
     /**
      * 12xx推荐系统错误
@@ -80,6 +86,12 @@ class ErrorCode
         //分析师系统错误
         self::USER_NOT_ANALYST      => ['用户不是分析师', Response::HTTP_FORBIDDEN],
         self::ANALYST_LEVEL_TOO_LOW => ['分析师等级太低', Response::HTTP_FORBIDDEN],
+        self::ANALYST_IS_USERSELF => ['用户不能关注自己', Response::HTTP_FORBIDDEN],
+        self::FOLLOW_ANALYST_FAIL => ['关注失败', Response::HTTP_FORBIDDEN],
+        self::UNFOLLOW_ANALYST_FAIL => ['取关失败', Response::HTTP_FORBIDDEN],
+        self::FOLLOW_ANALYST_ALREADY => ['已经关注', Response::HTTP_FORBIDDEN],
+        self::UNFOLLOW_ANALYST_ALREADY => ['已经取关', Response::HTTP_FORBIDDEN],
+        self::ANALYST_NOT_EXITST => ['分析师不存在', Response::HTTP_FORBIDDEN],
 
         //
         self::RECOMMEND_FAIL        => ['推荐失败', Response::HTTP_INTERNAL_SERVER_ERROR],

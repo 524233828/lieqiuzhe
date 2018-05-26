@@ -31,6 +31,8 @@ route()->group(["prefix" => "/index", "middleware" => "dispatch"], function(){
 route()->group(["prefix" => "/analyst", "middleware" => "dispatch"], function(){
     route()->get("/detail/{analyst_id}", 'AnalystController@fetchAnalystInfo');
     route()->get("/recommendlist/{analyst_id}/{page}", 'AnalystController@fetchAnalystRecommendList');
+    route()->post("/follow", 'AnalystController@analystFollow')->withAddMiddleware("login");
+    route()->post("/unfollow", 'AnalystController@analystUnfollow')->withAddMiddleware("login");
 });
 
 //发推荐选择页

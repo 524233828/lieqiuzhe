@@ -52,4 +52,9 @@ SQL;
     {
         return database()->get(self::$table, $columns, ["user_id"=>$user_id]);
     }
+
+    public static function getAnalystRecordById($id, $columns = "*")
+    {
+        return database()->get(self::$table, $columns, ["id"=>$id]);
+    }
 }

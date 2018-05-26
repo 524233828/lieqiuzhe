@@ -29,4 +29,52 @@ class AnalystException extends BaseException
             ErrorCode::ANALYST_LEVEL_TOO_LOW
         );
     }
+
+    public static function userCanNotFollowSelf()
+    {
+        throw new self(
+            ErrorCode::msg(ErrorCode::ANALYST_IS_USERSELF),
+            ErrorCode::ANALYST_IS_USERSELF
+        );
+    }
+
+    public static function failFollow()
+    {
+        throw new self(
+            ErrorCode::msg(ErrorCode::FOLLOW_ANALYST_FAIL),
+            ErrorCode::FOLLOW_ANALYST_FAIL
+        );
+    }
+
+    public static function failUnfollow()
+    {
+        throw new self(
+            ErrorCode::msg(ErrorCode::UNFOLLOW_ANALYST_FAIL),
+            ErrorCode::UNFOLLOW_ANALYST_FAIL
+        );
+    }
+
+    public static function alreadyFollow()
+    {
+        throw new self(
+            ErrorCode::msg(ErrorCode::FOLLOW_ANALYST_ALREADY),
+            ErrorCode::FOLLOW_ANALYST_ALREADY
+        );
+    }
+
+    public static function alreadyUnfollow()
+    {
+        throw new self(
+            ErrorCode::msg(ErrorCode::UNFOLLOW_ANALYST_ALREADY),
+            ErrorCode::UNFOLLOW_ANALYST_ALREADY
+        );
+    }
+
+    public static function analystNotExist()
+    {
+        throw new self(
+            ErrorCode::msg(ErrorCode::ANALYST_NOT_EXITST),
+            ErrorCode::ANALYST_NOT_EXITST
+        );
+    }
 }

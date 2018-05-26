@@ -97,15 +97,14 @@ class AnalystLogic extends BaseLogic
     {
         $uid = UserLogic::$user['id'];
 
-        $user = UserModel::getUserInfo($uid,['type']);
-        $analyst = AnalystInfoModel::getAnalystRecordById($params['analyst_id'], ['id']);
+        $analyst = AnalystInfoModel::getAnalystRecordById($params['analyst_id'], ['id','user_id']);
 
         if(!$analyst)
         {
             AnalystException::analystNotExist();
         }
 
-        if($analyst['id'] == $params['analyst_id'])
+        if($uid == $analyst['user_id'])
         {
             AnalystException::userCanNotFollowSelf();
         }

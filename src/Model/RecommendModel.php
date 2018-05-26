@@ -83,7 +83,7 @@ SQL;
     public static function getRecommendByUserId($user_id, $start, $count = 5)
     {
         $match_table = MatchModel::$table;
-        $analyst_table = AnalystModel::$table;
+        $analyst_table = AnalystInfoModel::$table;
         $odd_table = OddModel::$table;
         $league_table = LeagueModel::$table;
         $team_table = TeamModel::$table;

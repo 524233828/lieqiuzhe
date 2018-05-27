@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "6ea7452234a8cf137ab76338df6fe269",
+    "content-hash": "e5aac54611de9a10e9a8a72e33ad8861",
     "packages": [
         {
             "name": "524233828/Wxapp",
@@ -2889,6 +2889,44 @@
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
             "time": "2018-05-03T23:18:14+00:00"
+        },
+        {
+            "name": "zoujingli/pay-php-sdk",
+            "version": "v1.0.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zoujingli/pay-php-sdk.git",
+                "reference": "932fb0a78253f850f71349f34cab4a5f727d0135"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/zoujingli/pay-php-sdk/932fb0a78253f850f71349f34cab4a5f727d0135.zip",
+                "reference": "932fb0a78253f850f71349f34cab4a5f727d0135",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-openssl": "*",
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Pay\\": "./src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "WxPay and AliPay development of SDK",
+            "homepage": "https://github.com/zoujingli/pay-php-sdk",
+            "keywords": [
+                "Wxpay",
+                "alipay",
+                "pay-php-sdk"
+            ],
+            "time": "2018-03-02T05:55:02+00:00"
         }
     ],
     "packages-dev": [

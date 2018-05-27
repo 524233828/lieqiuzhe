@@ -37,5 +37,27 @@ return [
             "client_secret" => "789d683ce4306dca61b3b768421f9a5b"
         ]
 
+    ],
+
+    "payment" => [
+        // 微信支付参数
+        'wechat' => [
+            'debug'      => false, // 沙箱模式
+            'app_id'     => '', // 应用ID
+            'mch_id'     => '', // 微信支付商户号
+            'mch_key'    => '', // 微信支付密钥
+            'ssl_cer'    => '', // 微信证书 cert 文件
+            'ssl_key'    => '', // 微信证书 key 文件
+            'notify_url' => '', // 支付通知URL
+            'cache_path' => '',// 缓存目录配置（沙箱模式需要用到）
+        ],
+        // 支付宝支付参数
+        'alipay' => [
+            'debug'       => false, // 沙箱模式
+            'app_id'      => '', // 应用ID
+            'public_key'  => '', // 支付宝公钥(1行填写)
+            'private_key' => '', // 支付宝私钥(1行填写)
+            'notify_url'  => '', // 支付通知URL
+        ]
     ]
 ];

@@ -26,7 +26,7 @@ class Dispatch extends Middleware
                 $decoded = (array)JWT::decode($token, JWTKey::KEY, [JWTKey::ALG]);
                 $user_id = isset($decoded['aud']) ? (string)$decoded['aud'] : 0;
                 if (!empty($user_id)) {
-                    $user = UserModel::getUserInfo($user_id, ['id', 'openid']);
+                    $user = UserModel::getUserInfo($user_id, ['id', 'openid', 'user_type']);
                     if (!empty($user)) {
                         UserLogic::$user = $user;
                     }

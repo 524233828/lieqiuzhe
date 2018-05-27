@@ -57,4 +57,9 @@ class UserException extends BaseException
     {
         throw new self(ErrorCode::msg(ErrorCode::PASSWORD_NOT_CONFIRM),ErrorCode::PASSWORD_NOT_CONFIRM);
     }
+
+    public static function userLevelExists()
+    {
+        throw new self(ErrorCode::msg(ErrorCode::USER_LEVEL_EXISTS),ErrorCode::USER_LEVEL_EXISTS);
+    }
 }

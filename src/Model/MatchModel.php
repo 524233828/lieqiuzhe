@@ -49,6 +49,44 @@ SQL;
 
     }
 
+    public static function detail($match_id)
+    {
+        $match_table = MatchModel::$table;
+        $league_table = LeagueModel::$table;
+        $team_table = TeamModel::$table;
+        $weather_table = WeatherModel::$table;
+        $columns = [
+            'd.gb as league_name',
+            "FROM_UNIXTIME(m.start_time,'%m/%d %H:%i') as match_time",
+            'r.gb as home',
+            'r.flag as home_flag',
+            'f.gb as away',
+            'f.flag as away_flag',
+            'm.home_score as home_score',
+            'm.away_score as away_score',
+            't.`weather` as weather',
+            't.`icon` as weather_icon',
+            'm.`temperature` as temperature',
+            'm.`weather_id` as weather_id',
+        ];
+        $column = is_array($columns) ? implode(",", $columns) : $columns;
+        $sql = <<<SQL
+SELECT {$column}
+FROM (
+  SELECT * 
+  FROM `{$match_table}`
+  WHERE id = {$match_id}
+) as m
+LEFT JOIN `{$league_table}` as d ON d.id = m.league_id
+LEFT JOIN `{$team_table}` as r ON m.home_id = r.id
+LEFT JOIN `{$team_table}` as f ON m.away_id = f.id
+LEFT JOIN `{$weather_table}` as t ON m.weather_id = t.id
+SQL;
+
+        return database()->query($sql)->fetch(\PDO::FETCH_ASSOC);
+
+    }
+
     public static function count($where)
     {
         return database()->count(

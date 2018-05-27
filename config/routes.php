@@ -16,6 +16,13 @@ route()->group(["prefix"=>"/match","middleware" => "dispatch"], function(){
     route()->get("/league/list", 'MatchListController@fetchLeague');
 });
 
+//比赛详情页
+route()->group(["prefix"=>"/match","middleware" => "dispatch"], function(){
+    route()->post("/detail", 'MatchDetailController@fetchMatchDetail');
+    route()->post("/advices", 'MatchDetailController@fetchMatchAdvices');
+    route()->post("/recommendlist", 'MatchDetailController@fetchrecommendList');
+});
+
 //比赛收藏页
 route()->group(["prefix"=>"/match_collect","middleware" => "dispatch"], function(){
     route()->get("/list", 'MatchCollectionController@fetchAction')->withAddMiddleware("login");

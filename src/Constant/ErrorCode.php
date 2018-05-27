@@ -62,6 +62,11 @@ class ErrorCode
 
 
     /**
+     * 13xx比赛系统错误
+     */
+    const MATCH_NOT_EXIST = 1300;
+
+    /**
      * 错误代码与消息的对应数组
      *
      * @var array
@@ -99,6 +104,8 @@ class ErrorCode
         self::ANALYST_FOLLOW_OK => ['关注成功', Response::HTTP_OK],
         self::ANALYST_UNFOLLOW_OK => ['取消关注成功', Response::HTTP_OK],
 
+        //比赛相关提示
+        self::MATCH_NOT_EXIST => ['找不到该比赛', Response::HTTP_FORBIDDEN],
 
 
         //

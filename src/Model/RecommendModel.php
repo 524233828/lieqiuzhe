@@ -112,4 +112,64 @@ SQL;
 
         return database()->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
     }
+
+    public static function getRecommendByMatchId($match_id, $start, $count = 5)
+    {
+        $match_table = MatchModel::$table;
+        $analyst_table = AnalystInfoModel::$table;
+        $odd_table = OddModel::$table;
+        $league_table = LeagueModel::$table;
+        $team_table = TeamModel::$table;
+        $user_table = UserModel::$table;
+        $icon_table = IconsModel::$table;
+        $columns = [
+            'k.user_id as user_id',
+            'u.nickname',
+            'u.avatar',
+            'k.tag',
+            'k.level',
+            't.icon as level_icon',
+//            'win_streak',
+//            'hit_rate',
+            'm.id as rec_id',
+            'm.title as rec_title',
+            'm.`desc` as rec_desc',
+            'k.`record` as record',
+        ];
+        $column = is_array($columns) ? implode(",", $columns) : $columns;
+        $sql = <<<SQL
+SELECT {$column}
+FROM `recommend` as m
+LEFT JOIN `{$odd_table}` as g ON m.odd_id = g.id
+LEFT JOIN `{$match_table}` as h ON g.match_id = h.id
+LEFT JOIN `{$league_table}` as d ON d.id = h.league_id
+LEFT JOIN `{$team_table}` as r ON h.home_id = r.id
+LEFT JOIN `{$team_table}` as f ON h.away_id = f.id
+LEFT JOIN `{$analyst_table}` as k ON k.id = m.analyst_id
+LEFT JOIN `{$user_table}` as u ON u.id = k.user_id
+LEFT JOIN `{$icon_table}` as t ON t.level = k.level
+WHERE h.id = {$match_id} AND t.type = 2
+LIMIT {$start}, {$count}
+SQL;
+
+        return database()->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+
+    public static function countRecommendByMatchId($match_id)
+    {
+        return database()->count(
+            self::$table."(m)",
+            [
+                "[>]".OddModel::$table."(h)" => ["m.odd_id" => "id"],
+                "[>]".MatchModel::$table."(a)" => ["h.match_id" => "id"],
+                "[>]".AnalystInfoModel::$table."(b)" => ["m.analyst_id" => "id"],
+            ],
+            ['m.id'],
+            [
+                'a.id' => $match_id
+            ]
+        );
+    }
+
 }

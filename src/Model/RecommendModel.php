@@ -187,7 +187,7 @@ SQL;
         $columns = implode(",", $columns);
         $sql = <<<SQL
 SELECT 
-    r.id, r.analyst_id, AVG(result) as hit_rate, h.gb as home, a.gb as away, l.gb_short as league_name, $columns
+    r.id as recommend_id, r.analyst_id, AVG(result) as hit_rate, h.gb as home, a.gb as away, l.gb_short as league_name, $columns
 FROM recommend r
 LEFT JOIN `user` ON `user`.id=r.analyst_id
 LEFT JOIN `analyst_info` ON `analyst_info`.user_id=r.analyst_id

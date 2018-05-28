@@ -80,7 +80,7 @@ SQL;
                 self::$table.".tag",
                 self::$table.".record",
                 self::$table.".level",
-                RecommendModel::$table.".id",
+                RecommendModel::$table.".id(recommend_id)",
                 "h.gb(home)",
                 "a.gb(away)",
                 LeagueModel::$table.".gb_short(league_name)",

@@ -35,4 +35,9 @@ class FansModel extends BaseModel
             $where
         );
     }
+
+    public static function fetchUserIdol($uid)
+    {
+        
+    }
 }

@@ -65,6 +65,12 @@ SQL;
             UserModel::$table,
             [
                 "[>]".self::$table => ["id" => "user_id"],
+                "[>]".RecommendModel::$table => ["id" => "analyst_id"],
+                "[>]".OddModel::$table => [RecommendModel::$table.'.odd_id' => "id"],
+                "[>]".MatchModel::$table => [OddModel::$table.'.match_id' => "id"],
+                "[>]".TeamModel::$table."(h)" => [MatchModel::$table.'.home_id' => "id"],
+                "[>]".TeamModel::$table."(a)" => [MatchModel::$table.'.away_id' => "id"],
+                "[>]".LeagueModel::$table => [MatchModel::$table.'.league_id' => "id"],
             ],
             [
                 UserModel::$table.".id(analyst_id)",
@@ -74,6 +80,10 @@ SQL;
                 self::$table.".tag",
                 self::$table.".record",
                 self::$table.".level",
+                RecommendModel::$table.".id",
+                "h.gb(home)",
+                "a.gb(away)",
+                LeagueModel::$table.".gb_short(league_name)",
             ],
             [
                 UserModel::$table.".user_type" => 1,

@@ -67,13 +67,6 @@ SQL;
                 "[>]".self::$table => ["id" => "user_id"],
             ],
             [
-                UserModel::$table.".user_type" => 1,
-
-                "ORDER" => [ self::$table.".ticket" => "DESC" ],
-
-                "LIMIT" => [$first_row, $size]
-            ],
-            [
                 UserModel::$table.".id(analyst_id)",
                 UserModel::$table.".avatar",
                 UserModel::$table.".nickname",
@@ -81,6 +74,13 @@ SQL;
                 self::$table.".tag",
                 self::$table.".record",
                 self::$table.".level",
+            ],
+            [
+                UserModel::$table.".user_type" => 1,
+
+                "ORDER" => [ self::$table.".ticket" => "DESC" ],
+
+                "LIMIT" => [$first_row, $size]
             ]
         );
     }

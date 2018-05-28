@@ -192,7 +192,7 @@ FROM recommend r
 LEFT JOIN `user` ON `user`.id=r.analyst_id
 LEFT JOIN `analyst_info` ON `analyst_info`.user_id=r.analyst_id
 LEFT JOIN `odd` ON odd.id=r.odd_id
-LEFT JOIN `match` ON odd.match_id=match_id
+LEFT JOIN `match` ON odd.match_id=`match`.id
 LEFT JOIN `team` as h ON `match`.home_id = h.id
 LEFT JOIN `team` as a ON `match`.away_id = a.id
 LEFT JOIN `league` as l ON `match`.league_id = l.id

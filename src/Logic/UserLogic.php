@@ -3,6 +3,7 @@
 namespace Logic;
 
 use Exception\UserException;
+use http\Exception;
 use Model\RecommendModel;
 
 class UserLogic extends BaseLogic
@@ -13,21 +14,22 @@ class UserLogic extends BaseLogic
     public function usedTickets($user_id)
     {
         $uid = UserLogic::$user['id'];
-        $num = database()->update("user", [
-            "ticket[-]" => 1
-        ], [
-            "id" => $uid
-        ]);
-
-        if(!$num) {
-            UserException::ticketNotEnough();
-        }else{
-            database()->update("user", [
-                "ticket[+]" => 1
+        try {
+            $num = database()->update("user", [
+                "ticket[-]" => 1
             ], [
-                "id" => $user_id
+                "id" => $uid
             ]);
+        } catch (Exception $e) {
+            UserException::ticketNotEnough();
+            exit();
         }
+
+        database()->update("user", [
+            "ticket[+]" => 1
+        ], [
+            "id" => $user_id
+        ]);
 
         return [];
     }

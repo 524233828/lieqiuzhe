@@ -194,7 +194,7 @@ LEFT JOIN `analyst_info` ON `analyst_info`.user_id=r.analyst_id
 LEFT JOIN `odd` ON odd.id=r.odd_id
 LEFT JOIN `match` ON odd.match_id=match_id
 LEFT JOIN `team` as h ON `match`.home_id = h.id
-LEFT JOIN `team` as a ON `match`.home_id = a.id
+LEFT JOIN `team` as a ON `match`.away_id = a.id
 LEFT JOIN `league` as l ON `match`.league_id = l.id
 GROUP BY r.analyst_id
 ORDER BY hit_rate DESC, r.create_time DESC

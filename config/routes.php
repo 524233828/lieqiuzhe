@@ -35,7 +35,7 @@ route()->group(["prefix" => "/index", "middleware" => "dispatch"], function(){
     route()->get("/adventure", 'IndexController@adventure');
     route()->get("/user_info", 'IndexController@userInfo')->withAddMiddleware("login");
     route()->get("/ticket_rank", 'IndexController@ticketRank');
-    route()->get("/hit_rate_rank", 'IndexController@ticketRank');
+    route()->get("/hit_rate_rank", 'IndexController@hitRateRank');
 });
 
 //分析师

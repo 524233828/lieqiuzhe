@@ -40,4 +40,11 @@ class IndexController extends BaseController
         $size = $request->getParam("size", 20);
         return $this->response(IndexLogic::getInstance()->ticketRank($page, $size));
     }
+
+    public function hitRateRank(ServerRequest $request)
+    {
+        $page = $request->getParam("page", 1);
+        $size = $request->getParam("size", 20);
+        return $this->response(IndexLogic::getInstance()->hitRateRank($page, $size));
+    }
 }

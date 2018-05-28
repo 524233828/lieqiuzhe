@@ -58,4 +58,31 @@ SQL;
     {
         return database()->get(self::$table, $columns, ["id"=>$id]);
     }
+
+    public static function fetchTicketRank($first_row, $size)
+    {
+        return database()->select(
+            UserModel::$table,
+            [
+                self::$table => ["id" => "user_id"],
+            ],
+            [
+                UserModel::$table.".user_type" => 1,
+
+                "ORDER" => [ self::$table.".ticket" => "DESC" ],
+
+                "LIMIT" => [$first_row, $size]
+            ],
+            [
+                UserModel::$table.".id(analyst_id)",
+                UserModel::$table.".avatar",
+                UserModel::$table.".nickname",
+                self::$table.".ticket(gifts)",
+                self::$table.".tag",
+                self::$table.".record",
+                self::$table.".level",
+            ]
+        );
+    }
+
 }

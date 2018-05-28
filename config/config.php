@@ -59,5 +59,10 @@ return [
             'private_key' => '', // 支付宝私钥(1行填写)
             'notify_url'  => '', // 支付通知URL
         ]
+    ],
+
+    "umeng" => [
+        'appkey'            => '534ce13b56240b219b00106d', //按照友盟后台填写
+        'app_master_secret' => 'j96jq7s8vfdt9ldhsrivjxkzbwezi4uv', //按照友盟后台填写
     ]
 ];

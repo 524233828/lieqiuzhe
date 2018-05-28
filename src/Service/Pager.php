@@ -38,4 +38,9 @@ class Pager {
             'next_page'		=>	(($this->page == $this->total_page ) ? $this->total_page : ($this->page + 1)),
         ];
     }
+
+    public function getFirstIndex()
+    {
+        return $this->size * ($this->page - 1);
+    }
 }

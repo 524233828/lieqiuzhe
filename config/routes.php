@@ -32,6 +32,9 @@ route()->group(["prefix"=>"/match_collect","middleware" => "dispatch"], function
 route()->group(["prefix" => "/index", "middleware" => "dispatch"], function(){
     route()->get("/banner", 'IndexController@banner');
     route()->get("/top_line", 'IndexController@topLine');
+    route()->get("/adventure", 'IndexController@adventure');
+    route()->get("/user_info", 'IndexController@userInfo')->withAddMiddleware("login");
+    route()->get("/rank", 'IndexController@ticketRank');
 });
 
 //分析师

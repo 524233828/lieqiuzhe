@@ -28,4 +28,16 @@ class IndexController extends BaseController
     {
         return $this->response(IndexLogic::getInstance()->topLine());
     }
+
+    public function adventure(ServerRequest $request)
+    {
+        return $this->response(IndexLogic::getInstance()->topLine());
+    }
+
+    public function ticketRank(ServerRequest $request)
+    {
+        $page = $request->getParam("page", 1);
+        $size = $request->getParam("size", 20);
+        return $this->response(IndexLogic::getInstance()->ticketRank($page, $size));
+    }
 }

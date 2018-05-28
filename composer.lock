@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e5aac54611de9a10e9a8a72e33ad8861",
+    "content-hash": "8b1f6a711144cdc80726a03531ded7ac",
     "packages": [
         {
             "name": "524233828/Wxapp",
@@ -2233,6 +2233,40 @@
                 "security"
             ],
             "time": "2015-09-28T20:04:00+00:00"
+        },
+        {
+            "name": "sinkcup/umeng-message-sdk-php",
+            "version": "0.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sinkcup/umeng-message-sdk-php.git",
+                "reference": "4f1898d4e8d7d85b3a6d61a369c2542fc40f9491"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/sinkcup/umeng-message-sdk-php/4f1898d4e8d7d85b3a6d61a369c2542fc40f9491.zip",
+                "reference": "4f1898d4e8d7d85b3a6d61a369c2542fc40f9491",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Umeng\\Message\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "sinkcup",
+                    "homepage": "http://cnblogs.com/sink_cup/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "友盟消息推送SDK（PHP composer版）",
+            "time": "2014-04-18T05:54:03+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",

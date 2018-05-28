@@ -14,13 +14,13 @@ class UserLogic extends BaseLogic
     public function usedTickets($user_id)
     {
         $uid = UserLogic::$user['id'];
-        try {
+        try{
             $num = database()->update("user", [
                 "ticket[-]" => 1
             ], [
                 "id" => $uid
             ]);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             UserException::ticketNotEnough();
             exit();
         }

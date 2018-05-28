@@ -20,4 +20,12 @@ class RecommendException extends BaseException
             ErrorCode::RECOMMEND_FAIL
         );
     }
+
+    public static function recommendEmpty()
+    {
+        throw new self(
+            ErrorCode::msg(ErrorCode::RECOMMEND_EMPTY),
+            ErrorCode::RECOMMEND_EMPTY
+        );
+    }
 }

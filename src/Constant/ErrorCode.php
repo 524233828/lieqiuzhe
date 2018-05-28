@@ -41,6 +41,7 @@ class ErrorCode
     const PHONE_EXISTS = 1007; //登录失败
     const PASSWORD_NOT_CONFIRM = 1008; //登录失败
     const USER_LEVEL_EXISTS = 1009; //登录失败
+    const TICKET_NOT_ENOUGH = 1010; //登录失败
 
     /**
      * 11xx分析师系统错误
@@ -60,6 +61,7 @@ class ErrorCode
      * 12xx推荐系统错误
      */
     const RECOMMEND_FAIL = 1200;
+    const RECOMMEND_EMPTY = 1201;
 
     /**
      * 13xx订单系统错误
@@ -68,9 +70,9 @@ class ErrorCode
 
 
     /**
-     * 13xx比赛系统错误
+     * 14xx比赛系统错误
      */
-    const MATCH_NOT_EXIST = 1300;
+    const MATCH_NOT_EXIST = 1400;
 
     /**
      * 错误代码与消息的对应数组
@@ -96,6 +98,7 @@ class ErrorCode
         self::PHONE_EXISTS          => ['手机号码已存在', Response::HTTP_BAD_REQUEST],
         self::PASSWORD_NOT_CONFIRM  => ['两次密码不相同', Response::HTTP_BAD_REQUEST],
         self::USER_LEVEL_EXISTS     => ['您已经购买该等级', Response::HTTP_BAD_REQUEST],
+        self::TICKET_NOT_ENOUGH     => ['球票不足', Response::HTTP_FORBIDDEN],
 
         //分析师系统错误
         self::USER_NOT_ANALYST      => ['用户不是分析师', Response::HTTP_FORBIDDEN],
@@ -117,6 +120,7 @@ class ErrorCode
 
         //
         self::RECOMMEND_FAIL        => ['推荐失败', Response::HTTP_INTERNAL_SERVER_ERROR],
+        self::RECOMMEND_EMPTY        => ['没有更多推荐数据', Response::HTTP_FORBIDDEN],
 
         self::CREATE_ORDER_FAIL     => ['创建订单失败', Response::HTTP_INTERNAL_SERVER_ERROR],
     ];

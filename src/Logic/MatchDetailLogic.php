@@ -26,15 +26,28 @@ class MatchDetailLogic extends BaseLogic
 {
     public function fetchMatchDetail($match_id)
     {
+        $uid = UserLogic::$user['id'];
         if(empty($match_id)){
             BaseException::ParamsMissing();
         }
+
         $res = MatchModel::detail(
             $match_id
         );
-
         if(!$res) {
             MatchException::matchNotExist();
+        }
+
+        $res['is_collection'] = 0;
+        if($uid) {
+            $is_collection = MatchCollectionModel::fetch(
+                ['id'],
+                [
+                    'match_id' => $match_id,
+                    'user_id' => $uid,
+                ]
+            );
+            $res['is_collection'] = $is_collection ? 1 : 0;
         }
         return $res;
     }

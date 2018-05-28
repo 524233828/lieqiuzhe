@@ -11,6 +11,7 @@ namespace Logic;
 
 use Exception\AnalystException;
 use Exception\RecommendException;
+use Helper\FuntionHelper;
 use Model\AnalystInfoModel;
 use Model\LeagueModel;
 use Model\MatchInfoModel;
@@ -160,5 +161,45 @@ class RecommendLogic extends BaseLogic
         }else{
             RecommendException::recommendFail();
         }
+    }
+
+    public function getRecommendDetail($rec_id)
+    {
+        $res = RecommendModel::fetchOne($rec_id);
+        if(!$res) {
+            RecommendException::recommendEmpty();
+        }
+
+        $options = OptionModel::getOptionByOddId($res['odd_id'],['id','option','odds_rate']);
+        $res['option'] = $options;
+        $res['win_streak'] = FuntionHelper::continuityWin($res['record']);
+        $res['hit_rate'] = FuntionHelper::winRate($res['record']);
+        $res['rec_time'] =date('m/d H:i', $res['rec_time']);
+        $res['is_read'] = 1;
+        $res['extra'] = json_decode($res['extra'], true);
+        unset($res['record']);
+        unset($res['odd_id']);
+
+        return $res;
+    }
+
+    public function getRecommendUserIdById($rec_id)
+    {
+        $res = RecommendModel::fetchOne($rec_id);
+        if(!$res) {
+            RecommendException::recommendEmpty();
+        }
+
+        $options = OptionModel::getOptionByOddId($res['odd_id'],['id','option','odds_rate']);
+        $res['option'] = $options;
+        $res['win_streak'] = FuntionHelper::continuityWin($res['record']);
+        $res['hit_rate'] = FuntionHelper::winRate($res['record']);
+        $res['rec_time'] =date('m/d H:i', $res['rec_time']);
+        $res['is_read'] = 1;
+        $res['extra'] = json_decode($res['extra'], true);
+        unset($res['record']);
+        unset($res['odd_id']);
+
+        return $res;
     }
 }

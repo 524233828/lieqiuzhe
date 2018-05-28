@@ -11,6 +11,7 @@ namespace Controller;
 
 use FastD\Http\ServerRequest;
 use Logic\MatchDetailLogic;
+use Logic\UserLogic;
 
 class MatchDetailController extends BaseController
 {
@@ -60,6 +61,22 @@ class MatchDetailController extends BaseController
         $size = $request->getParam("size", 5);
 
         return $this->response(MatchDetailLogic::getInstance()->fetchRecomendList($params['match_id'], $page, $size));
+    }
+
+    /**
+     * 送球票
+     * @param ServerRequest $request
+     * @return \Service\ApiResponse
+     */
+    public function giveTicket(ServerRequest $request)
+    {
+        $validate = validator($request, [
+            "user_id" => "required",
+        ]);
+
+        $params = $validate->data();
+
+        return $this->response(UserLogic::getInstance()->usedTickets($params['user_id']));
     }
 
 }

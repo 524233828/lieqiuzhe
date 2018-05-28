@@ -29,12 +29,25 @@ class AnalystLogic extends BaseLogic
 {
     public function fetchAnalystInfoByUserId($user_id)
     {
+        $uid = UserLogic::$user['id'];
         $analyst_info = AnalystInfoModel::getInfoByUserId(
             $user_id
         );
 
         if(!$analyst_info) {
             AnalystException::userNotAnalyst();
+        }
+
+        $analyst_info['is_fans'] = 0;
+        if($uid) {
+            $is_fans = FansModel::fetch(
+                ['id'],
+                [
+                    'user_id' => $uid,
+                    'analyst_id' => $analyst_info['id'],
+                ]
+            );
+            $analyst_info['is_fans'] = $is_fans ? 1 : 0;
         }
 
         //统计

@@ -21,6 +21,7 @@ route()->group(["prefix"=>"/match","middleware" => "dispatch"], function(){
     route()->post("/detail", 'MatchDetailController@fetchMatchDetail');
     route()->post("/advices", 'MatchDetailController@fetchMatchAdvices');
     route()->post("/recommendlist", 'MatchDetailController@fetchrecommendList');
+    route()->get("/give/ticket", 'MatchDetailController@giveTicket')->withAddMiddleware("login");
 });
 
 //比赛收藏页

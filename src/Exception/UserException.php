@@ -62,4 +62,9 @@ class UserException extends BaseException
     {
         throw new self(ErrorCode::msg(ErrorCode::USER_LEVEL_EXISTS),ErrorCode::USER_LEVEL_EXISTS);
     }
+
+    public static function ticketNotEnough()
+    {
+        throw new self(ErrorCode::msg(ErrorCode::TICKET_NOT_ENOUGH),ErrorCode::TICKET_NOT_ENOUGH);
+    }
 }

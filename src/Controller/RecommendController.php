@@ -25,19 +25,8 @@ class RecommendController extends BaseController
 //            "rec_id" => "required|integer"
 //        ]);
         $rec_id = $request->getAttribute('rec_id', false);
-        $res = RecommendModel::fetchOne($rec_id);
 
-        $options = OptionModel::getOptionByOddId($res['odd_id'],['id','option','odds_rate']);
-        $res['option'] = $options;
-        $res['win_streak'] = FuntionHelper::continuityWin($res['record']);
-        $res['hit_rate'] = FuntionHelper::winRate($res['record']);
-        $res['rec_time'] =date('m/d H:i', $res['rec_time']);
-        $res['is_read'] = 1;
-        $res['extra'] = json_decode($res['extra'], true);
-        unset($res['record']);
-        unset($res['odd_id']);
-
-        return $this->response($res);
+        return $this->response(RecommendLogic::getInstance()->getRecommendDetail($rec_id));
     }
 
     public function matchInfo(ServerRequest $request)

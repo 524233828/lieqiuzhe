@@ -204,4 +204,25 @@ SQL;
         return database()->pdo->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+
+    public static function getUserId($rec_id)
+    {
+
+        $columns = [
+            UserModel::$table.".id",
+        ];
+
+        $columns = implode(",", $columns);
+        $sql = <<<SQL
+SELECT 
+    $columns
+FROM recommend r
+LEFT JOIN `analyst_info` ON `analyst_info`.id = r.analyst_id
+LEFT JOIN `user` ON `user`.id = analyst_info.user_id
+WHERE r.id = {$rec_id}
+SQL;
+
+        return database()->pdo->query($sql)->fetch(\PDO::FETCH_ASSOC);
+    }
+
 }

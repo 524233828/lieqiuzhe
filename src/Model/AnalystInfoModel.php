@@ -64,7 +64,7 @@ SQL;
         return database()->select(
             UserModel::$table,
             [
-                self::$table => ["id" => "user_id"],
+                self::$table => ["user_id" => "id"],
             ],
             [
                 UserModel::$table.".user_type" => 1,

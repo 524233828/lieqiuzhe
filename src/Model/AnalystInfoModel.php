@@ -66,11 +66,11 @@ SQL;
             [
                 "[>]".self::$table => ["id" => "user_id"],
                 "[>]".RecommendModel::$table => ["id" => "analyst_id"],
-                "[>]".OddModel::$table => [RecommendModel::$table.'.odd_id' => "id"],
-                "[>]".MatchModel::$table => [OddModel::$table.'.match_id' => "id"],
-                "[>]".TeamModel::$table."(h)" => [MatchModel::$table.'.home_id' => "id"],
-                "[>]".TeamModel::$table."(a)" => [MatchModel::$table.'.away_id' => "id"],
-                "[>]".LeagueModel::$table => [MatchModel::$table.'.league_id' => "id"],
+                "[>]".OddModel::$table => [RecommendModel::$table.'.odd_id' => OddModel::$table.".id"],
+                "[>]".MatchModel::$table => [OddModel::$table.'.match_id' => MatchModel::$table.".id"],
+                "[>]".TeamModel::$table."(h)" => [MatchModel::$table.'.home_id' => "h.id"],
+                "[>]".TeamModel::$table."(a)" => [MatchModel::$table.'.away_id' => "a.id"],
+                "[>]".LeagueModel::$table => [MatchModel::$table.'.league_id' => LeagueModel::$table.".id"],
             ],
             [
                 UserModel::$table.".id(analyst_id)",

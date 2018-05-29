@@ -189,4 +189,14 @@ class MatchChangeService
 
         return false;
     }
+
+    public function matchStart($match_id)
+    {
+
+    }
+
+    public function matchFinish($match_id)
+    {
+
+    }
 }

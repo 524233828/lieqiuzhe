@@ -64,6 +64,7 @@ class MatchStartConsole extends Command
             echo count($res),"\n";
 
             if(!isset($res['match'])){
+                MatchModel::update(["status" => -10],["id" => $ids]);
                 continue;
             }
 
@@ -74,7 +75,6 @@ class MatchStartConsole extends Command
             foreach ($res['match'] as $match) {
 
                 if(!isset($match['a']) || empty($match['a'])){
-                    MatchModel::update(["status" => -10],["id" => $ids]);
                     continue;
                 }
 

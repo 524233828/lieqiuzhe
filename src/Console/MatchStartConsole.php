@@ -33,11 +33,12 @@ class MatchStartConsole extends Command
         $time = time();
 
         $count = MatchModel::count(["m.status" => 0, "m.start_time[<=]" => $time]);
+        echo $count,"\n";
         $page = 1;
         $pager = new Pager($page);
 
         $info = $pager->getPager($count);
-
+        echo $info['total_pages'],"\n";
         for($i = 1; $i <= $info['total_pages'];$i++)
         {
             $pager->setPage($i);
@@ -55,10 +56,11 @@ class MatchStartConsole extends Command
             }
 
             $ids = implode(",",$ids);
-
+            echo $ids,"\n";
             Match::$redis = redis();
 
             $res = Match::getById($ids);
+            echo count($res),"\n";
 
             if(!isset($res['match'])){
                 continue;

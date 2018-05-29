@@ -99,11 +99,12 @@ class IndexLogic extends BaseLogic
     {
         $page = new Pager($page, $size);
 
-        $list = RecommendModel::hitRateRank($page->getFirstIndex(), $size);
+        $list = RecommendModel::Rank($page->getFirstIndex(), $size);
 
         foreach ($list as $k => $v)
         {
-            $list[$k]['win_streak'] = FuntionHelper::continuityWin($v['record']);
+            $list[$k]['win_streak'] = FuntionHelper::continuityWin($v['win_str']);
+            $list[$k]['hit'] = FuntionHelper::resultComputer($v['result_str']);
         }
 
         $analyst_count = UserModel::count(["user_type" => 1]);

@@ -69,7 +69,7 @@ class MatchIdConsole extends Command
             }
 
             if(isset($match['c']) && is_string($match['c'])){
-                list($league_gb,$league_big,$league_en,$league_id,$is_simple) = explode(",",$match['c']);
+                list($league_gb,$league_big,$league_en,$league_id) = explode(",",$match['c']);
             }else{
                 $league_id = 0;
             }

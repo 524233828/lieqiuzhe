@@ -30,6 +30,8 @@ class MatchStartConsole extends Command
     public function execute(InputInterface $input, OutputInterface $output)
     {
 
+        $log = myLog("match_start");
+
         $time = time();
         $size = 1;
 
@@ -132,15 +134,12 @@ class MatchStartConsole extends Command
                 if(count($match_data) > 0) {
                     database()->update("match", $match_data, ["id"=>$match["a"]]);
                 }
-        }
-
-
-
-
-
+            }
 
             //比赛开始
             if($match["f"] == 1){
+                //记录比赛开始
+                $log->addDebug("match_id:".$match['a']);
 //                $collect = MatchCollectionModel::fetch("*", ["match_id"=>$match["a"]]);
 //
 //                $conf = config()->get("wxapp");

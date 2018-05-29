@@ -31,11 +31,12 @@ class MatchStartConsole extends Command
     {
 
         $time = time();
+        $size = 1;
 
         $count = MatchModel::count(["m.status" => 0, "m.start_time[<=]" => $time]);
         echo $count,"\n";
         $page = 1;
-        $pager = new Pager($page);
+        $pager = new Pager($page, $size);
 
         $info = $pager->getPager($count);
         echo $info['total_pages'],"\n";
@@ -46,7 +47,7 @@ class MatchStartConsole extends Command
                 [
                     "m.status" => 0,
                     "m.start_time[<=]" => $time,
-                    "LIMIT" =>[ $pager->getFirstIndex(), 20 ]
+                    "LIMIT" =>[ $pager->getFirstIndex(), $size ]
                 ],["m.id"]);
 
             $ids = [];
@@ -73,6 +74,7 @@ class MatchStartConsole extends Command
             foreach ($res['match'] as $match) {
 
                 if(!isset($match['a']) || empty($match['a'])){
+                    MatchModel::update(["status" => -10],["id" => $ids]);
                     continue;
                 }
 

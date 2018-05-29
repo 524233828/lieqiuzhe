@@ -36,6 +36,11 @@ class LoginLogic extends BaseLogic
             case 5://小程序登录
                 $uid = $this->zuQiuBiSai1($params);
                 break;
+
+            case 6://小程序登录
+                $uid = $this->shijiebei($params);
+                break;
+
             default:
                 break;
         }
@@ -141,6 +146,11 @@ class LoginLogic extends BaseLogic
 
     }
 
+    /**
+     * 微信登录
+     * @param $params
+     * @return mixed
+     */
     private function wechat($params)
     {
         $log = myLog("wxapp_login");
@@ -152,6 +162,11 @@ class LoginLogic extends BaseLogic
         return $user['id'];
     }
 
+    /**
+     * 手机号登录
+     * @param $params
+     * @return mixed
+     */
     private function mobile($params)
     {
         $user = UserModel::getUserByPhone($params['phone']);
@@ -166,4 +181,51 @@ class LoginLogic extends BaseLogic
         return $user['id'];
     }
 
+    /**
+     * 世界杯小程序
+     * @param $params
+     * @return int|string
+     */
+    private function shijiebei($params)
+    {
+        $log = myLog("wxapp_login");
+        $conf = config()->get("shijiebei");
+
+        $log->addDebug("conf:".json_encode($conf));
+
+        $wxapp = new Wxapp($conf['app_id'], $conf['app_secret']);
+
+        $code = $params['code'];
+
+        $log->addDebug("code:".$code);
+        $result = $wxapp->login($code);
+        $log->addDebug("result:".json_encode($result));
+        if(!isset($result['openid'])){
+            UserException::LoginFail();
+        }
+
+        if(!isset($result['unionid'])||empty($result['unionid'])||!$user = UserModel::getUserByUnionId($result['unionid'])){
+            $data = [
+                "openid" => $result['openid'],
+                "unionid" => isset($result['unionid'])?$result['unionid']:"",
+                "openid_type" => 6,
+            ];
+            $my_user = UserModel::getUserByOpenId($data['openid']);
+            if(!$my_user)
+            {
+                $my_user['id'] = UserModel::addUser($data);
+            }
+
+        }else{
+            $my_user['id'] = $user['id'];
+        }
+
+        $log->addDebug("my_user:".json_encode($my_user));
+        if(!$my_user['id']){
+            UserException::LoginFail();
+        }
+
+        return $my_user['id'];
+
+    }
 }

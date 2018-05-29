@@ -110,4 +110,11 @@ class IndexLogic extends BaseLogic
 
         return ["list" => $list, "meta" => $page->getPager($analyst_count)];
     }
+
+    public function myConcern($page = 1, $size = 20)
+    {
+        $page = new Pager($page, $size);
+
+        
+    }
 }

@@ -19,9 +19,9 @@ return [
         "app_secret" => "87d22ff09ec5a09748dc6249f354c0bd"
     ],
 
-    "wechat_open"=>[
-        "app_id" => "wx45d4e558ae0284a4",
-        "app_secret" => "789d683ce4306dca61b3b768421f9a5b"
+    "shijiebei"=>[
+        "app_id" => "wx0c2d51b7b4337c3a",
+        "app_secret" => "8161f0a1499bed47dae73ac599e03782"
     ],
 
     "sms" => [

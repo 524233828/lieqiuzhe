@@ -30,7 +30,7 @@ class MatchStartConsole extends Command
     {
 
         $time = time();
-        $match = MatchModel::fetch(["status" => 0, "m.start_time[<=]" => $time],["m.id"]);
+        $match = MatchModel::fetch(["m.status" => 0, "m.start_time[<=]" => $time],["m.id"]);
 
         $ids = [];
         foreach ($match as $m)

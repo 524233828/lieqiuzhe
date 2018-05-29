@@ -5,7 +5,7 @@ cd /home/wwwroot/lieqiuzhe
 #bin/console change_match
 
 # 每分钟开始比赛
-#bin/console match_start
+bin/console match_start
 
 # 每分钟更新比赛状态
 bin/console fetch_match_id

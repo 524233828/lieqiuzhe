@@ -43,4 +43,9 @@ class Pager {
     {
         return $this->size * ($this->page - 1);
     }
+
+    public function setPage($page)
+    {
+        $this->page = $page;
+    }
 }

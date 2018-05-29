@@ -42,7 +42,7 @@ class MatchListLogic extends BaseLogic
 
         switch ($type){
             case 0://即时比分
-                MatchChangeService::change();
+//                MatchChangeService::change();
                 $where["m.status"] = [0, 1, 2, 3, 4];
                 $where["ORDER"] = ["start_time" => "ASC"];
 

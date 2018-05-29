@@ -61,7 +61,7 @@ class MatchStartConsole extends Command
             $res = Match::getById($ids);
 
             if(!isset($res['match'])){
-                return false;
+                continue;
             }
 
             if(!isset($res['match'][0])){

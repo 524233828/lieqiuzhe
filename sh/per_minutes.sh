@@ -2,7 +2,7 @@
 cd /home/wwwroot/lieqiuzhe
 
 # 每分钟获取比赛150秒内信息改变
-#bin/console change_match
+bin/console change_match
 
 # 每分钟开始比赛
 bin/console match_start

@@ -31,7 +31,6 @@ class WechatController
         }
         $origin = WxappAccount::$origin[$app];
         $conf = config()->get($origin['conf']);
-        $media_id = $origin['media_id'];
 
         $app_id = $conf['app_id'];
         $app_secret = $conf['app_secret'];
@@ -39,6 +38,7 @@ class WechatController
 
         $file = new \CURLFile("./a.jpg","image/jpeg","media");
         $result = $wxapp->uploadImage($file);
+        $log->addDebug("file_result:".json_encode($result));
 
         $media_id = $result['media_id'];
 

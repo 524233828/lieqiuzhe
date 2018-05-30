@@ -21,12 +21,13 @@ class RecommendController extends BaseController
     public function RecommendDetail(ServerRequest $request)
     {
 
-//        validator($request,[
-//            "rec_id" => "required|integer"
-//        ]);
-        $rec_id = $request->getAttribute('rec_id', false);
+        $validate = validator($request, [
+            "rec_id" => "required",
+        ]);
 
-        return $this->response(RecommendLogic::getInstance()->getRecommendDetail($rec_id));
+        $params = $validate->data();
+
+        return $this->response(RecommendLogic::getInstance()->getRecommendDetail($params['rec_id']));
     }
 
     public function matchInfo(ServerRequest $request)

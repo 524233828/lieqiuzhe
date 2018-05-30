@@ -9,6 +9,7 @@
 namespace Controller;
 
 
+use Constant\WxappAccount;
 use FastD\Http\ServerRequest;
 use Model\UserModel;
 use Wxapp\Wxapp;
@@ -25,26 +26,27 @@ class WechatController
             return [];
         }
 
-        if($app == "gh_be06a818716e"){
-            $conf = config()->get("wxapp");
-        }else if($app == "gh_438526ca0b5f"){
-            $conf = config()->get("zuqiubisai1");
-        }else{
-            return ;
+        if(!isset(WxappAccount::$origin[$app])){
+            return false;
         }
+        $origin = WxappAccount::$origin[$app];
+        $conf = config()->get($origin['conf']);
+        $media_id = $origin['media_id'];
 
         $app_id = $conf['app_id'];
         $app_secret = $conf['app_secret'];
         $wxapp = new Wxapp($app_id,$app_secret);
 
+        $file = new \CURLFile("./a.jpg","image/jpeg","media");
+        $result = $wxapp->uploadImage($file);
+
+        $media_id = $result['media_id'];
+
         $data = [
             "touser" => $open_id,
-            "msgtype" => "link",
-            "link" => [
-                "title" => "【稳稳收米】欢迎关注夜猫情报局！",
-                "description" => "夜猫情报局一直致力于给大家提供迅捷实用的足彩情报 分享足彩技巧干货，帮助大家更稳地收米",
-                "url" => "http://mp.weixin.qq.com/s/yfgZZzxVOfwI9a37O7-Uig",
-                "thumb_url" => "https://mp.weixin.qq.com/s/d388Le78Tb6sZqgoYDlQ3g"
+            "msgtype" => "image",
+            "image" => [
+                "media_id" => $media_id
             ]
         ];
 

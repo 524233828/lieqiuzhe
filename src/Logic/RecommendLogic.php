@@ -105,7 +105,7 @@ class RecommendLogic extends BaseLogic
     {
         $uid = UserLogic::$user['id'];
 
-        $user = UserModel::getUserInfo($uid,['type']);
+        $user = UserModel::getUserInfo($uid,['user_type']);
 
         if($user['type'] != 1)
         {

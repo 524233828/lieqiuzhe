@@ -34,9 +34,11 @@ class WechatController
 
         $app_id = $conf['app_id'];
         $app_secret = $conf['app_secret'];
+        $log->addDebug("conf:".json_encode($conf));
         $wxapp = new Wxapp($app_id,$app_secret);
 
         $file = new \CURLFile("./a.jpg","image/jpeg","media");
+        $log->addDebug("file:".json_encode($file, JSON_FORCE_OBJECT));
         $result = $wxapp->uploadImage($file);
         $log->addDebug("file_result:".json_encode($result));
 

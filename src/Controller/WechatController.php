@@ -39,7 +39,7 @@ class WechatController
 
         $file = new \CURLFile("./a.jpg","image/jpeg","media");
         $log->addDebug("file:".json_encode($file, JSON_FORCE_OBJECT));
-        $result = $wxapp->uploadImage($file);
+        $result = $wxapp->bindRedis(redis())->uploadImage($file);
         $log->addDebug("file_result:".json_encode($result));
 
         $media_id = $result['media_id'];

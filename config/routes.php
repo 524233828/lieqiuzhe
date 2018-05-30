@@ -18,9 +18,9 @@ route()->group(["prefix"=>"/match","middleware" => "dispatch"], function(){
 
 //比赛详情页
 route()->group(["prefix"=>"/match","middleware" => "dispatch"], function(){
-    route()->post("/detail", 'MatchDetailController@fetchMatchDetail');
-    route()->post("/advices", 'MatchDetailController@fetchMatchAdvices');
-    route()->post("/recommendlist", 'MatchDetailController@fetchrecommendList');
+    route()->get("/detail", 'MatchDetailController@fetchMatchDetail');
+    route()->get("/advices", 'MatchDetailController@fetchMatchAdvices');
+    route()->get("/recommendlist", 'MatchDetailController@fetchrecommendList');
     route()->post("/give/ticket", 'MatchDetailController@giveTicket')->withAddMiddleware("login");
 });
 
@@ -41,8 +41,8 @@ route()->group(["prefix" => "/index", "middleware" => "dispatch"], function(){
 
 //分析师
 route()->group(["prefix" => "/analyst", "middleware" => "dispatch"], function(){
-    route()->post("/detail", 'AnalystController@fetchAnalystInfo');
-    route()->post("/recommendlist", 'AnalystController@fetchAnalystRecommendList');
+    route()->get("/detail", 'AnalystController@fetchAnalystInfo');
+    route()->get("/recommendlist", 'AnalystController@fetchAnalystRecommendList');
     route()->post("/follow", 'AnalystController@analystFollow')->withAddMiddleware("login");
     route()->post("/unfollow", 'AnalystController@analystUnfollow')->withAddMiddleware("login");
 });
@@ -52,7 +52,7 @@ route()->group(["prefix" => "/recommend", "middleware" => "dispatch"], function(
     route()->get("/match_list", 'RecommendMatchChoseController@matchList');
     route()->get("/odd", 'RecommendController@matchInfo');
     route()->post("/add", 'RecommendController@addRecommend')->withAddMiddleware("login");
-    route()->get("/detail/{rec_id}", 'RecommendController@RecommendDetail');
+    route()->get("/detail", 'RecommendController@RecommendDetail');
 });
 
 //注册页

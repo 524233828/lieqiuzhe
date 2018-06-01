@@ -64,7 +64,7 @@ LEFT JOIN `{$league_table}` as d ON d.id = h.league_id
 LEFT JOIN `{$team_table}` as r ON h.home_id = r.id
 LEFT JOIN `{$team_table}` as f ON h.away_id = f.id
 LEFT JOIN `{$icon_table}` as t ON t.level = a.level
-WHERE t.type = 2
+WHERE t.type = 1
 SQL;
 
         return database()->query($sql)->fetch(\PDO::FETCH_ASSOC);
@@ -148,7 +148,7 @@ LEFT JOIN `{$team_table}` as f ON h.away_id = f.id
 LEFT JOIN `{$analyst_table}` as k ON k.id = m.analyst_id
 LEFT JOIN `{$user_table}` as u ON u.id = k.user_id
 LEFT JOIN `{$icon_table}` as t ON t.level = k.level
-WHERE h.id = {$match_id} AND t.type = 2
+WHERE h.id = {$match_id} AND t.type = 1
 LIMIT {$start}, {$count}
 SQL;
 

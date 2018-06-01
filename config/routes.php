@@ -83,3 +83,8 @@ route()->group(["prefix" => "/wxapp", "middleware" => "dispatch"],function (){
     route()->post("/tab/update", "Wxapp\WxappTabController@updateTab");
     route()->delete("/tab", "Wxapp\WxappTabController@deleteTab");
 });
+
+//个人中心页
+route()->group(["prefix"=>"/user","middleware" => "dispatch"], function(){
+    route()->get("/info", 'UserCenterController@getInfo')->withAddMiddleware("login");
+});

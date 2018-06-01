@@ -53,6 +53,7 @@ class TeamConsole extends Command
             ];
             $team = TeamModel::get($v['id'],["id"]);
             if(!isset($team['id'])){
+                echo "新增球队【{$v['id']}】",$v['g'];
                 database()->insert("team", $team_data);
             }
 

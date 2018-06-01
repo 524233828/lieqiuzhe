@@ -57,7 +57,5 @@ class TeamConsole extends Command
             }
 
         }
-
-
     }
 }

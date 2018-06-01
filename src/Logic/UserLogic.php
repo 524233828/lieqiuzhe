@@ -45,14 +45,16 @@ class UserLogic extends BaseLogic
         $current_level = UserLevelOrderModel::getUserCurrentLevel($uid);
         $info = UserModel::getUserInfo($uid,['nickname','avatar','user_type','ticket']);
 
-        $level_icon = IconsModel::fetch('icon', ['type'=> $info['user_type'],  'level' => $current_level]);
+        $level_icon = '';
+        !$current_level && $current_level = 1;
+        $current_level && $level_icon = IconsModel::fetch('icon', ['type'=> $info['user_type'],  'level' => $current_level]);
         $fans = 0;
         if(1 == $info['user_type']) {
             $fans = FansModel::getCountFansByAnalystId($uid);
         }
 
-        $info['level'] = $current_level;
-        $info['level_icon'] = $level_icon;
+        $info['level'] = $current_level ? $current_level : 1;
+        $info['level_icon'] = $level_icon[0];
         $info['gifts'] = $info['ticket'];
         unset($info['ticket']);
         $info['bill'] = 10;

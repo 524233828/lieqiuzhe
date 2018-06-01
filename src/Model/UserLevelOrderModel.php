@@ -27,6 +27,6 @@ class UserLevelOrderModel extends BaseModel
             ]
         ];
 
-        return database()->get(self::$table, null,"level", $where);
+        return database()->get(self::$table, "*", $where);
     }
 }

@@ -9,6 +9,8 @@
 namespace Console;
 
 
+use Model\CountryModel;
+use Model\LeagueModel;
 use Qiutan\League;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -35,7 +37,7 @@ class LeagueConsole extends Command
         foreach ($res['match'] as $v)
         {
 
-            $league_data[] = [
+            $league_data = [
                 "id" => $v['id'],
                 "create_time" => $time,
                 "type" => $v['type'],
@@ -55,17 +57,37 @@ class LeagueConsole extends Command
                 "logo" => $v['logo'],
             ];
 
-            $country_data[$v['countryID']] = [
+            $league = LeagueModel::get($v['id'], ['id']);
+
+            if(!isset($league['id'])){
+                echo "新增联赛【{$v['id']}】", $v['gb_short'], "\n";
+                database()->insert("league", $league_data);
+            }
+
+
+            $country_data = [
                 "id" => $v['countryID'],
                 "country" => $v['country'],
                 "en" => $v['countryEn'],
                 "logo" => $v['countryLogo']
             ];
+            $country = CountryModel::get($v['countryID'], ['id']);
+            if(!isset($country['id'])){
+                echo "新增国家【{$v['countryID']}】", $v['country'], "\n";
+                database()->insert("country", $country_data);
+            }
+
+//            $country_data[$v['countryID']] = [
+//                "id" => $v['countryID'],
+//                "country" => $v['country'],
+//                "en" => $v['countryEn'],
+//                "logo" => $v['countryLogo']
+//            ];
         }
 
-        $country_data = array_values($country_data);
+//        $country_data = array_values($country_data);
 
-        database()->insert("league", $league_data);
-        database()->insert("country", $country_data);
+
+//        database()->insert("country", $country_data);
     }
 }

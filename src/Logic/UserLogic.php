@@ -56,7 +56,7 @@ class UserLogic extends BaseLogic
         $info['gifts'] = $info['ticket'];
         unset($info['ticket']);
         $info['bill'] = 10;
-        $fans && $info['fans'] = $fans;
+        $info['fans'] = $fans;
 
         return $info;
     }

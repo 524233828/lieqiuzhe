@@ -9,6 +9,7 @@
 namespace Console;
 
 
+use Model\TeamModel;
 use Qiutan\Team;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -50,7 +51,11 @@ class TeamConsole extends Command
                 "url" => $v['URL'],
                 "master" => $v['master'],
             ];
-            database()->insert("team", $team_data);
+            $team = TeamModel::get($v['id'],["id"]);
+            if(!isset($team['id'])){
+                database()->insert("team", $team_data);
+            }
+
         }
 
 

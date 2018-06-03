@@ -67,6 +67,7 @@ class SignatureHelper {
     }
 
     private function fetchContent($url) {
+        $log = myLog("fetchContent");
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_TIMEOUT, 5);
@@ -81,7 +82,8 @@ class SignatureHelper {
         }
 
         $rtn = curl_exec($ch);
-
+        $log->addDebug("content:".$rtn);
+        $log->addDebug("error:".curl_error($ch));
         if($rtn === false) {
             trigger_error("[CURL_" . curl_errno($ch) . "]: " . curl_error($ch), E_USER_ERROR);
         }

@@ -60,7 +60,7 @@ class RegisterLogic extends BaseLogic
         try{
             $content = $helper->request(
                 $config['accessKeyId'],
-                $config['$accessKeySecret'],
+                $config['accessKeySecret'],
                 "dysmsapi.aliyuncs.com",
                 array_merge($params, array(
                     "RegionId" => "cn-hangzhou",

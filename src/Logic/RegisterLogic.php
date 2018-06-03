@@ -54,6 +54,10 @@ class RegisterLogic extends BaseLogic
             "code" => $code,
         ];
 
+        if(!empty($params["TemplateParam"]) && is_array($params["TemplateParam"])) {
+            $params["TemplateParam"] = json_encode($params["TemplateParam"], JSON_UNESCAPED_UNICODE);
+        }
+
         $content = false;
 
         // 此处可能会抛出异常，注意catch

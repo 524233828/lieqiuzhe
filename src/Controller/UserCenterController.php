@@ -10,12 +10,13 @@ namespace Controller;
 
 
 use FastD\Http\ServerRequest;
+use Logic\UserLogic;
 
 class UserCenterController extends BaseController
 {
 
     public function getInfo(ServerRequest $request)
     {
-        return $this->response([]);
+        return $this->response(UserLogic::getInstance()->getUserInfo());
     }
 }

@@ -25,8 +25,8 @@ return [
     ],
 
     "sms" => [
-        "accessKeyId" => "",
-        "accessKeySecret" => "",
+        "accessKeyId" => "LTAIxmGYETDXXOwG",
+        "accessKeySecret" => "YUZ96Jt0ghzoWfaFJGa4cHWAaD3ZNL",
         "signName" => "阿里云短信测试专用"
     ],
 

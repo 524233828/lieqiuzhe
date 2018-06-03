@@ -88,3 +88,9 @@ route()->group(["prefix" => "/wxapp", "middleware" => "dispatch"],function (){
 route()->group(["prefix"=>"/user","middleware" => "dispatch"], function(){
     route()->get("/info", 'UserCenterController@getInfo')->withAddMiddleware("login");
 });
+
+//搜索页
+route()->group(["prefix"=>"/search","middleware" => "dispatch"], function(){
+    route()->get("/index", 'SearchController@index');
+    route()->get("/keywords", 'SearchController@keywords');
+});

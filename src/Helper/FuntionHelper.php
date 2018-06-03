@@ -15,8 +15,11 @@ class FuntionHelper
     public static function continuityWin($record)
     {
         preg_match_all('/([1])\1{1,}/',$record,$res);
+        if(!$res[0]) {
+            return 0;
+        }
         $count = [];
-        foreach($res[0] as $v){
+        foreach($res[0] as $v){var_dump(strlen($v));exit;
             $count[] = strlen($v);
         }
         return max($count);
@@ -33,6 +36,11 @@ class FuntionHelper
         return sprintf("%01.2f", $win/$all*100).'%';
     }
 
+    public static function changeBaifenbi($record)
+    {
+        return sprintf("%01.0f", $record*100).'%';
+    }
+
 
     public static function resultComputer($result_str)
     {
@@ -45,5 +53,20 @@ class FuntionHelper
         $lose = substr_count($str, '3');
 
         return $all."发".$win."中".$lose."走";
+    }
+
+    public static function arrayUnion($arr, $key)
+    {
+        //建立一个目标数组
+        $res = array();
+        foreach ($arr as $value) {
+            //查看有没有重复项
+            if(isset($res[$value[$key]])){
+                unset($value[$key]);  //有：销毁
+            }else{
+                $res[$value[$key]] = $value;
+            }
+        }
+        return $res;
     }
 }

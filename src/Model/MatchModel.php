@@ -95,4 +95,41 @@ SQL;
             $where
         );
     }
+
+    public static function fetchByTeamId($id, $columns = "*")
+    {
+        $match_table = MatchModel::$table;
+        $league_table = LeagueModel::$table;
+        $team_table = TeamModel::$table;
+        $weather_table = WeatherModel::$table;
+        $columns = [
+            'm.id as match_id',
+            'd.gb as league_name',
+            "FROM_UNIXTIME(m.start_time,'%m/%d %H:%i') as match_time",
+            'r.gb as home',
+            'f.gb as away',
+            'm.status as status',
+            'm.home_score as home_score',
+            'm.away_score as away_score',
+        ];
+        $column = is_array($columns) ? implode(",", $columns) : $columns;
+        $time = time() - 24 * 3600 * 2;
+        $etime = time() + 24 * 3600 * 20;
+        $sql = <<<SQL
+SELECT {$column}
+FROM (
+    SELECT * 
+    FROM `{$match_table}`
+    WHERE 
+    ("home_id" = {$id} OR "away_id" = {$id}) 
+    AND "start_time" > {$time}
+    AND "start_time" < {$etime}
+) as m
+LEFT JOIN `{$league_table}` as d ON d.id = m.league_id
+LEFT JOIN `{$team_table}` as r ON m.home_id = r.id
+LEFT JOIN `{$team_table}` as f ON m.away_id = f.id
+SQL;
+
+        return database()->query($sql)->fetch(\PDO::FETCH_ASSOC);
+    }
 }

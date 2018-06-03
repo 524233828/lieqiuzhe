@@ -43,7 +43,7 @@ FROM (
 LEFT JOIN `{$user_table}` as c ON c.id = m.user_id
 LEFT JOIN `{$recommend_table}` as d ON d.analyst_id = m.id
 LEFT JOIN `{$icon_table}` as t ON t.level = m.level
-WHERE t.type = 2
+WHERE t.type = 1
 SQL;
 
         return database()->query($sql)->fetch(\PDO::FETCH_ASSOC);
@@ -93,6 +93,37 @@ SQL;
                 "LIMIT" => [$first_row, $size]
             ]
         );
+    }
+
+    public static function fetchByKeyWords($keyword)
+    {
+        $analyst_table = AnalystInfoModel::$table;
+        $user_table = UserModel::$table;
+        $recommend_table = RecommendModel::$table;
+        $icon_table = IconsModel::$table;
+
+        $sql = <<<SQL
+SELECT 
+            m.user_id as user_id,
+            m.id as analyst_id,
+            c.nickname as nickname,
+            c.avatar as avatar,
+            c.ticket as ticket,
+            AVG(is_win) as hit_rate,
+            GROUP_CONCAT(d.is_win SEPARATOR '') as win_str,
+            GROUP_CONCAT(d.result SEPARATOR '') as result_str,
+            m.tag as tag,
+            m.level as level,
+            t.icon as level_icon
+FROM `{$analyst_table}` as m
+LEFT JOIN `{$user_table}` as c ON c.id = m.user_id
+LEFT JOIN `{$recommend_table}` as d ON d.analyst_id = m.id
+LEFT JOIN `{$icon_table}` as t ON t.level = m.level
+WHERE t.type = 1
+AND c.nickname LIKE '%{$keyword}%'
+SQL;
+
+        return database()->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
     }
 
 }

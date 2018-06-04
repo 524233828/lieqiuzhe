@@ -72,12 +72,20 @@ class MatchChangeService
                 $away_corner
                 ) = explode("^",$v);
 
+            $log->addDebug("match_id".$match_id);
+            $log->addDebug("real_start_time".$real_start_time);
             list($y, $m, $d, $h, $i, $s) = explode(",",$real_start_time);
-
             //球探的月份从0开始排序
             $m++;
+            $log->addDebug("y".$y);
+            $log->addDebug("m".$y);
+            $log->addDebug("d".$y);
+            $log->addDebug("h".$y);
+            $log->addDebug("i".$y);
+            $log->addDebug("s".$y);
 
             $current_minutes = floor((time()-strtotime("{$y}-{$m}-{$d} {$h}:{$i}:{$s}"))/60);
+            $log->addDebug("current_minutes".$current_minutes);
             $where = ["id" => $match_id];
 
             //增加开始比赛状态改变，做推送

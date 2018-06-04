@@ -29,7 +29,7 @@ class MatchChangeService
 
             if(Match::$redis->exists(Constant::MATCH_CHANGE_LONG_CACHE)){
 
-                return true;
+//                return true;
             }
             $res = Match::matchChangeLong();
         }else{//20秒更新接口

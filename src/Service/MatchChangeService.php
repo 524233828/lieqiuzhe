@@ -50,6 +50,7 @@ class MatchChangeService
             $res['h'] = [0=> $res['h']];
         }
         $ids = [];
+        $log->addDebug("res.h:".json_encode($res['h']));
         foreach ($res['h'] as $v){
             list(
                 $match_id,

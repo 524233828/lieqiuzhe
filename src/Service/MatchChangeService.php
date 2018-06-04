@@ -43,7 +43,7 @@ class MatchChangeService
 
 
         $log->addDebug("res:".json_encode($res));
-        if(!isset($res['h']) || !is_array($res['h'])){
+        if(!isset($res['h'])){
             return false;
         }
         if(!isset($res['h'][0])){

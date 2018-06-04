@@ -119,6 +119,9 @@ class MatchListLogic extends BaseLogic
         foreach ($res as $k => $v){
             $res[$k]['match_time'] = date("Y-m-d H:i:s", $v['match_time']);
             $res[$k]['is_collect'] = 0;
+            if($v['status'] == 3){
+                $res[$k]['current_minutes'] += 45;
+            }
             $match_index[$v['match_id']] = $res[$k];
         }
 

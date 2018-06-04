@@ -12,8 +12,12 @@ namespace Service;
 class MessageService
 {
 
-    public function concernPush()
+    /**
+     * 比赛关注推送
+     * @param $match_id
+     */
+    public function concernPush($match_id)
     {
-
+        
     }
 }

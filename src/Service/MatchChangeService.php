@@ -46,7 +46,7 @@ class MatchChangeService
         if(!isset($res['h'])){
             return false;
         }
-        if(!isset($res['h'][0])){
+        if(!is_array($res['h'])){
             $res['h'] = [0=> $res['h']];
         }
         $ids = [];

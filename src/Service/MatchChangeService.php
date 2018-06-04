@@ -79,11 +79,11 @@ class MatchChangeService
             //球探的月份从0开始排序
             $m++;
             $log->addDebug("y".$y);
-            $log->addDebug("m".$y);
-            $log->addDebug("d".$y);
-            $log->addDebug("h".$y);
-            $log->addDebug("i".$y);
-            $log->addDebug("s".$y);
+            $log->addDebug("m".$m);
+            $log->addDebug("d".$d);
+            $log->addDebug("h".$h);
+            $log->addDebug("i".$i);
+            $log->addDebug("s".$s);
 
             $current_minutes = floor((time()-strtotime("{$y}-{$m}-{$d} {$h}:{$i}:{$s}"))/60);
             $log->addDebug("current_minutes".$current_minutes);

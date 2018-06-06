@@ -32,7 +32,7 @@ class IndexLogic extends BaseLogic
     {
         $list =  BannerModel::fetch(
             [
-                "image_url",
+                "img_url",
                 "page_id",
                 "url",
                 "params",
@@ -49,14 +49,14 @@ class IndexLogic extends BaseLogic
     {
         $list =  TopLineModel::fetch(
             [
-                "status" => 1,
-                "ORDER" => ["sort" => "DESC"]
-            ],
-            [
                 "content",
                 "page_id",
                 "url",
                 "params",
+            ],
+            [
+                "status" => 1,
+                "ORDER" => ["sort" => "DESC"]
             ]
         );
         return ["list" => $list];
@@ -66,14 +66,14 @@ class IndexLogic extends BaseLogic
     {
         $list =  AdventureModel::fetch(
             [
-                "status" => 1,
-                "ORDER" => ["sort" => "DESC"]
-            ],
-            [
-                "image_url",
+                "img_url",
                 "page_id",
                 "url",
                 "params",
+            ],
+            [
+                "status" => 1,
+                "ORDER" => ["sort" => "DESC"]
             ]
         );
         return ["list" => $list];

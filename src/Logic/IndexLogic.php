@@ -32,14 +32,14 @@ class IndexLogic extends BaseLogic
     {
         $list =  BannerModel::fetch(
             [
-                "status" => 1,
-                "ORDER" => ["sort" => "DESC"]
-            ],
-            [
                 "image_url",
                 "page_id",
                 "url",
                 "params",
+            ],
+            [
+                "status" => 1,
+                "ORDER" => ["sort" => "DESC"]
             ]
         );
         return ["list" => $list];

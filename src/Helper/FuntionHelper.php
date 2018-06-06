@@ -19,7 +19,7 @@ class FuntionHelper
             return 0;
         }
         $count = [];
-        foreach($res[0] as $v){var_dump(strlen($v));exit;
+        foreach($res[0] as $v){
             $count[] = strlen($v);
         }
         return max($count);

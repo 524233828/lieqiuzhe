@@ -68,6 +68,7 @@ SQL;
             't.`icon` as weather_icon',
             'm.`temperature` as temperature',
             'm.`weather_id` as weather_id',
+            'm.`status` as status',
         ];
         $column = is_array($columns) ? implode(",", $columns) : $columns;
         $sql = <<<SQL

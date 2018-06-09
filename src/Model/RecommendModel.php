@@ -132,6 +132,7 @@ SQL;
 //            'win_streak',
 //            'hit_rate',
             'm.id as rec_id',
+            'm.create_time as rec_time',
             'm.title as rec_title',
             'm.`desc` as rec_desc',
             'k.`record` as record',

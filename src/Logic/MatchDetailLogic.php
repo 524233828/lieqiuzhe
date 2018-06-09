@@ -114,6 +114,7 @@ class MatchDetailLogic extends BaseLogic
             foreach ($res as &$v) {
                 $v['win_streak'] = FuntionHelper::continuityWin($v['record']);
                 $v['hit_rate'] = FuntionHelper::winRate($v['record']);
+                $v['rec_time'] = date('m/d H:i:s',$v['rec_time']);
                 $v['hit'] = '16发12赢4走';
                 $v['gifts'] = '1W';
                 unset($v['record']);

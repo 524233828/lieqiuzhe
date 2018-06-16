@@ -139,7 +139,7 @@ class RecommendLogic extends BaseLogic
         $desc = "";
         foreach ($info as $v)
         {
-            $desc .= $info['desc']."\r\n";
+            $desc .= $v['desc']."\r\n";
         }
 
         $data = [

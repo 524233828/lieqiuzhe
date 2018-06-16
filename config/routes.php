@@ -92,5 +92,5 @@ route()->group(["prefix"=>"/user","middleware" => "dispatch"], function(){
 //搜索页
 route()->group(["prefix"=>"/search","middleware" => "dispatch"], function(){
     route()->get("/index", 'SearchController@index');
-    route()->get("/keywords", 'SearchController@keywords');
+    route()->get("/keyword", 'SearchController@keywords');
 });

@@ -21,7 +21,7 @@ class LoginLogic extends BaseLogic
     {
         switch ($login_type){
             case 0://手机登陆
-                $this->mobile($params);
+                $uid = $this->mobile($params);
                 break;
             case 1://微信登录
                 $uid = $this->wechat($params);
@@ -174,7 +174,7 @@ class LoginLogic extends BaseLogic
         if(!$user){
             UserException::LoginFail();
         }
-        if(md5($params['password'])!=$params['password']){
+        if(md5($params['password']) != $user['password']){
             UserException::LoginFail();
         }
 

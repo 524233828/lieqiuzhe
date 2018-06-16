@@ -17,9 +17,7 @@ class LoginController extends BaseController
     public function get(ServerRequest $request)
     {
         $login_type = $request->getParam("login_type");
-
-        $params["code"] = $request->getParam("code","");
-
+        $params = $_GET;
         return $this->response(LoginLogic::getInstance()->login($login_type, $params));
     }
 }

@@ -107,7 +107,7 @@ class RecommendLogic extends BaseLogic
 
         $user = UserModel::getUserInfo($uid,['user_type']);
 
-        if($user['type'] != 1)
+        if($user['user_type'] != 1)
         {
             AnalystException::userNotAnalyst();
         }

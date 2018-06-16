@@ -172,10 +172,10 @@ class LoginLogic extends BaseLogic
         $user = UserModel::getUserByPhone($params['phone']);
 
         if(!$user){
-            UserException::LoginFail();
+            UserException::UserNotFound();
         }
         if(md5($params['password']) != $user['password']){
-            UserException::LoginFail();
+            UserException::UserNotFound();
         }
 
         return $user['id'];

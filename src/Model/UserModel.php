@@ -3,7 +3,6 @@
 namespace Model;
 
 use Constant\CacheKey;
-use Component\Setting;
 use Exception\BaseException;
 use Logic\UserLogic;
 

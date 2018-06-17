@@ -20,6 +20,6 @@ class UploadLogic extends BaseLogic
 
         $response = $uploader->upload($file['tmp_name']);
 
-        var_dump($response);
+        return $response['data'];
     }
 }

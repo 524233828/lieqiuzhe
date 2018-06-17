@@ -87,6 +87,7 @@ route()->group(["prefix" => "/wxapp", "middleware" => "dispatch"],function (){
 //个人中心页
 route()->group(["prefix"=>"/user","middleware" => "dispatch"], function(){
     route()->get("/info", 'UserCenterController@getInfo')->withAddMiddleware("login");
+    route()->get("/modify", 'UserCenterController@updateUserInfo')->withAddMiddleware("login");
 });
 
 //搜索页

@@ -94,3 +94,8 @@ route()->group(["prefix"=>"/search","middleware" => "dispatch"], function(){
     route()->get("/index", 'SearchController@index');
     route()->get("/keyword", 'SearchController@keywords');
 });
+
+//
+route()->group(["prefix"=>"/common","middleware" => "dispatch"], function(){
+    route()->get("/upload", 'CommonController@uploadImage');
+});

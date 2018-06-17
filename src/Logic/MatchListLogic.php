@@ -39,6 +39,10 @@ class MatchListLogic extends BaseLogic
 //                MatchChangeService::change();
                 $where["m.status"] = [0, 1, 2, 3, 4];
                 $where["ORDER"] = ["start_time" => "ASC"];
+                $start_time = strtotime(date("Y-m-d",time()-86400)." 21:00:00");
+                $end_time = strtotime(date("Y-m-d"). "+1 day");
+                $where["m.start_time[>=]"] = $start_time;
+                $where["m.start_time[<]"] = $end_time;
                 break;
             case 1://赛果
                 $where["m.status"] = [-1];

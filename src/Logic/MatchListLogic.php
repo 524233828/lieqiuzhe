@@ -32,28 +32,35 @@ class MatchListLogic extends BaseLogic
             $where["m.league_id"] = $league_id;
         }
 
-        if(!empty($date))
-        {
-            $start_time = strtotime($date);
-            $end_time = strtotime($date."+1 day");
-            $where["m.start_time[>=]"] = $start_time;
-            $where["m.start_time[<]"] = $end_time;
-        }
+
 
         switch ($type){
             case 0://即时比分
 //                MatchChangeService::change();
                 $where["m.status"] = [0, 1, 2, 3, 4];
                 $where["ORDER"] = ["start_time" => "ASC"];
-
                 break;
             case 1://赛果
                 $where["m.status"] = [-1];
                 $where["ORDER"] = ["start_time" => "DESC"];
+                if(!empty($date))
+                {
+                    $start_time = strtotime($date);
+                    $end_time = strtotime($date."+1 day");
+                    $where["m.start_time[>=]"] = $start_time;
+                    $where["m.start_time[<]"] = $end_time;
+                }
                 break;
             case 2://赛程
                 $where["m.status"] = [0];
                 $where["ORDER"] = ["start_time" => "ASC"];
+                if(!empty($date))
+                {
+                    $start_time = strtotime($date);
+                    $end_time = strtotime($date."+1 day");
+                    $where["m.start_time[>=]"] = $start_time;
+                    $where["m.start_time[<]"] = $end_time;
+                }
                 break;
             case 3://胜负彩
                 $match_ids = RedisHelper::get(CacheKey::SHENGFUCAI_KEY,redis(),function(){

@@ -26,7 +26,7 @@ class UploadService
         $this->uri = new Uri(self::DOMAIN);
     }
 
-    public function upload($content)
+    public function upload($file_path)
     {
         $uri = clone $this->uri;
 

@@ -47,10 +47,12 @@ class UploadLogic extends BaseLogic
         //裁剪成100*100
         $image->crop(100,100);
 
-        $image->save($file['tmp_name']);
+        $image->save("/tmp/".$file['name']);
 
-        $response = $uploader->upload($file['tmp_name']);
+        $response = $uploader->upload("/tmp/".$file['name']);
 
-        return $response['data'];
+        unlink("/tmp/".$file['name']);
+
+        return $response['data']['path'];
     }
 }

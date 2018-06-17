@@ -8,11 +8,18 @@
 
 namespace Logic;
 
+use Service\UploadService;
+
 class UploadLogic extends BaseLogic
 {
     public function uploadImage($name = "file")
     {
-        var_dump($_POST);
-        $file = $_POST[$name];
+        $file = $_FILES[$name];
+
+        $uploader = new UploadService();
+
+        $response = $uploader->upload($file['tmp_name']);
+
+        var_dump($response);
     }
 }

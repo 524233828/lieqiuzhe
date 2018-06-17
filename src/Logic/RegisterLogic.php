@@ -111,6 +111,14 @@ class RegisterLogic extends BaseLogic
             UserException::phoneExists();
         }
 
+        $my_user = UserModel::getUserByNotRigisterFinish($phone);
+
+        if($my_user){
+            return [
+                "token" => $this->generateJWT($my_user['id'])
+            ];
+        }
+
         $user['id'] = UserModel::addUser($data);
         return [
             "token" => $this->generateJWT($user['id'])

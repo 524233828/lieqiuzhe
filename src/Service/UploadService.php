@@ -17,7 +17,7 @@ class UploadService
 
     private $uri;
 
-    const DOMAIN = "http://127.0.0.1:8001";
+    const DOMAIN = "http://127.0.0.1:8002";
 
     public function __construct()
     {
@@ -26,15 +26,22 @@ class UploadService
         $this->uri = new Uri(self::DOMAIN);
     }
 
-    public function upload($data)
+    public function upload($file_path)
     {
         $uri = clone $this->uri;
 
-        $uri->withPath("/tao_hua");
+        $uri->withPath("/admin/common/upload_image");
 
-        $uri->withQuery($data);
+        $data = [
+            'multipart' => [
+                [
+                    'name'     => 'file',
+                    'contents' => fopen($file_path, 'r')
+                ],
+            ]
+        ];
 
-        $response = $this->http->request("GET", (string)$uri);
+        $response = $this->http->request("POST", (string)$uri, $data);
 
         return json_decode($response->getBody(),true);
     }

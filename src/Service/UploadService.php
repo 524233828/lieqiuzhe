@@ -26,7 +26,7 @@ class UploadService
         $this->uri = new Uri(self::DOMAIN);
     }
 
-    public function upload($file_path)
+    public function upload($content)
     {
         $uri = clone $this->uri;
 
@@ -36,7 +36,7 @@ class UploadService
             'multipart' => [
                 [
                     'name'     => 'file',
-                    'contents' => fopen($file_path, 'r')
+                    'contents' => $content
                 ],
             ]
         ];

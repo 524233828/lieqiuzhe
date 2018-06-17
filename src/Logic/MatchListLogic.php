@@ -169,7 +169,13 @@ class MatchListLogic extends BaseLogic
             $data['form_id'] = $form_id;
         }
 
-        return MatchCollectionModel::add($data);
+        $result =  MatchCollectionModel::add($data);
+
+        if($result){
+            return [];
+        }else{
+            BaseException::SystemError();
+        }
     }
 
     public function collectCancel($match_id)
@@ -185,7 +191,13 @@ class MatchListLogic extends BaseLogic
             "user_id" => $user_id,
         ];
 
-        return MatchCollectionModel::delete($where);
+        $result = MatchCollectionModel::delete($where);
+
+        if($result){
+            return [];
+        }else{
+            BaseException::SystemError();
+        }
     }
 
     public function fetchLeague($type = 0, $date = null)

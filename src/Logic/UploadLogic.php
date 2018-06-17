@@ -21,10 +21,8 @@ class UploadLogic extends BaseLogic
 
         $uploader = new UploadService();
 
-
-
         //将图片裁成100 * 100 的头像
-        $manager = new ImageManager(array('driver' => 'imagick'));
+        $manager = new ImageManager(array('driver' => 'gd'));
 
         $image = $manager->make($file['tmp_name']);
 

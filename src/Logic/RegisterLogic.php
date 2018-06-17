@@ -139,8 +139,5 @@ class RegisterLogic extends BaseLogic
         }
     }
 
-    private function getCode()
-    {
-        return rand(100000, 999999);
-    }
+
 }

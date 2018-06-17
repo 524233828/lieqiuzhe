@@ -54,4 +54,13 @@ class BaseLogic
 
         return JWT::encode($token, JWTKey::KEY, JWTKey::ALG);
     }
+
+    /**
+     * 生成验证码
+     * @return int
+     */
+    protected function getCode()
+    {
+        return rand(100000, 999999);
+    }
 }

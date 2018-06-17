@@ -47,7 +47,7 @@ class UploadLogic extends BaseLogic
         //裁剪成100*100
         $image->crop(100,100);
 
-        $response = $uploader->upload($image);
+        $response = $uploader->upload($image->getCore(););
 
         return $response['data'];
     }

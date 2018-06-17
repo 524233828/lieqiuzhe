@@ -36,7 +36,7 @@ class UploadService
             'multipart' => [
                 [
                     'name'     => 'file',
-                    'contents' => $content
+                    'contents' => fopen($file_path, 'r')
                 ],
             ]
         ];

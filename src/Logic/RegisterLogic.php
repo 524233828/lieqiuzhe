@@ -97,20 +97,13 @@ class RegisterLogic extends BaseLogic
             UserException::codeInvalid();
         }
 
-        $data = [
-            "phone" => $phone,
-            "openid" => $phone,
-            "unionid" => $phone,
-            "status" => 0,
-            "openid_type" => 0
-        ];
-
         $my_user = UserModel::getUserByPhone($phone);
         if($my_user)
         {
             UserException::phoneExists();
         }
 
+        //之前提交过手机号信息，用上次创建的ID生成token
         $my_user = UserModel::getUserByNotRigisterFinish($phone);
 
         if($my_user){
@@ -118,6 +111,15 @@ class RegisterLogic extends BaseLogic
                 "token" => $this->generateJWT($my_user['id'])
             ];
         }
+
+        //初步创建手机号账号，但状态为0，表示未注册完成
+        $data = [
+            "phone" => $phone,
+            "openid" => $phone,
+            "unionid" => $phone,
+            "status" => 0,
+            "openid_type" => 0
+        ];
 
         $user['id'] = UserModel::addUser($data);
         return [

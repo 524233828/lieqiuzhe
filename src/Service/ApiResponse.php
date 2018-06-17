@@ -27,6 +27,6 @@ class ApiResponse extends JsonResponse
         $result['msg'] = $msg;
         $result['code'] = $code;
 
-        parent::__construct($result, $status, $headers);
+        parent::__construct($result, 200, $headers);
     }
 }

@@ -96,4 +96,9 @@ class UserModel extends BaseModel
         return database()->get(self::$table, "*", ["phone" => $phone, "status" => 1]);
     }
 
+    public static function getUserByNotRigisterFinish($phone)
+    {
+        return database()->get(self::$table, ["id"], ["phone" => $phone, "status" => 0]);
+    }
+
 }

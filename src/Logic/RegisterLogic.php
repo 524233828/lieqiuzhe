@@ -101,6 +101,7 @@ class RegisterLogic extends BaseLogic
             "phone" => $phone,
             "openid" => $phone,
             "unionid" => $phone,
+            "status" => 0,
             "openid_type" => 0
         ];
 
@@ -128,7 +129,8 @@ class RegisterLogic extends BaseLogic
 
         $data = [
             "nickname" => $nickname,
-            "password" => $password
+            "password" => $password,
+            "status" => 1
         ];
 
         $where = ["id" => $uid];

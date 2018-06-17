@@ -97,5 +97,5 @@ route()->group(["prefix"=>"/search","middleware" => "dispatch"], function(){
 
 //
 route()->group(["prefix"=>"/common","middleware" => "dispatch"], function(){
-    route()->get("/upload", 'CommonController@uploadImage');
+    route()->post("/upload", 'CommonController@uploadImage');
 });

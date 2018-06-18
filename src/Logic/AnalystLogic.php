@@ -14,6 +14,8 @@ use Exception\AnalystException;
 use Exception\BaseException;
 use Helper\FuntionHelper;
 use Model\AnalystInfoModel;
+use Model\AnalystLevelOrderModel;
+use Model\IconsModel;
 use Model\LeagueModel;
 use Model\FansModel;
 use Model\MatchCollectionModel;
@@ -176,6 +178,27 @@ class AnalystLogic extends BaseLogic
         }else{
             AnalystException::failUnfollow();
         }
+    }
+
+    public function myFollows()
+    {
+        $uid = UserLogic::$user['id'];
+        $analyst = AnalystInfoModel::getFollowsByUserId($uid);
+
+        if(!$analyst) {
+            return [];
+        }
+
+        foreach ($analyst as &$v) {
+            $current_level = 2;
+
+            $v['fans'] = FansModel::countFans($v['analyst_id']);
+            $v['level'] = $current_level;
+            $v['level_icons'] = IconsModel::getAnalystIcon($current_level);
+        }
+
+        return $analyst;
+
     }
 
 

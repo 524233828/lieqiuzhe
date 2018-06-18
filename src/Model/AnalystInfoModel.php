@@ -9,6 +9,8 @@
 namespace Model;
 
 
+use Logic\UserLogic;
+
 class AnalystInfoModel extends BaseModel
 {
     const ANALYST_TABLE = "analyst_info";
@@ -126,4 +128,28 @@ SQL;
         return database()->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+
+    public static function getFollowsByUserId($user_id)
+    {
+        $fans_table = FansModel::$table;
+        $user_table = UserModel::$table;
+        $columns = [
+            'm.user_id as user_id',
+            'c.id as analyst_id',
+            'c.nickname as nickname',
+            'c.avatar as avatar',
+        ];
+        $column = is_array($columns) ? implode(",", $columns) : $columns;
+        $sql = <<<SQL
+SELECT {$column}
+FROM (
+  SELECT * 
+  FROM `{$fans_table}`
+  WHERE user_id = {$user_id}
+) as m
+LEFT JOIN `{$user_table}` as c ON c.id = m.analyst_id
+SQL;
+
+        return database()->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
+    }
 }

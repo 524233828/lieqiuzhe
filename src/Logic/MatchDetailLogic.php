@@ -12,6 +12,8 @@ use Constant\CacheKey;
 use Exception\MatchException;
 use Exception\BaseException;
 use Helper\FuntionHelper;
+use Model\AnalystLevelOrderModel;
+use Model\IconsModel;
 use Model\LeagueModel;
 use Model\MatchCollectionModel;
 use Model\MatchInfoModel;
@@ -112,12 +114,20 @@ class MatchDetailLogic extends BaseLogic
 
         if($res){
             foreach ($res as &$v) {
-                $v['win_streak'] = FuntionHelper::continuityWin($v['record']);
-                $v['hit_rate'] = FuntionHelper::winRate($v['record']);
+                $v['win_streak'] = FuntionHelper::continuityWin($v['win_str']);
+                $v['hit_rate'] = FuntionHelper::winRate($v['result_str']);
                 $v['rec_time'] = date('m/d H:i:s',$v['rec_time']);
-                $v['hit'] = '16发12赢4走';
-                $v['gifts'] = '1W';
+                $v['hit'] = FuntionHelper::resultComputer($v['result_str']);;
+                $v['gifts'] = $v['ticket'];
+                $current_level = AnalystLevelOrderModel::getAnalystCurrentLevel($v['user_id']);
+//                $v['level'] = $current_level;
+                $v['level'] = 2;//写死先
+                $v['icon'] = IconsModel::getAnalystIcon(2);
+//                $v['icon'] = IconsModel::getAnalystIcon($current_level);
                 unset($v['record']);
+                unset($v['ticket']);
+                unset($v['result_str']);
+                unset($v['win_str']);
             }
         }
 

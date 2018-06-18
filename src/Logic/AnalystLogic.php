@@ -32,7 +32,7 @@ class AnalystLogic extends BaseLogic
     public function fetchAnalystInfoByUserId($user_id)
     {
         $uid = UserLogic::$user['id'];
-        $analyst_info = AnalystInfoModel::getInfoByUserId(
+        $analyst_info = AnalystInfoModel::getAnalystDetailByUserId(
             $user_id
         );
 
@@ -46,22 +46,22 @@ class AnalystLogic extends BaseLogic
                 ['id'],
                 [
                     'user_id' => $uid,
-                    'analyst_id' => $analyst_info['id'],
+                    'analyst_id' => $analyst_info['user_id'],
                 ]
             );
             $analyst_info['is_fans'] = $is_fans ? 1 : 0;
         }
 
         //统计
-        $analyst_info['win_streak'] = FuntionHelper::continuityWin($analyst_info['record']);
-        $analyst_info['win_week'] = FuntionHelper::continuityWin($analyst_info['record']);
-        $analyst_info['hit_rate'] = FuntionHelper::winRate($analyst_info['record']);
-
+        $analyst_info['win_streak'] = FuntionHelper::continuityWin($analyst_info['win_str']);
+        $analyst_info['win_week'] = FuntionHelper::continuityWin($analyst_info['win_str']);
+        $analyst_info['hit_rate'] = FuntionHelper::winRate($analyst_info['hit_rate']);
+        
         //粉丝
-        $analyst_info['fans'] = FansModel::getCountFansByAnalystId($analyst_info['id']);
+        $analyst_info['fans'] = FansModel::getCountFansByAnalystId($analyst_info['user_id']);
         unset($analyst_info['analyst_id']);
         //饭票
-        $analyst_info['gifts'] = '3W';
+        $analyst_info['gifts'] = $analyst_info['ticket'];
 
         $analyst_info['medal'] = [
             [

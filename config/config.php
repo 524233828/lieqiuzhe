@@ -43,9 +43,9 @@ return [
         // 微信支付参数
         'wechat' => [
             'debug'      => false, // 沙箱模式
-            'app_id'     => '', // 应用ID
-            'mch_id'     => '', // 微信支付商户号
-            'mch_key'    => '', // 微信支付密钥
+            'app_id'     => 'wx45d4e558ae0284a4', // 应用ID
+            'mch_id'     => '1493544892', // 微信支付商户号
+            'mch_key'    => 'yaoyuan123*', // 微信支付密钥
             'ssl_cer'    => '', // 微信证书 cert 文件
             'ssl_key'    => '', // 微信证书 key 文件
             'notify_url' => '', // 支付通知URL

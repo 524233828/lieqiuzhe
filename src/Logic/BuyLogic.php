@@ -60,7 +60,8 @@ class BuyLogic extends BaseLogic
             "total_fee" => $level_info['price'],
             "create_time" => time(),
             "product_id" => 1,
-            "user_id" => UserLogic::$user['id']
+            "user_id" => UserLogic::$user['id'],
+            "pay_type" => $pay_type
         ];
 
         $level_data = [
@@ -138,7 +139,8 @@ class BuyLogic extends BaseLogic
             "total_fee" => $level_info['price'],
             "create_time" => time(),
             "product_id" => 2,
-            "user_id" => UserLogic::$user['id']
+            "user_id" => UserLogic::$user['id'],
+            "pay_type" => $pay_type
         ];
 
         $level_data = [
@@ -199,7 +201,8 @@ class BuyLogic extends BaseLogic
             "total_fee" => $num,
             "create_time" => time(),
             "product_id" => 3,
-            "user_id" => UserLogic::$user['id']
+            "user_id" => UserLogic::$user['id'],
+            "pay_type" => $pay_type
         ];
 
         $order_res = OrderModel::add($order_data);

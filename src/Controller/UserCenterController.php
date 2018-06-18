@@ -12,6 +12,7 @@ namespace Controller;
 use FastD\Http\ServerRequest;
 use Logic\UserCenterLogic;
 use Logic\UserLogic;
+use Logic\AnalystLogic;
 
 class UserCenterController extends BaseController
 {
@@ -28,5 +29,10 @@ class UserCenterController extends BaseController
         $sex = $request->getParam("sex");
 
         return $this->response(UserCenterLogic::getInstance()->updateUserInfo($nickname, $avatar, $sex));
+    }
+
+    public function getMyFollows(ServerRequest $request)
+    {
+        return $this->response(AnalystLogic::getInstance()->myFollows());
     }
 }

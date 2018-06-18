@@ -40,4 +40,11 @@ class FansModel extends BaseModel
     {
         
     }
+
+    public static function countFans($analyst_id)
+    {
+        return database()->count(self::$table, [
+            'analyst_id' => $analyst_id,
+        ]);
+    }
 }

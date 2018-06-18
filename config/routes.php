@@ -87,6 +87,7 @@ route()->group(["prefix" => "/wxapp", "middleware" => "dispatch"],function (){
 //个人中心页
 route()->group(["prefix"=>"/user","middleware" => "dispatch"], function(){
     route()->get("/info", 'UserCenterController@getInfo')->withAddMiddleware("login");
+    route()->get("/myfollow", 'UserCenterController@getMyFollows')->withAddMiddleware("login");
     route()->post("/modify", 'UserCenterController@updateUserInfo')->withAddMiddleware("login");
     route()->post("/bind_phone", 'UserCenterController@bindPhone')->withAddMiddleware("login");
 });

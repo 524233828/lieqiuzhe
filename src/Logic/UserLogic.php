@@ -43,7 +43,7 @@ class UserLogic extends BaseLogic
     {
         $uid = UserLogic::$user['id'];
         $current_level = UserLevelOrderModel::getUserCurrentLevel($uid);
-        $info = UserModel::getUserInfo($uid,['nickname','avatar','user_type','ticket']);
+        $info = UserModel::getUserInfo($uid,['nickname','avatar','user_type','ticket','sex','phone']);
 
         $level_icon = '';
         !$current_level && $current_level = 1;

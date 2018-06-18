@@ -56,7 +56,7 @@ class AnalystLogic extends BaseLogic
         $analyst_info['win_streak'] = FuntionHelper::continuityWin($analyst_info['win_str']);
         $analyst_info['win_week'] = FuntionHelper::continuityWin($analyst_info['win_str']);
         $analyst_info['hit_rate'] = FuntionHelper::winRate($analyst_info['hit_rate']);
-        
+
         //粉丝
         $analyst_info['fans'] = FansModel::getCountFansByAnalystId($analyst_info['user_id']);
         unset($analyst_info['analyst_id']);

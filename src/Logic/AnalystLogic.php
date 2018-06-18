@@ -190,7 +190,7 @@ class AnalystLogic extends BaseLogic
         }
 
         foreach ($analyst as &$v) {
-            $current_level = 2;
+            $current_level = AnalystLevelOrderModel::getAnalystCurrentLevel($v['user_id']);
 
             $v['fans'] = FansModel::countFans($v['analyst_id']);
             $v['level'] = $current_level;

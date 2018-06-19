@@ -86,6 +86,7 @@ class MatchChangeService
             $log->addDebug("s".$s);
 
             $current_minutes = floor((time()-strtotime("{$y}-{$m}-{$d} {$h}:{$i}:{$s}"))/60);
+            $current_minutes = $current_minutes < 0?0:$current_minutes;
             $log->addDebug("current_minutes".$current_minutes);
             $where = ["id" => $match_id];
 

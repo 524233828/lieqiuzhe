@@ -100,7 +100,7 @@ class ErrorCode
         self::PASSWORD_NOT_CONFIRM  => ['两次密码不相同', Response::HTTP_BAD_REQUEST],
         self::USER_LEVEL_EXISTS     => ['您已经购买该等级', Response::HTTP_BAD_REQUEST],
         self::TICKET_NOT_ENOUGH     => ['球票不足', Response::HTTP_FORBIDDEN],
-        self::PASSWORD_NOT_EQUAL     => ['两次密码不一致', Response::PASSWORD_NOT_EQUAL],
+        self::PASSWORD_NOT_EQUAL     => ['两次密码不一致', Response::HTTP_FORBIDDEN],
 
         //分析师系统错误
         self::USER_NOT_ANALYST      => ['用户不是分析师', Response::HTTP_FORBIDDEN],

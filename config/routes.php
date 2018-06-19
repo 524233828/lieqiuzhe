@@ -93,6 +93,7 @@ route()->group(["prefix"=>"/user","middleware" => "dispatch"], function(){
     route()->get("/bind_code/send", 'UserCenterController@sendBindCode')->withAddMiddleware("login");
     route()->get("/forget_code/send", 'UserCenterController@sendForgetCode');
     route()->post("/forget_code/valid", 'UserCenterController@validCode');
+    route()->post("/change/password", 'UserCenterController@updateUserPassword')->withAddMiddleware("login");
 });
 
 //搜索页

@@ -9,6 +9,7 @@
 namespace Controller;
 
 
+use Constant\CacheKey;
 use FastD\Http\ServerRequest;
 use Logic\UserCenterLogic;
 use Logic\UserLogic;
@@ -34,5 +35,61 @@ class UserCenterController extends BaseController
     public function getMyFollows(ServerRequest $request)
     {
         return $this->response(AnalystLogic::getInstance()->myFollows());
+    }
+
+    public function bindPhone(ServerRequest $request)
+    {
+        $validate = validator($request, [
+            "phone" => "required",
+            "code" => "required",
+        ]);
+        $params = $validate->data();
+
+        return $this->response(UserCenterLogic::getInstance()->bindPhone($params['phone'],$params['code']));
+    }
+
+    public function sendBindCode(ServerRequest $request)
+    {
+
+        $validate = validator($request, [
+            "phone" => "required|mobile"
+        ]);
+        $params = $validate->data();
+
+        return $this->response(UserCenterLogic::getInstance()->sendCode($params['phone'],CacheKey::BIND_PHONE_CODE_KEY));
+    }
+
+    public function sendForgetCode(ServerRequest $request)
+    {
+
+        $validate = validator($request, [
+            "phone" => "required|mobile"
+        ]);
+        $params = $validate->data();
+
+        return $this->response(UserCenterLogic::getInstance()->sendCode($params['phone'],CacheKey::FORGET_PHONE_CODE_KEY));
+    }
+
+
+    public function validCode(ServerRequest $request)
+    {
+        $validate = validator($request, [
+            "phone" => "required|mobile",
+            "code" => "required"
+        ]);
+        $params = $validate->data();
+
+        return $this->response(UserCenterLogic::getInstance()->validCode($params['phone'], $params['code']));
+    }
+
+    public function updateUserPassword(ServerRequest $request)
+    {
+        $validate = validator($request, [
+            "password" => "required",
+            "re_password" => "required"
+        ]);
+        $params = $validate->data();
+
+        return $this->response(UserCenterLogic::getInstance()->updateUserPassword($params['password'], $params['re_password']));
     }
 }

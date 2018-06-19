@@ -90,6 +90,9 @@ route()->group(["prefix"=>"/user","middleware" => "dispatch"], function(){
     route()->get("/myfollow", 'UserCenterController@getMyFollows')->withAddMiddleware("login");
     route()->post("/modify", 'UserCenterController@updateUserInfo')->withAddMiddleware("login");
     route()->post("/bind_phone", 'UserCenterController@bindPhone')->withAddMiddleware("login");
+    route()->get("/bind_code/send", 'UserCenterController@sendBindCode');
+    route()->get("/forget_code/send", 'UserCenterController@sendForgetCode');
+    route()->post("/forget_code/valid", 'UserCenterController@validCode');
 });
 
 //搜索页

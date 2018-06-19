@@ -67,4 +67,14 @@ class UserException extends BaseException
     {
         throw new self(ErrorCode::msg(ErrorCode::TICKET_NOT_ENOUGH),ErrorCode::TICKET_NOT_ENOUGH);
     }
+
+    public static function emptyPassowrd()
+    {
+        throw new self(ErrorCode::msg(ErrorCode::ERR_INVALID_PARAMETER),ErrorCode::ERR_INVALID_PARAMETER);
+    }
+
+    public static function twicePasswordNotEqual()
+    {
+        throw new self(ErrorCode::msg(ErrorCode::PASSWORD_NOT_EQUAL),ErrorCode::PASSWORD_NOT_EQUAL);
+    }
 }

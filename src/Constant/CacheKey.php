@@ -15,4 +15,5 @@ class CacheKey
 
     const REGISTER_CODE_KEY = "qiuwen:register_code";
     const BIND_PHONE_CODE_KEY = "qiuwen:bind_phone_code";
+    const FORGET_PHONE_CODE_KEY = "qiuwen:forget_phone_code";
 }

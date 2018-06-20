@@ -195,6 +195,7 @@ class BuyLogic extends BaseLogic
             ];
         }
 
+        database()->pdo->beginTransaction();
         $order_data = [
             "order_id" => $order_id,
             "info" => $info,

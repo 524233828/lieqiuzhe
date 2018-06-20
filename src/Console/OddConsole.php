@@ -10,6 +10,7 @@ namespace Console;
 
 
 use Model\MatchInfoModel;
+use Model\MatchModel;
 use Model\OddModel;
 use Model\OptionModel;
 use PHPHtmlParser\Dom;
@@ -168,6 +169,7 @@ class OddConsole extends Command
 
         foreach ($res['match'] as $info) {
             $match_id = $info['ID'];
+            $match = MatchModel::get($match_id,["home_id","away_id"]);
 
             $html = $info['Briefing'];
 
@@ -175,12 +177,11 @@ class OddConsole extends Command
                 continue;
             }
 
-//            $player_suspend = $info['PlayerSuspend'];
-
             $dom = new Dom();
 
             $dom->load($html);
 
+            //主队赛前情报
             $red_t1 = $dom->find('.red_t1')[0]->getParent()->find('tr');
 
             unset($red_t1[0]);
@@ -194,13 +195,16 @@ class OddConsole extends Command
                     "team_type" => 0,
                     "desc" => $red->find('td')[0]->innerhtml,
                     "create_time" => time(),
+                    "team_id" => $match['home_id'],
                 ];
-//                var_dump($red->find('td')[0]->innerhtml);
             }
 
+            //客队赛前情报
             $blue_t1 = $dom->find('.blue_t1')[0]->getParent()->find('tr');
 
             unset($blue_t1[0]);
+
+            $away_info = [];
 
             foreach ($blue_t1 as $blue) {
 
@@ -209,10 +213,41 @@ class OddConsole extends Command
                     "team_type" => 1,
                     "desc" => $blue->find('td')[0]->innerhtml,
                     "create_time" => time(),
+                    "team_id" => $match['away_id'],
                 ];
             }
 
             unset($dom);
+
+            //伤停信息
+            if (isset($info['PlayerSuspend']) && is_array($info['PlayerSuspend'])) {
+                if (!isset($info['PlayerSuspend'][0])) {
+                    $info['PlayerSuspend'] = [0 => $info['PlayerSuspend']];
+                }
+
+                foreach ($info['PlayerSuspend'] as $suspend)
+                {
+                    if($suspend['team_id'] == $match['home_id']){
+                        $home_info[] = [
+                            "match_id" => $match_id,
+                            "team_type" => 0,
+                            "desc" => "【伤停】{$suspend['Name2']}{$suspend['Reason']}",
+                            "create_time" => time(),
+                            "team_id" => $match['home_id'],
+                            "type" => 1
+                        ];
+                    }else{
+                        $away_info[] = [
+                            "match_id" => $match_id,
+                            "team_type" => 0,
+                            "desc" => "【伤停】{$suspend['Name2']}{$suspend['Reason']}",
+                            "create_time" => time(),
+                            "team_id" => $match['away_id'],
+                            "type" => 1
+                        ];
+                    }
+                }
+            }
 
             $info = array_merge($home_info, $away_info);
 

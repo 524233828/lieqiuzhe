@@ -34,6 +34,7 @@ route()->group(["prefix" => "/index", "middleware" => "dispatch"], function(){
     route()->get("/banner", 'IndexController@banner');
     route()->get("/top_line", 'IndexController@topLine');
     route()->get("/adventure", 'IndexController@adventure');
+    route()->get("/recommend", 'IndexController@recommend');
     route()->get("/user_info", 'IndexController@userInfo')->withAddMiddleware("login");
     route()->get("/ticket_rank", 'IndexController@ticketRank');
     route()->get("/hit_rate_rank", 'IndexController@hitRateRank');

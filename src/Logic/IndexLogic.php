@@ -13,6 +13,7 @@ use Helper\FuntionHelper;
 use Model\AdventureModel;
 use Model\AnalystInfoModel;
 use Model\BannerModel;
+use Model\MatchModel;
 use Model\RecommendModel;
 use Model\TopLineModel;
 use Model\UserModel;
@@ -79,22 +80,42 @@ class IndexLogic extends BaseLogic
         return ["list" => $list];
     }
 
+    /**
+     * 风云榜
+     * @param int $page
+     * @param int $size
+     * @return array
+     */
     public function ticketRank($page = 1, $size = 20)
     {
         $page = new Pager($page, $size);
 
-        $list = AnalystInfoModel::fetchTicketRank($page->getFirstIndex(), $size);
+        $list = RecommendModel::Rank($page->getFirstIndex(), $size, "gifts");
 
         foreach ($list as $k => $v)
         {
-            $list[$k]['win_streak'] = FuntionHelper::continuityWin($v['record']);
+            $list[$k]['win_streak'] = FuntionHelper::continuityWin($v['win_str']);
+            $list[$k]['hit'] = FuntionHelper::resultComputer($v['result_str']);
+            $list[$k]['hit_rate'] = FuntionHelper::winRate($v['win_str']);
         }
+//        $list = AnalystInfoModel::fetchTicketRank($page->getFirstIndex(), $size);
+//
+//        foreach ($list as $k => $v)
+//        {
+//            $list[$k]['win_streak'] = FuntionHelper::continuityWin($v['record']);
+//        }
 
         $analyst_count = UserModel::count(["user_type" => 1]);
 
         return ["list" => $list, "meta" => $page->getPager($analyst_count)];
     }
 
+    /**
+     * 命中榜
+     * @param int $page
+     * @param int $size
+     * @return array
+     */
     public function hitRateRank($page = 1, $size = 20)
     {
         $page = new Pager($page, $size);
@@ -105,6 +126,7 @@ class IndexLogic extends BaseLogic
         {
             $list[$k]['win_streak'] = FuntionHelper::continuityWin($v['win_str']);
             $list[$k]['hit'] = FuntionHelper::resultComputer($v['result_str']);
+            $list[$k]['hit_rate'] = FuntionHelper::winRate($v['win_str']);
         }
 
         $analyst_count = UserModel::count(["user_type" => 1]);
@@ -117,5 +139,28 @@ class IndexLogic extends BaseLogic
         $page = new Pager($page, $size);
 
         
+    }
+
+    public function recommend()
+    {
+        $where["m.status"] = [0];
+        $where["m.is_recommend"] = 1;
+        $where["ORDER"] = ["m.update_time" => "DESC"];
+
+        $res = MatchModel::fetch(
+            $where,
+            [
+                "m.id(match_id)",
+                "l.gb_short(league_name)",
+                "l.color(league_color)",
+                "m.start_time(match_time)",
+                "h.gb(home)",
+                "h.flag(home_flag)",
+                "a.gb(away)",
+                "a.flag(away_flag)",
+            ]
+        );
+
+        return ["list" => array_values($res)];
     }
 }

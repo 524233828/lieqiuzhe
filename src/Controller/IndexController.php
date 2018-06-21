@@ -31,7 +31,7 @@ class IndexController extends BaseController
 
     public function adventure(ServerRequest $request)
     {
-        return $this->response(IndexLogic::getInstance()->topLine());
+        return $this->response(IndexLogic::getInstance()->adventure());
     }
 
     public function ticketRank(ServerRequest $request)
@@ -46,5 +46,10 @@ class IndexController extends BaseController
         $page = $request->getParam("page", 1);
         $size = $request->getParam("size", 20);
         return $this->response(IndexLogic::getInstance()->hitRateRank($page, $size));
+    }
+
+    public function recommend(ServerRequest $request)
+    {
+        return $this->response(IndexLogic::getInstance()->recommend());
     }
 }

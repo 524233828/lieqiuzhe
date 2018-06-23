@@ -195,6 +195,7 @@ class BuyLogic extends BaseLogic
             ];
         }
 
+        database()->pdo->beginTransaction();
         $order_data = [
             "order_id" => $order_id,
             "info" => $info,
@@ -228,7 +229,7 @@ class BuyLogic extends BaseLogic
 
     private function pay($pay_type = "wechat", $order)
     {
-        $config = config()->get("pay");
+        $config = config()->get("payment");
         $pay = new Pay($config);
 
         return $pay->driver($pay_type)->gateway("app")->apply($order);

@@ -13,6 +13,7 @@ use Exception\AnalystException;
 use Exception\RecommendException;
 use Helper\FuntionHelper;
 use Model\AnalystInfoModel;
+use Model\FansModel;
 use Model\LeagueModel;
 use Model\MatchInfoModel;
 use Model\MatchModel;
@@ -169,6 +170,7 @@ class RecommendLogic extends BaseLogic
         if(!$res) {
             RecommendException::recommendEmpty();
         }
+        $uid = UserLogic::$user['id'];
 
         $options = OptionModel::getOptionByOddId($res['odd_id'],['id','option','odds_rate']);
         $res['option'] = $options;
@@ -177,6 +179,18 @@ class RecommendLogic extends BaseLogic
         $res['rec_time'] =date('m/d H:i', $res['rec_time']);
         $res['is_read'] = 1;
         $res['extra'] = json_decode($res['extra'], true);
+
+        $res['is_fans'] = 0;
+        if($uid) {
+            $is_fans = FansModel::fetch(
+                ['id'],
+                [
+                    'user_id' => $uid,
+                    'analyst_id' => $res['user_id'],
+                ]
+            );
+            $res['is_fans'] = $is_fans ? 1 : 0;
+        }
         unset($res['record']);
         unset($res['odd_id']);
 

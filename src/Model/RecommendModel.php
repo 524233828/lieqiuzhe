@@ -43,6 +43,7 @@ class RecommendModel extends BaseModel
             'm.create_time as rec_time',
             'm.title as rec_title',
             'm.`desc` as rec_desc',
+            'h.`status` as status',
             'b.`odd_id` as odd_id',
             'm.`result` as result',
             'a.`record` as record',

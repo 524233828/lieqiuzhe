@@ -72,7 +72,7 @@ class SearchLogic extends BaseLogic
 
         return [
             'keyword' => $keywords,
-            'analyst' => $analysts,
+            'analyst' => array_values($analysts),
             'match' => $matchs,
             'class' => [],
             'video' => [],

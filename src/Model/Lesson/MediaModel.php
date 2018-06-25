@@ -8,6 +8,7 @@
 
 namespace Model\Lesson;
 
+use Model\BaseModel;
 use Exception\BaseException;
 
 class MediaModel extends BaseModel

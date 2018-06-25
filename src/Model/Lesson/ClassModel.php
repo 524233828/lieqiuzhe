@@ -15,6 +15,7 @@
  */
 namespace Model\Lesson;
 
+use Model\BaseModel;
 use Exception\BaseException;
 
 class ClassModel extends BaseModel

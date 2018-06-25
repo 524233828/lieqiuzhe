@@ -114,6 +114,10 @@ class MatchDetailLogic extends BaseLogic
 
         if($res){
             foreach ($res as &$v) {
+                if(!$v['win_str']){
+                    $res = [];
+                    break;
+                }
                 $v['win_streak'] = FuntionHelper::continuityWin($v['win_str']);
                 $v['hit_rate'] = FuntionHelper::winRate($v['result_str']);
                 $v['rec_time'] = date('m/d H:i:s',$v['rec_time']);

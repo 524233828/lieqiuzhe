@@ -61,7 +61,7 @@ class ApiDocConsole extends Command
             foreach ($value as $v) {
                 /* @var Route $v */
                 $data = [
-                    'url' => $v->getName(),
+                    'url' => $v->getPath(),
                     'method' => $v->getMethod(),
                 ];
 

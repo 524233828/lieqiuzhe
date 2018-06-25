@@ -200,11 +200,19 @@ class MatchChangeService
         return false;
     }
 
+    /**
+     * 比赛开始
+     * @param $match_id
+     */
     public function matchStart($match_id)
     {
 
     }
 
+    /**
+     * 比赛结束
+     * @param $match_id
+     */
     public function matchFinish($match_id)
     {
 

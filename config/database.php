@@ -16,5 +16,14 @@ return [
         'pass' => '',
         'charset' => 'utf8',
         'port' => 3306,
+    ],
+    'lesson' => [
+        'adapter' => 'mysql',
+        'name' => 'dobee',
+        'host' => '127.0.0.1',
+        'user' => 'root',
+        'pass' => '',
+        'charset' => 'utf8',
+        'port' => 3306,
     ]
 ];

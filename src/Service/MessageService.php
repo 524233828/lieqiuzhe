@@ -13,11 +13,20 @@ class MessageService
 {
 
     /**
-     * 比赛关注推送
+     * 开赛推送
      * @param $match_id
      */
-    public function concernPush($match_id)
+    public function concernStartPush($match_id)
     {
         
+    }
+
+    /**
+     * 完赛推送
+     * @param $match_id
+     */
+    public function concernStopPush($match_id)
+    {
+
     }
 }

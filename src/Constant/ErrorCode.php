@@ -76,6 +76,18 @@ class ErrorCode
     const MATCH_NOT_EXIST = 1400;
 
     /**
+     * 15xx课程系统错误
+     */
+    const CLASS_NOT_FOUND = 1500; //课程不存在
+    const CLASS_NO_CHAPTER = 1501;//课程没有章节
+    const CHAPTER_DUPLICATE = 1502;//课程章节重复
+    const LESSON_DUPLICATE = 1503;//章节的课时重复
+    const CHAPTER_NO_LESSON = 1504;//章节没有课时
+    const CLASS_NO_TRY = 1505;//课程没有试听列表
+    const CLASS_EXPIRE = 1506;//课程已过期
+    const CLASS_HAS_BOUGHT = 5107;//课程已过期
+
+    /**
      * 错误代码与消息的对应数组
      *
      * @var array
@@ -125,6 +137,16 @@ class ErrorCode
         self::RECOMMEND_EMPTY        => ['没有更多推荐数据', Response::HTTP_FORBIDDEN],
 
         self::CREATE_ORDER_FAIL     => ['创建订单失败', Response::HTTP_INTERNAL_SERVER_ERROR],
+
+        //课程系统错误
+        self::CLASS_NOT_FOUND       => ['课程不存在', Response::HTTP_NOT_FOUND],
+        self::CLASS_NO_CHAPTER      => ['该课程没有章节', Response::HTTP_NOT_FOUND],
+        self::CHAPTER_DUPLICATE      => ['课程章节不能重复', Response::HTTP_BAD_GATEWAY],
+        self::LESSON_DUPLICATE      => ['章节课时不能重复', Response::HTTP_BAD_GATEWAY],
+        self::CHAPTER_NO_LESSON      => ['该章节没有课时', Response::HTTP_NOT_FOUND],
+        self::CLASS_NO_TRY          =>  ['该章节没有试听', Response::HTTP_NOT_FOUND],
+        self::CLASS_EXPIRE          =>  ['您购买的课程已过期，请重新购买', Response::HTTP_FORBIDDEN],
+        self::CLASS_HAS_BOUGHT      =>  ['您已购买此课程', Response::HTTP_OK],
     ];
 
     /**

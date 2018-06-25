@@ -6,7 +6,7 @@
  * Time: 22:50
  */
 
-namespace Model;
+namespace Model\Lesson;
 
 use Exception\BaseException;
 

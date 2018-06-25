@@ -10,10 +10,10 @@ namespace Logic\Lesson;
 
 use Logic\BaseLogic;
 use Exception\ClassException;
-use Model\ArticleModel;
-use Model\BuyModel;
-use Model\ClassModel;
-use Model\MediaModel;
+use Model\Lesson\ArticleModel;
+use Model\Lesson\BuyModel;
+use Model\Lesson\ClassModel;
+use Model\Lesson\MediaModel;
 
 class MyClassLogic extends BaseLogic
 {

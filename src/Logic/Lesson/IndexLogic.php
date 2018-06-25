@@ -10,7 +10,7 @@ namespace Logic\Lesson;
 
 use Logic\BaseLogic;
 use Model\BannerModel;
-use Model\ClassModel;
+use Model\Lesson\ClassModel;
 
 class IndexLogic extends BaseLogic
 {

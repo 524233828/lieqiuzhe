@@ -10,7 +10,7 @@
 namespace Logic\Lesson;
 
 use Logic\BaseLogic;
-use Model\ArticleModel;
+use Model\Lesson\ArticleModel;
 
 class ArticleLogic extends BaseLogic
 {

@@ -9,7 +9,7 @@
 namespace Logic\Lesson;
 
 use Logic\BaseLogic;
-use Model\BuyModel;
+use Model\Lesson\BuyModel;
 
 class MyClassListLogic extends BaseLogic
 {

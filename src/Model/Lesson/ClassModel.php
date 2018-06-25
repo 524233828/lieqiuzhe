@@ -13,7 +13,7 @@
  * 由于课程的章节、课、简介及试听信息脱离课程后都没有意义
  * 因此统一归类到课程模块
  */
-namespace Model;
+namespace Model\Lesson;
 
 use Exception\BaseException;
 

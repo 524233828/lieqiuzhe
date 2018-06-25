@@ -22,7 +22,7 @@ return [
         'name' => 'dobee',
         'host' => '127.0.0.1',
         'user' => 'root',
-        'pass' => '',
+        'pass' => 'sure12580',
         'charset' => 'utf8',
         'port' => 3306,
     ]

@@ -115,7 +115,7 @@ class ClassController extends BaseController
         $paysource = $request->getParam("paysource",0);
 
         if(!$result = ClassLogic::getInstance()->buyClass($class_id, $channel, $paysource)){
-            OrderException::OrderCreateFail();
+            OrderException::createOrderFail();
         }else{
             $result['timeStamp'] = $result['timestamp'];
             unset($result['timestamp']);

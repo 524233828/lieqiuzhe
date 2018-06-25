@@ -10,6 +10,7 @@ namespace Controller;
 
 
 use FastD\Http\ServerRequest;
+use Logic\NotifyLogic;
 use Logic\UploadLogic;
 use Service\UploadService;
 
@@ -19,5 +20,14 @@ class CommonController extends BaseController
     public function uploadImage(ServerRequest $request)
     {
         return $this->response(["path"=>UploadLogic::getInstance()->uploadImage()]);
+    }
+
+    public function orderNotify(ServerRequest $request)
+    {
+        validator($request,[
+           "out_trade_no" => "required"
+        ]);
+
+        NotifyLogic::getInstance()->payNotify($request);
     }
 }

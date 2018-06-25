@@ -18,6 +18,7 @@ use Model\OrderModel;
 use Model\UserLevelModel;
 use Model\UserLevelOrderModel;
 use Pay\Pay;
+use Service\Goods\Goods;
 
 class BuyLogic extends BaseLogic
 {
@@ -59,7 +60,7 @@ class BuyLogic extends BaseLogic
             "info" => $info,
             "total_fee" => $level_info['price'],
             "create_time" => time(),
-            "product_id" => 1,
+            "product_id" => Goods::USER_LEVEL,
             "user_id" => UserLogic::$user['id'],
             "pay_type" => $pay_type
         ];
@@ -68,7 +69,8 @@ class BuyLogic extends BaseLogic
             "order_id" => $order_id,
             "create_time" => time(),
             "uid" => UserLogic::$user['id'],
-            "level" => $level_info['level']
+            "level" => $level_info['level'],
+            "month" => $month,
         ];
 
         $order_res = OrderModel::add($order_data);
@@ -138,7 +140,7 @@ class BuyLogic extends BaseLogic
             "info" => $info,
             "total_fee" => $level_info['price'],
             "create_time" => time(),
-            "product_id" => 2,
+            "product_id" => Goods::ANALYST_LEVEL,
             "user_id" => UserLogic::$user['id'],
             "pay_type" => $pay_type
         ];
@@ -147,7 +149,8 @@ class BuyLogic extends BaseLogic
             "order_id" => $order_id,
             "create_time" => time(),
             "uid" => UserLogic::$user['id'],
-            "level" => $level_info['level']
+            "level" => $level_info['level'],
+            "month" => $month,
         ];
 
         $order_res = OrderModel::add($order_data);
@@ -201,7 +204,7 @@ class BuyLogic extends BaseLogic
             "info" => $info,
             "total_fee" => $num,
             "create_time" => time(),
-            "product_id" => 3,
+            "product_id" => Goods::COIN,
             "user_id" => UserLogic::$user['id'],
             "pay_type" => $pay_type
         ];

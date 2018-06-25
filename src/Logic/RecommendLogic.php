@@ -13,6 +13,7 @@ use Exception\AnalystException;
 use Exception\RecommendException;
 use Helper\FuntionHelper;
 use Model\AnalystInfoModel;
+use Model\AnalystLevelOrderModel;
 use Model\FansModel;
 use Model\LeagueModel;
 use Model\MatchInfoModel;
@@ -113,7 +114,8 @@ class RecommendLogic extends BaseLogic
             AnalystException::userNotAnalyst();
         }
 
-        $analyst = AnalystInfoModel::getInfoByUserId($uid,['level']);
+//        $analyst = AnalystInfoModel::getInfoByUserId($uid,['level']);
+        $analyst_level = AnalystLevelOrderModel::getAnalystCurrentLevel($uid);
 
         $today = date("Y-m-d");
 

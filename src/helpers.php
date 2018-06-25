@@ -48,3 +48,11 @@ function myLog($filename = "debug", $level = \Monolog\Logger::DEBUG)
     }
     return $log;
 }
+
+/**
+ * @return \EasyWeChat\Foundation\Application;
+ */
+function wechat()
+{
+    return app()->get("wechat");
+}

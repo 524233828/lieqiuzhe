@@ -24,7 +24,8 @@
         "overtrue/socialite": "2.0.3",
         "zoujingli/pay-php-sdk": "^1.0",
         "sinkcup/umeng-message-sdk-php": "^0.0.1",
-        "Intervention/image":"v2.4.*"
+        "Intervention/image":"v2.4.*",
+        "overtrue/wechat":"^3.3"
     },
     "require-dev": {
         "phpunit/dbunit": "^2.0"

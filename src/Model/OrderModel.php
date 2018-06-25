@@ -18,4 +18,9 @@ class OrderModel extends BaseModel
     {
         return microtime(true)*10000;
     }
+
+    public static function getOrderByOrderId($order_id, $columns = "*")
+    {
+        return database()->get(self::$table, $columns, ["order_id" => $order_id]);
+    }
 }

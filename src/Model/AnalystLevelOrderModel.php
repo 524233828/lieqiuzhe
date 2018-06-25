@@ -29,4 +29,11 @@ class AnalystLevelOrderModel extends BaseModel
 
         return database()->get(self::$table, "*", $where);
     }
+
+    public static function getAnalystLevelOrderByOrderId($order_id, $columns = "*")
+    {
+        $where = ["order_id" => $order_id];
+
+        return database()->get(self::$table, $columns, $where);
+    }
 }

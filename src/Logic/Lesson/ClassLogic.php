@@ -8,13 +8,18 @@
 
 namespace Logic\Lesson;
 
+use EasyWeChat\User\User;
+use Exception\CoinException;
 use Logic\BaseLogic;
 use Exception\ClassException;
+use Logic\UserLogic;
 use Model\Lesson\ArticleModel;
 use Model\Lesson\BuyModel;
 use Model\Lesson\ClassModel;
 use Model\Lesson\MediaModel;
 use Model\OrderModel;
+use Model\UserBillModel;
+use Model\UserClassModel;
 
 class ClassLogic extends BaseLogic
 {
@@ -180,63 +185,51 @@ class ClassLogic extends BaseLogic
             ClassException::ClassNotFound();
         }
 
-        $class_list = BuyModel::getUserClass($_SESSION['uid'],$class_id);
+        $class_list = UserClassModel::getUserClass(UserLogic::$user['id'],$class_id);
         if($class_list)
         {
             ClassException::ClassHasBought();
         }
 
-        //微信统一下单
-        $attributes = [
-            'trade_type'       => 'JSAPI',
-            'body'             => '夜猫足球-'.$class['title'],
-            'detail'           => '夜猫足球-'.$class['title'],
-            'out_trade_no'     => OrderModel::getOrderId(),
-            'total_fee'        => floor($class['price']*100), // 单位：分
-            'openid'           => $_SESSION['userInfo']['openid'], // trade_type=JSAPI，此参数必传，用户在商户appid下的唯一标识，
-        ];
+        //获取当前金币余额
+        $bill = UserBillModel::getCurrentBill(UserLogic::$user['id']);
 
-        if($class['price'] > 0){
-            //生成支付参数
-            $config = CommonLogic::getInstance()->createOrder($attributes, $paysource);
+        if($class['price'] > $bill){
+            CoinException::coinNotEnough();
         }
+
+        //生成金币消耗订单
+        $order_id = OrderModel::getOrderId();
+        $data = [
+            "explain" => "用户购买课程减扣",
+            "order_id" => $order_id,
+            "status" => 1,
+            "current_bill" => $bill - $class['price'],
+            "inc_bill" => 0 - $class['price'],
+            "last_bill" => $bill,
+            "create_at" => time()
+        ];
 
 
         //数据库记录订单
         //开启事务
         database()->pdo->beginTransaction();
 
-        $order_date = [
-            "order_id" => $attributes['out_trade_no'],
-            "total_fee" => $class['price'],
-            "create_time" => time(),
-            "point" => 1,
-            "user_id" => $_SESSION['uid'],
-            "channel_id" => $channel,
-            "paysource" => $paysource
-        ];
+
 
         $user_class_data = [
             "class_id"=>$class_id,
-            "user_id"=>$_SESSION['uid'],
-            "order_id"=>$attributes['out_trade_no'],
+            "user_id"=>UserLogic::$user['id'],
+            "order_id"=>$order_id,
             "create_time"=>time(),
-            "status"=>0,
+            "status"=>1,
         ];
-        $order_id = OrderModel::addOrder($order_date);
-        $buy_id = BuyModel::addUserClass($user_class_data);
+
+        $result = UserBillModel::add($data);
+        $buy_id = UserClassModel::addUserClass($user_class_data);
         if($order_id && $buy_id)
         {
             database()->pdo->commit();
-            if(isset($config)){
-                return $config;
-            }else{
-                OrderModel::updateOrder(["status" => 1],["order_id"=>$order_id]);
-                $user_class = BuyModel::getUserClassByOrderId($order_id, ['class_id']);
-                $class = ClassModel::getClass($user_class['class_id']);
-                BuyModel::buySuccess($order_id, $class['expire_month']);
-                return ["timestamp" => time()];
-            }
 
         }else{
             database()->pdo->rollBack();

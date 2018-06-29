@@ -26,8 +26,6 @@ class MyClassListController extends BaseController
      */
     public function listUserClass(ServerRequest $request)
     {
-        $user_id = $_SESSION['uid'];
-
-        return $this->response(MyClassListLogic::getInstance()->listUserClass($user_id));
+        return $this->response(MyClassListLogic::getInstance()->listUserClass());
     }
 }

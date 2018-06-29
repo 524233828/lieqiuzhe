@@ -85,7 +85,12 @@ class ErrorCode
     const CHAPTER_NO_LESSON = 1504;//章节没有课时
     const CLASS_NO_TRY = 1505;//课程没有试听列表
     const CLASS_EXPIRE = 1506;//课程已过期
-    const CLASS_HAS_BOUGHT = 5107;//课程已过期
+    const CLASS_HAS_BOUGHT = 1507;//课程已过期
+
+    /**
+     * 16xx金币系统错误
+     */
+    const COIN_NOT_ENOUGH = 1600;
 
     /**
      * 错误代码与消息的对应数组
@@ -147,6 +152,9 @@ class ErrorCode
         self::CLASS_NO_TRY          =>  ['该章节没有试听', Response::HTTP_NOT_FOUND],
         self::CLASS_EXPIRE          =>  ['您购买的课程已过期，请重新购买', Response::HTTP_FORBIDDEN],
         self::CLASS_HAS_BOUGHT      =>  ['您已购买此课程', Response::HTTP_OK],
+
+        //金币系统错误
+        self::COIN_NOT_ENOUGH      =>  ['金币余额不足', Response::HTTP_OK],
     ];
 
     /**

@@ -62,7 +62,7 @@ class RecommendController extends BaseController
     public function fetchRecommendList(ServerRequest $request)
     {
         $page = $request->getParam("page", 1);
-        $size = $request->getParam("size", 1);
+        $size = $request->getParam("size", 20);
         $order = $request->getParam("order", null);
         $filter["win_rate_7"] = $request->getParam("win_rate_7", null);
         $filter["win_rate_30"] = $request->getParam("win_rate_30", null);

@@ -312,7 +312,7 @@ class RecommendLogic extends BaseLogic
 
         if(!empty($filter['league_id']))
         {
-            $where[] = "l.id={$filter['league']}";
+            $where[] = "l.id={$filter['league_id']}";
         }
 
         $where = implode(" AND ",$where);

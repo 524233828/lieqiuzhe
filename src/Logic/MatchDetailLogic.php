@@ -18,6 +18,7 @@ use Model\LeagueModel;
 use Model\MatchCollectionModel;
 use Model\MatchInfoModel;
 use Model\MatchModel;
+use Model\ReadHistoryModel;
 use Model\RecommendModel;
 use Qiutan\Lottery;
 use Qiutan\RedisHelper;
@@ -51,6 +52,7 @@ class MatchDetailLogic extends BaseLogic
             );
             $res['is_collection'] = $is_collection ? 1 : 0;
         }
+
         return $res;
     }
 

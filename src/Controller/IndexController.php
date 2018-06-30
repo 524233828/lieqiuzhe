@@ -45,7 +45,8 @@ class IndexController extends BaseController
     {
         $page = $request->getParam("page", 1);
         $size = $request->getParam("size", 20);
-        return $this->response(IndexLogic::getInstance()->hitRateRank($page, $size));
+        $date = $request->getParam("date", null);
+        return $this->response(IndexLogic::getInstance()->hitRateRank($page, $size, $date));
     }
 
     public function recommend(ServerRequest $request)

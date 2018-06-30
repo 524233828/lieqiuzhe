@@ -114,13 +114,29 @@ class IndexLogic extends BaseLogic
      * 命中榜
      * @param int $page
      * @param int $size
+     * @param int $date
      * @return array
      */
-    public function hitRateRank($page = 1, $size = 20)
+    public function hitRateRank($page = 1, $size = 20, $date = null)
     {
         $page = new Pager($page, $size);
 
-        $list = RecommendModel::Rank($page->getFirstIndex(), $size);
+        $where = "1=1";
+        if(!empty($date))
+        {
+            if($date == 7 )
+            {
+                $start_time = time()-604800;
+                $end_time = time();
+                $where = "AND r.create_time>=$start_time AND r.create_time<$end_time";
+            }else if ($date == 20){
+                $start_time = time()-1728000;
+                $end_time = time();
+                $where = "AND r.create_time>=$start_time AND r.create_time<$end_time";
+            }
+        }
+
+        $list = RecommendModel::Rank($page->getFirstIndex(), $size, "hit_rate", $where);
 
         foreach ($list as $k => $v)
         {

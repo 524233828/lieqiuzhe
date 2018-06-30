@@ -181,7 +181,7 @@ SQL;
      * @param string $order_by  hit_rate|gifts
      * @return array
      */
-    public static function Rank($first_row, $size, $order_by = "hit_rate")
+    public static function Rank($first_row, $size, $order_by = "hit_rate", $where = "1=1")
     {
 
         $columns = [
@@ -213,6 +213,7 @@ LEFT JOIN `match` ON odd.match_id=`match`.id
 LEFT JOIN `team` as h ON `match`.home_id = h.id
 LEFT JOIN `team` as a ON `match`.away_id = a.id
 LEFT JOIN `league` as l ON `match`.league_id = l.id
+WHERE {$where}
 GROUP BY r.analyst_id
 ORDER BY {$order_by} DESC, r.create_time DESC
 LIMIT {$first_row}, {$size}

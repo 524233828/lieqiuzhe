@@ -216,6 +216,7 @@ class RecommendLogic extends BaseLogic
             $res['rec_desc'] = '';
             $res['option'] = [];
             $res['extra'] = [];
+            $res['is_read'] = 0;
             //如果不能看，填空部分内容
         }else{
             //如果能看，减去能看次数，追加查看记录

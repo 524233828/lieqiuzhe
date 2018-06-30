@@ -49,7 +49,7 @@ class ReadHistoryModel extends BaseModel
             'user_id' => $userid,
             'read_time' => time(),
             'update_time' => time(),
-            'read_num' => 0,
+            'read_num' => 1,
         ];
         return database()->insert(self::$table, $data);
     }

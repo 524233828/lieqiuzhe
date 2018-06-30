@@ -289,7 +289,7 @@ class RecommendLogic extends BaseLogic
             $end_time = time();
             $where2[] = "create_time>={$start_time}";
             $where2[] = "create_time<{$end_time}";
-            $where[] = "hit_rate.hit_rate>={$filter["7win_rate"]}";
+            $where[] = "hit_rate.hit_rate>={$filter["win_rate_7"]}";
         }
         if(!empty($filter["win_rate_30"]))
         {
@@ -297,7 +297,7 @@ class RecommendLogic extends BaseLogic
             $end_time = time();
             $where2[] = "create_time>=$start_time";
             $where2[] = "create_time<$end_time";
-            $where[] = "hit_rate.hit_rate>={$filter["30win_rate"]}";
+            $where[] = "hit_rate.hit_rate>={$filter["win_rate_30"]}";
         }
 
         if(!empty($filter["win_rate"]))

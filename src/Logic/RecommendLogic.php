@@ -198,36 +198,43 @@ class RecommendLogic extends BaseLogic
                 ]
             );
             $res['is_fans'] = $is_fans ? 1 : 0;
-        }
-        unset($res['record']);
-        unset($res['odd_id']);
-
-        //校验是否能够看
-        $key = CacheKey::READ_COUNT.(date('Ymd')).':'.$uid;
-        if(redis()->exists($key)) {
-            $count = redis()->get($key);
+            //校验是否能够看
+            $key = CacheKey::READ_COUNT.(date('Ymd')).':'.$uid;
+            if(redis()->exists($key)) {
+                $count = redis()->get($key);
+            }else{
+                $count = ReadHistoryModel::getReadCountOneDayByUserId($uid);
+                redis()->set($key, $count);
+            }
+            //获取等级和每天能看次数
+            $current_level = UserLevelOrderModel::getUserCurrentLevel($uid);
+            if($count > config()->get('user')[$current_level]){
+                $res['rec_desc'] = '';
+                $res['option'] = [];
+                $res['extra'] = [];
+                $res['is_read'] = 0;
+                //如果不能看，填空部分内容
+            }else{
+                //如果能看，减去能看次数，追加查看记录
+                if(ReadHistoryModel::findReadRecord($uid, $rec_id)){
+                    ReadHistoryModel::updateReadRecord($uid, $rec_id);
+                }else{
+                    ReadHistoryModel::addReadRecord($uid, $rec_id);
+                    $count  = $count + 1;
+                    redis()->set($key, $count);
+                }
+            }
         }else{
-            $count = ReadHistoryModel::getReadCountOneDayByUserId($uid);
-            redis()->set($key, $count);
-        }
-        //获取等级和每天能看次数
-        $current_level = UserLevelOrderModel::getUserCurrentLevel($uid);
-        if($count > config()->get('user')[$current_level]){
             $res['rec_desc'] = '';
             $res['option'] = [];
             $res['extra'] = [];
             $res['is_read'] = 0;
             //如果不能看，填空部分内容
-        }else{
-            //如果能看，减去能看次数，追加查看记录
-            if(ReadHistoryModel::findReadRecord($uid, $rec_id)){
-                ReadHistoryModel::updateReadRecord($uid, $rec_id);
-            }else{
-                ReadHistoryModel::addReadRecord($uid, $rec_id);
-                $count  = $count + 1;
-                redis()->set($key, $count);
-            }
         }
+        unset($res['record']);
+        unset($res['odd_id']);
+
+
 
         return $res;
     }

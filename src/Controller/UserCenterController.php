@@ -11,9 +11,11 @@ namespace Controller;
 
 use Constant\CacheKey;
 use FastD\Http\ServerRequest;
+use Logic\RecommendLogic;
 use Logic\UserCenterLogic;
 use Logic\UserLogic;
 use Logic\AnalystLogic;
+use Model\RecommendModel;
 
 class UserCenterController extends BaseController
 {
@@ -91,5 +93,15 @@ class UserCenterController extends BaseController
         $params = $validate->data();
 
         return $this->response(UserCenterLogic::getInstance()->updateUserPassword($params['password'], $params['re_password']));
+    }
+
+    public function fetchRecommendReadHistoryList(ServerRequest $request)
+    {
+
+        $page = $request->getParam("page", 1);
+        $size = $request->getParam("size", 5);
+
+
+        return $this->response(RecommendLogic::getInstance()->fetchReadHistoryList($page, $size));
     }
 }

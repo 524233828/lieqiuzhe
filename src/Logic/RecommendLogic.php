@@ -9,19 +9,24 @@
 namespace Logic;
 
 
+use Constant\CacheKey;
 use Exception\AnalystException;
+use Exception\BaseException;
 use Exception\RecommendException;
 use Helper\FuntionHelper;
 use Model\AnalystInfoModel;
 use Model\AnalystLevelOrderModel;
 use Model\FansModel;
+use Model\IconsModel;
 use Model\LeagueModel;
 use Model\MatchInfoModel;
 use Model\MatchModel;
 use Model\OddModel;
 use Model\OptionModel;
+use Model\ReadHistoryModel;
 use Model\RecommendModel;
 use Model\TeamModel;
+use Model\UserLevelOrderModel;
 use Model\UserModel;
 use Qiutan\Match;
 use Service\Pager;
@@ -193,9 +198,43 @@ class RecommendLogic extends BaseLogic
                 ]
             );
             $res['is_fans'] = $is_fans ? 1 : 0;
+            //校验是否能够看
+            $key = CacheKey::READ_COUNT.(date('Ymd')).':'.$uid;
+            if(redis()->exists($key)) {
+                $count = redis()->get($key);
+            }else{
+                $count = ReadHistoryModel::getReadCountOneDayByUserId($uid);
+                redis()->set($key, $count);
+            }
+            //获取等级和每天能看次数
+            $current_level = UserLevelOrderModel::getUserCurrentLevel($uid);
+            if($count > config()->get('user')[$current_level]){
+                $res['rec_desc'] = '';
+                $res['option'] = [];
+                $res['extra'] = [];
+                $res['is_read'] = 0;
+                //如果不能看，填空部分内容
+            }else{
+                //如果能看，减去能看次数，追加查看记录
+                if(ReadHistoryModel::findReadRecord($uid, $rec_id)){
+                    ReadHistoryModel::updateReadRecord($uid, $rec_id);
+                }else{
+                    ReadHistoryModel::addReadRecord($uid, $rec_id);
+                    $count  = $count + 1;
+                    redis()->set($key, $count);
+                }
+            }
+        }else{
+            $res['rec_desc'] = '';
+            $res['option'] = [];
+            $res['extra'] = [];
+            $res['is_read'] = 0;
+            //如果不能看，填空部分内容
         }
         unset($res['record']);
         unset($res['odd_id']);
+
+
 
         return $res;
     }
@@ -287,5 +326,52 @@ class RecommendLogic extends BaseLogic
         $list = RecommendModel::RecommendList($where,$where2,$order,null,$limit);
 
         return ["list" => $list, "meta" => $pager->getPager($count)];
+    }
+
+    public function fetchReadHistoryList($page, $size)
+    {
+        $result = [];
+        $result['list'] = [];
+        $uid = UserLogic::$user['id'];
+
+        $start = ($page - 1) * $size;
+        $res = ReadHistoryModel::getReadHistoryByUserId(
+            $uid,
+            $start,
+            $size
+        );
+
+        $count = ReadHistoryModel::getReadCountByUserId(
+            $uid
+        );
+
+        if($res){
+            foreach ($res as &$v) {
+                if(!$v['win_str'] && 0 != $v['win_str']){
+                    $res = [];
+                    break;
+                }
+                $v['win_streak'] = FuntionHelper::continuityWin($v['win_str']);
+                $v['hit_rate'] = FuntionHelper::winRate($v['result_str']);
+                $v['rec_time'] = date('m/d H:i:s',$v['rec_time']);
+                $v['hit'] = FuntionHelper::resultComputer($v['result_str']);;
+                $v['gifts'] = $v['ticket'];
+                $current_level = AnalystLevelOrderModel::getAnalystCurrentLevel($v['user_id']);
+//                $v['level'] = $current_level;
+                $v['level'] = 2;//写死先
+                $v['icon'] = IconsModel::getAnalystIcon(2);
+//                $v['icon'] = IconsModel::getAnalystIcon($current_level);
+                unset($v['record']);
+                unset($v['ticket']);
+                unset($v['result_str']);
+                unset($v['win_str']);
+            }
+        }
+
+
+        $page = new Pager($page,$size);
+        $result['meta'] = $page->getPager($count);
+        $result['list'] = $res;
+        return $result;
     }
 }

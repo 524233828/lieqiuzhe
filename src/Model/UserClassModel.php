@@ -24,7 +24,7 @@ class UserClassModel extends BaseModel
             "status" => 1,
         ];
 
-        return database("lesson")->get(self::$table,"*",$where);
+        return database()->get(self::$table,"*",$where);
     }
 
     public static function addUserClass($data)

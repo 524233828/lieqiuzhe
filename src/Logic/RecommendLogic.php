@@ -24,6 +24,7 @@ use Model\RecommendModel;
 use Model\TeamModel;
 use Model\UserModel;
 use Qiutan\Match;
+use Service\Pager;
 
 class RecommendLogic extends BaseLogic
 {
@@ -217,5 +218,74 @@ class RecommendLogic extends BaseLogic
         unset($res['odd_id']);
 
         return $res;
+    }
+
+    public function getRecommendList($order, $filter, $page = 1, $size = 20)
+    {
+
+        $pager = new Pager($page, $size);
+
+        switch ($order)
+        {
+            case 1:
+                $order = "r.create_time desc";
+                break;
+            case 2:
+            case 3:
+            case 4:
+                $order = "hit_rate.hit_rate desc";
+                break;
+            case 5:
+                $order = "a.ticket desc";
+                break;
+            default:
+                $order = "r.create_time desc";
+        }
+        $where = [];
+        $where2 = [];
+
+        if(isset($filter["7win_rate"]))
+        {
+            $start_time = time()-604800;
+            $end_time = time();
+            $where2[] = "create_time>={$start_time}";
+            $where2[] = "create_time<{$end_time}";
+            $where[] = "hit_rate.hit_rate>={$filter["7win_rate"]}";
+        }
+        if(isset($filter["30win_rate"]))
+        {
+            $start_time = time()-2592000;
+            $end_time = time();
+            $where2[] = "create_time>=$start_time";
+            $where2[] = "create_time<$end_time";
+            $where[] = "hit_rate.hit_rate>={$filter["30win_rate"]}";
+        }
+
+        if(isset($filter["win_rate"]))
+        {
+            $where[] = "hit_rate.hit_rate>={$filter["win_rate"]}";
+        }
+
+        if(isset($filter["ticket"]))
+        {
+            $where[] = "a.ticket>={$filter["ticket"]}";
+        }
+
+        if(isset($filter['league']))
+        {
+            $where[] = "l.id={$filter['league']}";
+        }
+
+        $where = implode(" AND ",$where);
+        $where2 = implode(" AND ",$where2);
+
+        $count = RecommendModel::countRecommendList($where,$where2);
+
+        $limit = "LIMIT {$pager->getFirstIndex()},{$size}";
+
+
+        $list = RecommendModel::RecommendList($where,$where2,$order,null,$limit);
+
+        return ["list" => $list, "meta" => $pager->getPager($count)];
     }
 }

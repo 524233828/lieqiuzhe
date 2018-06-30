@@ -243,4 +243,135 @@ SQL;
         return database()->pdo->query($sql)->fetch(\PDO::FETCH_ASSOC);
     }
 
+
+    public static function RecommendList($where = null ,$where2 = null, $order = null, $having = null, $limit = "LIMIT 1,20")
+    {
+
+        $orderby = "";
+        if(!empty($order))
+        {
+            $orderby = "ORDER BY {$order}";
+        }
+
+        $havings = "";
+        if(!empty($having))
+        {
+            $havings = "HAVING $having";
+        }
+
+        $out_where = "";
+        if(!empty($where))
+        {
+            $out_where = "WHERE {$where}";
+        }
+
+        $in_where = "";
+        if(!empty($where2))
+        {
+            $in_where = "WHERE {$where2}";
+        }
+
+        $sql = <<<SQL
+SELECT
+	u.nickname,
+	u.avatar,
+	a.tag,
+	l.gb_short,
+	home.gb,
+	away.gb,
+	a.intro,
+	a.ticket,
+	hit_rate.hit_rate,
+	hit_rate.win_str
+FROM
+	recommend r
+LEFT JOIN odd o ON r.odd_id = o.id
+LEFT JOIN `match` m ON o.match_id = m.id
+LEFT JOIN league l ON l.id = m.league_id
+LEFT JOIN team home ON m.home_id = home.id
+LEFT JOIN team away ON m.away_id = away.id
+LEFT JOIN `user` u ON r.analyst_id = u.id
+LEFT JOIN `analyst_info` a ON a.user_id = u.id
+LEFT JOIN (
+	SELECT
+		analyst_id,
+		AVG(is_win) AS hit_rate,
+		GROUP_CONCAT(is_win SEPARATOR '') AS win_str
+	FROM
+		recommend
+	WHERE {$in_where}
+	GROUP BY
+		analyst_id
+) hit_rate ON hit_rate.analyst_id = a.id
+{$out_where}
+{$havings}
+{$orderby}
+{$limit}
+SQL;
+
+        return database()->pdo->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+
+    public static function countRecommendList($where = null ,$where2 = null, $order = null, $having = null, $limit = "LIMIT 1,20")
+    {
+
+        $orderby = "";
+        if(!empty($order))
+        {
+            $orderby = "ORDER BY {$order}";
+        }
+
+        $havings = "";
+        if(!empty($having))
+        {
+            $havings = "HAVING $having";
+        }
+
+        $out_where = "";
+        if(!empty($where))
+        {
+            $out_where = "WHERE {$where}";
+        }
+
+        $in_where = "";
+        if(!empty($where2))
+        {
+            $in_where = "WHERE {$where2}";
+        }
+
+        $sql = <<<SQL
+SELECT
+	count(*) as num
+FROM
+	recommend r
+LEFT JOIN odd o ON r.odd_id = o.id
+LEFT JOIN `match` m ON o.match_id = m.id
+LEFT JOIN league l ON l.id = m.league_id
+LEFT JOIN team home ON m.home_id = home.id
+LEFT JOIN team away ON m.away_id = away.id
+LEFT JOIN `user` u ON r.analyst_id = u.id
+LEFT JOIN `analyst_info` a ON a.user_id = u.id
+LEFT JOIN (
+	SELECT
+		analyst_id,
+		AVG(is_win) AS hit_rate,
+		GROUP_CONCAT(is_win SEPARATOR '') AS win_str
+	FROM
+		recommend
+	WHERE {$in_where}
+	GROUP BY
+		analyst_id
+) hit_rate ON hit_rate.analyst_id = a.id
+{$out_where}
+{$havings}
+SQL;
+
+        $result =  database()->pdo->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
+
+        return $result[0]['num'];
+    }
+
+
+
 }

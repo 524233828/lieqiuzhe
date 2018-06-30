@@ -276,9 +276,10 @@ SELECT
 	u.nickname,
 	u.avatar,
 	a.tag,
-	l.gb_short,
-	home.gb,
-	away.gb,
+	l.gb_short as league_name,
+	l.id as league_id,
+	home.gb as home,
+	away.gb as away,
 	a.intro,
 	a.ticket,
 	hit_rate.hit_rate,
@@ -299,7 +300,7 @@ LEFT JOIN (
 		GROUP_CONCAT(is_win SEPARATOR '') AS win_str
 	FROM
 		recommend
-	WHERE {$in_where}
+	{$in_where}
 	GROUP BY
 		analyst_id
 ) hit_rate ON hit_rate.analyst_id = a.id
@@ -359,7 +360,7 @@ LEFT JOIN (
 		GROUP_CONCAT(is_win SEPARATOR '') AS win_str
 	FROM
 		recommend
-	WHERE {$in_where}
+	{$in_where}
 	GROUP BY
 		analyst_id
 ) hit_rate ON hit_rate.analyst_id = a.id

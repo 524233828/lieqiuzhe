@@ -128,11 +128,11 @@ class IndexLogic extends BaseLogic
             {
                 $start_time = time()-604800;
                 $end_time = time();
-                $where = "AND r.create_time>=$start_time AND r.create_time<$end_time";
+                $where .= " AND r.create_time>=$start_time AND r.create_time<$end_time";
             }else if ($date == 20){
                 $start_time = time()-1728000;
                 $end_time = time();
-                $where = "AND r.create_time>=$start_time AND r.create_time<$end_time";
+                $where .= " AND r.create_time>=$start_time AND r.create_time<$end_time";
             }
         }
 

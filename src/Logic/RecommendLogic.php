@@ -340,7 +340,7 @@ class RecommendLogic extends BaseLogic
 
         if($res){
             foreach ($res as &$v) {
-                if(!$v['win_str']){
+                if(!$v['win_str'] && 0 != $v['win_str']){
                     $res = [];
                     break;
                 }

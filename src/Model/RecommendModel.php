@@ -300,7 +300,7 @@ LEFT JOIN (
 		GROUP_CONCAT(is_win SEPARATOR '') AS win_str
 	FROM
 		recommend
-	WHERE {$in_where}
+	{$in_where}
 	GROUP BY
 		analyst_id
 ) hit_rate ON hit_rate.analyst_id = a.id
@@ -360,7 +360,7 @@ LEFT JOIN (
 		GROUP_CONCAT(is_win SEPARATOR '') AS win_str
 	FROM
 		recommend
-	WHERE {$in_where}
+	{$in_where}
 	GROUP BY
 		analyst_id
 ) hit_rate ON hit_rate.analyst_id = a.id

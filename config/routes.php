@@ -54,6 +54,7 @@ route()->group(["prefix" => "/recommend", "middleware" => "dispatch"], function(
     route()->get("/odd", 'RecommendController@matchInfo');
     route()->post("/add", 'RecommendController@addRecommend')->withAddMiddleware("login");
     route()->get("/detail", 'RecommendController@RecommendDetail');
+    route()->get("/list", 'RecommendController@fetchRecommendList');
 });
 
 //注册页

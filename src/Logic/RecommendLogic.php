@@ -220,7 +220,7 @@ class RecommendLogic extends BaseLogic
         return $res;
     }
 
-    public function getRecommendList($order, $filter, $page = 1, $size = 20)
+    public function fetchRecommendList($order, $filter, $page = 1, $size = 20)
     {
 
         $pager = new Pager($page, $size);
@@ -244,7 +244,7 @@ class RecommendLogic extends BaseLogic
         $where = [];
         $where2 = [];
 
-        if(isset($filter["7win_rate"]))
+        if(!empty($filter["win_rate_7"]))
         {
             $start_time = time()-604800;
             $end_time = time();
@@ -252,7 +252,7 @@ class RecommendLogic extends BaseLogic
             $where2[] = "create_time<{$end_time}";
             $where[] = "hit_rate.hit_rate>={$filter["7win_rate"]}";
         }
-        if(isset($filter["30win_rate"]))
+        if(!empty($filter["win_rate_30"]))
         {
             $start_time = time()-2592000;
             $end_time = time();
@@ -261,17 +261,17 @@ class RecommendLogic extends BaseLogic
             $where[] = "hit_rate.hit_rate>={$filter["30win_rate"]}";
         }
 
-        if(isset($filter["win_rate"]))
+        if(!empty($filter["win_rate"]))
         {
             $where[] = "hit_rate.hit_rate>={$filter["win_rate"]}";
         }
 
-        if(isset($filter["ticket"]))
+        if(!empty($filter["ticket"]))
         {
             $where[] = "a.ticket>={$filter["ticket"]}";
         }
 
-        if(isset($filter['league']))
+        if(!empty($filter['league_id']))
         {
             $where[] = "l.id={$filter['league']}";
         }

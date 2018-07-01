@@ -34,10 +34,12 @@ class UserLevelModel extends BaseModel
             $where[self::$table.".month"] = $month;
         }
 
+        $where[IconsModel::$table.".type"]  = 0;
+
         return database()->select(
             self::$table,
             [
-                "[>]".IconsModel::$table => ["level" => "level" , IconsModel::$table.".type" => 0]
+                "[>]".IconsModel::$table => ["level" => "level" ]
             ],
             [
                 self::$table.".level",

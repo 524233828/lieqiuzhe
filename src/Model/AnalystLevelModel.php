@@ -34,6 +34,8 @@ class AnalystLevelModel extends BaseModel
             $where[self::$table.".month"] = $month;
         }
 
+        $where[IconsModel::$table.".type"]  = 1;
+
         return database()->select(
             self::$table,
             [

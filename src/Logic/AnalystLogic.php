@@ -190,11 +190,23 @@ class AnalystLogic extends BaseLogic
         }
 
         foreach ($analyst as &$v) {
-            $current_level = AnalystLevelOrderModel::getAnalystCurrentLevel($v['user_id']);
-            $current_level = !$current_level ? 1 : $current_level;
+            $info = AnalystInfoModel::getAnalystDetailByUserId($v['user_id']);
             $v['fans'] = FansModel::countFans($v['analyst_id']);
-            $v['level'] = $current_level;
-            $v['level_icons'] = IconsModel::getAnalystIcon($current_level);
+            $v['level'] = $info['level'];
+            $v['level_icons'] = $info['level_icon'];
+            $v['win_streak'] = FuntionHelper::continuityWin($info['win_str']);
+            $v['hit_rate'] = FuntionHelper::winRate($info['result_str']);
+            $v['hit'] = FuntionHelper::resultComputer($info['result_str']);
+            //粉丝
+            $v['fans'] = FansModel::getCountFansByAnalystId($info['user_id']);
+            $v['gifts'] = $info['ticket'];
+
+            //最新一场推荐
+            $v['latest_rec'] = RecommendModel::getLastedRecommendByUserId($v['analyst_id']);
+            $v['medal'] = [
+                'https://a.ym8800.com/upload/2a04174a68ec72de357fd8f0bf2d4fd1.png',
+                'https://a.ym8800.com/upload/bfcc12f3387be7f31fbff9b05c3e4cd7.png',
+            ];
         }
 
         return $analyst;

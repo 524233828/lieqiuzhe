@@ -138,7 +138,7 @@ SQL;
         $fans_table = FansModel::$table;
         $user_table = UserModel::$table;
         $columns = [
-            'm.user_id as user_id',
+            'c.id as user_id',
             'c.id as analyst_id',
             'c.nickname as nickname',
             'c.avatar as avatar',

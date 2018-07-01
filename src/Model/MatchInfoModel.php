@@ -23,6 +23,7 @@ class MatchInfoModel extends BaseModel
             'team_type',
             '`desc`',
             '`match_id`',
+            '`type`',
         ];
         $column = is_array($columns) ? implode(",", $columns) : $columns;
         $sql = <<<SQL

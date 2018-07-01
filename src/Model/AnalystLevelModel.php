@@ -39,7 +39,7 @@ class AnalystLevelModel extends BaseModel
         return database()->select(
             self::$table,
             [
-                "[>]".IconsModel::$table => ["level" => "level" , IconsModel::$table.".type" => 1]
+                "[>]".IconsModel::$table => ["level" => "level"]
             ],
             [
                 self::$table.".level",

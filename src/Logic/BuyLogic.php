@@ -15,10 +15,12 @@ use Exception\UserException;
 use Model\AnalystLevelModel;
 use Model\AnalystLevelOrderModel;
 use Model\OrderModel;
+use Model\UserBillModel;
 use Model\UserLevelModel;
 use Model\UserLevelOrderModel;
 use Pay\Pay;
 use Service\Goods\Goods;
+use Service\Pager;
 
 class BuyLogic extends BaseLogic
 {
@@ -236,5 +238,41 @@ class BuyLogic extends BaseLogic
         $pay = new Pay($config);
 
         return $pay->driver($pay_type)->gateway("app")->apply($order);
+    }
+
+    public function fetchOrderList($page = 1, $size = 20)
+    {
+
+        $pager = new Pager($page, $size);
+        $user_id = UserLogic::$user['id'];
+
+        $where = ["user_id"=>$user_id, "status" => 1];
+
+        $count = OrderModel::count($where);
+
+        $where["LIMIT"] = [$pager->getFirstIndex(), $size];
+
+        $order_list = OrderModel::fetch(["order_id","settlement_total_fee","info","pay_time"], $where);
+
+        return ["list" => $order_list, "meta" => $pager->getPager($count)];
+    }
+
+    public function fetchBillList($page = 1, $size = 20)
+    {
+
+        $pager = new Pager($page, $size);
+        $user_id = UserLogic::$user['id'];
+
+        $where = ["user_id"=>$user_id];
+
+        $count = UserBillModel::count($where);
+
+        $where["LIMIT"] = [$pager->getFirstIndex(), $size];
+
+        $order_list = UserBillModel::fetch(["order_id","inc_bill","explain","create_at"], $where);
+
+        $current_bill = UserBillModel::getCurrentBill($user_id);
+
+        return ["current_bill" => $current_bill,"list" => $order_list, "meta" => $pager->getPager($count)];
     }
 }

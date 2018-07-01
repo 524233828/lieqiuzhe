@@ -58,4 +58,14 @@ class BuyController extends BaseController
         return $this->response(BuyLogic::getInstance()->coin($num, $pay_type));
     }
 
+    public function fetchOrderList(ServerRequest $request)
+    {
+        return $this->response(BuyLogic::getInstance()->fetchOrderList());
+    }
+
+    public function fetchBillList(ServerRequest $request)
+    {
+        return $this->response(BuyLogic::getInstance()->fetchBillList());
+    }
+
 }

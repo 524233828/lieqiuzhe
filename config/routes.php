@@ -143,3 +143,11 @@ route()->group(['prefix' => '/my_class', 'middleware' => 'dispatch'],function(){
     route()->get("/info","Lesson\MyClassController@getClassChapter")->withAddMiddleware("login");
     route()->post("/learn_percent","Lesson\MyClassController@updateLearnPercent")->withAddMiddleware("login");
 });
+
+//交易明细
+route()->group(['prefix' => '/transaction', 'middleware' => 'dispatch'],function(){
+
+    route()->get("/order","BuyController@fetchOrderList")->withAddMiddleware("login");
+    route()->get("/bill","BuyController@fetchBillList")->withAddMiddleware("login");
+
+});

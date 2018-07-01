@@ -252,7 +252,7 @@ class BuyLogic extends BaseLogic
 
         $where["LIMIT"] = [$pager->getFirstIndex(), $size];
 
-        $order_list = OrderModel::fetch(["order_id","settlement_total_fee","info","pay_time"], $where);
+        $order_list = OrderModel::fetch(["order_id","total_fee","info","pay_time"], $where);
 
         foreach ($order_list as $k => $v)
         {

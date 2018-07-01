@@ -21,4 +21,31 @@ class UserLevelModel extends BaseModel
             "month" => $month
         ]);
     }
+
+    public static function fetchUserLevel($level = null, $month = null)
+    {
+
+        $where = null;
+        if(!empty($level)){
+            $where[self::$table.".level"] = $level;
+        }
+
+        if(!empty($month)){
+            $where[self::$table.".month"] = $month;
+        }
+
+        return database()->select(
+            self::$table,
+            [
+                "[>]".IconsModel::$table => ["level" => "level" , "type" => 0]
+            ],
+            [
+                self::$table.".level",
+                self::$table.".month",
+                self::$table.".price",
+                IconsModel::$table.".icon",
+            ],
+            $where
+        );
+    }
 }

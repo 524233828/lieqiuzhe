@@ -285,4 +285,18 @@ class BuyLogic extends BaseLogic
 
         return ["current_bill" => $current_bill,"list" => $order_list, "meta" => $pager->getPager($count)];
     }
+
+    public function analystLevelPriceList($level = null, $month = null)
+    {
+        $list = AnalystLevelModel::fetchAnalystLevel($level, $month);
+
+        return ["list" => $list];
+    }
+
+    public function userLevelPriceList($level = null, $month = null)
+    {
+        $list = AnalystLevelModel::fetchAnalystLevel($level, $month);
+
+        return ["list" => $list];
+    }
 }

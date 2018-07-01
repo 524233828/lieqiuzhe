@@ -68,4 +68,30 @@ class BuyController extends BaseController
         return $this->response(BuyLogic::getInstance()->fetchBillList());
     }
 
+    /**
+     * 分析师等级价格列表
+     * @param ServerRequest $request
+     * @return \Service\ApiResponse
+     */
+    public function analystLevelPriceList(ServerRequest $request)
+    {
+        $level = $request->getParam("level", null);
+        $month = $request->getParam("month", null);
+
+        return $this->response(BuyLogic::getInstance()->analystLevelPriceList($level, $month));
+    }
+
+    /**
+     * 用户等级价格列表
+     * @param ServerRequest $request
+     * @return \Service\ApiResponse
+     */
+    public function userLevelPriceList(ServerRequest $request)
+    {
+        $level = $request->getParam("level", null);
+        $month = $request->getParam("month", null);
+
+        return $this->response(BuyLogic::getInstance()->userLevelPriceList($level, $month));
+    }
+
 }

@@ -69,6 +69,9 @@ route()->group(["prefix" => "/buy", "middleware" => "dispatch"], function(){
     route()->post("/user_level", 'BuyController@userLevel')->withAddMiddleware("login");
     route()->post("/analyst_level", 'BuyController@analystLevel')->withAddMiddleware("login");
     route()->post("/coin", 'BuyController@coin')->withAddMiddleware("login");
+
+    route()->get("/analyst_level/price", 'BuyController@analystLevelPriceList');
+    route()->get("/user_level/price", 'BuyController@userLevelPriceList');
 });
 
 //微信客服消息接口

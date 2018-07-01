@@ -37,7 +37,7 @@ class UserLevelModel extends BaseModel
         return database()->select(
             self::$table,
             [
-                "[>]".IconsModel::$table => ["level" => "level" , "type" => 0]
+                "[>]".IconsModel::$table => ["level" => "level" , IconsModel::$table.".type" => 0]
             ],
             [
                 self::$table.".level",

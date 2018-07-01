@@ -254,6 +254,11 @@ class BuyLogic extends BaseLogic
 
         $order_list = OrderModel::fetch(["order_id","settlement_total_fee","info","pay_time"], $where);
 
+        foreach ($order_list as $k => $v)
+        {
+            $order_list[$k]['pay_time'] = date("Y-m-d H:i:s", $v['pay_time']);
+        }
+
         return ["list" => $order_list, "meta" => $pager->getPager($count)];
     }
 
@@ -270,6 +275,11 @@ class BuyLogic extends BaseLogic
         $where["LIMIT"] = [$pager->getFirstIndex(), $size];
 
         $order_list = UserBillModel::fetch(["order_id","inc_bill","explain","create_at"], $where);
+
+        foreach ($order_list as $k => $v)
+        {
+            $order_list[$k]['create_at'] = date("Y-m-d H:i:s", $v['create_at']);
+        }
 
         $current_bill = UserBillModel::getCurrentBill($user_id);
 

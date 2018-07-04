@@ -17,6 +17,8 @@ class AnalystApplicationLogic extends BaseLogic
 
     public function addAnalystApplication($data)
     {
+
+        $data['user_id'] = UserLogic::$user['id'];
         $result = AnalystApplicationModel::add($data);
 
         if($result)

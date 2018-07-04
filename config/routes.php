@@ -154,3 +154,9 @@ route()->group(['prefix' => '/transaction', 'middleware' => 'dispatch'],function
     route()->get("/bill","BuyController@fetchBillList")->withAddMiddleware("login");
 
 });
+
+//成为分析师
+route()->group(['prefix' => '/analyst', 'middleware' => 'dispatch'],function(){
+
+    route()->post("/application","AnalystApplicationController@addAnalystApplication")->withAddMiddleware("login");
+});

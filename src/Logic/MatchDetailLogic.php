@@ -80,16 +80,32 @@ class MatchDetailLogic extends BaseLogic
         if(!$res) {
             return $result;
         }
-
+        $result['aocai'] =[];
+        $result['home'] =[];
+        $result['away'] =[];
+        $result['away']['suspend'] = [];
+        $result['away']['info'] = [];
+        $result['home']['suspend'] = [];
+        $result['home']['info'] = [];
         foreach ($res as $v) {
+
             if(1 == $v['team_type']) {
-                $result['home']['info'][]['desc'] = $v['desc'];
-//                $result['home']['suspend']['name'] = $v['name'];  //缺数据
-//                $result['home']['suspend']['reason'] = $v['reason'];
+                if(0 == $v['type']) {
+                    $result['home']['info'][]['desc'] = $v['desc'];
+                }
+                if(1 == $v['type']) {
+                    $result['home']['suspend'][]['desc'] = $v['desc'];
+                }
             }else{
-                $result['away']['info'][]['desc'] = $v['desc'];
-//                $result['away']['suspend']['name'] = $v['name'];
-//                $result['away']['suspend']['reason'] = $v['reason'];
+                if(0 == $v['type']) {
+                    $result['away']['info'][]['desc'] = $v['desc'];
+                }
+                if(1 == $v['type']) {
+                    $result['away']['suspend'][]['desc'] = $v['desc'];
+                }
+            }
+            if(2 == $v['type']) {
+                $result['aocai'][]['desc'] = $v['desc'];
             }
         }
         return $result;

@@ -160,3 +160,13 @@ route()->group(['prefix' => '/analyst', 'middleware' => 'dispatch'],function(){
 
     route()->post("/application","AnalystApplicationController@addAnalystApplication")->withAddMiddleware("login");
 });
+
+//后台
+route()->group(['prefix' => '/admin', 'middleware' => 'dispatch'],function(){
+
+    route()->get("/adventure","Admin\AdventureController@listAction");
+    route()->get("/adventure/{id}","Admin\AdventureController@getAction");
+    route()->post("/adventure","Admin\AdventureController@addAction");
+    route()->patch("/adventure","Admin\AdventureController@updateAction");
+    route()->delete("/adventure","Admin\AdventureController@deleteAction");
+});

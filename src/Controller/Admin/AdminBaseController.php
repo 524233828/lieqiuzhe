@@ -46,9 +46,7 @@ class AdminBaseController extends BaseController
      */
     public function getAction(ServerRequest $request)
     {
-        $validate = validator($request,[]);
-
-        $params = $validate->data();
+        $params['id'] = $request->getAttribute('id');
 
         return $this->response($this->logic->getAction($params));
     }

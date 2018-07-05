@@ -17,7 +17,7 @@ abstract class AdminBaseLogic extends BaseLogic
      * 可用筛选字段列表
      * @var array
      */
-    public $list_filter;
+    public $list_filter = [];
 
     /**
      * 列表

@@ -49,5 +49,30 @@ class ValidationServiceProvider implements ServiceProviderInterface
 
             return true;
         });
+
+        //中文字数限制
+        Validator::addExtension("range_ch", function($field, $value, array $parameters = []){
+
+            $size = mb_strlen($value,"UTF-8");
+            if (!isset($parameters[0])) {
+                return false;
+            }
+            if (isset($parameters[1])) {
+                if ('' === $parameters[0]) {
+                    if ('' === $parameters[1]) {
+                        return false;
+                    }
+
+                    return $size <= $parameters[1];
+                }
+                if ('' === $parameters[1]) {
+                    return $size >= $parameters[0];
+                }
+
+                return $size >= $parameters[0] && $size <= $parameters[1];
+            }
+
+            return '' === $parameters[0] ? false : ($size >= $parameters[0]);
+        });
     }
 }

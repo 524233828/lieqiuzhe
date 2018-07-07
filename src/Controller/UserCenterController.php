@@ -27,9 +27,9 @@ class UserCenterController extends BaseController
 
     public function updateUserInfo(ServerRequest $request)
     {
-        $nickname = $request->getParam("nickname");
-        $avatar = $request->getParam("avatar");
-        $sex = $request->getParam("sex");
+        $nickname = $request->getParam("nickname",'');
+        $avatar = $request->getParam("avatar",'');
+        $sex = $request->getParam("sex",'');
 
         return $this->response(UserCenterLogic::getInstance()->updateUserInfo($nickname, $avatar, $sex));
     }

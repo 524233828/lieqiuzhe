@@ -29,11 +29,17 @@ class UserCenterLogic extends BaseLogic
     {
         $id = UserLogic::$user['id'];
 
-        $result = UserModel::update([
-            "nickname" => $nickname,
-            "avatar" => $avatar,
-            "sex" => $sex
-        ],["id" => $id]);
+        $data = [];
+        if('' != $nickname) {
+            $data = array_merge($data, ["nickname" => $nickname]);
+        }
+        if('' != $avatar) {
+            $data = array_merge($data, ["avatar" => $avatar]);
+        }
+        if('' != $sex) {
+            $data = array_merge($data, ["sex" => $sex]);
+        }
+        $result = UserModel::update($data,["id" => $id]);
 
         if($result){
             return [];

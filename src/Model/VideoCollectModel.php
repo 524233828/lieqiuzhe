@@ -49,7 +49,16 @@ SQL;
             [
                 "[>]".VideoModel::$table => ["video_id" => "id"]
             ],
-            VideoModel::$table.".*",
+            [
+                VideoModel::$table.".id",
+                VideoModel::$table.".user_id",
+                VideoModel::$table.".url",
+                VideoModel::$table.".viewer",
+                VideoModel::$table.".times",
+                VideoModel::$table.".status",
+                VideoModel::$table.".update_time",
+                VideoModel::$table.".create_time",
+            ],
             $where
         );
     }

@@ -35,7 +35,7 @@ class MatchStartConsole extends Command
         $time = time();
         $size = 1;
 
-        $count = MatchModel::countMatch(["m.status" => 0, "m.start_time[<=]" => $time]);
+        $count = MatchModel::count(["m.status" => 0, "m.start_time[<=]" => $time]);
         echo $count,"\n";
         $page = 1;
         $pager = new Pager($page, $size);

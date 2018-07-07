@@ -44,7 +44,7 @@ SQL;
 
     }
 
-    public static function countMatch($where)
+    public static function count($where)
     {
         return database()->count(
             self::$table."(m)",

@@ -35,7 +35,7 @@ class AdventureLogic extends AdminBaseLogic
         }
 
         //计算符合筛选参数的行数
-        $count = AdventureModel::countMatch($where);
+        $count = AdventureModel::count($where);
 
         //分页
         $where["LIMIT"] = [$pager->getFirstIndex(), $size];

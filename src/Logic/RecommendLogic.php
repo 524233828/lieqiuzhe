@@ -127,7 +127,7 @@ class RecommendLogic extends BaseLogic
 
         $start_time = strtotime($today);
         $end_time = strtotime($today."+1 day");
-        $recommend_count = RecommendModel::countMatch([
+        $recommend_count = RecommendModel::count([
             "create_time[>=]" => $start_time,
             "create_time[<]" => $end_time,
             "analyst_id" => $uid

@@ -101,7 +101,7 @@ class MatchListLogic extends BaseLogic
                 break;
         }
 
-        $count = MatchModel::countMatch($where);
+        $count = MatchModel::count($where);
         $where["LIMIT"] = [$first_index, $size];
 
         $res = MatchModel::fetch(

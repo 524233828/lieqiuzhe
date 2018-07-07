@@ -48,7 +48,7 @@ class MatchDateConsole extends Command
                     continue;
                 }
 
-                if(MatchModel::countMatch(["id" => $match['a']])){
+                if(MatchModel::count(["id" => $match['a']])){
                     continue;
                 };
 

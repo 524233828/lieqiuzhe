@@ -42,7 +42,7 @@ class VideoLogic extends BaseLogic
             $where['id'] = $ids;
         }
 
-        $count = VideoModel::countMatch($where);
+        $count = VideoModel::count($where);
 
         $where["LIMIT"] = [$pager->getFirstIndex(),$size];
         $where["ORDER"] = ["id" => "DESC"];
@@ -151,7 +151,7 @@ class VideoLogic extends BaseLogic
 
         $user_id = UserLogic::$user['id'];
 
-        $count = VideoCollectModel::countMatch(["user_id"=>$user_id]);
+        $count = VideoCollectModel::count(["user_id"=>$user_id]);
 
         $list = VideoCollectModel::videoCollectList($user_id, ["LIMIT" => [$pager->getFirstIndex(), $size]]);
 

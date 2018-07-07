@@ -88,7 +88,7 @@ SQL;
 
     }
 
-    public static function count($where)
+    public static function countMatch($where)
     {
         return database()->count(
             self::$table."(m)",

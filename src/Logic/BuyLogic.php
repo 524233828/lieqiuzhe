@@ -248,7 +248,7 @@ class BuyLogic extends BaseLogic
 
         $where = ["user_id"=>$user_id, "status" => 1];
 
-        $count = OrderModel::count($where);
+        $count = OrderModel::countMatch($where);
 
         $where["LIMIT"] = [$pager->getFirstIndex(), $size];
 
@@ -270,7 +270,7 @@ class BuyLogic extends BaseLogic
 
         $where = ["user_id"=>$user_id];
 
-        $count = UserBillModel::count($where);
+        $count = UserBillModel::countMatch($where);
 
         $where["LIMIT"] = [$pager->getFirstIndex(), $size];
 

@@ -19,7 +19,7 @@ class SystemNoticeLogic extends BaseLogic
     {
         $pager = new Pager($page, $size);
 
-        $count = SystemNoticeModel::count();
+        $count = SystemNoticeModel::countMatch();
 
         $where["LIMIT"] = [$pager->getFirstIndex(), $size];
 

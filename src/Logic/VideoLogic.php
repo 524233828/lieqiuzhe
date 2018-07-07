@@ -96,10 +96,19 @@ class VideoLogic extends BaseLogic
     {
         $user_id = UserLogic::$user['id'];
 
-        $result = VideoCollectModel::add([
+        $where = [
             "user_id" => $user_id,
             "video_id" => $video_id
-        ]);
+        ];
+
+        $collect = VideoCollectModel::getVideoCollect($where);
+
+        if(!empty($collect))
+        {
+            BaseException::SystemError();
+        }
+
+        $result = VideoCollectModel::add($where);
 
         if($result)
         {
@@ -114,10 +123,19 @@ class VideoLogic extends BaseLogic
     {
         $user_id = UserLogic::$user['id'];
 
-        $result = VideoCollectModel::deleteVideoCollect([
+        $where = [
             "user_id" => $user_id,
             "video_id" => $video_id
-        ]);
+        ];
+
+        $collect = VideoCollectModel::getVideoCollect($where);
+
+        if(empty($collect))
+        {
+            BaseException::SystemError();
+        }
+
+        $result = VideoCollectModel::deleteVideoCollect($where);
 
         if($result)
         {

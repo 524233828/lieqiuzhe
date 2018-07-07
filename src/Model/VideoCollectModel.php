@@ -19,6 +19,11 @@ class VideoCollectModel extends BaseModel
         return database()->delete(self::$table,$where);
     }
 
+    public static function getVideoCollect($where)
+    {
+        return database()->get(self::$table, "*", $where);
+    }
+
 
     public static function countCollectNum()
     {

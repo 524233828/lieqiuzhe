@@ -82,7 +82,7 @@ class VideoLogic extends BaseLogic
 
     public function fetchVideoCate()
     {
-        $list = VideoCateModel::fetch();
+        $list = VideoCateModel::fetch("*",["status" => 1]);
 
         return ["list" => $list ];
     }

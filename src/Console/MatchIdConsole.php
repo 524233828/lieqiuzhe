@@ -28,7 +28,7 @@ class MatchIdConsole extends Command
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        $match = MatchModel::fetch(["m.status" => [1, 2, 3, 4]],["m.id"]);
+        $match = MatchModel::fetchMatch(["m.status" => [1, 2, 3, 4]],["m.id"]);
 
         $ids = [];
         foreach ($match as $m)

@@ -104,7 +104,7 @@ class MatchListLogic extends BaseLogic
         $count = MatchModel::countMatch($where);
         $where["LIMIT"] = [$first_index, $size];
 
-        $res = MatchModel::fetch(
+        $res = MatchModel::fetchMatch(
             $where,
             [
                 "m.id(match_id)",

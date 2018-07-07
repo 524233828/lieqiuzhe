@@ -37,7 +37,7 @@ class MatchCollectionLogic extends BaseLogic
         $where["ORDER"] = ["start_time" => "DESC"];
         $count = MatchModel::countMatch($where);
         $where["LIMIT"] = [$first_index, $size];
-        $res = MatchModel::fetch(
+        $res = MatchModel::fetchMatch(
             $where,
             [
                 "m.id(match_id)",

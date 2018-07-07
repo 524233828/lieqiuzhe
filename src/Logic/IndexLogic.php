@@ -163,7 +163,7 @@ class IndexLogic extends BaseLogic
         $where["m.is_recommend"] = 1;
         $where["ORDER"] = ["m.update_time" => "DESC"];
 
-        $res = MatchModel::fetch(
+        $res = MatchModel::fetchMatch(
             $where,
             [
                 "m.id(match_id)",

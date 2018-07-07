@@ -417,7 +417,7 @@ class RecommendLogic extends BaseLogic
         $where["m.id"] = $match_ids;
         $where["ORDER"] = ["start_time" => "ASC"];
 
-        $list = MatchModel::fetch(
+        $list = MatchModel::fetchMatch(
             $where,
             [
                 "m.id(match_id)",

@@ -62,7 +62,7 @@ class RecommendMatchChoseLogic extends BaseLogic
         $where["ORDER"] = ["start_time" => "ASC"];
         $count = MatchModel::countMatch($where);
         $where["LIMIT"] = [$first_index, $size];
-        $list = MatchModel::fetch(
+        $list = MatchModel::fetchMatch(
             $where,
             [
                 "m.id(match_id)",

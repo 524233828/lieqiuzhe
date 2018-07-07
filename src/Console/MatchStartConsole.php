@@ -45,7 +45,7 @@ class MatchStartConsole extends Command
         for($i = 1; $i <= $info['total_pages'];$i++)
         {
             $pager->setPage($i);
-            $match = MatchModel::fetch(
+            $match = MatchModel::fetchMatch(
                 [
                     "m.status" => 0,
                     "m.start_time[<=]" => $time,

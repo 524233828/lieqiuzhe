@@ -40,7 +40,7 @@ class VideoLogic extends BaseLogic
         $count = VideoModel::count($where);
 
         $where["LIMIT"] = [$pager->getFirstIndex(),$size];
-        $where["ORDER"] = ["sort" => "DESC","id" => "DESC"];
+        $where["ORDER"] = ["id" => "DESC"];
 
         $list = VideoModel::fetch("*", $where);
 

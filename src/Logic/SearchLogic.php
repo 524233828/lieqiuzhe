@@ -10,7 +10,9 @@ namespace Logic;
 
 
 use Exception\AnalystException;
+use Exception\BaseException;
 use Exception\RecommendException;
+use Exception\UserException;
 use Helper\FuntionHelper;
 use Model\AnalystInfoModel;
 use Model\SearchModel;
@@ -82,6 +84,11 @@ class SearchLogic extends BaseLogic
 
     public function searchBlurByKeywords($keywords)
     {
+        if('' == $keywords)
+        {
+            BaseException::ParamsError();
+        }
+
         //比赛
         $keys = [];
         $gbs = TeamModel::fetchByKeyWords($keywords,'gb');

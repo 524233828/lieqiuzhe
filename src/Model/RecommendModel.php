@@ -72,7 +72,7 @@ SQL;
 
     }
 
-    public static function count($where)
+    public static function countRecommend($where)
     {
         return database()->count(
             self::$table."(m)",

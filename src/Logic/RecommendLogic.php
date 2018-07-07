@@ -416,20 +416,23 @@ class RecommendLogic extends BaseLogic
         $where["m.status"] = [0];
         if(!empty($match_ids)){
             $where["m.id"] = $match_ids;
+            $where["ORDER"] = ["m.start_time" => "ASC"];
+
+            $list = MatchModel::fetchMatch(
+                $where,
+                [
+                    "m.id(match_id)",
+                    "l.gb_short(league_name)",
+                    "l.color(league_color)",
+                    "h.gb(home)",
+                    "a.gb(away)",
+                ]
+            );
+        }else{
+            $list = [];
         }
 
-        $where["ORDER"] = ["m.start_time" => "ASC"];
 
-        $list = MatchModel::fetchMatch(
-            $where,
-            [
-                "m.id(match_id)",
-                "l.gb_short(league_name)",
-                "l.color(league_color)",
-                "h.gb(home)",
-                "a.gb(away)",
-            ]
-        );
 
         return ["league_list" => $league_list, "match_list" => $list];
 

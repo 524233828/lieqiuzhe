@@ -52,7 +52,7 @@ class BaseModel
         return database()->delete($class::$table, $where);
     }
 
-    public static function count($where)
+    public static function count($where = null)
     {
         $class = get_called_class();
         return database()->count($class::$table, "*", $where);

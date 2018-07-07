@@ -172,6 +172,12 @@ route()->group(['prefix' => '/video', 'middleware' => 'dispatch'],function(){
     route()->get("/collect","VideoController@collectVideoList")->withAddMiddleware("login");
 });
 
+//系统通知
+route()->group(['prefix' => '/system_notice', 'middleware' => 'dispatch'],function(){
+
+    route()->get("/list","SystemNoticeController@fetchAction");
+});
+
 //后台
 route()->group(['prefix' => '/admin', 'middleware' => 'dispatch'],function(){
 

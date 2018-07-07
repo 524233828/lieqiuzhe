@@ -60,12 +60,17 @@ class BuyController extends BaseController
 
     public function fetchOrderList(ServerRequest $request)
     {
-        return $this->response(BuyLogic::getInstance()->fetchOrderList());
+
+        $page = $request->getParam("page", 1);
+        $size = $request->getParam("size", 20);
+        return $this->response(BuyLogic::getInstance()->fetchOrderList($page, $size));
     }
 
     public function fetchBillList(ServerRequest $request)
     {
-        return $this->response(BuyLogic::getInstance()->fetchBillList());
+        $page = $request->getParam("page", 1);
+        $size = $request->getParam("size", 20);
+        return $this->response(BuyLogic::getInstance()->fetchBillList($page,$size));
     }
 
     /**

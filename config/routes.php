@@ -164,9 +164,12 @@ route()->group(['prefix' => '/analyst', 'middleware' => 'dispatch'],function(){
 //后台
 route()->group(['prefix' => '/admin', 'middleware' => 'dispatch'],function(){
 
+    //广告
     route()->get("/adventure","Admin\AdventureController@listAction");
     route()->get("/adventure/{id}","Admin\AdventureController@getAction");
     route()->post("/adventure","Admin\AdventureController@addAction");
     route()->patch("/adventure","Admin\AdventureController@updateAction");
     route()->delete("/adventure","Admin\AdventureController@deleteAction");
+
+    //
 });

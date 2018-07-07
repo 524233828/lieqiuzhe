@@ -414,7 +414,10 @@ class RecommendLogic extends BaseLogic
 
         $where = [];
         $where["m.status"] = [0];
-        $where["m.id"] = $match_ids;
+        if(!empty($match_ids)){
+            $where["m.id"] = $match_ids;
+        }
+
         $where["ORDER"] = ["m.start_time" => "ASC"];
 
         $list = MatchModel::fetchMatch(

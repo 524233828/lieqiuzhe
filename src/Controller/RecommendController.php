@@ -74,4 +74,10 @@ class RecommendController extends BaseController
         return $this->response(RecommendLogic::getInstance()->fetchRecommendList($order,$filter,$page,$size));
     }
 
+    public function filterLeagueAndMatch(ServerRequest $request)
+    {
+        $odd_type = $request->getParam("odd_type", 1);
+        return $this->response(RecommendLogic::getInstance()->filterLeagueAndMatch($odd_type));
+    }
+
 }

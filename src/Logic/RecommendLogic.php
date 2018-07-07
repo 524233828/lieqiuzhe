@@ -388,7 +388,7 @@ var_dump($count);exit;
         return $result;
     }
 
-    public function fetchOdd($odd_type = 1)
+    public function filterLeagueAndMatch($odd_type = 1)
     {
         $start_time = time();
 

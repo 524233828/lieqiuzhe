@@ -59,6 +59,7 @@ route()->group(["prefix" => "/recommend", "middleware" => "dispatch"], function(
     route()->get("/list", 'RecommendController@fetchRecommendList');
 
     //获取当前所有推荐的联赛列表
+    route()->get("/filter", 'RecommendController@filterLeagueAndMatch');
 });
 
 //注册页

@@ -41,4 +41,11 @@ class VideoController extends BaseController
         $video_id = $request->getParam("video_id");
         return $this->response(VideoLogic::getInstance()->uncollectedVideo($video_id));
     }
+
+    public function collectVideoList(ServerRequest $request)
+    {
+        $page = $request->getParam("page", 1);
+        $size = $request->getParam("size", 20);
+        return $this->response(VideoLogic::getInstance()->collectVideoList($page, $size));
+    }
 }

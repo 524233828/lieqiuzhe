@@ -169,6 +169,7 @@ route()->group(['prefix' => '/video', 'middleware' => 'dispatch'],function(){
     route()->get("/list","VideoController@fetchVideo")->withAddMiddleware("login");
     route()->post("/collect","VideoController@collectVideo")->withAddMiddleware("login");
     route()->delete("/collect","VideoController@uncollectedVideo")->withAddMiddleware("login");
+    route()->get("/collect","VideoController@collectVideoList")->withAddMiddleware("login");
 });
 
 //后台

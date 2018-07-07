@@ -46,4 +46,24 @@ class UploadService
         return json_decode($response->getBody(),true);
     }
 
+    public function uploadVideo($file_path)
+    {
+        $uri = clone $this->uri;
+
+        $uri->withPath("/admin/common/upload_video");
+
+        $data = [
+            'multipart' => [
+                [
+                    'name'     => 'file',
+                    'contents' => fopen($file_path, 'r')
+                ],
+            ]
+        ];
+
+        $response = $this->http->request("POST", (string)$uri, $data);
+
+        return json_decode($response->getBody(),true);
+    }
+
 }

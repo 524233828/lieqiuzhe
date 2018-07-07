@@ -34,6 +34,11 @@ class VideoLogic extends BaseLogic
             {
                 $ids[] = $v['video_id'];
             }
+
+            if(empty($ids)){
+                return ["list" => [], "meta" => $pager->getPager(0)];
+            }
+
             $where['id'] = $ids;
         }
 

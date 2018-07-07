@@ -80,5 +80,28 @@ class SearchLogic extends BaseLogic
 
     }
 
+    public function searchBlurByKeywords($keywords)
+    {
+        //比赛
+        $keys = [];
+        $gbs = TeamModel::fetchByKeyWords($keywords,'gb');
+        $keys = array_merge($keys,$gbs);
+
+
+        //分析师
+        $analysts = AnalystInfoModel::fetchByKeyWords($keywords);
+        if($analysts) {
+            if(!is_null($analysts[0]['user_id'])) {
+                $analysts = FuntionHelper::arrayUnion($analysts, 'user_id');
+                foreach ($analysts as &$v) {
+                    $keys[] =  $v['nickname'];
+                }
+            }
+        }
+
+
+        return $keys;
+    }
+
 
 }

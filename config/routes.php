@@ -106,6 +106,7 @@ route()->group(["prefix"=>"/user","middleware" => "dispatch"], function(){
 route()->group(["prefix"=>"/search","middleware" => "dispatch"], function(){
     route()->get("/index", 'SearchController@index');
     route()->get("/keyword", 'SearchController@keywords');
+    route()->get("/blurkeyword", 'SearchController@blurKeywords');
 });
 
 //

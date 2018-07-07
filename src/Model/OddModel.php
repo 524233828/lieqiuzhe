@@ -74,4 +74,5 @@ SQL;
 
         return database()->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
     }
+
 }

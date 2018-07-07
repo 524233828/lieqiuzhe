@@ -259,6 +259,14 @@ class RecommendLogic extends BaseLogic
         return $res;
     }
 
+    /**
+     * 获取
+     * @param $order
+     * @param $filter
+     * @param int $page
+     * @param int $size
+     * @return array
+     */
     public function fetchRecommendList($order, $filter, $page = 1, $size = 20)
     {
 
@@ -313,6 +321,11 @@ class RecommendLogic extends BaseLogic
         if(!empty($filter['league_id']))
         {
             $where[] = "l.id={$filter['league_id']}";
+        }
+
+        if(!empty($filter['match_id']))
+        {
+            $where[] = "m.id={$filter['match_id']}";
         }
 
         $where = implode(" AND ",$where);
@@ -373,5 +386,49 @@ var_dump($count);exit;
         $result['meta'] = $page->getPager($count);
         $result['list'] = $res;
         return $result;
+    }
+
+    public function fetchOdd($odd_type = 1)
+    {
+        $start_time = time();
+
+        //七天后
+        $end_time = strtotime(date("Ymd", $start_time + 7 * 86400));
+
+        $league_list = OddModel::getOddLeague($start_time, $end_time);
+
+        $where = [
+            MatchModel::$table.".start_time[>=]" => $start_time,
+            MatchModel::$table.".start_time[<]" => $end_time,
+            OddModel::$table.".type" => $odd_type
+        ];
+
+        $res = OddModel::fetchOddMatchList([OddModel::$table.".match_id(mid)", OddModel::$table.".id"],$where);
+
+        $match_ids = [];
+        $match_index = [];
+        foreach ($res as $v){
+            $match_ids[] = $v['mid'];
+            $match_index[$v['mid']] = $v['id'];
+        }
+
+        $where = [];
+        $where["m.status"] = [0];
+        $where["m.id"] = $match_ids;
+        $where["ORDER"] = ["start_time" => "ASC"];
+
+        $list = MatchModel::fetch(
+            $where,
+            [
+                "m.id(match_id)",
+                "l.gb_short(league_name)",
+                "l.color(league_color)",
+                "h.gb(home)",
+                "a.gb(away)",
+            ]
+        );
+
+        return ["league_list" => $league_list, "match_list" => $list];
+
     }
 }

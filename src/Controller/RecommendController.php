@@ -69,6 +69,7 @@ class RecommendController extends BaseController
         $filter["win_rate"] = $request->getParam("win_rate", null);
         $filter["ticket"] = $request->getParam("ticket", null);
         $filter["league_id"] = $request->getParam("league_id", null);
+        $filter["match_id"] = $request->getParam("match_id", null);
 
         return $this->response(RecommendLogic::getInstance()->fetchRecommendList($order,$filter,$page,$size));
     }

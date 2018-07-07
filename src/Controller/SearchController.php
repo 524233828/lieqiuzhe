@@ -40,4 +40,14 @@ class SearchController extends BaseController
         return $this->response(SearchLogic::getInstance()->searchByKeywords($keyword));
     }
 
+    public function blurKeywords(ServerRequest $request)
+    {
+        validator($request, [
+            "keyword" => "required"
+        ]);
+
+        $keyword = $request->getParam("keyword");
+        return $this->response(SearchLogic::getInstance()->searchBlurByKeywords($keyword));
+    }
+
 }

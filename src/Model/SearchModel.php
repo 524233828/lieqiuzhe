@@ -44,7 +44,7 @@ SQL;
 
     }
 
-    public static function count($where)
+    public static function countSearch($where)
     {
         return database()->count(
             self::$table."(m)",

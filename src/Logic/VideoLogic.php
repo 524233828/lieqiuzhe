@@ -49,6 +49,7 @@ class VideoLogic extends BaseLogic
         {
             $index_list[$v['id']] = $v;
             $index_list[$v['id']]['is_collect'] = 0;
+            $index_list[$v['id']]['collect_num'] = 0;
         }
 
         //获取我关注的视频列表
@@ -62,6 +63,17 @@ class VideoLogic extends BaseLogic
                 $index_list[$item['video_id']]['is_collect'] = 1;
             }
         }
+
+        //获取关注数
+        $count_list = VideoCollectModel::countCollectNum();
+
+        foreach ($count_list as $value){
+            if(isset($index_list[$value['video_id']]))
+            {
+                $index_list[$value['video_id']]['collect_num'] = $value['num'];
+            }
+        }
+
 
         $list = array_values($index_list);
 

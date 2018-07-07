@@ -18,4 +18,17 @@ class VideoCollectModel extends BaseModel
     {
         return database()->delete(self::$table,$where);
     }
+
+
+    public static function countCollectNum()
+    {
+        $table = self::$table;
+        $sql = <<<SQL
+SELECT video_id, count(*) as num
+FROM {$table} 
+GROUP BY video_id
+SQL;
+
+        return database()->pdo->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
+    }
 }

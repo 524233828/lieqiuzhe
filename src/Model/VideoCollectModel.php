@@ -36,4 +36,21 @@ SQL;
 
         return database()->pdo->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
     }
+
+    public static function videoCollectList($user_id, $where = [])
+    {
+
+        $where = array_merge($where,[
+            self::$table.".user_id" => $user_id
+        ]);
+
+        return database()->select(
+            self::$table,
+            [
+                "[>]".VideoModel::$table => ["video_id" => "id"]
+            ],
+            VideoModel::$table.".*",
+            $where
+        );
+    }
 }

@@ -144,4 +144,37 @@ class VideoLogic extends BaseLogic
 
         BaseException::SystemError();
     }
+
+    public function collectVideoList($page = 1, $size = 20)
+    {
+        $pager = new Pager($page, $size);
+
+        $user_id = UserLogic::$user['id'];
+
+        $count = VideoCollectModel::count(["user_id"=>$user_id]);
+
+        $list = VideoCollectModel::videoCollectList($user_id, ["LIMIT" => [$pager->getFirstIndex(), $size]]);
+
+        $index_list = [];
+        foreach ($list as $v)
+        {
+            $index_list[$v['id']] = $v;
+            $index_list[$v['id']]['is_collect'] = 1;
+            $index_list[$v['id']]['collect_num'] = 0;
+        }
+
+        //获取关注数
+        $count_list = VideoCollectModel::countCollectNum();
+
+        foreach ($count_list as $value){
+            if(isset($index_list[$value['video_id']]))
+            {
+                $index_list[$value['video_id']]['collect_num'] = $value['num'];
+            }
+        }
+
+        $list = array_values($index_list);
+
+        return ["list" => $list, "meta" => $pager->getPager($count)];
+    }
 }

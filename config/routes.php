@@ -161,6 +161,15 @@ route()->group(['prefix' => '/analyst', 'middleware' => 'dispatch'],function(){
     route()->post("/application","AnalystApplicationController@addAnalystApplication")->withAddMiddleware("login");
 });
 
+//视频
+route()->group(['prefix' => '/video', 'middleware' => 'dispatch'],function(){
+
+    route()->get("/cate","VideoController@fetchCate");
+    route()->get("/video","VideoController@fetchVideo")->withAddMiddleware("login");
+    route()->post("/video/collect","VideoController@collectVideo")->withAddMiddleware("login");
+    route()->delete("/video/collect","VideoController@uncollectedVideo")->withAddMiddleware("login");
+});
+
 //后台
 route()->group(['prefix' => '/admin', 'middleware' => 'dispatch'],function(){
 

@@ -30,7 +30,7 @@ class VideoModel extends BaseModel
         return database()->select(
             self::$table,
             [
-                "[>]".UserModel::$table => ["id"=>"user_id"]
+                "[>]".UserModel::$table => ["user_id"=>"id"]
             ],
             $columns,
             $where

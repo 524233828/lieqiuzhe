@@ -30,4 +30,20 @@ class CommLogic extends BaseLogic
 
         return $response['data']['path'];
     }
+
+    public function uploadVideo($name = "file")
+    {
+        //存成文件以后再上传，上传完毕删除
+        $file = $_FILES[$name];
+
+        move_uploaded_file($_FILES["file"]["tmp_name"],"/tmp/".$file['name']);
+
+        $uploader = new UploadService();
+
+        $response = $uploader->uploadVideo("/tmp/".$file['name']);
+
+        unlink("/tmp/".$file['name']);
+
+        return $response['data']['path'];
+    }
 }

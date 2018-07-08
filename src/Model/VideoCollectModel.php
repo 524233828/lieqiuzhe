@@ -54,6 +54,7 @@ SQL;
                 VideoModel::$table.".user_id",
                 VideoModel::$table.".url",
                 VideoModel::$table.".img_url",
+                VideoModel::$table.".title",
                 VideoModel::$table.".viewer",
                 VideoModel::$table.".times",
                 VideoModel::$table.".status",

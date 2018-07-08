@@ -49,7 +49,19 @@ class VideoLogic extends BaseLogic
         $where["ORDER"] = ["id" => "DESC"];
 
         $list = VideoModel::fetchVideoWithUser(
-            [VideoModel::$table.".*", UserModel::$table.".nickname", UserModel::$table.".avatar"],
+            [
+                VideoModel::$table.".id",
+                VideoModel::$table.".user_id",
+                VideoModel::$table.".url",
+                VideoModel::$table.".img_url",
+                VideoModel::$table.".title",
+                VideoModel::$table.".viewer",
+                VideoModel::$table.".times",
+                VideoModel::$table.".status",
+                VideoModel::$table.".update_time",
+                VideoModel::$table.".create_time",
+                UserModel::$table.".nickname",
+                UserModel::$table.".avatar"],
             $where
         );
 

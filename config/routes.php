@@ -124,6 +124,10 @@ route()->group(['prefix' => '/index', 'middleware' => 'dispatch'],function(){
     route()->get("/class","Lesson\IndexController@listClass");
 });
 
+route()->group(['prefix' => '/lesson', 'middleware' => 'dispatch'],function(){
+    route()->get("/banner","Lesson\IndexController@listBanner");
+});
+
 //文章详情页
 route()->group(['prefix' => '/article', 'middleware' => 'dispatch'],function(){
     route()->get("/info","Lesson\ArticleController@getArticle");

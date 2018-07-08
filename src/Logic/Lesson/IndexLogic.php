@@ -57,6 +57,6 @@ class IndexLogic extends BaseLogic
             "ORDER" => ["sort"]
         ]);
 
-        return $banner;
+        return ["list" => $banner];
     }
 }

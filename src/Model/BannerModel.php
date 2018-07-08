@@ -14,4 +14,16 @@ class BannerModel extends BaseModel
 
     public static $table = "banner";
 
+    public static function listBanner($where = [])
+    {
+        $db = database("lesson");
+
+        $result = $db->select("db_banner","*",
+            $where
+        );
+
+        return $result;
+    }
+
+
 }

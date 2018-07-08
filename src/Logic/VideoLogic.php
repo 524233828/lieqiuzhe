@@ -24,7 +24,7 @@ class VideoLogic extends BaseLogic
     {
         $pager = new Pager($page, $size);
 
-        $where = ["status" => 1];
+        $where = [VideoModel::$table.".status" => 1];
 
         if(!empty($cate))
         {
@@ -40,13 +40,13 @@ class VideoLogic extends BaseLogic
                 return ["list" => [], "meta" => $pager->getPager(0)];
             }
 
-            $where['id'] = $ids;
+            $where[VideoModel::$table.'.id'] = $ids;
         }
 
         $count = VideoModel::count($where);
 
         $where["LIMIT"] = [$pager->getFirstIndex(),$size];
-        $where["ORDER"] = ["id" => "DESC"];
+        $where["ORDER"] = [VideoModel::$table.".id" => "DESC"];
 
         $list = VideoModel::fetchVideoWithUser(
             [

@@ -121,9 +121,12 @@ SQL;
             'd.gb as league_name',
             'r.gb as home',
             'f.gb as away',
+            'g.extra as extra',
             'm.title as rec_title',
             'm.`desc` as rec_desc',
             'm.`result` as result',
+            "FROM_UNIXTIME(h.start_time,'%m/%d %H:%i') as match_time",
+            'm.`option_id` as option_id',
         ];
         $column = is_array($columns) ? implode(",", $columns) : $columns;
         $sql = <<<SQL

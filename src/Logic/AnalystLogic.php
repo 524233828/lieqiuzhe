@@ -20,6 +20,7 @@ use Model\LeagueModel;
 use Model\FansModel;
 use Model\MatchCollectionModel;
 use Model\MatchModel;
+use Model\OptionModel;
 use Model\RecommendModel;
 use Model\UserModel;
 use Qiutan\Lottery;
@@ -109,6 +110,12 @@ class AnalystLogic extends BaseLogic
     {
         $start =  $size * ($page-1);
         $rs = RecommendModel::getRecommendByUserId($user_id, $start, $size);
+        foreach ($rs as &$v) {
+            $result = RecommendModel::fetchOne($v['rec_id']);
+            $options = OptionModel::getOptionByOddId($result['odd_id'],['id','option','odds_rate']);
+            $v['option'] = $options;
+            $v['extra'] = json_decode($v['extra'], true);
+        }
         return $rs;
     }
 

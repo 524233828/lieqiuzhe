@@ -10,6 +10,7 @@ namespace Logic;
 
 
 use Exception\BaseException;
+use Model\UserModel;
 use Model\VideoCateModel;
 use Model\VideoCollectModel;
 use Model\VideoVCateModel;
@@ -47,7 +48,10 @@ class VideoLogic extends BaseLogic
         $where["LIMIT"] = [$pager->getFirstIndex(),$size];
         $where["ORDER"] = ["id" => "DESC"];
 
-        $list = VideoModel::fetch("*", $where);
+        $list = VideoModel::fetchVideoWithUser(
+            [VideoModel::$table.".*", UserModel::$table.".nickname", UserModel::$table.".avatar"],
+            $where
+        );
 
         $index_list = [];
         foreach ($list as $v)

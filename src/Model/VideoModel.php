@@ -25,4 +25,16 @@ class VideoModel extends BaseModel
         );
     }
 
+    public static function fetchVideoWithUser($columns = "*", $where = null)
+    {
+        return database()->select(
+            self::$table,
+            [
+                "[>]".UserModel::$table => ["id"=>"user_id"]
+            ],
+            $columns,
+            $where
+        );
+    }
+
 }

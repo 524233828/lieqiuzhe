@@ -47,7 +47,8 @@ SQL;
         return database()->select(
             self::$table,
             [
-                "[>]".VideoModel::$table => ["video_id" => "id"]
+                "[>]".VideoModel::$table => ["video_id" => "id"],
+                "[>]".UserModel::$table => [VideoModel::$table.".user_id"=>"id"],
             ],
             [
                 VideoModel::$table.".id",
@@ -60,6 +61,8 @@ SQL;
                 VideoModel::$table.".status",
                 VideoModel::$table.".update_time",
                 VideoModel::$table.".create_time",
+                UserModel::$table.".nickname",
+                UserModel::$table.".avatar"
             ],
             $where
         );

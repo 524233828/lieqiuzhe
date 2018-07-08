@@ -10,6 +10,7 @@ namespace Logic;
 
 
 use Exception\BaseException;
+use Model\IconsModel;
 use Model\UserModel;
 use Model\VideoCateModel;
 use Model\VideoCollectModel;
@@ -61,9 +62,13 @@ class VideoLogic extends BaseLogic
                 VideoModel::$table.".update_time",
                 VideoModel::$table.".create_time",
                 UserModel::$table.".nickname",
-                UserModel::$table.".avatar"],
+                UserModel::$table.".avatar"
+            ],
             $where
         );
+
+        //TODO: 先拿一个icons做代替
+        $icon = IconsModel::getUserIcon(1);
 
         $index_list = [];
         foreach ($list as $v)
@@ -71,6 +76,7 @@ class VideoLogic extends BaseLogic
             $index_list[$v['id']] = $v;
             $index_list[$v['id']]['is_collect'] = 0;
             $index_list[$v['id']]['collect_num'] = 0;
+            $index_list[$v['id']]['icon'] = empty($v['nickname'])?null:$icon['icon'];
         }
 
         //获取我关注的视频列表
@@ -171,12 +177,16 @@ class VideoLogic extends BaseLogic
 
         $list = VideoCollectModel::videoCollectList($user_id, ["LIMIT" => [$pager->getFirstIndex(), $size]]);
 
+        //TODO: 先拿一个icons做代替
+        $icon = IconsModel::getUserIcon(1);
+
         $index_list = [];
         foreach ($list as $v)
         {
             $index_list[$v['id']] = $v;
-            $index_list[$v['id']]['is_collect'] = 1;
+            $index_list[$v['id']]['is_collect'] = 0;
             $index_list[$v['id']]['collect_num'] = 0;
+            $index_list[$v['id']]['icon'] = empty($v['nickname'])?null:$icon['icon'];
         }
 
         //获取关注数

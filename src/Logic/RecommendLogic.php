@@ -397,6 +397,18 @@ class RecommendLogic extends BaseLogic
 
         $league_list = OddModel::getOddLeague($start_time, $end_time);
 
+        //TODO:假数据
+        $league_list = [
+            [
+                "id" => 1366,
+                "league_name" => "国际友谊"
+            ],
+            [
+                "id" => 128,
+                "league_name" => "奥乙"
+            ]
+        ];
+
         $where = [
             MatchModel::$table.".start_time[>=]" => $start_time,
             MatchModel::$table.".start_time[<]" => $end_time,
@@ -431,6 +443,31 @@ class RecommendLogic extends BaseLogic
         }else{
             $list = [];
         }
+
+        //TODO:假数据
+        $list = [
+            [
+                "match_id" => 1552951,
+                "league_name" => "国际友谊",
+                "league_color" => "#4666bb",
+                "home" => "塞内加尔U17",
+                "away" => "巴拉圭U16",
+            ],
+            [
+                "match_id" => 1404577,
+                "league_name" => "奥乙",
+                "league_color" => "#4756D8",
+                "home" => "BW林茨",
+                "away" => "华顿斯",
+            ],
+            [
+                "match_id" => 1404580,
+                "league_name" => "奥乙",
+                "league_color" => "#4756D8",
+                "home" => "里德",
+                "away" => "卡芬堡",
+            ],
+        ];
 
 
 

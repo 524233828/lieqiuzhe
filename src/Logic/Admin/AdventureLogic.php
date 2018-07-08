@@ -67,7 +67,7 @@ class AdventureLogic extends AdminBaseLogic
 
         $item = AdventureModel::get($id, ["status"]);
 
-        $status = 1 - $item;
+        $status = 1 - $item['status'];
 
         $result = AdventureModel::update(["status" => $status],["id" => $id]);
 

@@ -124,6 +124,7 @@ SQL;
             'm.title as rec_title',
             'm.`desc` as rec_desc',
             'm.`result` as result',
+            'm.`option_id` as option_id',
         ];
         $column = is_array($columns) ? implode(",", $columns) : $columns;
         $sql = <<<SQL

@@ -114,6 +114,7 @@ class AnalystLogic extends BaseLogic
             $result = RecommendModel::fetchOne($v['rec_id']);
             $options = OptionModel::getOptionByOddId($result['odd_id'],['id','option','odds_rate']);
             $v['option'] = $options;
+            $v['extra'] = json_decode($v['extra'], true);
         }
         return $rs;
     }

@@ -121,6 +121,7 @@ SQL;
             'd.gb as league_name',
             'r.gb as home',
             'f.gb as away',
+            'g.extra as extra',
             'm.title as rec_title',
             'm.`desc` as rec_desc',
             'm.`result` as result',

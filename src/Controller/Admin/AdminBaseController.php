@@ -72,9 +72,7 @@ class AdminBaseController extends BaseController
      */
     public function deleteAction(ServerRequest $request)
     {
-        $validate = validator($request,[]);
-
-        $params = $validate->data();
+        $params['id'] = $request->getAttribute('id');
 
         return $this->response($this->logic->deleteAction($params));
     }
@@ -89,6 +87,8 @@ class AdminBaseController extends BaseController
         $validate = validator($request,[]);
 
         $params = $validate->data();
+
+        $params['id'] = $request->getAttribute('id');
 
         return $this->response($this->logic->updateAction($params));
     }

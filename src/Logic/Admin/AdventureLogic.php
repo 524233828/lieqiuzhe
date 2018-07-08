@@ -9,12 +9,21 @@
 namespace Logic\Admin;
 
 
+use Exception\BaseException;
 use Model\AdventureModel;
 use Service\Pager;
 
 class AdventureLogic extends AdminBaseLogic
 {
 
+    private $list_filter = [
+        "status",
+        "page_id",
+        "url",
+        "params",
+        "img_url",
+        "sort"
+    ];
 
     public function listAction($params)
     {
@@ -48,23 +57,81 @@ class AdventureLogic extends AdminBaseLogic
 
     public function deleteAction($params)
     {
-        // TODO: Implement deleteAction() method.
+        //软删除，只更新表里的状态，已冻结则解冻
+        $id = $params['id'];
+
+        if(empty($id))
+        {
+            BaseException::SystemError();
+        }
+
+        $item = AdventureModel::get($id, ["status"]);
+
+        $status = 1 - $item;
+
+        $result = AdventureModel::update(["status" => $status],["id" => $id]);
+
+        if($result)
+        {
+            return [];
+        }else{
+            BaseException::SystemError();
+        }
+
     }
 
     public function addAction($params)
     {
-        // TODO: Implement addAction() method.
+        $data = [];
+
+        foreach ($this->list_filter as $v){
+            if(isset($params[$v])){
+                $data[$v] = $params[$v];
+            }
+        }
+
+        $result = AdventureModel::add($data);
+        
+        if($result){
+            return [];
+        }
+        
+        BaseException::SystemError();
     }
 
     public function getAction($params)
     {
         $id = $params['id'];
 
+        if(empty($id)){
+            BaseException::SystemError();
+        }
+
         return AdventureModel::get($id);
     }
 
     public function updateAction($params)
     {
-        // TODO: Implement updateAction() method.
+        $id = $params['id'];
+
+        if(empty($id)){
+            BaseException::SystemError();
+        }
+
+        $data = [];
+
+        foreach ($this->list_filter as $v){
+            if(isset($params[$v])){
+                $data[$v] = $params[$v];
+            }
+        }
+
+        $result = AdventureModel::update($data, ["id" => $id]);
+
+        if($result){
+            return [];
+        }
+
+        BaseException::SystemError();
     }
 }

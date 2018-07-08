@@ -16,7 +16,7 @@ use Service\Pager;
 class AdventureLogic extends AdminBaseLogic
 {
 
-    private $list_filter = [
+    protected $list_filter = [
         "status",
         "page_id",
         "url",

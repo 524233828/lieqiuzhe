@@ -196,6 +196,9 @@ route()->group(['prefix' => '/admin', 'middleware' => 'dispatch'],function(){
     //上传图片
     route()->post("/upload_image","Admin\CommController@uploadImage");
 
+    //上传图片
+    route()->post("/upload_video","Admin\CommController@uploadVideo");
+
     //广告
     route()->get("/adventure","Admin\AdventureController@listAction");
     route()->get("/adventure/{id}","Admin\AdventureController@getAction");

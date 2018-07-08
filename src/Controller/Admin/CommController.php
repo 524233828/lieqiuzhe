@@ -19,7 +19,7 @@ class CommController extends BaseController
 
     public function uploadImage(ServerRequest $request)
     {
-        return $this->response(CommLogic::getInstance()->uploadImage());
+        return $this->response(["path" => CommLogic::getInstance()->uploadImage()]);
     }
 
 }

@@ -26,7 +26,8 @@
         "sinkcup/umeng-message-sdk-php": "^0.0.1",
         "Intervention/image":"v2.4.*",
         "overtrue/wechat":"^3.3",
-        "ezyang/htmlpurifier": "^4.10"
+        "ezyang/htmlpurifier": "^4.10",
+        "zqhong/fastd-eloquent": "^1.1"
     },
     "require-dev": {
         "phpunit/dbunit": "^2.0"

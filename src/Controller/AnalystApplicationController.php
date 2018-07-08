@@ -23,8 +23,8 @@ class AnalystApplicationController extends BaseController
             "tag" => "required|string|range_ch:1,5",
             "ball_year" => "required|in:1-5年,5-10年,10-20年,20-30年,30年以上,其他",
             "league" => "required|multi_in:英超,西甲,德甲,法甲,意甲,其他",
-            "skill" => "required|in:保本盈利,冷门,其他",
-            "good_at" => "required|multi_in:欧赔,精彩赔率,亚盘,交锋数据,球队近绩,球员数据,控球率,失球率,球队打法,天气,赛前信息,其他",
+            "skill" => "required|in:保本盈利,冷门,综合",
+            "good_at" => "required|multi_in:欧赔,精彩赔率,亚赔,交锋数据,球队近绩,球员数据,控球率,失球率,球队打法,天气,赛前信息,其他",
             "intro" => "required|string"
         ]);
 

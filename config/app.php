@@ -54,6 +54,7 @@ return [
         \FastD\ServiceProvider\CacheServiceProvider::class,
         \ServiceProvider\RedisServiceProvider::class,
         \ServiceProvider\ValidationServiceProvider::class,
+        \Zqhong\FastdEloquent\EloquentServiceProvider::class,
 //        \ServiceProvider\WechatServiceProvider::class
     ],
 

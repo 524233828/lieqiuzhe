@@ -59,4 +59,9 @@ class IndexLogic extends BaseLogic
 
         return ["list" => $banner];
     }
+
+    public function newBanner()
+    {
+
+    }
 }

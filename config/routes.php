@@ -125,6 +125,9 @@ route()->group(['prefix' => '/index', 'middleware' => 'dispatch'],function(){
 });
 
 route()->group(['prefix' => '/lesson', 'middleware' => 'dispatch'],function(){
+    //旧的课程banner，app不适用，只能用于微信公众号
+//    route()->get("/banner","Lesson\IndexController@listBanner");
+    //新的课程banner
     route()->get("/banner","Lesson\IndexController@listBanner");
 });
 
@@ -189,6 +192,9 @@ route()->group(['prefix' => '/system_notice', 'middleware' => 'dispatch'],functi
 
 //后台
 route()->group(['prefix' => '/admin', 'middleware' => 'dispatch'],function(){
+
+    //上传图片
+    route()->post("/upload_image","Admin\CommController@uploadImage");
 
     //广告
     route()->get("/adventure","Admin\AdventureController@listAction");

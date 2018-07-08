@@ -11,6 +11,7 @@ namespace Controller\Admin;
 
 use Controller\BaseController;
 use FastD\Http\ServerRequest;
+use Logic\Admin\CommLogic;
 
 class CommController extends BaseController
 {
@@ -18,7 +19,7 @@ class CommController extends BaseController
 
     public function uploadImage(ServerRequest $request)
     {
-        return $this->response()
+        return $this->response(CommLogic::getInstance()->uploadImage());
     }
 
 }

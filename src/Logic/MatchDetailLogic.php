@@ -137,7 +137,7 @@ class MatchDetailLogic extends BaseLogic
                     break;
                 }
                 $v['win_streak'] = FuntionHelper::continuityWin($v['win_str']);
-                $v['hit_rate'] = FuntionHelper::winRate($v['result_str']);
+                $v['hit_rate'] = FuntionHelper::winRate($v['result_str']?:0);
                 $v['rec_time'] = date('m/d H:i:s',$v['rec_time']);
                 $v['hit'] = FuntionHelper::resultComputer($v['result_str']);;
                 $v['gifts'] = $v['ticket'];

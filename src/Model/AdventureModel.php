@@ -12,4 +12,9 @@ namespace Model;
 class AdventureModel extends BaseModel
 {
     public static $table = "adventure";
+
+    public static function fetchWithPage()
+    {
+
+    }
 }

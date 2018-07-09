@@ -8,6 +8,7 @@
 
 namespace Controller\Admin;
 
+use FastD\Http\ServerRequest;
 use Logic\Admin\AdventureLogic;
 
 class AdventureController extends AdminBaseController
@@ -21,6 +22,11 @@ class AdventureController extends AdminBaseController
             "page_id" => "required|in:1,2",
             "img_url" => "required|url"
         ];
+    }
+
+    public function fetchPage(ServerRequest $request)
+    {
+        return $this->response(AdventureLogic::getInstance()->fetchPage());
     }
 
 }

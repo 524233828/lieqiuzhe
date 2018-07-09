@@ -11,6 +11,7 @@ namespace Logic\Admin;
 
 use Exception\BaseException;
 use Model\AdventureModel;
+use Model\PageModel;
 use Service\Pager;
 
 class AdventureLogic extends AdminBaseLogic
@@ -133,5 +134,12 @@ class AdventureLogic extends AdminBaseLogic
         }
 
         BaseException::SystemError();
+    }
+
+    public function fetchPage()
+    {
+        $list = PageModel::fetch(["id", "name"],["status" => 1]);
+
+        return ["list" => $list];
     }
 }

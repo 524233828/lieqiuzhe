@@ -199,12 +199,16 @@ route()->group(['prefix' => '/admin', 'middleware' => 'dispatch'],function(){
     //上传图片
     route()->post("/upload_video","Admin\CommController@uploadVideo");
 
+    //页面列表
+    route()->get("/page","Admin\AdventureController@fetchPage");
+
     //广告
     route()->get("/adventure","Admin\AdventureController@listAction");
     route()->get("/adventure/{id}","Admin\AdventureController@getAction");
     route()->post("/adventure","Admin\AdventureController@addAction");
     route()->post("/adventure/update/{id}","Admin\AdventureController@updateAction");
     route()->post("/adventure/delete/{id}","Admin\AdventureController@deleteAction");
+
 
     //
 });

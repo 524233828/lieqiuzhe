@@ -56,3 +56,9 @@ function wechat()
 {
     return app()->get("wechat");
 }
+
+
+function error($code)
+{
+    throw new Exception(\Constant\ErrorCode::msg($code),$code);
+}

@@ -9,6 +9,7 @@
 namespace Logic;
 
 
+use Constant\ErrorCode;
 use Exception\BaseException;
 use Model\AnalystApplicationModel;
 
@@ -19,6 +20,18 @@ class AnalystApplicationLogic extends BaseLogic
     {
 
         $data['user_id'] = UserLogic::$user['id'];
+        if(UserLogic::$user['user_type'] == 1)
+        {
+            error(ErrorCode::ANALYST_ALREADY);
+        }
+
+        $count = AnalystApplicationModel::count(["user_id"=>$data['user_id'], "status"=>0]);
+
+        if(!$count)
+        {
+            error(ErrorCode::ANALYST_IN_REVIEW);
+        }
+
         $result = AnalystApplicationModel::add($data);
 
         if($result)

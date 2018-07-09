@@ -24,33 +24,33 @@ abstract class AdminBaseLogic extends BaseLogic
      * @param array $params
      * @return array
      */
-    abstract function listAction($params);
+    abstract public function listAction($params);
 
     /**
      * 获取
      * @param array $params
      * @return array
      */
-    abstract function getAction($params);
+    abstract public function getAction($params);
 
     /**
      * 删除
      * @param array $params
      * @return array
      */
-    abstract function deleteAction($params);
+    abstract public function deleteAction($params);
 
     /**
      * 新增
      * @param array $params
      * @return array
      */
-    abstract function addAction($params);
+    abstract public function addAction($params);
 
     /**
      * 更新
      * @param array $params
      * @return array
      */
-    abstract function updateAction($params);
+    abstract public function updateAction($params);
 }

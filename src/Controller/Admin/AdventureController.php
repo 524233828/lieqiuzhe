@@ -21,10 +21,10 @@ class AdventureController extends AdminBaseController
         $this->add_valid = [
             "page_id" => "required|in:1,2",
             "img_url" => "required|url",
-            "status" => "",
-            "url" => "",
-            "params" => "",
-            "sort" => "",
+            "status" => "integer",
+            "url" => "url",
+            "params" => "integer",
+            "sort" => "integer",
         ];
     }
 

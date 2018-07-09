@@ -131,7 +131,13 @@ class MatchDetailLogic extends BaseLogic
         );
 
         if($res){
+            $list = [];
             foreach ($res as &$v) {
+                if(!isset($v['rec_id']) || !$v['rec_id'])
+                {
+                    continue;
+                }
+
                 if(!$v['win_str'] && 0 != $v['win_str']){
                     $res = [];
                     break;
@@ -150,13 +156,14 @@ class MatchDetailLogic extends BaseLogic
                 unset($v['ticket']);
                 unset($v['result_str']);
                 unset($v['win_str']);
+                $list[] = $v;
             }
         }
 
 
         $page = new Pager($page,$size);
         $result['meta'] = $page->getPager($count);
-        $result['list'] = $res;
+        $result['list'] = $list;
         return $result;
 
     }

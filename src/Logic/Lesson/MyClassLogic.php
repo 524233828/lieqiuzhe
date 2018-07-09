@@ -8,6 +8,7 @@
 
 namespace Logic\Lesson;
 
+use Exception\BaseException;
 use Logic\BaseLogic;
 use Exception\ClassException;
 use Logic\UserLogic;
@@ -105,6 +106,12 @@ class MyClassLogic extends BaseLogic
 
     public function updateLearnPercent($user_id,$class_id,$percent)
     {
-        return BuyModel::updateLearnPercent($user_id,$class_id,$percent);
+        $result = BuyModel::updateLearnPercent($user_id,$class_id,$percent);
+
+        if($result){
+            return [];
+        }
+
+        BaseException::SystemError();
     }
 }

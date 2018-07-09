@@ -14,5 +14,12 @@ class AnalystApplicationModel extends BaseModel
 
     public static $table = "analyst_application";
 
+    public static function fetchWithUser($columns = "*" ,$where = null)
+    {
+        return database()->select(self::$table, [
+            "[>]".UserModel::$table => ["user_id"=>"id"]
+        ], $columns, $where);
+    }
+
 
 }

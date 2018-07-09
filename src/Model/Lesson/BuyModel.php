@@ -13,7 +13,7 @@ use Exception\BaseException;
 
 class BuyModel extends BaseModel
 {
-    const BUY_CLASS_TABLE = "db_user_class";
+    const BUY_CLASS_TABLE = "user_class";
 
     const CLASS_TABLE = "db_class";
 
@@ -65,7 +65,7 @@ class BuyModel extends BaseModel
             "status" => 1,
         ];
 
-        return database("lesson")->get(self::BUY_CLASS_TABLE,"*",$where);
+        return database()->get(self::BUY_CLASS_TABLE,"*",$where);
     }
 
     public static function buySuccess($order_id, $expire_month)

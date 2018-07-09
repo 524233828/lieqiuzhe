@@ -10,6 +10,7 @@ namespace Logic\Lesson;
 
 use Logic\BaseLogic;
 use Exception\ClassException;
+use Logic\UserLogic;
 use Model\Lesson\ArticleModel;
 use Model\Lesson\BuyModel;
 use Model\Lesson\ClassModel;
@@ -30,7 +31,7 @@ class MyClassLogic extends BaseLogic
             ClassException::ClassNotFound();
         }
 
-        $user_class = BuyModel::getUserClass($_SESSION['uid'],$class_id);
+        $user_class = BuyModel::getUserClass(UserLogic::$user['id'],$class_id);
 
         //判断购买是否过期
         if($user_class['status']==2)

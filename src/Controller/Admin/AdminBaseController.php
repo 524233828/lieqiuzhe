@@ -85,10 +85,10 @@ class AdminBaseController extends BaseController
      */
     public function updateAction(ServerRequest $request)
     {
-//        $validate = validator($request,[]);
-//
-//        $params = $validate->data();
-        $params = $request->getParsedBody();
+        $validate = validator($request,$this->add_valid);
+
+        $params = $validate->data();
+//        $params = $request->getParsedBody();
 
         $params['id'] = $request->getAttribute('id');
 

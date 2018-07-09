@@ -19,8 +19,8 @@ class AdventureController extends AdminBaseController
         $this->logic = AdventureLogic::getInstance();
 
         $this->add_valid = [
-            "page_id" => "required|in:1,2",
-            "img_url" => "required|url",
+            "page_id" => "in:1,2",
+            "img_url" => "url",
             "status" => "integer",
             "url" => "url",
             "params" => "integer",

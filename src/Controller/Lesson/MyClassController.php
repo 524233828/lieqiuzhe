@@ -11,6 +11,7 @@ namespace Controller\Lesson;
 use Controller\BaseController;
 use FastD\Http\ServerRequest;
 use Logic\Lesson\MyClassLogic;
+use Logic\UserLogic;
 
 class MyClassController extends BaseController
 {
@@ -63,7 +64,7 @@ class MyClassController extends BaseController
     {
         $class_id = $request->getParam("class_id");
         $percent = $request->getParam("percent");
-        $user_id = $_SESSION['uid'];
+        $user_id = UserLogic::$user['id'];
 
         return $this->response(MyClassLogic::getInstance()->updateLearnPercent($user_id,$class_id,$percent));
     }

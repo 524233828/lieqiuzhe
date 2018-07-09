@@ -53,7 +53,7 @@ class BuyModel extends BaseModel
             "update_time" => time()
         ];
 
-        return database("lesson")->update(self::BUY_CLASS_TABLE,$data,$where);
+        return database()->update(self::BUY_CLASS_TABLE,$data,$where);
     }
 
 

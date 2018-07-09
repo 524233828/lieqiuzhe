@@ -201,6 +201,7 @@ class ClassLogic extends BaseLogic
         //生成金币消耗订单
         $order_id = OrderModel::getOrderId();
         $data = [
+            "user_id" => UserLogic::$user['id'],
             "explain" => "用户购买课程减扣",
             "order_id" => $order_id,
             "status" => 1,

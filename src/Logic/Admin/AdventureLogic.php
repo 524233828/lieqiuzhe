@@ -40,7 +40,7 @@ class AdventureLogic extends AdminBaseLogic
         foreach ($this->list_filter as $v){
             if(isset($params[$v]))
             {
-                $where[$v] = $params[$v];
+                $where[AdventureModel::$table.".".$v] = $params[$v];
             }
         }
 
@@ -50,7 +50,16 @@ class AdventureLogic extends AdminBaseLogic
         //分页
         $where["LIMIT"] = [$pager->getFirstIndex(), $size];
 
-        $list = AdventureModel::fetch("*",$where);
+        $list = AdventureModel::fetchWithPage([
+            AdventureModel::$table.".id",
+            AdventureModel::$table.".update_time",
+            AdventureModel::$table.".status",
+            PageModel::$table.".name",
+            AdventureModel::$table.".url",
+            AdventureModel::$table.".params",
+            AdventureModel::$table.".img_url",
+            AdventureModel::$table.".sort",
+        ],$where);
 
         return ["list"=>$list, "meta" => $pager->getPager($count)];
 

@@ -13,8 +13,10 @@ class AdventureModel extends BaseModel
 {
     public static $table = "adventure";
 
-    public static function fetchWithPage()
+    public static function fetchWithPage($columns = "*" ,$where = null)
     {
-
+        return database()->select(self::$table, [
+            "[>]".PageModel::$table => ["page_id"=>"id"]
+        ], $columns, $where);
     }
 }

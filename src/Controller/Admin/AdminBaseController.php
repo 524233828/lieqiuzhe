@@ -32,9 +32,10 @@ class AdminBaseController extends BaseController
      */
     public function listAction(ServerRequest $request)
     {
-        $validate = validator($request,[]);
+//        $validate = validator($request,[]);
 
-        $params = $validate->data();
+//        $params = $validate->data();
+        $params = $request->getQueryParams();
 
         return $this->response($this->logic->listAction($params));
     }
@@ -84,9 +85,10 @@ class AdminBaseController extends BaseController
      */
     public function updateAction(ServerRequest $request)
     {
-        $validate = validator($request,[]);
-
-        $params = $validate->data();
+//        $validate = validator($request,[]);
+//
+//        $params = $validate->data();
+        $params = $request->getParsedBody();
 
         $params['id'] = $request->getAttribute('id');
 

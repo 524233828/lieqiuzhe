@@ -254,6 +254,32 @@ SQL;
     }
 
 
+    /**
+     * @return array
+     */
+    public static function RankCount($where = "1=1")
+    {
+
+        $sql = <<<SQL
+SELECT 
+    count(*) as num
+FROM recommend r
+LEFT JOIN `user` ON `user`.id=r.analyst_id
+LEFT JOIN `analyst_info` ON `analyst_info`.user_id=r.analyst_id
+LEFT JOIN `odd` ON odd.id=r.odd_id
+LEFT JOIN `match` ON odd.match_id=`match`.id
+LEFT JOIN `team` as h ON `match`.home_id = h.id
+LEFT JOIN `team` as a ON `match`.away_id = a.id
+LEFT JOIN `league` as l ON `match`.league_id = l.id
+WHERE {$where}
+GROUP BY r.analyst_id
+SQL;
+
+        $result = database()->pdo->query($sql)->fetch(\PDO::FETCH_ASSOC);
+
+        return $result['num'];
+    }
+
     public static function getUserId($rec_id)
     {
 

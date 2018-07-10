@@ -105,7 +105,7 @@ class IndexLogic extends BaseLogic
 //            $list[$k]['win_streak'] = FuntionHelper::continuityWin($v['record']);
 //        }
 
-        $analyst_count = UserModel::count(["user_type" => 1]);
+        $analyst_count = RecommendModel::RankCount();
 
         return ["list" => $list, "meta" => $page->getPager($analyst_count)];
     }
@@ -145,7 +145,7 @@ class IndexLogic extends BaseLogic
             $list[$k]['hit_rate'] = FuntionHelper::winRate($v['win_str']);
         }
 
-        $analyst_count = UserModel::count(["user_type" => 1]);
+        $analyst_count = RecommendModel::RankCount($where);
 
         return ["list" => $list, "meta" => $page->getPager($analyst_count)];
     }

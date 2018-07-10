@@ -87,6 +87,10 @@ class AnalystApplicationLogic extends AdminBaseLogic
     //通过审核
     public function applicationPass($params)
     {
+        if(!$params['id']){
+            BaseException::SystemError();
+        }
+
 
     }
 }

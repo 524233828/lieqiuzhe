@@ -262,7 +262,7 @@ SQL;
 
         $sql = <<<SQL
 SELECT 
-    count(*) as num
+    count(DISTINCT analyst_id) as num
 FROM recommend r
 LEFT JOIN `user` ON `user`.id=r.analyst_id
 LEFT JOIN `analyst_info` ON `analyst_info`.user_id=r.analyst_id

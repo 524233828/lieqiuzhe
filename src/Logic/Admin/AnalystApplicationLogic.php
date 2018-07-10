@@ -9,8 +9,10 @@
 namespace Logic\Admin;
 
 
+use Constant\ErrorCode;
 use Exception\BaseException;
 use Model\AnalystApplicationModel;
+use Model\AnalystInfoModel;
 use Model\UserModel;
 use Service\Pager;
 
@@ -91,6 +93,40 @@ class AnalystApplicationLogic extends AdminBaseLogic
             BaseException::SystemError();
         }
 
+        //取出申请信息
+        $application = AnalystApplicationModel::get($params['id']);
+
+        //创建分析师
+        $analyst_info_data = [
+
+            "id" =>$application['user_id'],
+            "user_id" => $application['user_id'],
+            "create_time" => time(),
+            "status" => 1,
+            "tag" => $application['tag'],
+            "intro" => $application['intro'],
+        ];
+
+        //开启事务
+        database()->pdo->beginTransaction();
+
+        //添加分析师
+        $analyst_result = AnalystInfoModel::add($analyst_info_data);
+
+        //更改申请表状态
+        $application_result = AnalystApplicationModel::update(["status" => 1], ["id"=>$params['id']]);
+
+        //更改用户类型
+        $user_result = UserModel::update(["user_type" => 1], ["id"=>$application['user_id']]);
+
+        if($analyst_result && $application_result && $user_result){
+            database()->pdo->commit();
+            return [];
+        }
+
+        database()->pdo->rollBack();
+
+        BaseException::SystemError();
 
     }
 }

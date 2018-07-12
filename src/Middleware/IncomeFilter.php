@@ -18,7 +18,6 @@ class IncomeFilter extends Middleware
 {
     public function handle(ServerRequestInterface $request, DelegateInterface $next)
     {
-        // TODO: Implement handle() method.
 
         if ($request->getMethod()==="GET") {
             $data = $request->getQueryParams();

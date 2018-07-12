@@ -100,4 +100,34 @@ class UserModel extends BaseModel
         return database()->get(self::$table, ["id"], ["phone" => $phone, "status" => 0]);
     }
 
+    public static function fetchUserWithAnalyst($columns = "*", $where = null)
+    {
+
+        $where[self::$table.'.user_type'] = 1;
+        return database()->select(
+            self::$table,
+            [
+                "[>]".AnalystInfoModel::$table => ["id"=>"user_id"]
+            ],
+            $columns,
+            $where
+        );
+
+    }
+
+    public static function countUserWithAnalyst($where = null)
+    {
+
+        $where[self::$table.'.user_type'] = 1;
+        return database()->count(
+            self::$table,
+            [
+                "[>]".AnalystInfoModel::$table => ["id"=>"user_id"]
+            ],
+            "*",
+            $where
+        );
+
+    }
+
 }

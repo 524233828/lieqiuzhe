@@ -9,6 +9,7 @@
 namespace Controller\Admin;
 
 
+use FastD\Http\ServerRequest;
 use Logic\Admin\AnalystApplicationLogic;
 
 class AnalystApplicationController extends AdminBaseController
@@ -20,5 +21,11 @@ class AnalystApplicationController extends AdminBaseController
         $this->add_valid = [
 
         ];
+    }
+
+    public function passAction(ServerRequest $request)
+    {
+        $params['id'] = $request->getAttribute('id');
+        return $this->response(AnalystApplicationLogic::getInstance()->applicationPass($params));
     }
 }

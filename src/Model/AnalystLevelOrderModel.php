@@ -30,6 +30,24 @@ class AnalystLevelOrderModel extends BaseModel
         return database()->get(self::$table, "*", $where);
     }
 
+    public static function fetchAnalystCurrentLevel($uid)
+    {
+        $where = [
+            "end_time[>=]" => time(),
+            "uid" => $uid,
+            "status" => 1,
+
+            "ORDER" => [
+                "level" => "DESC",
+                "end_time" => "DESC"
+            ],
+
+            "GROUP" => "uid"
+        ];
+
+        return database()->select(self::$table, "*", $where);
+    }
+
     public static function getAnalystLevelOrderByOrderId($order_id, $columns = "*")
     {
         $where = ["order_id" => $order_id];

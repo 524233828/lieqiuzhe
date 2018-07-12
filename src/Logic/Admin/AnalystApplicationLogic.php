@@ -9,8 +9,10 @@
 namespace Logic\Admin;
 
 
+use Constant\ErrorCode;
 use Exception\BaseException;
 use Model\AnalystApplicationModel;
+use Model\AnalystInfoModel;
 use Model\UserModel;
 use Service\Pager;
 
@@ -79,14 +81,79 @@ class AnalystApplicationLogic extends AdminBaseLogic
         return ["list"=>$list, "meta" => $pager->getPager($count)];
     }
 
+    //审核不通过
     public function deleteAction($params)
     {
-        // TODO: Implement deleteAction() method.
+        //软删除，只更新表里的状态
+        $id = $params['id'];
+
+        if(empty($id))
+        {
+            BaseException::SystemError();
+        }
+
+        $item = AnalystApplicationModel::get($id, ["status"]);
+        //已审核过了
+        if($item!=0)
+        {
+            error(ErrorCode::APPLICATION_CHECKED);
+        }
+
+        $result = AnalystApplicationModel::update(["status" => 2],["id" => $id]);
+
+        if($result)
+        {
+            return [];
+        }else{
+            BaseException::SystemError();
+        }
     }
 
     //通过审核
     public function applicationPass($params)
     {
+        if(!$params['id']){
+            BaseException::SystemError();
+        }
+
+        //取出申请信息
+        $application = AnalystApplicationModel::get($params['id']);
+
+        if($application['status']!=0){
+            error(ErrorCode::APPLICATION_CHECKED);
+        }
+
+        //创建分析师
+        $analyst_info_data = [
+
+            "id" =>$application['user_id'],
+            "user_id" => $application['user_id'],
+            "create_time" => time(),
+            "status" => 1,
+            "tag" => $application['tag'],
+            "intro" => $application['intro'],
+        ];
+
+        //开启事务
+        database()->pdo->beginTransaction();
+
+        //添加分析师
+        $analyst_result = AnalystInfoModel::add($analyst_info_data);
+
+        //更改申请表状态
+        $application_result = AnalystApplicationModel::update(["status" => 1], ["id"=>$params['id']]);
+
+        //更改用户类型
+        $user_result = UserModel::update(["user_type" => 1], ["id"=>$application['user_id']]);
+
+        if($analyst_result && $application_result && $user_result){
+            database()->pdo->commit();
+            return [];
+        }
+
+        database()->pdo->rollBack();
+
+        BaseException::SystemError();
 
     }
 }

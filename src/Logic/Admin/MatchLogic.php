@@ -64,7 +64,7 @@ class MatchLogic extends AdminBaseLogic
         //分页
         $where["LIMIT"] = [$pager->getFirstIndex(), $size];
 
-        $list = MatchModel::fetchMatch([
+        $list = MatchModel::fetchMatch($where,[
             "m.id",
             "l.gb_short(league_name)",
             "m.start_time(match_time)",
@@ -74,7 +74,7 @@ class MatchLogic extends AdminBaseLogic
             "m.home_score",
             "m.away_score",
             "m.is_recommend"
-        ],$where);
+        ]);
 
         return ["list"=>$list, "meta" => $pager->getPager($count)];
     }

@@ -75,6 +75,7 @@ class AnalystApplicationLogic extends AdminBaseLogic
             AnalystApplicationModel::$table.".sex",
             AnalystApplicationModel::$table.".tag",
             AnalystApplicationModel::$table.".intro",
+            AnalystApplicationModel::$table.".status",
             UserModel::$table.".avatar",
         ],$where);
 

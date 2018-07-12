@@ -222,6 +222,7 @@ class MatchListLogic extends BaseLogic
                 $status = "0";
                 break;
             case 3://胜负彩
+                $status = "0,1,2,3,4";
                 break;
             default:
                 break;

@@ -57,6 +57,7 @@ class AnalystLogic extends AdminBaseLogic
         foreach ($list as $v)
         {
             $analyst_list[$v['id']] = $v;
+            $analyst_list[$v['id']]['level'] = 0;
             $ids[] = $v['id'];
         }
 

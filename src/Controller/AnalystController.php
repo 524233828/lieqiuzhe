@@ -8,6 +8,7 @@
 
 namespace Controller;
 
+use Exception\BaseException;
 use FastD\Http\ServerRequest;
 use Logic\AnalystLogic;
 use Logic\MatchListLogic;
@@ -64,10 +65,10 @@ class AnalystController extends BaseController
 
         if($result = AnalystLogic::getInstance()->followAnalyst($params))
         {
-            return $this->response($result, false, "关注成功");
+            return $this->response([], false, "关注成功");
         }
 
-
+        BaseException::SystemError();
     }
 
 
@@ -85,9 +86,9 @@ class AnalystController extends BaseController
         $params = $validate->data();
 
         if($result = AnalystLogic::getInstance()->unfollowAnalyst($params)){
-            return $this->response($result, false, "取消关注成功");
+            return $this->response([], false, "取消关注成功");
         }
 
-
+        BaseException::SystemError();error(-1);
     }
 }

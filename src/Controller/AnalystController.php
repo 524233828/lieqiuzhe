@@ -62,7 +62,12 @@ class AnalystController extends BaseController
         ]);
         $params = $validate->data();
 
-        return $this->response(AnalystLogic::getInstance()->followAnalyst($params));
+        if($result = AnalystLogic::getInstance()->followAnalyst($params))
+        {
+            return $this->response($result, false, "关注成功");
+        }
+
+
     }
 
 
@@ -76,8 +81,13 @@ class AnalystController extends BaseController
         $validate = validator($request, [
             "user_id" => "required",
         ]);
+
         $params = $validate->data();
 
-        return $this->response(AnalystLogic::getInstance()->unfollowAnalyst($params));
+        if($result = AnalystLogic::getInstance()->unfollowAnalyst($params)){
+            return $this->response($result, false, "取消关注成功");
+        }
+
+
     }
 }

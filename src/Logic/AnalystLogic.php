@@ -152,7 +152,7 @@ class AnalystLogic extends BaseLogic
 
         if($fans)
         {
-            return ['msg' =>'关注成功'];
+            return true;
         }else{
             AnalystException::failFollow();
         }
@@ -181,7 +181,7 @@ class AnalystLogic extends BaseLogic
 
         if($res)
         {
-            return ['msg' => '取消关注成功'];
+            return true;
         }else{
             AnalystException::failUnfollow();
         }

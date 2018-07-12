@@ -63,6 +63,7 @@ class MatchLogic extends AdminBaseLogic
 
         //分页
         $where["LIMIT"] = [$pager->getFirstIndex(), $size];
+        $where["ORDER"] = ["start_time" => "DESC"];
 
         $list = MatchModel::fetchMatch($where,[
             "m.id",

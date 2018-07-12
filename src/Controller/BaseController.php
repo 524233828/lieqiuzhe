@@ -36,7 +36,7 @@ class BaseController
     public function response($data, $isFilter = false, $msg = '', $code = ErrorCode::OK, $status = 200)
     {
         $data = $isFilter?$this->responseFilter($data):$data;
-        $msg = ErrorCode::msg($code) ? ErrorCode::msg($code) : $msg;
+        $msg = empty($msg)?(ErrorCode::msg($code) ? ErrorCode::msg($code) : $msg): $msg;
         $status = ErrorCode::status($code) ? ErrorCode::status($code) : $status;
         return new ApiResponse($msg, $code, $data, $status);
     }

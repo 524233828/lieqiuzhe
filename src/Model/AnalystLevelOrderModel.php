@@ -42,7 +42,7 @@ class AnalystLevelOrderModel extends BaseModel
                 "end_time" => "DESC"
             ],
 
-            "GROUP" => ["uid"]
+            "GROUP" => "uid"
         ];
 
         return database()->select(self::$table, "*", $where);

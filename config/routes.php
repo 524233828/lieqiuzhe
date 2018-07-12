@@ -221,4 +221,7 @@ route()->group(['prefix' => '/admin', 'middleware' => 'dispatch'],function(){
     route()->post("/banner","Admin\BannerController@addAction");
     route()->post("/banner/update/{id}","Admin\BannerController@updateAction");
     route()->post("/banner/delete/{id}","Admin\BannerController@deleteAction");
+
+    //分析师
+    route()->get("/analyst","Admin\AnalystController@listAction");
 });

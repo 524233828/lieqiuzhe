@@ -70,21 +70,7 @@ class AnalystException extends BaseException
         );
     }
 
-    public static function analystFollowOk()
-    {
-        throw new self(
-            ErrorCode::msg(ErrorCode::ANALYST_FOLLOW_OK),
-            ErrorCode::ANALYST_FOLLOW_OK
-        );
-    }
 
-    public static function analystUnfollowOk()
-    {
-        throw new self(
-            ErrorCode::msg(ErrorCode::ANALYST_UNFOLLOW_OK),
-            ErrorCode::ANALYST_UNFOLLOW_OK
-        );
-    }
 
     public static function analystNotExist()
     {

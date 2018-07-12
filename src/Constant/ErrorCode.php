@@ -55,8 +55,6 @@ class ErrorCode
     const FOLLOW_ANALYST_ALREADY = 1104; //已经关注过了
     const UNFOLLOW_ANALYST_ALREADY = 1105; //已经取关过了
     const ANALYST_NOT_EXITST = 1107; // 分析师不存在
-    const ANALYST_FOLLOW_OK = 1; // 关注成功
-    const ANALYST_UNFOLLOW_OK = 1; // 取关成功
     const ANALYST_ALREADY = 1110; // 已是分析师
     const ANALYST_IN_REVIEW = 1111; // 已是分析师
     const APPLICATION_CHECKED = 1112; // 已是分析师
@@ -136,8 +134,6 @@ class ErrorCode
         self::APPLICATION_CHECKED =>    ['已经审核过了', Response::HTTP_BAD_REQUEST],
 
         //分析师 提示
-        self::ANALYST_FOLLOW_OK => ['关注成功', Response::HTTP_OK],
-        self::ANALYST_UNFOLLOW_OK => ['取消关注成功', Response::HTTP_OK],
 
         //比赛相关提示
         self::MATCH_NOT_EXIST => ['找不到该比赛', Response::HTTP_FORBIDDEN],

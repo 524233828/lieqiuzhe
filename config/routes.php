@@ -214,4 +214,11 @@ route()->group(['prefix' => '/admin', 'middleware' => 'dispatch'],function(){
     route()->get("/application/{id}","Admin\AnalystApplicationController@getAction");
     route()->post("/application/pass/{id}","Admin\AnalystApplicationController@passAction");
     route()->post("/application/refuse/{id}","Admin\AnalystApplicationController@deleteAction");
+
+    //首页banner
+    route()->get("/banner","Admin\BannerController@listAction");
+    route()->get("/banner/{id}","Admin\BannerController@getAction");
+    route()->post("/banner","Admin\BannerController@addAction");
+    route()->post("/banner/update/{id}","Admin\BannerController@updateAction");
+    route()->post("/banner/delete/{id}","Admin\BannerController@deleteAction");
 });

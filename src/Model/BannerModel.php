@@ -25,5 +25,12 @@ class BannerModel extends BaseModel
         return $result;
     }
 
+    public static function fetchWithPage($columns = "*" ,$where = null)
+    {
+        return database()->select(self::$table, [
+            "[>]".PageModel::$table => ["page_id"=>"id"]
+        ], $columns, $where);
+    }
+
 
 }

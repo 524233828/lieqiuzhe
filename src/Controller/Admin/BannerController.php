@@ -2,21 +2,21 @@
 /**
  * Created by PhpStorm.
  * User: chenyu
- * Date: 2018/7/5
- * Time: 22:11
+ * Date: 2018/7/12
+ * Time: 15:27
  */
 
 namespace Controller\Admin;
 
-use FastD\Http\ServerRequest;
-use Logic\Admin\AdventureLogic;
 
-class AdventureController extends AdminBaseController
+use Logic\Admin\BannerLogic;
+
+class BannerController extends AdminBaseController
 {
 
     public function __construct()
     {
-        $this->logic = AdventureLogic::getInstance();
+        $this->logic = BannerLogic::getInstance();
 
         $this->add_valid = [
             "page_id" => "in:1,2,3,4,5,6,7,8",
@@ -26,11 +26,6 @@ class AdventureController extends AdminBaseController
             "params" => "integer",
             "sort" => "integer",
         ];
-    }
-
-    public function fetchPage(ServerRequest $request)
-    {
-        return $this->response(AdventureLogic::getInstance()->fetchPage());
     }
 
 }

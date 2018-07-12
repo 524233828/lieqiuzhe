@@ -98,7 +98,7 @@ SQL;
                 "[>]".LeagueModel::$table."(l)" => ["m.league_id" => "id"],
                 "[>]".WeatherModel::$table."(w)" => ["m.weather_id" => "id"],
             ],
-            ["id"],
+            ["m.id"],
             $where
         );
     }

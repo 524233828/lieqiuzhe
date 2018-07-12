@@ -103,7 +103,7 @@ class UserModel extends BaseModel
     public static function fetchUserWithAnalyst($columns = "*", $where = null)
     {
 
-        $where[self::$table.'.user_type'] = 2;
+        $where[self::$table.'.user_type'] = 1;
         return database()->select(
             self::$table,
             [
@@ -118,7 +118,7 @@ class UserModel extends BaseModel
     public static function countUserWithAnalyst($where = null)
     {
 
-        $where[self::$table.'.user_type'] = 2;
+        $where[self::$table.'.user_type'] = 1;
         return database()->count(
             self::$table,
             [

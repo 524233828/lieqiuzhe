@@ -11,7 +11,7 @@ namespace Controller\Admin;
 
 use Logic\Admin\MatchLogic;
 
-class MatchController
+class MatchController extends AdminBaseController
 {
     public function __construct()
     {

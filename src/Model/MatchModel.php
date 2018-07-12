@@ -92,6 +92,12 @@ SQL;
     {
         return database()->count(
             self::$table."(m)",
+            [
+                "[>]".TeamModel::$table."(h)" => ["m.home_id" => "id"],
+                "[>]".TeamModel::$table."(a)" => ["m.away_id" => "id"],
+                "[>]".LeagueModel::$table."(l)" => ["m.league_id" => "id"],
+                "[>]".WeatherModel::$table."(w)" => ["m.weather_id" => "id"],
+            ],
             ["id"],
             $where
         );

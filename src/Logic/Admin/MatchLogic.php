@@ -77,6 +77,11 @@ class MatchLogic extends AdminBaseLogic
             "m.is_recommend"
         ]);
 
+        foreach ($list as $k=>$v)
+        {
+            $list[$k]['match_time'] = date("Y-m-d H:i:s", $v['match_time']);
+        }
+
         return ["list"=>$list, "meta" => $pager->getPager($count)];
     }
 

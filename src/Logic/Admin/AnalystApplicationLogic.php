@@ -81,9 +81,32 @@ class AnalystApplicationLogic extends AdminBaseLogic
         return ["list"=>$list, "meta" => $pager->getPager($count)];
     }
 
+    //审核不通过
     public function deleteAction($params)
     {
-        // TODO: Implement deleteAction() method.
+        //软删除，只更新表里的状态
+        $id = $params['id'];
+
+        if(empty($id))
+        {
+            BaseException::SystemError();
+        }
+
+        $item = AnalystApplicationModel::get($id, ["status"]);
+        //已审核过了
+        if($item!=0)
+        {
+            error(ErrorCode::APPLICATION_CHECKED);
+        }
+
+        $result = AnalystApplicationModel::update(["status" => 2],["id" => $id]);
+
+        if($result)
+        {
+            return [];
+        }else{
+            BaseException::SystemError();
+        }
     }
 
     //通过审核
@@ -95,6 +118,10 @@ class AnalystApplicationLogic extends AdminBaseLogic
 
         //取出申请信息
         $application = AnalystApplicationModel::get($params['id']);
+
+        if($application['status']!=0){
+            error(ErrorCode::APPLICATION_CHECKED);
+        }
 
         //创建分析师
         $analyst_info_data = [

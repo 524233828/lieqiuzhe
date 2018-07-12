@@ -210,5 +210,8 @@ route()->group(['prefix' => '/admin', 'middleware' => 'dispatch'],function(){
     route()->post("/adventure/delete/{id}","Admin\AdventureController@deleteAction");
 
     //分析师申请
-
+    route()->get("/application","Admin\AnalystApplicationController@listAction");
+    route()->get("/application/{id}","Admin\AnalystApplicationController@getAction");
+    route()->post("/application/pass/{id}","Admin\AnalystApplicationController@passAction");
+    route()->post("/application/refuse/{id}","Admin\AnalystApplicationController@deleteAction");
 });

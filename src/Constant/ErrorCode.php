@@ -59,6 +59,7 @@ class ErrorCode
     const ANALYST_UNFOLLOW_OK = 1109; // 分析师不存在
     const ANALYST_ALREADY = 1110; // 已是分析师
     const ANALYST_IN_REVIEW = 1111; // 已是分析师
+    const APPLICATION_CHECKED = 1112; // 已是分析师
 
     /**
      * 12xx推荐系统错误
@@ -132,6 +133,7 @@ class ErrorCode
         self::ANALYST_NOT_EXITST => ['分析师不存在', Response::HTTP_FORBIDDEN],
         self::ANALYST_ALREADY =>    ['您已是分析师', Response::HTTP_BAD_REQUEST],
         self::ANALYST_IN_REVIEW =>    ['您的申请审核中', Response::HTTP_BAD_REQUEST],
+        self::APPLICATION_CHECKED =>    ['已经审核过了', Response::HTTP_BAD_REQUEST],
 
         //分析师 提示
         self::ANALYST_FOLLOW_OK => ['关注成功', Response::HTTP_OK],

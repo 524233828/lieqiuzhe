@@ -152,7 +152,7 @@ class AnalystLogic extends BaseLogic
 
         if($fans)
         {
-            return [];
+            AnalystException::analystFollowOk();
         }else{
             AnalystException::failFollow();
         }
@@ -181,7 +181,7 @@ class AnalystLogic extends BaseLogic
 
         if($res)
         {
-            return [];
+            AnalystException::analystUnfollowOk();
         }else{
             AnalystException::failUnfollow();
         }

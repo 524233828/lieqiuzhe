@@ -55,8 +55,8 @@ class ErrorCode
     const FOLLOW_ANALYST_ALREADY = 1104; //已经关注过了
     const UNFOLLOW_ANALYST_ALREADY = 1105; //已经取关过了
     const ANALYST_NOT_EXITST = 1107; // 分析师不存在
-    const ANALYST_FOLLOW_OK = 1; // 分析师不存在
-    const ANALYST_UNFOLLOW_OK = 1109; // 分析师不存在
+    const ANALYST_FOLLOW_OK = 1; // 关注成功
+    const ANALYST_UNFOLLOW_OK = 1; // 取关成功
     const ANALYST_ALREADY = 1110; // 已是分析师
     const ANALYST_IN_REVIEW = 1111; // 已是分析师
     const APPLICATION_CHECKED = 1112; // 已是分析师

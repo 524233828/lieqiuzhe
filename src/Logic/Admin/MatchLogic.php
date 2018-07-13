@@ -9,6 +9,7 @@
 namespace Logic\Admin;
 
 
+use Exception\BaseException;
 use Model\MatchModel;
 use Model\TeamModel;
 use Service\Pager;
@@ -103,5 +104,29 @@ class MatchLogic extends AdminBaseLogic
     public function updateAction($params)
     {
         // TODO: Implement updateAction() method.
+    }
+
+    /**
+     * 更改精推状态
+     * @param $match_id
+     * @return array
+     */
+    public function matchRecommend($match_id)
+    {
+        $match = MatchModel::get($match_id,["is_recommend"]);
+
+        if(!$match){
+            BaseException::SystemError();
+        }
+
+        $status = 1 - $match['is_recommend'];
+
+        $result = MatchModel::update(["is_recommend" => $status], ["id" => $match_id]);
+
+        if($result){
+            return [];
+        }
+
+        BaseException::SystemError();
     }
 }

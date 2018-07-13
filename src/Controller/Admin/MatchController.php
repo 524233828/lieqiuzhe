@@ -9,6 +9,7 @@
 namespace Controller\Admin;
 
 
+use FastD\Http\ServerRequest;
 use Logic\Admin\MatchLogic;
 
 class MatchController extends AdminBaseController
@@ -20,5 +21,12 @@ class MatchController extends AdminBaseController
         $this->add_valid = [
 
         ];
+    }
+
+    public function matchRecommend(ServerRequest $request)
+    {
+        $match_id = $request->getAttribute('id');
+
+        return $this->response(MatchLogic::getInstance()->matchRecommend($match_id));
     }
 }

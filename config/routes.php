@@ -228,4 +228,7 @@ route()->group(['prefix' => '/admin', 'middleware' => 'dispatch'],function(){
     //比赛
     route()->get("/match","Admin\MatchController@listAction");
     route()->post("/match/recommend/{id}","Admin\MatchController@matchRecommend");
+    
+    //订单
+    route()->get("/order", "Admin\OrderController@listAction");
 });

@@ -53,7 +53,7 @@ class OrderLogic extends AdminBaseLogic
         $where["LIMIT"] = [$pager->getFirstIndex(), $size];
         $where["ORDER"] = ["start_time" => "DESC"];
 
-        $list = OrderModel::fetch($where,[
+        $list = OrderModel::fetch([
             "order_id",
             "total_fee",
             "create_time",
@@ -62,7 +62,7 @@ class OrderLogic extends AdminBaseLogic
             "user_id",
             "info",
             "pay_type",
-        ]);
+        ],$where);
 
         foreach ($list as $k=>$v)
         {

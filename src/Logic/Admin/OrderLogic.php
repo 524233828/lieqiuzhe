@@ -51,7 +51,7 @@ class OrderLogic extends AdminBaseLogic
 
         //分页
         $where["LIMIT"] = [$pager->getFirstIndex(), $size];
-        $where["ORDER"] = ["start_time" => "DESC"];
+        $where["ORDER"] = ["create_time" => "DESC"];
 
         $list = OrderModel::fetch([
             "order_id",

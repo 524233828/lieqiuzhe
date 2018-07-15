@@ -125,6 +125,7 @@ class ClassController extends BaseController
 
     public function isBuy(ServerRequest $request)
     {
+        validator($request, ["class_id" => "required|int"]);
         $class_id = $request->getParam("class_id");
         return $this->response(ClassLogic::getInstance()->isBuy($class_id));
     }

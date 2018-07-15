@@ -198,7 +198,7 @@ class VideoCateLogic extends AdminBaseLogic
             error(ErrorCode::VIDEO_CATE_EXISTS);
         }
 
-        $result = VideoVCateModel::add(["video_id"=>$video_id,"cate_id",$cate_id]);
+        $result = VideoVCateModel::add(["video_id" => $video_id,"cate_id" => $cate_id]);
 
         if($result)
         {

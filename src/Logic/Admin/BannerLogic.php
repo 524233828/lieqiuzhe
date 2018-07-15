@@ -100,6 +100,8 @@ class BannerLogic extends AdminBaseLogic
             }
         }
 
+        $data['create_time'] = time();
+
         $result = BannerModel::add($data);
         
         if($result){

@@ -2,28 +2,27 @@
 /**
  * Created by PhpStorm.
  * User: chenyu
- * Date: 2018/7/5
- * Time: 23:04
+ * Date: 2018/7/15
+ * Time: 11:09
  */
 
 namespace Logic\Admin;
 
 
 use Exception\BaseException;
-use Model\AdventureModel;
-use Model\PageModel;
+use Model\VideoModel;
 use Service\Pager;
 
-class AdventureLogic extends AdminBaseLogic
+class VideoLogic extends AdminBaseLogic
 {
 
     protected $list_filter = [
+        "title",
         "status",
-        "page_id",
+        "viewer",
         "url",
-        "params",
         "img_url",
-        "sort"
+        "times",
     ];
 
     public function listAction($params)
@@ -40,29 +39,39 @@ class AdventureLogic extends AdminBaseLogic
         foreach ($this->list_filter as $v){
             if(isset($params[$v]))
             {
-                $where[AdventureModel::$table.".".$v] = $params[$v];
+                $where[$v] = $params[$v];
             }
         }
 
         //计算符合筛选参数的行数
-        $count = AdventureModel::count($where);
+        $count = VideoModel::count($where);
 
         //分页
         $where["LIMIT"] = [$pager->getFirstIndex(), $size];
 
-        $list = AdventureModel::fetchWithPage([
-            AdventureModel::$table.".id",
-            AdventureModel::$table.".update_time",
-            AdventureModel::$table.".status",
-            PageModel::$table.".name",
-            AdventureModel::$table.".url",
-            AdventureModel::$table.".params",
-            AdventureModel::$table.".img_url",
-            AdventureModel::$table.".sort",
+        $list = VideoModel::fetch([
+            "id",
+            "title",
+            "img_url",
+            "url",
+            "viewer",
+            "times",
+            "status",
+            "update_time",
         ],$where);
 
         return ["list"=>$list, "meta" => $pager->getPager($count)];
+    }
 
+    public function getAction($params)
+    {
+        $id = $params['id'];
+
+        if(empty($id)){
+            BaseException::SystemError();
+        }
+
+        return VideoModel::get($id);
     }
 
     public function deleteAction($params)
@@ -75,11 +84,11 @@ class AdventureLogic extends AdminBaseLogic
             BaseException::SystemError();
         }
 
-        $item = AdventureModel::get($id, ["status"]);
+        $item = VideoModel::get($id, ["status"]);
 
         $status = 1 - $item['status'];
 
-        $result = AdventureModel::update(["status" => $status],["id" => $id]);
+        $result = VideoModel::update(["status" => $status],["id" => $id]);
 
         if($result)
         {
@@ -87,7 +96,6 @@ class AdventureLogic extends AdminBaseLogic
         }else{
             BaseException::SystemError();
         }
-
     }
 
     public function addAction($params)
@@ -102,24 +110,13 @@ class AdventureLogic extends AdminBaseLogic
 
         $data['create_time'] = time();
 
-        $result = AdventureModel::add($data);
-        
+        $result = VideoModel::add($data);
+
         if($result){
             return [];
         }
-        
+
         BaseException::SystemError();
-    }
-
-    public function getAction($params)
-    {
-        $id = $params['id'];
-
-        if(empty($id)){
-            BaseException::SystemError();
-        }
-
-        return AdventureModel::get($id);
     }
 
     public function updateAction($params)
@@ -138,19 +135,12 @@ class AdventureLogic extends AdminBaseLogic
             }
         }
 
-        $result = AdventureModel::update($data, ["id" => $id]);
+        $result = VideoModel::update($data, ["id" => $id]);
 
         if($result){
             return [];
         }
 
         BaseException::SystemError();
-    }
-
-    public function fetchPage()
-    {
-        $list = PageModel::fetch(["id", "name"],["status" => 1]);
-
-        return ["list" => $list];
     }
 }

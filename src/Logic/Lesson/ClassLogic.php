@@ -223,12 +223,13 @@ class ClassLogic extends BaseLogic
             "user_id"=>UserLogic::$user['id'],
             "order_id"=>$order_id,
             "create_time"=>time(),
+            "end_time"=>time() + $class['expire_month'] * 2592000,
             "status"=>1,
         ];
 
         $result = UserBillModel::add($data);
         $buy_id = UserClassModel::addUserClass($user_class_data);
-        if($order_id && $buy_id)
+        if($result && $order_id && $buy_id)
         {
             database()->pdo->commit();
 
@@ -236,6 +237,18 @@ class ClassLogic extends BaseLogic
             database()->pdo->rollBack();
             return false;
         }
+    }
+
+    public function isBuy($class_id)
+    {
+        $class_list = UserClassModel::getUserClass(UserLogic::$user['id'],$class_id);
+
+        if($class_list)
+        {
+            return ["is_buy" => 1];
+        }
+
+        return ["is_buy" => 0];
     }
 
 }

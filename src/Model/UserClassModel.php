@@ -21,6 +21,7 @@ class UserClassModel extends BaseModel
         $where = [
             "user_id" => $user_id,
             "class_id" => $class_id,
+            "end_time[>=]" => time(),
             "status" => 1,
         ];
 

@@ -2,30 +2,24 @@
 /**
  * Created by PhpStorm.
  * User: chenyu
- * Date: 2018/7/5
- * Time: 23:04
+ * Date: 2018/7/14
+ * Time: 9:57
  */
 
 namespace Logic\Admin;
 
 
 use Exception\BaseException;
-use Model\AdventureModel;
-use Model\PageModel;
+use Model\SystemNoticeModel;
 use Service\Pager;
 
-class AdventureLogic extends AdminBaseLogic
+class SystemNoticeLogic extends AdminBaseLogic
 {
 
     protected $list_filter = [
-        "status",
-        "page_id",
-        "url",
-        "params",
-        "img_url",
-        "sort"
+        "content",
+        "status"
     ];
-
     public function listAction($params)
     {
         //列表分页参数
@@ -40,29 +34,35 @@ class AdventureLogic extends AdminBaseLogic
         foreach ($this->list_filter as $v){
             if(isset($params[$v]))
             {
-                $where[AdventureModel::$table.".".$v] = $params[$v];
+                $where[$v] = $params[$v];
             }
         }
 
         //计算符合筛选参数的行数
-        $count = AdventureModel::count($where);
+        $count = SystemNoticeModel::count($where);
 
         //分页
         $where["LIMIT"] = [$pager->getFirstIndex(), $size];
 
-        $list = AdventureModel::fetchWithPage([
-            AdventureModel::$table.".id",
-            AdventureModel::$table.".update_time",
-            AdventureModel::$table.".status",
-            PageModel::$table.".name",
-            AdventureModel::$table.".url",
-            AdventureModel::$table.".params",
-            AdventureModel::$table.".img_url",
-            AdventureModel::$table.".sort",
+        $list = SystemNoticeModel::fetch([
+            "id",
+            "content",
+            "status",
+            "update_time"
         ],$where);
 
         return ["list"=>$list, "meta" => $pager->getPager($count)];
+    }
 
+    public function getAction($params)
+    {
+        $id = $params['id'];
+
+        if(empty($id)){
+            BaseException::SystemError();
+        }
+
+        return SystemNoticeModel::get($id);
     }
 
     public function deleteAction($params)
@@ -75,11 +75,11 @@ class AdventureLogic extends AdminBaseLogic
             BaseException::SystemError();
         }
 
-        $item = AdventureModel::get($id, ["status"]);
+        $item = SystemNoticeModel::get($id, ["status"]);
 
         $status = 1 - $item['status'];
 
-        $result = AdventureModel::update(["status" => $status],["id" => $id]);
+        $result = SystemNoticeModel::update(["status" => $status],["id" => $id]);
 
         if($result)
         {
@@ -87,39 +87,24 @@ class AdventureLogic extends AdminBaseLogic
         }else{
             BaseException::SystemError();
         }
-
     }
 
     public function addAction($params)
     {
         $data = [];
 
-        foreach ($this->list_filter as $v){
-            if(isset($params[$v])){
-                $data[$v] = $params[$v];
-            }
+        if(isset($params["content"])){
+            $data["content"] = $params["content"];
         }
 
         $data['create_time'] = time();
+        $result = SystemNoticeModel::add($data);
 
-        $result = AdventureModel::add($data);
-        
         if($result){
             return [];
         }
-        
+
         BaseException::SystemError();
-    }
-
-    public function getAction($params)
-    {
-        $id = $params['id'];
-
-        if(empty($id)){
-            BaseException::SystemError();
-        }
-
-        return AdventureModel::get($id);
     }
 
     public function updateAction($params)
@@ -138,19 +123,10 @@ class AdventureLogic extends AdminBaseLogic
             }
         }
 
-        $result = AdventureModel::update($data, ["id" => $id]);
+        $result = SystemNoticeModel::update($data, ["id" => $id]);
 
         if($result){
             return [];
         }
-
-        BaseException::SystemError();
-    }
-
-    public function fetchPage()
-    {
-        $list = PageModel::fetch(["id", "name"],["status" => 1]);
-
-        return ["list" => $list];
     }
 }

@@ -14,4 +14,11 @@ class TopLineModel extends BaseModel
 
     public static $table = "top_line";
 
+    public static function fetchWithPage($columns = "*" ,$where = null)
+    {
+        return database()->select(self::$table, [
+            "[>]".PageModel::$table => ["page_id"=>"id"]
+        ], $columns, $where);
+    }
+
 }

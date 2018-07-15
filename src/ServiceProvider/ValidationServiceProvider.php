@@ -9,6 +9,7 @@
 namespace ServiceProvider;
 
 
+use Constant\ErrorCode;
 use FastD\Container\Container;
 use FastD\Container\ServiceProviderInterface;
 use Runner\Validator\Validator;
@@ -55,12 +56,13 @@ class ValidationServiceProvider implements ServiceProviderInterface
 
             $size = mb_strlen($value,"UTF-8");
             if (!isset($parameters[0])) {
+                error(ErrorCode::OUT_OF_RANGE);
                 return false;
             }
             if (isset($parameters[1])) {
                 if ('' === $parameters[0]) {
                     if ('' === $parameters[1]) {
-                        return false;
+                        error(ErrorCode::OUT_OF_RANGE);
                     }
 
                     return $size <= $parameters[1];
@@ -72,7 +74,7 @@ class ValidationServiceProvider implements ServiceProviderInterface
                 return $size >= $parameters[0] && $size <= $parameters[1];
             }
 
-            return '' === $parameters[0] ? false : ($size >= $parameters[0]);
+            return '' === $parameters[0] ? error(ErrorCode::OUT_OF_RANGE) : ($size >= $parameters[0]);
         });
     }
 }

@@ -36,4 +36,22 @@ class UserLevelOrderModel extends BaseModel
 
         return database()->get(self::$table, $columns, $where);
     }
+
+    public static function fetchUserCurrentLevel($uid)
+    {
+        $where = [
+            "end_time[>=]" => time(),
+            "uid" => $uid,
+            "status" => 1,
+
+            "ORDER" => [
+                "level" => "DESC",
+                "end_time" => "DESC"
+            ],
+
+            "GROUP" => "uid"
+        ];
+
+        return database()->select(self::$table, "*", $where);
+    }
 }

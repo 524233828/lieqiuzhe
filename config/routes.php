@@ -231,4 +231,36 @@ route()->group(['prefix' => '/admin', 'middleware' => 'dispatch'],function(){
     
     //订单
     route()->get("/order", "Admin\OrderController@listAction");
+
+    //系统通知
+    route()->get("/notice","Admin\SystemNoticeController@listAction");
+    route()->get("/notice/{id}","Admin\SystemNoticeController@getAction");
+    route()->post("/notice","Admin\SystemNoticeController@addAction");
+    route()->post("/notice/update/{id}","Admin\SystemNoticeController@updateAction");
+    route()->post("/notice/delete/{id}","Admin\SystemNoticeController@deleteAction");
+
+    //球稳头条
+    route()->get("/top_line","Admin\TopLineController@listAction");
+    route()->get("/top_line/{id}","Admin\TopLineController@getAction");
+    route()->post("/top_line","Admin\TopLineController@addAction");
+    route()->post("/top_line/update/{id}","Admin\TopLineController@updateAction");
+    route()->post("/top_line/delete/{id}","Admin\TopLineController@deleteAction");
+
+    //用户列表
+    route()->get("/user","Admin\UserController@listAction");
+
+    //视频
+    route()->get("/video","Admin\VideoController@listAction");
+    route()->get("/video/{id}","Admin\VideoController@getAction");
+    route()->post("/video","Admin\VideoController@addAction");
+    route()->post("/video/update/{id}","Admin\VideoController@updateAction");
+    route()->post("/video/delete/{id}","Admin\VideoController@deleteAction");
+
+    //视频分类
+    route()->get("/video_cate","Admin\VideoCateController@listAction");
+    route()->get("/video_cate/{id}","Admin\VideoCateController@getAction");
+    route()->post("/video_cate","Admin\VideoCateController@addAction");
+    route()->post("/video_cate/update/{id}","Admin\VideoCateController@updateAction");
+    route()->post("/video_cate/delete/{id}","Admin\VideoCateController@deleteAction");
+
 });

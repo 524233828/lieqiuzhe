@@ -123,4 +123,10 @@ class ClassController extends BaseController
         }
     }
 
+    public function isBuy(ServerRequest $request)
+    {
+        $class_id = $request->getParam("class_id");
+        return $this->response(ClassLogic::getInstance()->isBuy($class_id));
+    }
+
 }

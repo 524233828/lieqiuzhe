@@ -26,6 +26,8 @@ class ErrorCode
     const ERR_CHECK_SIGN = -5; //签名验证错误
     const ERR_NO_PARAMETERS = -6; //参数缺失
     const ERR_UNKNOWN = -7; // 未知错误
+    const OUT_OF_RANGE = -8; // 未知错误
+    const ERR_PHONE_FORMAT = -9; // 未知错误
 
 
     /**
@@ -105,6 +107,8 @@ class ErrorCode
         self::ERR_CHECK_SIGN        => ['签名错误', Response::HTTP_FORBIDDEN],
         self::ERR_NO_PARAMETERS     => ['参数缺失', Response::HTTP_BAD_REQUEST],
         self::ERR_OVERTIME          => ['请求超时', Response::HTTP_BAD_REQUEST],
+        self::OUT_OF_RANGE          => ['字数超出限制', Response::HTTP_BAD_REQUEST],
+        self::ERR_PHONE_FORMAT      => ['请输入正确的手机号', Response::HTTP_BAD_REQUEST],
 
         //用户系统错误
         self::USER_NOT_LOGIN        => ['未登录', Response::HTTP_FORBIDDEN],

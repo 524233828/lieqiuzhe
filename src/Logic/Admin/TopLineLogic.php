@@ -53,7 +53,6 @@ class TopLineLogic extends AdminBaseLogic
             TopLineModel::$table.".id",
             TopLineModel::$table.".update_time",
             TopLineModel::$table.".status",
-            TopLineModel::$table.".name",
             TopLineModel::$table.".url",
             TopLineModel::$table.".params",
             TopLineModel::$table.".content",

@@ -142,6 +142,7 @@ route()->group(['prefix' => '/class', 'middleware' => 'dispatch'],function(){
     route()->get("/try","Lesson\ClassController@getClassTry");
     route()->get("/chapter","Lesson\ClassController@getClassChapter");
     route()->post("/buyClass","Lesson\ClassController@createOrder")->withAddMiddleware("login");
+    route()->get("/is_buy","Lesson\ClassController@isBuy")->withAddMiddleware("login");
 });
 
 //个人中心首页

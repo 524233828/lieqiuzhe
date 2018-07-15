@@ -96,6 +96,12 @@ class ErrorCode
     const COIN_NOT_ENOUGH = 1600;
 
     /**
+     * 17xx 视频系统错误
+     */
+    const VIDEO_CATE_EXISTS = 1700;
+    const VIDEO_CATE_NOT_EXISTS = 1701;
+
+    /**
      * 错误代码与消息的对应数组
      *
      * @var array
@@ -161,6 +167,11 @@ class ErrorCode
 
         //金币系统错误
         self::COIN_NOT_ENOUGH      =>  ['金币余额不足', Response::HTTP_OK],
+
+        //视频系统错误
+        self::VIDEO_CATE_EXISTS => ['该视频已在分类中', Response::HTTP_OK],
+        self::VIDEO_CATE_NOT_EXISTS => ['该视频不在分类中', Response::HTTP_OK]
+
     ];
 
     /**

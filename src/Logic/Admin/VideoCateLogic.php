@@ -9,8 +9,11 @@
 namespace Logic\Admin;
 
 
+use Constant\ErrorCode;
 use Exception\BaseException;
 use Model\VideoCateModel;
+use Model\VideoModel;
+use Model\VideoVCateModel;
 use Service\Pager;
 
 class VideoCateLogic extends AdminBaseLogic
@@ -130,6 +133,94 @@ class VideoCateLogic extends AdminBaseLogic
         $result = VideoCateModel::update($data, ["id" => $id]);
 
         if($result){
+            return [];
+        }
+
+        BaseException::SystemError();
+    }
+
+    public function listVideoByCate($cate_id, $page = 1, $size = 20)
+    {
+
+        $pager = new Pager($page, $size);
+
+        $where = ["cate_id" => $cate_id];
+
+        $count = VideoVCateModel::count($where);
+
+        $where["LIMIT"] = [$pager->getFirstIndex(), $size];
+
+        $where["ORDER"] = ["video_id" => "DESC"];
+        //获取该分类下，所有视频的ID，按照id倒序排列
+        $list = VideoVCateModel::fetch(["video_id"],$where);
+
+        if(empty($list))
+        {
+            return ["list" => [], "meta" => $pager->getPager(0)];
+        }
+
+        $video_ids = [];
+
+        foreach ($list as $v)
+        {
+            $video_ids[] = $v['video_id'];
+        }
+        $video_list = VideoModel::fetch(
+            [
+                "id",
+                "title",
+                "img_url",
+                "url",
+                "viewer",
+                "times",
+                "status",
+                "update_time",
+            ],
+            [
+                "id" => $video_ids,
+                "ORDER" => ["id" => "DESC"]
+            ]
+        );
+
+        if($video_list){
+            return ["list" => $video_list, "meta" => $pager->getPager($count)];
+        }
+
+        BaseException::SystemError();
+    }
+
+    public function addVideoByCate($cate_id, $video_id)
+    {
+        $vc = VideoVCateModel::getVideoCate($cate_id,$video_id);
+
+        if(!empty($vc))
+        {
+            error(ErrorCode::VIDEO_CATE_EXISTS);
+        }
+
+        $result = VideoVCateModel::add(["video_id"=>$video_id,"cate_id",$cate_id]);
+
+        if($result)
+        {
+            return [];
+        }
+
+        BaseException::SystemError();
+    }
+
+    public function deleteVideoByCate($cate_id, $video_id)
+    {
+        $vc = VideoVCateModel::getVideoCate($cate_id,$video_id);
+
+        if(empty($vc))
+        {
+            error(ErrorCode::VIDEO_CATE_NOT_EXISTS);
+        }
+
+        $result = VideoVCateModel::deleteVideoCate($cate_id, $video_id);
+
+        if($result)
+        {
             return [];
         }
 

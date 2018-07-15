@@ -264,4 +264,9 @@ route()->group(['prefix' => '/admin', 'middleware' => 'dispatch'],function(){
     route()->post("/video_cate/update/{id}","Admin\VideoCateController@updateAction");
     route()->post("/video_cate/delete/{id}","Admin\VideoCateController@deleteAction");
 
+    //视频分类下的视频
+    route()->get("/video_cate/video","Admin\VideoCateController@listVideoByCate");
+    route()->post("/video_cate/video","Admin\VideoCateController@addVideoByCate");
+    route()->post("/video_cate/video/delete","Admin\VideoCateController@deleteVideoByCate");
+
 });

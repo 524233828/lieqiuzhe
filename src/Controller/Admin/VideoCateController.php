@@ -20,10 +20,6 @@ class VideoCateController extends AdminBaseController
 
         $this->add_valid = [
             "cate" => "required|range_ch:1,4",
-            "url" => "required|url",
-            "title" => "required|string",
-            "viewer" => "int",
-            "times" => "required|int",
             "status" => "in:0,1",
         ];
     }

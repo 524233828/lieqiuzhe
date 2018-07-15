@@ -46,7 +46,7 @@ class UploadService
         return json_decode($response->getBody(),true);
     }
 
-    public function uploadVideo($file_path)
+    public function uploadVideo($file_path, $media_time)
     {
         $uri = clone $this->uri;
 
@@ -58,7 +58,8 @@ class UploadService
                     'name'     => 'file',
                     'contents' => fopen($file_path, 'r')
                 ],
-            ]
+            ],
+            "media_time" => $media_time,
         ];
 
         $response = $this->http->request("POST", (string)$uri, $data);

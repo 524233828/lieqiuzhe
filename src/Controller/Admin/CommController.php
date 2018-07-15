@@ -24,7 +24,8 @@ class CommController extends BaseController
 
     public function uploadVideo(ServerRequest $request)
     {
-        return $this->response(["path" => CommLogic::getInstance()->uploadVideo()]);
+        $media_time = $request->getParam("media_time", 0);
+        return $this->response(["path" => CommLogic::getInstance()->uploadVideo("file", $media_time)]);
     }
 
 }

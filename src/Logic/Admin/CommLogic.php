@@ -31,7 +31,7 @@ class CommLogic extends BaseLogic
         return $response['data']['path'];
     }
 
-    public function uploadVideo($name = "file")
+    public function uploadVideo($name = "file", $media_time = 0)
     {
         //存成文件以后再上传，上传完毕删除
         $file = $_FILES[$name];
@@ -40,7 +40,7 @@ class CommLogic extends BaseLogic
 
         $uploader = new UploadService();
 
-        $response = $uploader->uploadVideo("/tmp/".$file['name']);
+        $response = $uploader->uploadVideo("/tmp/".$file['name'], $media_time);
 
         unlink("/tmp/".$file['name']);
 

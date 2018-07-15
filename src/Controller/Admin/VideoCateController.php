@@ -27,7 +27,7 @@ class VideoCateController extends AdminBaseController
 
     public function listVideoByCate(ServerRequest $request)
     {
-        validator($request, ["cate_id" => "required|int"]);
+        validator($request, ["cate_id" => "required|integer"]);
         $cate_id = $request->getParam("cate_id");
         return $this->response(VideoCateLogic::getInstance()->listVideoByCate($cate_id));
     }
@@ -35,7 +35,7 @@ class VideoCateController extends AdminBaseController
 
     public function addVideoByCate(ServerRequest $request)
     {
-        validator($request, ["cate_id" => "required|int","video_id" => "required|int"]);
+        validator($request, ["cate_id" => "required|integer","video_id" => "required|integer"]);
         $cate_id = $request->getParam("cate_id");
         $video_id = $request->getParam("video_id");
         return $this->response(VideoCateLogic::getInstance()->addVideoByCate($cate_id, $video_id));
@@ -43,7 +43,7 @@ class VideoCateController extends AdminBaseController
 
     public function deleteVideoByCate(ServerRequest $request)
     {
-        validator($request, ["cate_id" => "required|int","video_id" => "required|int"]);
+        validator($request, ["cate_id" => "required|integer","video_id" => "required|integer"]);
         $cate_id = $request->getParam("cate_id");
         $video_id = $request->getParam("video_id");
         return $this->response(VideoCateLogic::getInstance()->deleteVideoByCate($cate_id, $video_id));

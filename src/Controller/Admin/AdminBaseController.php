@@ -47,7 +47,7 @@ class AdminBaseController extends BaseController
      */
     public function getAction(ServerRequest $request)
     {
-        $params['id'] = $request->getAttribute('id');
+        $params['id'] = $request->getParam('id');
 
         return $this->response($this->logic->getAction($params));
     }
@@ -73,7 +73,7 @@ class AdminBaseController extends BaseController
      */
     public function deleteAction(ServerRequest $request)
     {
-        $params['id'] = $request->getAttribute('id');
+        $params['id'] = $request->getParam('id');
 
         return $this->response($this->logic->deleteAction($params));
     }
@@ -90,7 +90,7 @@ class AdminBaseController extends BaseController
         $params = $validate->data();
 //        $params = $request->getParsedBody();
 
-        $params['id'] = $request->getAttribute('id');
+        $params['id'] = $request->getParam('id');
 
         return $this->response($this->logic->updateAction($params));
     }

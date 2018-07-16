@@ -205,23 +205,23 @@ route()->group(['prefix' => '/admin', 'middleware' => 'dispatch'],function(){
 
     //广告
     route()->get("/adventure","Admin\AdventureController@listAction");
-    route()->get("/adventure/{id}","Admin\AdventureController@getAction");
+    route()->get("/adventure/get","Admin\AdventureController@getAction");
     route()->post("/adventure","Admin\AdventureController@addAction");
-    route()->post("/adventure/update/{id}","Admin\AdventureController@updateAction");
-    route()->post("/adventure/delete/{id}","Admin\AdventureController@deleteAction");
+    route()->post("/adventure/update","Admin\AdventureController@updateAction");
+    route()->post("/adventure/delete","Admin\AdventureController@deleteAction");
 
     //分析师申请
     route()->get("/application","Admin\AnalystApplicationController@listAction");
-    route()->get("/application/{id}","Admin\AnalystApplicationController@getAction");
+    route()->get("/application/get","Admin\AnalystApplicationController@getAction");
     route()->post("/application/pass/{id}","Admin\AnalystApplicationController@passAction");
     route()->post("/application/refuse/{id}","Admin\AnalystApplicationController@deleteAction");
 
     //首页banner
     route()->get("/banner","Admin\BannerController@listAction");
-    route()->get("/banner/{id}","Admin\BannerController@getAction");
+    route()->get("/banner/get","Admin\BannerController@getAction");
     route()->post("/banner","Admin\BannerController@addAction");
-    route()->post("/banner/update/{id}","Admin\BannerController@updateAction");
-    route()->post("/banner/delete/{id}","Admin\BannerController@deleteAction");
+    route()->post("/banner/update","Admin\BannerController@updateAction");
+    route()->post("/banner/delete","Admin\BannerController@deleteAction");
 
     //分析师
     route()->get("/analyst","Admin\AnalystController@listAction");
@@ -235,34 +235,34 @@ route()->group(['prefix' => '/admin', 'middleware' => 'dispatch'],function(){
 
     //系统通知
     route()->get("/notice","Admin\SystemNoticeController@listAction");
-    route()->get("/notice/{id}","Admin\SystemNoticeController@getAction");
+    route()->get("/notice/get","Admin\SystemNoticeController@getAction");
     route()->post("/notice","Admin\SystemNoticeController@addAction");
-    route()->post("/notice/update/{id}","Admin\SystemNoticeController@updateAction");
-    route()->post("/notice/delete/{id}","Admin\SystemNoticeController@deleteAction");
+    route()->post("/notice/update","Admin\SystemNoticeController@updateAction");
+    route()->post("/notice/delete","Admin\SystemNoticeController@deleteAction");
 
     //球稳头条
     route()->get("/top_line","Admin\TopLineController@listAction");
-    route()->get("/top_line/{id}","Admin\TopLineController@getAction");
+    route()->get("/top_line/get","Admin\TopLineController@getAction");
     route()->post("/top_line","Admin\TopLineController@addAction");
-    route()->post("/top_line/update/{id}","Admin\TopLineController@updateAction");
-    route()->post("/top_line/delete/{id}","Admin\TopLineController@deleteAction");
+    route()->post("/top_line/update","Admin\TopLineController@updateAction");
+    route()->post("/top_line/delete","Admin\TopLineController@deleteAction");
 
     //用户列表
     route()->get("/user","Admin\UserController@listAction");
 
     //视频
     route()->get("/video","Admin\VideoController@listAction");
-    route()->get("/video/{id}","Admin\VideoController@getAction");
+    route()->get("/video/get","Admin\VideoController@getAction");
     route()->post("/video","Admin\VideoController@addAction");
-    route()->post("/video/update/{id}","Admin\VideoController@updateAction");
-    route()->post("/video/delete/{id}","Admin\VideoController@deleteAction");
+    route()->post("/video/update","Admin\VideoController@updateAction");
+    route()->post("/video/delete","Admin\VideoController@deleteAction");
 
     //视频分类
     route()->get("/video_cate","Admin\VideoCateController@listAction");
-    route()->get("/video_cate/{id}","Admin\VideoCateController@getAction");
+    route()->get("/video_cate/get","Admin\VideoCateController@getAction");
     route()->post("/video_cate","Admin\VideoCateController@addAction");
-    route()->post("/video_cate/update/{id}","Admin\VideoCateController@updateAction");
-    route()->post("/video_cate/delete/{id}","Admin\VideoCateController@deleteAction");
+    route()->post("/video_cate/update","Admin\VideoCateController@updateAction");
+    route()->post("/video_cate/delete","Admin\VideoCateController@deleteAction");
 
     //视频分类下的视频
     route()->get("/video_cate/video","Admin\VideoCateController@listVideoByCate");

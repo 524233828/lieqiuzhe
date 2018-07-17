@@ -143,16 +143,18 @@ class AnalystApplicationLogic extends AdminBaseLogic
         database()->pdo->beginTransaction();
 
         $analyst_result = true;
-        if(!AnalystInfoModel::get($application['user_id'])){
+        $user_result = true;
+        if(empty(AnalystInfoModel::get($application['user_id']))){
             //添加分析师
             $analyst_result = AnalystInfoModel::add($analyst_info_data);
+            //更改用户类型
+            $user_result = UserModel::update(["user_type" => 1], ["id"=>$application['user_id']]);
         }
 
         //更改申请表状态
         $application_result = AnalystApplicationModel::update(["status" => 1], ["id"=>$params['id']]);
 
-        //更改用户类型
-        $user_result = UserModel::update(["user_type" => 1], ["id"=>$application['user_id']]);
+
 
         if($analyst_result && $application_result && $user_result){
             database()->pdo->commit();

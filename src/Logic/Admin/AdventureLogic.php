@@ -54,6 +54,7 @@ class AdventureLogic extends AdminBaseLogic
             AdventureModel::$table.".id",
             AdventureModel::$table.".update_time",
             AdventureModel::$table.".status",
+            AdventureModel::$table.".page_id",
             PageModel::$table.".name",
             AdventureModel::$table.".url",
             AdventureModel::$table.".params",

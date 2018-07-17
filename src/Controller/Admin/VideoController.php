@@ -22,8 +22,8 @@ class VideoController extends AdminBaseController
             "img_url" => "required|url",
             "url" => "required|url",
             "title" => "required|string",
-            "viewer" => "int",
-            "times" => "required|int",
+            "viewer" => "integer",
+            "times" => "required|integer",
             "status" => "in:0,1",
         ];
     }

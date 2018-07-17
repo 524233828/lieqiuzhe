@@ -213,8 +213,8 @@ route()->group(['prefix' => '/admin', 'middleware' => 'dispatch'],function(){
     //分析师申请
     route()->get("/application","Admin\AnalystApplicationController@listAction");
     route()->get("/application/get","Admin\AnalystApplicationController@getAction");
-    route()->post("/application/pass/{id}","Admin\AnalystApplicationController@passAction");
-    route()->post("/application/refuse/{id}","Admin\AnalystApplicationController@deleteAction");
+    route()->post("/application/pass","Admin\AnalystApplicationController@passAction");
+    route()->post("/application/refuse","Admin\AnalystApplicationController@deleteAction");
 
     //首页banner
     route()->get("/banner","Admin\BannerController@listAction");
@@ -228,7 +228,7 @@ route()->group(['prefix' => '/admin', 'middleware' => 'dispatch'],function(){
 
     //比赛
     route()->get("/match","Admin\MatchController@listAction");
-    route()->post("/match/recommend/{id}","Admin\MatchController@matchRecommend");
+    route()->post("/match/recommend","Admin\MatchController@matchRecommend");
     
     //订单
     route()->get("/order", "Admin\OrderController@listAction");

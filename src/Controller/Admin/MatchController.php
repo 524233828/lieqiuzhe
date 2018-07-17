@@ -25,7 +25,7 @@ class MatchController extends AdminBaseController
 
     public function matchRecommend(ServerRequest $request)
     {
-        $match_id = $request->getAttribute('id');
+        $match_id = $request->getParam('id');
 
         return $this->response(MatchLogic::getInstance()->matchRecommend($match_id));
     }

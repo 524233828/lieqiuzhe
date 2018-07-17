@@ -25,7 +25,7 @@ class AnalystApplicationController extends AdminBaseController
 
     public function passAction(ServerRequest $request)
     {
-        $params['id'] = $request->getAttribute('id');
+        $params['id'] = $request->getParam('id');
         return $this->response(AnalystApplicationLogic::getInstance()->applicationPass($params));
     }
 }

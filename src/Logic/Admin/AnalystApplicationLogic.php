@@ -99,7 +99,7 @@ class AnalystApplicationLogic extends AdminBaseLogic
 
         $item = AnalystApplicationModel::get($id, ["status"]);
         //已审核过了
-        if($item!=0)
+        if($item['status']!=0)
         {
             error(ErrorCode::APPLICATION_CHECKED);
         }

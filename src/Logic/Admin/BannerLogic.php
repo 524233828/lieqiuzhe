@@ -56,6 +56,7 @@ class BannerLogic extends AdminBaseLogic
             BannerModel::$table.".status",
             PageModel::$table.".name",
             BannerModel::$table.".url",
+            BannerModel::$table.".page_id",
             BannerModel::$table.".params",
             BannerModel::$table.".img_url",
             BannerModel::$table.".sort",

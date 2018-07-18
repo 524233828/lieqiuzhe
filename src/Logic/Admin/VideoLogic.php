@@ -11,6 +11,7 @@ namespace Logic\Admin;
 
 use Exception\BaseException;
 use Model\VideoModel;
+use Model\VideoVCateModel;
 use Service\Pager;
 
 class VideoLogic extends AdminBaseLogic
@@ -59,6 +60,28 @@ class VideoLogic extends AdminBaseLogic
             "status",
             "update_time",
         ],$where);
+
+        $video_index_list = [];
+        $ids = [];
+        foreach ($list as $value)
+        {
+            $ids[] = $value['id'];
+            $video_index_list[$value['id']] = $value;
+            $video_index_list[$value['id']]['is_cate'] = 0;
+        }
+
+        $cate_list = [];
+        if(!empty($params['cate_id'])){
+            $cate_list = VideoVCateModel::fetch("*",["cate_id" => $params['cate_id'], "video_id" => $ids]);
+        }
+
+        foreach ($cate_list as $v)
+        {
+            if(isset($video_index_list[$v['video_id']])){
+                $video_index_list[$v['video_id']]['is_cate'] = 1;
+            }
+
+        }
 
         return ["list"=>$list, "meta" => $pager->getPager($count)];
     }

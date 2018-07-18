@@ -22,8 +22,8 @@ class AdventureController extends AdminBaseController
             "page_id" => "required|in:1,2,3,4,5,6,7,8",
             "img_url" => "required|url",
             "status" => "integer",
-            "url" => "",
-            "params" => "",
+            "url" => "null",
+            "params" => "null",
             "sort" => "integer",
         ];
     }

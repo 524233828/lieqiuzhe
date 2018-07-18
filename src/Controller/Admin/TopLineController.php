@@ -21,8 +21,8 @@ class TopLineController extends AdminBaseController
         $this->add_valid = [
             "page_id" => "required|in:1,2,3,4,5,6,7,8",
             "status" => "integer",
-            "url" => "",
-            "params" => "",
+            "url" => "null",
+            "params" => "null",
             "sort" => "integer",
             "content" => "required"
         ];

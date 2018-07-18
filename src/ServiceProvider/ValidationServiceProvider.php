@@ -76,5 +76,37 @@ class ValidationServiceProvider implements ServiceProviderInterface
 
             return '' === $parameters[0] ? error(ErrorCode::OUT_OF_RANGE) : ($size >= $parameters[0]);
         });
+
+        //中文字数限制
+        Validator::addExtension("range_ch", function($field, $value, array $parameters = []){
+
+            $size = mb_strlen($value,"UTF-8");
+            if (!isset($parameters[0])) {
+                error(ErrorCode::OUT_OF_RANGE);
+                return false;
+            }
+            if (isset($parameters[1])) {
+                if ('' === $parameters[0]) {
+                    if ('' === $parameters[1]) {
+                        error(ErrorCode::OUT_OF_RANGE);
+                    }
+
+                    return $size <= $parameters[1];
+                }
+                if ('' === $parameters[1]) {
+                    return $size >= $parameters[0];
+                }
+
+                return $size >= $parameters[0] && $size <= $parameters[1];
+            }
+
+            return '' === $parameters[0] ? error(ErrorCode::OUT_OF_RANGE) : ($size >= $parameters[0]);
+        });
+
+        //中文字数限制
+        Validator::addExtension("null", function($field, $value, array $parameters = []){
+
+            return true;
+        });
     }
 }

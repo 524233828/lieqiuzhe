@@ -22,8 +22,8 @@ class BannerController extends AdminBaseController
             "page_id" => "in:1,2,3,4,5,6,7,8",
             "img_url" => "url",
             "status" => "integer",
-            "url" => "",
-            "params" => "",
+            "url" => "null",
+            "params" => "null",
             "sort" => "integer",
         ];
     }

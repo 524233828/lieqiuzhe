@@ -83,6 +83,8 @@ class VideoLogic extends AdminBaseLogic
 
         }
 
+        $list = array_values($video_index_list);
+
         return ["list"=>$list, "meta" => $pager->getPager($count)];
     }
 

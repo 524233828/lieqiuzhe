@@ -34,11 +34,13 @@ return [
 
         "wechat"=>[
             "client_id" => "wx45d4e558ae0284a4",
-            "client_secret" => "789d683ce4306dca61b3b768421f9a5b"
+            "client_secret" => "789d683ce4306dca61b3b768421f9a5b",
+            "redirect" => ""
         ],
         "qq" => [
             "client_id" => "1106807442",
             "client_secret" => "VcGLIqlKPlbwmGHF",
+            "redirect" => ""
         ],
     ],
 

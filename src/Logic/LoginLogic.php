@@ -27,6 +27,7 @@ class LoginLogic extends BaseLogic
                 $uid = $this->wechat($params);
                 break;
             case 2://QQ登录
+                $uid = $this->qq($params);
                 break;
             case 3://微博登录
                 break;
@@ -227,5 +228,35 @@ class LoginLogic extends BaseLogic
 
         return $my_user['id'];
 
+    }
+
+
+    public function qq($params)
+    {
+        $log = myLog("qq_login");
+
+        $token = $params['token'];
+
+        $log->addDebug("token:". $token);
+
+        $socialite = new SocialiteManager(config()->get("socialite"),request());
+        $user = $socialite->driver("qq")->user($token);
+
+        $log->addDebug("user",$user);
+//
+//        $data = [
+//            "openid" => $open_id,
+//            "avatar" => $head_url,
+//            "nickname" => $nickname,
+//            "openid_type" => 2,
+//        ];
+//
+//        $my_user = UserModel::getUserByOpenId($open_id);
+//        if(!$my_user)
+//        {
+//            $my_user['id'] = UserModel::addUser($data);
+//        }
+//
+//        return $my_user['id'];
     }
 }

@@ -246,7 +246,7 @@ class LoginLogic extends BaseLogic
         $socialite = new SocialiteManager(config()->get("socialite"));
         $user = $socialite->driver("qq")->user($access_token);
 
-        $log->addDebug("user",$user);
+        $log->addDebug("user",$user->toArray());
 //
 //        $data = [
 //            "openid" => $open_id,

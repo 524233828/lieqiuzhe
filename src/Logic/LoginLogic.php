@@ -239,7 +239,7 @@ class LoginLogic extends BaseLogic
 
         $log->addDebug("token:". $token);
 
-        $socialite = new SocialiteManager(config()->get("socialite"),request());
+        $socialite = new SocialiteManager(config()->get("socialite"));
         $user = $socialite->driver("qq")->user($token);
 
         $log->addDebug("user",$user);

@@ -38,7 +38,7 @@ return [
             "redirect" => ""
         ],
         "qq" => [
-            "client_id" => "1106807442",
+            "client_id" => "1105851211",
             "client_secret" => "VcGLIqlKPlbwmGHF",
             "redirect" => ""
         ],

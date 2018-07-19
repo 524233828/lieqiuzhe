@@ -11,6 +11,7 @@ namespace Logic;
 
 use Exception\UserException;
 use Model\UserModel;
+use Overtrue\Socialite\AccessToken;
 use Overtrue\Socialite\SocialiteManager;
 use Wxapp\Wxapp;
 
@@ -239,8 +240,11 @@ class LoginLogic extends BaseLogic
 
         $log->addDebug("token:". $token);
 
+        $attributes['access_token'] = $token;
+        $access_token = new AccessToken($attributes);
+
         $socialite = new SocialiteManager(config()->get("socialite"));
-        $user = $socialite->driver("qq")->user($token);
+        $user = $socialite->driver("qq")->user($access_token);
 
         $log->addDebug("user",$user);
 //

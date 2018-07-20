@@ -10,9 +10,11 @@ namespace Logic;
 
 
 use Exception\UserException;
+use Helper\Login\Provider\QQProvider;
 use Model\UserModel;
 use Overtrue\Socialite\AccessToken;
 use Overtrue\Socialite\SocialiteManager;
+use Symfony\Component\HttpFoundation\Request;
 use Wxapp\Wxapp;
 
 class LoginLogic extends BaseLogic
@@ -155,9 +157,17 @@ class LoginLogic extends BaseLogic
      */
     private function wechat($params)
     {
-        $log = myLog("wxapp_login");
-        $socialite = new SocialiteManager(config()->get("socialite"),request());
-        $user = $socialite->driver("wechat")->user();
+        $log = myLog("wechat_login");
+
+        $request = Request::createFromGlobals();
+        $socialite = new SocialiteManager(config()->get("socialite"),$request);
+
+        $token = null;
+        if(isset($params['token']) && !empty($params['token'])){
+            $attributes['access_token'] = $params['token'];
+            $token = new AccessToken($attributes);
+        }
+        $user = $socialite->driver("wechat")->user($token);
 
         $log->addDebug("user",$user);
 
@@ -234,19 +244,30 @@ class LoginLogic extends BaseLogic
 
     public function qq($params)
     {
+
         $log = myLog("qq_login");
 
-        $token = $params['token'];
+        $request = Request::createFromGlobals();
+        $socialite = new SocialiteManager(config()->get("socialite"),$request);
 
-        $log->addDebug("token:". $token);
-
-        $attributes['access_token'] = $token;
-        $access_token = new AccessToken($attributes);
-
-        $socialite = new SocialiteManager(config()->get("socialite"));
-        $user = $socialite->driver("qq")->user($access_token);
+        $token = null;
+        if(isset($params['token']) && !empty($params['token'])){
+            $attributes['access_token'] = $params['token'];
+            $log->addDebug("token:". $params['token']);
+            $token = new AccessToken($attributes);
+        }
+        $config = config()->get("socialite");
+        $user = (
+            new QQProvider(
+                $request,
+                $config['qq']['client_id'],
+                $config['qq']['client_secret']
+            )
+        )->user($token);
 
         $log->addDebug("user",$user->toArray());
+
+//        return $user['id'];
 //
 //        $data = [
 //            "openid" => $open_id,

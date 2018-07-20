@@ -10,7 +10,13 @@ namespace Helper\Login\Provider;
 
 
 use Overtrue\Socialite\AccessTokenInterface;
+use \Overtrue\Socialite\User;
 
+/**
+ * Class QQProvider
+ * @package Helper\Login\Provider
+ * @method User user(AccessTokenInterface $token = null)
+ */
 class QQProvider extends \Overtrue\Socialite\Providers\QQProvider
 {
 

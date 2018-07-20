@@ -267,21 +267,34 @@ class LoginLogic extends BaseLogic
 
         $log->addDebug("user",$user->toArray());
 
-//        return $user['id'];
-//
-//        $data = [
-//            "openid" => $open_id,
-//            "avatar" => $head_url,
-//            "nickname" => $nickname,
-//            "openid_type" => 2,
-//        ];
-//
-//        $my_user = UserModel::getUserByOpenId($open_id);
-//        if(!$my_user)
-//        {
-//            $my_user['id'] = UserModel::addUser($data);
-//        }
-//
-//        return $my_user['id'];
+        $result = $user->toArray();
+
+        if(!isset($result['unionid'])||empty($result['unionid'])||!$user = UserModel::getUserByUnionId($result['unionid'])){
+            $data = [
+                "openid" => $result['id'],
+                "unionid" => isset($result['unionid'])?$result['unionid']:"",
+                "openid_type" => 2,
+                "nickname" => $result['nickname'],
+                "avatar" => $result['avatar'],
+                "sex" => $result['original']['gender'],
+                "city" => $result['original']['city'],
+                "province" => $result['original']['province'],
+            ];
+            $my_user = UserModel::getUserByOpenId($data['openid']);
+            if(!$my_user)
+            {
+                $my_user['id'] = UserModel::addUser($data);
+            }
+
+        }else{
+            $my_user['id'] = $user['id'];
+        }
+
+        $log->addDebug("my_user:".json_encode($my_user));
+        if(!$my_user['id']){
+            UserException::LoginFail();
+        }
+
+        return $my_user['id'];
     }
 }

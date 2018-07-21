@@ -170,7 +170,7 @@ class LoginLogic extends BaseLogic
         }
         $user = $socialite->driver("wechat")->user($token);
 
-        $log->addDebug("user",$user);
+        $log->addDebug("user",$user->toArray());
 
         return $user['id'];
     }

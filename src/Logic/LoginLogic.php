@@ -353,7 +353,7 @@ class LoginLogic extends BaseLogic
         $token = null;
         if(isset($params['token']) && !empty($params['token']) && isset($params['openid']) && !empty($params['openid'])){
             $attributes['access_token'] = $params['token'];
-            $attributes['openid'] = $params['openid'];
+            $attributes['uid'] = $params['openid'];
             $token = new AccessToken($attributes);
         }
         $user = $socialite->driver("weibo")->user($token);

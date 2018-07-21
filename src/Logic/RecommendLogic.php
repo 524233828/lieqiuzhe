@@ -125,6 +125,14 @@ class RecommendLogic extends BaseLogic
             AnalystException::userNotAnalyst();
         }
 
+        if(!OptionModel::fetch('id',['odd_id'=>$params['odd_id'],'id'=>$params['option_id']])) {
+            BaseException::ParamsError();
+        }
+
+        if(empty($params['rec_title']) || empty($params['rec_desc'])) {
+            BaseException::ParamsError();
+        }
+
 //        $analyst = AnalystInfoModel::getInfoByUserId($uid,['level']);
         $analyst_level = AnalystLevelOrderModel::getAnalystCurrentLevel($uid);
 

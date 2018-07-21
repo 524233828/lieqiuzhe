@@ -172,7 +172,37 @@ class LoginLogic extends BaseLogic
 
         $log->addDebug("user",$user->toArray());
 
-        return $user['id'];
+        $result = $user->toArray();
+
+        if(!isset($result['original']['unionid'])||empty($result['original']['unionid'])||!$user = UserModel::getUserByUnionId($result['original']['unionid'])){
+            $data = [
+                "openid" => $result['id'],
+                "unionid" => isset($result['original']['unionid'])?$result['original']['unionid']:"",
+                "openid_type" => 1,
+                "nickname" => $result['nickname'],
+                "avatar" => $result['avatar'],
+                "sex" => $result['original']['sex'],
+                "language" => $result['original']['language'],
+                "city" => $result['original']['city'],
+                "country" => $result['original']['country'],
+                "province" => $result['original']['province'],
+            ];
+            $my_user = UserModel::getUserByOpenId($data['openid']);
+            if(!$my_user)
+            {
+                $my_user['id'] = UserModel::addUser($data);
+            }
+
+        }else{
+            $my_user['id'] = $user['id'];
+        }
+
+        $log->addDebug("my_user:".json_encode($my_user));
+        if(!$my_user['id']){
+            UserException::LoginFail();
+        }
+
+        return $my_user['id'];
     }
 
     /**

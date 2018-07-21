@@ -9,6 +9,7 @@
 namespace Logic;
 
 
+use Exception\BaseException;
 use Exception\UserException;
 use Helper\Login\Provider\QQProvider;
 use Model\UserModel;
@@ -20,33 +21,47 @@ use Wxapp\Wxapp;
 class LoginLogic extends BaseLogic
 {
 
+    const PHONE_LOGIN = 0;
+    const WECHAT_LOGIN = 1;
+    const QQ_LOGIN = 2;
+    const WEIBO_LOGIN = 3;
+    const WXAPP_LOGIN = 4;
+    const ZUQIUBISAI_LOGIN = 5;
+    const SHIJIEBEI_LOGIN = 6;
+
     public function login($login_type, $params)
     {
         switch ($login_type){
-            case 0://手机登陆
+            case self::PHONE_LOGIN://手机登陆
                 $uid = $this->mobile($params);
                 break;
-            case 1://微信登录
+            case self::WECHAT_LOGIN://微信登录
                 $uid = $this->wechat($params);
                 break;
-            case 2://QQ登录
+            case self::QQ_LOGIN://QQ登录
                 $uid = $this->qq($params);
                 break;
-            case 3://微博登录
+            case self::WEIBO_LOGIN://微博登录
+                $uid = $this->weibo($params);
                 break;
-            case 4://赛事比分小程序
+            case self::WXAPP_LOGIN://赛事比分小程序
                 $uid = $this->wxapp($params);
                 break;
-            case 5://小程序登录
+            case self::ZUQIUBISAI_LOGIN://小程序登录
                 $uid = $this->zuQiuBiSai1($params);
                 break;
 
-            case 6://小程序登录
+            case self::SHIJIEBEI_LOGIN://小程序登录
                 $uid = $this->shijiebei($params);
                 break;
 
             default:
                 break;
+        }
+
+        if(!isset($uid)){
+            UserException::LoginFail();
+            return false;
         }
 
         $token = $this->generateJWT($uid);
@@ -279,7 +294,6 @@ class LoginLogic extends BaseLogic
         $log = myLog("qq_login");
 
         $request = Request::createFromGlobals();
-        $socialite = new SocialiteManager(config()->get("socialite"),$request);
 
         $token = null;
         if(isset($params['token']) && !empty($params['token'])){
@@ -327,5 +341,27 @@ class LoginLogic extends BaseLogic
         }
 
         return $my_user['id'];
+    }
+
+    public function weibo($params)
+    {
+        $log = myLog("weibo_login");
+
+        $request = Request::createFromGlobals();
+        $socialite = new SocialiteManager(config()->get("socialite"),$request);
+
+        $token = null;
+        if(isset($params['token']) && !empty($params['token']) && isset($params['openid']) && !empty($params['openid'])){
+            $attributes['access_token'] = $params['token'];
+            $attributes['openid'] = $params['openid'];
+            $token = new AccessToken($attributes);
+        }
+        $user = $socialite->driver("weibo")->user($token);
+
+        $log->addDebug("user",$user->toArray());
+
+        $result = $user->toArray();
+
+        return $result['id'];
     }
 }

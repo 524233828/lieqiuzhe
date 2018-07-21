@@ -163,8 +163,9 @@ class LoginLogic extends BaseLogic
         $socialite = new SocialiteManager(config()->get("socialite"),$request);
 
         $token = null;
-        if(isset($params['token']) && !empty($params['token'])){
+        if(isset($params['token']) && !empty($params['token']) && isset($params['openid']) && !empty($params['openid'])){
             $attributes['access_token'] = $params['token'];
+            $attributes['openid'] = $params['openid'];
             $token = new AccessToken($attributes);
         }
         $user = $socialite->driver("wechat")->user($token);

@@ -175,11 +175,11 @@ class RecommendLogic extends BaseLogic
             "info" => $desc
         ];
 
-        $recommend = RecommendModel::add($data);
+        $recommend = RecommendModel::addAndLastId($data);
 
         if($recommend)
         {
-            return [];
+            return ['rec_id'=>$recommend];
         }else{
             RecommendException::recommendFail();
         }

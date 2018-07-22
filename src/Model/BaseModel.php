@@ -24,6 +24,13 @@ class BaseModel
         return database()->insert($class::$table, $data);
     }
 
+    public static function addAndLastId($data)
+    {
+        $class = get_called_class();
+        database()->insert($class::$table, $data);
+        return database()->pdo->lastInsertId();
+    }
+
     public static function fetch($columns = "*" ,$where = null)
     {
         $class = get_called_class();

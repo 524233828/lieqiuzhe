@@ -35,7 +35,7 @@ class MyClassListLogic extends BaseLogic
             $class_list[$v['class_id']] = $v;
         }
 
-        $class = ClassModel::fetch(["img_url","title","desc","tag","id"],["id" => $class_id]);
+        $class = ClassModel::fetchClass(["img_url","title","desc","tag","id"],["id" => $class_id]);
 
         foreach ($class as $item)
         {
@@ -45,6 +45,8 @@ class MyClassListLogic extends BaseLogic
             $class_list[$item["id"]]["tag"] = $item['tag'];
         }
 
-        return ["list" => $class_list];
+        array_values($class_list);
+
+        return ["list" => $class_list ];
     }
 }

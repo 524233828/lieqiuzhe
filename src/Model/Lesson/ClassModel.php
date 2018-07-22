@@ -26,6 +26,11 @@ class ClassModel extends BaseModel
     const INTRODUCE_TABLE = "db_class_introduce";
     const TRY_TABLE = "db_class_try";
 
+    public static function fetchClass($columns = "*" ,$where = null)
+    {
+        return database("lesson")->select(self::CLASS_TABLE, $columns, $where);
+    }
+
     //课程class
     /**
      * 获取课程列表

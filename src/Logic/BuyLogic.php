@@ -251,7 +251,7 @@ class BuyLogic extends BaseLogic
             $aop->apiVersion = '1.0';
             $aop->postCharset='utf-8';
             $aop->format='json';
-            $aop->signType = 'RSA2';
+            $aop->signType = 'RSA';
             $request = new \AlipayTradeAppPayRequest();
             //异步地址传值方式
 

@@ -179,7 +179,7 @@ class RecommendLogic extends BaseLogic
 
         if($recommend)
         {
-            return ['rec_id'=>$recommend];
+            return [''=>$recommend];
         }else{
             RecommendException::recommendFail();
         }
@@ -195,8 +195,8 @@ class RecommendLogic extends BaseLogic
 
         $options = OptionModel::getOptionByOddId($res['odd_id'],['id','option','odds_rate']);
         $res['option'] = $options;
-        $res['win_streak'] = FuntionHelper::continuityWin($res['record']);
-        $res['hit_rate'] = FuntionHelper::winRate($res['record']);
+        $res['win_streak'] = $res['record'] == '' ? 0 : FuntionHelper::continuityWin($res['record']);
+        $res['hit_rate'] = $res['record'] == '' ? 0 : FuntionHelper::winRate($res['record']);
         $res['rec_time'] =date('m/d H:i', $res['rec_time']);
         $res['is_read'] = 1;
         $res['extra'] = json_decode($res['extra'], true);

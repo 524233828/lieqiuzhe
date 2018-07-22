@@ -243,7 +243,7 @@ class BuyLogic extends BaseLogic
             define("AOP_SDK_DEV_MODE", $config['alipay']['debug']);
 
             require app()->getPath().'/Alipay/AopSdk.php';
-            $aop = new AopClient ();
+            $aop = new \AopClient ();
             $aop->gatewayUrl = 'https://openapi.alipay.com/gateway.do';
             $aop->appId = $config['alipay']['app_id'];
             $aop->rsaPrivateKey = $config['alipay']['private_key'];
@@ -252,7 +252,7 @@ class BuyLogic extends BaseLogic
             $aop->postCharset='utf-8';
             $aop->format='json';
             $aop->signType = 'RSA2';
-            $request = new AlipayTradeAppPayRequest();
+            $request = new \AlipayTradeAppPayRequest();
             //异步地址传值方式
 
             $request->setNotifyUrl("https://www.alipay.com");

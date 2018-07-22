@@ -237,7 +237,33 @@ class BuyLogic extends BaseLogic
         $config = config()->get("payment");
         $pay = new Pay($config);
 
-        return $pay->driver($pay_type)->gateway("app")->apply($order);
+        if($pay_type == "alipay"){
+
+            //定义开发环境
+            define("AOP_SDK_DEV_MODE", $config['alipay']['debug']);
+
+            require app()->getPath().'/Alipay/AopSdk.php';
+            $aop = new \AopClient ();
+            $aop->gatewayUrl = 'https://openapi.alipay.com/gateway.do';
+            $aop->appId = $config['alipay']['app_id'];
+            $aop->rsaPrivateKey = $config['alipay']['private_key'];
+            $aop->alipayrsaPublicKey= $config['alipay']['public_key'];
+            $aop->apiVersion = '1.0';
+            $aop->postCharset='utf-8';
+            $aop->format='json';
+            $aop->signType = 'RSA2';
+            $request = new \AlipayTradeAppPayRequest();
+            //异步地址传值方式
+
+            $request->setNotifyUrl("https://www.alipay.com");
+            $request->setBizContent("{\"out_trade_no\":\"".$order['out_trade_no']."\",\"total_amount\":0.01,\"product_code\":\"QUICK_MSECURITY_PAY\",\"subject\":\"app测试\"}");
+            $result = $aop->sdkExecute($request);
+
+            return $result;
+
+        }else{
+            return $pay->driver($pay_type)->gateway("app")->apply($order);
+        }
     }
 
     public function fetchOrderList($page = 1, $size = 20)

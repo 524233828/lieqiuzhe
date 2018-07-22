@@ -48,8 +48,8 @@ class MyClassListLogic extends BaseLogic
             $class_list[$item["id"]]["tag"] = $item['tag'];
         }
 
-        array_values($class_list);
+        $list = array_values($class_list);
 
-        return ["list" => $class_list ];
+        return ["list" => $list ];
     }
 }

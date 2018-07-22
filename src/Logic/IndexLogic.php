@@ -90,7 +90,7 @@ class IndexLogic extends BaseLogic
     {
         $page = new Pager($page, $size);
 
-        $list = RecommendModel::Rank($page->getFirstIndex(), $size, "gifts");
+        $list = RecommendModel::Rank($page->getFirstIndex(), $size, "gifts",'is_win is not null');
 
         foreach ($list as $k => $v)
         {

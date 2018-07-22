@@ -35,6 +35,9 @@ class MyClassListLogic extends BaseLogic
             $class_list[$v['class_id']] = $v;
         }
 
+        if(empty($class_id)){
+            return ["list" => []];
+        }
         $class = ClassModel::fetchClass(["img_url","title","desc","tag","id"],["id" => $class_id]);
 
         foreach ($class as $item)

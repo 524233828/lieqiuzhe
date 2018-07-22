@@ -189,6 +189,10 @@ route()->group(['prefix' => '/system_notice', 'middleware' => 'dispatch'],functi
 });
 
 //后台
+
+//登录后台
+route()->post('/admin/login', 'Admin\LoginController@login');
+
 route()->group(['prefix' => '/admin', 'middleware' => 'dispatch'],function(){
 
     //上传图片

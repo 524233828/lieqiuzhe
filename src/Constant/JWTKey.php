@@ -5,6 +5,7 @@ namespace Constant;
 class JWTKey
 {
     const KEY = 'yaoyuanwangluo';
+    const ADMIN_KEY = 'yywl_admin';
     const ISS = 'http://ydapi.linghit.com';
     const ALG = 'HS256';
 

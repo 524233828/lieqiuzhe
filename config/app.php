@@ -81,5 +81,7 @@ return [
         'reply'  => new \Middleware\TimestampMiddleware(),
         //登录检查
         'login' => new \Middleware\LoginCheck(),
+        //后台分发
+        'admin_dispatch' => new Middleware\AdminDispatch(),
     ],
 ];

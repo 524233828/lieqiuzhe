@@ -150,15 +150,12 @@ route()->group(['prefix' => '/me', 'middleware' => 'dispatch'],function(){
     route()->get("/info","Lesson\MeController@getUser")->withAddMiddleware("login");
 });
 
-//我的课程列表
-route()->group(['prefix' => '/my_class_list', 'middleware' => 'dispatch'],function(){
-    route()->get("/list","Lesson\MyClassListController@listUserClass")->withAddMiddleware("login");
-});
-
 //我的课程详情
 route()->group(['prefix' => '/my_class', 'middleware' => 'dispatch'],function(){
     route()->get("/info","Lesson\MyClassController@getClassChapter")->withAddMiddleware("login");
     route()->post("/learn_percent","Lesson\MyClassController@updateLearnPercent")->withAddMiddleware("login");
+
+    route()->get("/list","Lesson\MyClassListController@listUserClass")->withAddMiddleware("login");
 });
 
 //交易明细
@@ -192,6 +189,10 @@ route()->group(['prefix' => '/system_notice', 'middleware' => 'dispatch'],functi
 });
 
 //后台
+
+//登录后台
+route()->post('/admin/login', 'Admin\LoginController@login');
+
 route()->group(['prefix' => '/admin', 'middleware' => 'dispatch'],function(){
 
     //上传图片

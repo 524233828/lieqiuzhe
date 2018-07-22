@@ -259,7 +259,7 @@ class BuyLogic extends BaseLogic
             $request->setBizContent("{\"out_trade_no\":\"".$order['out_trade_no']."\",\"total_amount\":0.01,\"product_code\":\"QUICK_MSECURITY_PAY\",\"subject\":\"app测试\"}");
             $result = $aop->sdkExecute($request);
 
-            return $request;
+            return $result;
 
         }else{
             return $pay->driver($pay_type)->gateway("app")->apply($order);

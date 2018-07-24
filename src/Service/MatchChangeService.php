@@ -206,7 +206,9 @@ class MatchChangeService
      */
     public function matchStart($match_id)
     {
-
+        //比赛开始推送给关注的用户
+        $msg = new MessageService();
+        $msg->concernStartPush($match_id);
     }
 
     /**

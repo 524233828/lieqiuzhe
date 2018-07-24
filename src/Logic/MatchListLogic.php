@@ -191,7 +191,7 @@ class MatchListLogic extends BaseLogic
             "user_id" => $user_id,
         ];
 
-        $result = MatchCollectionModel::delete($where);
+        $result = MatchCollectionModel::deleteMatchCollect($where);
 
         if($result){
             return [];

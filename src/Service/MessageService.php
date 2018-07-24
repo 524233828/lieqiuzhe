@@ -9,6 +9,11 @@
 namespace Service;
 
 
+use Logic\LoginLogic;
+use Model\MatchCollectionModel;
+use Model\MatchModel;
+use Umeng\Message\Client;
+
 class MessageService
 {
 
@@ -18,7 +23,38 @@ class MessageService
      */
     public function concernStartPush($match_id)
     {
-        
+        //获取所有关注的用户
+        $list = MatchCollectionModel::fetchWithMatchId($match_id);
+
+        $match = MatchModel::detail($match_id);
+
+        $device_token = [];
+        foreach ($list as $v)
+        {
+            if(in_array($v['openid_type'], [
+                LoginLogic::PHONE_LOGIN,
+                LoginLogic::WECHAT_LOGIN,
+                LoginLogic::QQ_LOGIN,
+                LoginLogic::WEIBO_LOGIN,
+            ])){
+                $device_token[] = $v['device_token'];
+            }
+        }
+
+        //推送给友盟
+        if(!empty($device_token)){
+            $conf = config()->get("umeng");
+            $umeng = new Client($conf);
+
+            $data = array(
+                'title' => '您关注的比赛开始了',
+                'text' => "您关注的{$match['home']}vs{$match['away']}比赛开赛了",
+                'device_tokens' => $device_token,
+            );
+
+            $result = $umeng->sendNotificationToDevices($data);
+        }
+
     }
 
     /**
@@ -27,6 +63,36 @@ class MessageService
      */
     public function concernStopPush($match_id)
     {
+        //获取所有关注的用户
+        $list = MatchCollectionModel::fetchWithMatchId($match_id);
 
+        $match = MatchModel::detail($match_id);
+
+        $device_token = [];
+        foreach ($list as $v)
+        {
+            if(in_array($v['openid_type'], [
+                LoginLogic::PHONE_LOGIN,
+                LoginLogic::WECHAT_LOGIN,
+                LoginLogic::QQ_LOGIN,
+                LoginLogic::WEIBO_LOGIN,
+            ])){
+                $device_token[] = $v['device_token'];
+            }
+        }
+
+        //推送给友盟
+        if(!empty($device_token)){
+            $conf = config()->get("umeng");
+            $umeng = new Client($conf);
+
+            $data = array(
+                'title' => '比赛结束',
+                'text' => "您关注的{$match['home']}vs{$match['away']}比赛已结束，终场比分为{$match['home_score']}:{$match['away_score']}",
+                'device_tokens' => $device_token,
+            );
+
+            $result = $umeng->sendNotificationToDevices($data);
+        }
     }
 }

@@ -257,7 +257,7 @@ class BuyLogic extends BaseLogic
 
             $request->setNotifyUrl("https://www.alipay.com");
             $request->setBizContent("{\"out_trade_no\":\"".$order['out_trade_no']."\",\"total_amount\":0.01,\"product_code\":\"QUICK_MSECURITY_PAY\",\"subject\":\"app测试\"}");
-            $result = $aop->sign(" {\"a\":\"123\"}","RSA2");
+            $result = $aop->sign(json_encode(["a"=>"123"]),"RSA2");
 //            $result = $aop->sdkExecute($request);
 
             return $result;

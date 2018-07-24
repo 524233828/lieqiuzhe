@@ -10,7 +10,7 @@ route()->get("/login", 'LoginController@get')->withAddMiddleware("dispatch");
 
 //比赛列表页
 route()->group(["prefix"=>"/match","middleware" => "dispatch"], function(){
-    route()->get("/list", 'MatchListController@fetchMatchList')->withAddMiddleware("login");
+    route()->get("/list", 'MatchListController@fetchMatchList');
     route()->post("/collect", 'MatchListController@collectionMatch')->withAddMiddleware("login");
     route()->delete("/collect", 'MatchListController@collectionMatchCancel')->withAddMiddleware("login");
     route()->get("/league/list", 'MatchListController@fetchLeague');
@@ -176,7 +176,7 @@ route()->group(['prefix' => '/analyst', 'middleware' => 'dispatch'],function(){
 route()->group(['prefix' => '/video', 'middleware' => 'dispatch'],function(){
 
     route()->get("/cate","VideoController@fetchCate");
-    route()->get("/list","VideoController@fetchVideo")->withAddMiddleware("login");
+    route()->get("/list","VideoController@fetchVideo");
     route()->post("/collect","VideoController@collectVideo")->withAddMiddleware("login");
     route()->delete("/collect","VideoController@uncollectedVideo")->withAddMiddleware("login");
     route()->get("/collect","VideoController@collectVideoList")->withAddMiddleware("login");

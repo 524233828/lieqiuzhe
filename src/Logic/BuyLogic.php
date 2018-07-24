@@ -257,8 +257,8 @@ class BuyLogic extends BaseLogic
 
             $request->setNotifyUrl("https://www.alipay.com");
             $data = [
-                "out_trade_no" => $order['out_trade_no'],
-                "total_amount" => $order['total_amount'],
+                "out_trade_no" => (string)$order['out_trade_no'],
+                "total_amount" => (string)$order['total_amount'],
                 "product_code" => "QUICK_MSECURITY_PAY",
                 "subject" => $order['subject']
             ];

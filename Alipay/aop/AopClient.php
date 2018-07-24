@@ -116,7 +116,7 @@ class AopClient {
 		return $stringToBeSigned;
 	}
 
-	protected function sign($data, $signType = "RSA") {
+	public function sign($data, $signType = "RSA") {
 		if($this->checkEmpty($this->rsaPrivateKeyFilePath)){
 			$priKey=$this->rsaPrivateKey;
 			$res = "-----BEGIN RSA PRIVATE KEY-----\n" .

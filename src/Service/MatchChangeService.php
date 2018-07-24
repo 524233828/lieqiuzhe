@@ -217,6 +217,12 @@ class MatchChangeService
      */
     public function matchFinish($match_id)
     {
+        $msg = new MessageService();
+
+        //结束比赛推送
+        $msg->concernStopPush($match_id);
+
+        //结算推荐单
 
     }
 }

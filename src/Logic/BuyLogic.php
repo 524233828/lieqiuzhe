@@ -246,7 +246,7 @@ class BuyLogic extends BaseLogic
             $aop = new \AopClient ();
             $aop->gatewayUrl = 'https://openapi.alipay.com/gateway.do';
             $aop->appId = $config['alipay']['app_id'];
-            $aop->rsaPrivateKey = "MIIEowIBAAKCAQEAxM/OIshZ4OnmUu4v98gpU9g8HPg56DqWMaDvcgzVsFn3zgMIo29Tm6bTQvjKWBG67ZG+atTGgJ+hd1p7zI4HZOqmRIvFFWEQ4KdwJrBClO/+Eazv+bGJSILgxu/p8DfwzsqSWqucJtU6nU9ViQS6LurvId3ue2p/UWJQP7ViewuMRzGbXL1PR45ggtOGJZYMu+34i7uJuHHpb/2SQsfDL0ONNQce3TTcL9rb2T0xtNSC54cFOphppnLyJIyOryJkUnHfL4gpNoHUTnwLdIKMY0bpPqqJm13/PN7HxmnnUMr+kr4KnrHk7S+3QQdk8AII+5RhRsK5KxSVZEJOxyoqRQIDAQABAoIBABKOUS4gW7ED/I5HHMis25CnK4vDr5oApBaLyOek5CTbZqzKxm66WVSslvCSimlhSpGJkz15UDniUxPwuQlhPrs6EHEYCH3qh+/WeZF8PtrSAc9i0cFmBr6KcGzxQ8o9S/wDR2c7FN7obb1VNIhVpMQ1rFQyG4ERWm2u6kgHbwCQvMwdBKUz3vuD74wCSx+W8EVAqfDI4ij5CxCgj9QwAT+qRVIFPFBpAg3OpR1nLqhJUhHWIQQmn5+myJ4Ac8lp4am0KbFc+/ZHei19jYTi8yvC3Kb6JSXm9SS/2JDreqCaA5Y70zwNeGM/AfnFP6fBjZzUxGzDRDDn+ubymhn5xIUCgYEA6oHvkrfNgS+3LHRlLWSRTFizulmrdOTuyI0ugqCDKtnY9IaT8vvSEBKrpLe5jN4PTAD4v1oeW89kKn6Iy87cFTP8GXYN38kMkptP2lhBSjsuijTcXhpbou57p0wJ38F+IEKgUcG2KIeK75FUvPXxaWjUt7cq2LxvYe6wAOVPtyMCgYEA1tlxO7gZBVh50OpEyUjTXzmNDgjYu3dcreNc5pYiumdAYRHHDftutcpghWQ0jN9jjDMnHeJ6+ZGvmj/YBOwOAGr9W8O5dIEpK8jPgtW4c7g7J+aZAlyBIu/XyFLD+qFLyI01kRhIZ+PobVXTU8oe/AfQ4wtxOUs3C3tPOdjo43cCgYEAvL7QIHqngO7ys2kLdjmXaKeMINTDV1Zbijd309N1PywPnuAifFOKgz1DwVPOmD6yeS3fB8R04thNepZVbBSWtsocgjGugQvEfstavhaClkiD8OES7Pqx/rWL+N8Oo3WNGlIFz0fmYUCW5rNGTMB3CaxCaYuXhNJFo8EFD/OA8ZkCgYA8QvUduP9bnntce7kbdA/Fb9D+lMClpE8cft851fabrgZCs8fPRizBVKhKAdczhBzZ4CcinLm9cn18mFew2bz7pQa3TGiiIvA3VbXOjr+TxaLiCC32mZenAvrVN1G85Kzq7aCOt+7nJOe2cxI5OEIEkvSmGjmBxnUEBWwtX4fC9QKBgHliVeqT39Pe2KVNpJJBrn1rwApz8/7Mq1GLb+eLQ+EvyISvQd7XaDqwFHeCn/7QUq3R/HKKMTY7kwDfPPGRwAtpVSDNMBTKlLl92DI/s5ZzIwnAJLPfbZJUDY5kGsvZQAugspFjtJen6LHu2Hufy77bvC1Ind9MOLe8XDK2uGpd";
+            $aop->rsaPrivateKey = $config['alipay']['private_key'];
             $aop->alipayrsaPublicKey= $config['alipay']['public_key'];
             $aop->apiVersion = '1.0';
             $aop->postCharset='utf-8';
@@ -256,7 +256,14 @@ class BuyLogic extends BaseLogic
             //异步地址传值方式
 
             $request->setNotifyUrl("https://www.alipay.com");
-            $request->setBizContent("{\"out_trade_no\":\"".$order['out_trade_no']."\",\"total_amount\":0.01,\"product_code\":\"QUICK_MSECURITY_PAY\",\"subject\":\"app测试\"}");
+            $data = [
+                "out_trade_no" => $order['out_trade_no'],
+                "total_amount" => $order['total_amount'],
+                "product_code" => "QUICK_MSECURITY_PAY",
+                "subject" => $order['subject']
+            ];
+
+            $request->setBizContent(json_encode($data, JSON_UNESCAPED_UNICODE));
 //            $result = $aop->sign(json_encode(["a"=>"123"]),"RSA2");
             $result = $aop->sdkExecute($request);
 

@@ -40,8 +40,9 @@ class MatchListController extends BaseController
     {
         $match_id = $request->getParam("match_id");
         $form_id = $request->getParam("form_id", null);
+        $device_token = $request->getParam("device_token", null);
 
-        return $this->response(MatchListLogic::getInstance()->collect($match_id, $form_id));
+        return $this->response(MatchListLogic::getInstance()->collect($match_id, $form_id, $device_token));
     }
 
     /**

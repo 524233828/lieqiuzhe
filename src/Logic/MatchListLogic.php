@@ -151,7 +151,7 @@ class MatchListLogic extends BaseLogic
 
     }
 
-    public function collect($match_id, $form_id = null)
+    public function collect($match_id, $form_id = null, $device_token = null)
     {
         $user_id = UserLogic::$user["id"];
 
@@ -167,6 +167,10 @@ class MatchListLogic extends BaseLogic
 
         if(!empty($form_id)){
             $data['form_id'] = $form_id;
+        }
+
+        if(!empty($device_token)){
+            $data['device_token'] = $device_token;
         }
 
         $result =  MatchCollectionModel::add($data);

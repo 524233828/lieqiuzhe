@@ -264,8 +264,15 @@ class BuyLogic extends BaseLogic
             ];
 
             $request->setBizContent(json_encode($data, JSON_UNESCAPED_UNICODE));
-//            $unsign = "alipay_sdk=alipay-sdk-php-20161101&app_id=2018052160205069&biz_content={\"out_trade_no\":15324153875156,\"total_amount\":\"1000\",\"product_code\":\"QUICK_MSECURITY_PAY\",\"subject\":\"球稳-球币充值-1000球币\"}&charset=utf-8&format=json&method=alipay.trade.app.pay&notify_url=https://www.alipay.com&sign_type=RSA2&timestamp=2018-07-24 14:56:27&version=1.0";
-//            $result = $aop->sign($unsign,"RSA2");
+            $unsign = "alipay_sdk=alipay-sdk-php-20161101&app_id=2018052160205069&biz_content={\"out_trade_no\":15324153875156,\"total_amount\":\"1000\",\"product_code\":\"QUICK_MSECURITY_PAY\",\"subject\":\"球稳-球币充值-1000球币\"}&charset=utf-8&format=json&method=alipay.trade.app.pay&notify_url=https://www.alipay.com&sign_type=RSA2&timestamp=2018-07-24 14:56:27&version=1.0";
+
+            echo $unsign, "\n";
+            $result = $aop->sign($unsign,"RSA2");
+
+            echo $result, "\n";
+            $verify = $aop->verify($unsign,$result, null, "RSA2");
+
+            echo $verify, "\n";exit;
 //            echo $result;exit;
             $result = $aop->sdkExecute($request);
 

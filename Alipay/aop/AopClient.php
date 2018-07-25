@@ -271,7 +271,7 @@ class AopClient {
 
     /**
      * 生成用于调用收银台SDK的字符串
-     * @param $request SDK接口的请求参数对象
+     * @param $request \AlipayTradeAppPayRequest
      * @return string 
      * @author guofa.tgf
      */

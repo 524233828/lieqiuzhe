@@ -50,6 +50,8 @@ class AnalystLogic extends AdminBaseLogic
             UserModel::$table.".avatar",
             UserModel::$table.".nickname",
             AnalystInfoModel::$table.".ticket",
+            AnalystInfoModel::$table.".tag",
+            AnalystInfoModel::$table.".intro",
         ],$where);
 
         $ids = [];
@@ -90,6 +92,6 @@ class AnalystLogic extends AdminBaseLogic
 
     public function updateAction($params)
     {
-        // TODO: Implement updateAction() method.
+
     }
 }

@@ -216,8 +216,6 @@ class ClassLogic extends BaseLogic
         //开启事务
         database()->pdo->beginTransaction();
 
-
-
         $user_class_data = [
             "class_id"=>$class_id,
             "user_id"=>UserLogic::$user['id'],
@@ -232,7 +230,7 @@ class ClassLogic extends BaseLogic
         if($result && $order_id && $buy_id)
         {
             database()->pdo->commit();
-
+            return true;
         }else{
             database()->pdo->rollBack();
             return false;

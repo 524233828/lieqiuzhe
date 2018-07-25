@@ -14,6 +14,8 @@ use Exception\UserException;
 use Helper\Aliyun\DySDKLite\SignatureHelper;
 use Model\UserModel;
 use Qiutan\RedisHelper;
+use Service\CoinService;
+use Service\TicketService;
 
 class RegisterLogic extends BaseLogic
 {
@@ -146,6 +148,11 @@ class RegisterLogic extends BaseLogic
         $where = ["id" => $uid];
 
         $user = UserModel::update($data, $where);
+
+        //注册发放10球币和100球票
+        CoinService::sendCoin(10,$uid,"注册获得球币");
+        TicketService::sendTicket($uid, 100);
+
         if($user){
             return [];
         }

@@ -15,6 +15,8 @@ use Helper\Login\Provider\QQProvider;
 use Model\UserModel;
 use Overtrue\Socialite\AccessToken;
 use Overtrue\Socialite\SocialiteManager;
+use Service\CoinService;
+use Service\TicketService;
 use Symfony\Component\HttpFoundation\Request;
 use Wxapp\Wxapp;
 
@@ -206,6 +208,10 @@ class LoginLogic extends BaseLogic
             if(!$my_user)
             {
                 $my_user['id'] = UserModel::addUser($data);
+
+                //注册发放10球币和100球票
+                CoinService::sendCoin(10,$my_user['id'],"注册获得球币");
+                TicketService::sendTicket($my_user['id'], 100);
             }
 
         }else{
@@ -328,7 +334,13 @@ class LoginLogic extends BaseLogic
             $my_user = UserModel::getUserByOpenId($data['openid']);
             if(!$my_user)
             {
+                //注册
                 $my_user['id'] = UserModel::addUser($data);
+
+                //注册发放10球币和100球票
+                CoinService::sendCoin(10,$my_user['id'],"注册获得球币");
+                TicketService::sendTicket($my_user['id'], 100);
+
             }
 
         }else{

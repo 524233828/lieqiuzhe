@@ -25,6 +25,7 @@ class CoinService
         $data = [
             "explain" => $reason,
             "order_id" => $order_id,
+            "user_id" => $uid,
             "status" => 1,
             "current_bill" => $new_bill,
             "inc_bill" => $num,

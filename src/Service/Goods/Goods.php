@@ -56,6 +56,7 @@ class Goods
         $data = [
             "explain" => "用户充值增加金币",
             "order_id" => $order_id,
+            "user_id" => $order['user_id'],
             "status" => 1,
             "current_bill" => $new_bill,
             "inc_bill" => $order['total_fee'],

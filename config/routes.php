@@ -77,6 +77,9 @@ route()->group(["prefix" => "/buy", "middleware" => "dispatch"], function(){
 
     route()->get("/analyst_level/price", 'BuyController@analystLevelPriceList');
     route()->get("/user_level/price", 'BuyController@userLevelPriceList');
+
+    route()->post("/notify", 'CommonController@orderNotify');
+    route()->get("/notify", 'CommonController@orderNotify');
 });
 
 //微信客服消息接口

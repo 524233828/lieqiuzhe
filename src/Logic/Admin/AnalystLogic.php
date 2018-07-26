@@ -133,12 +133,12 @@ class AnalystLogic extends AdminBaseLogic
         //写表操作
         database()->pdo->beginTransaction();
         if(!empty($data[UserModel::$table])){
-            $user_result = UserModel::update($data[UserModel::$table], $where);
+            $user_result = UserModel::update($data[UserModel::$table], $where)!==false;
         }
 
         if(!empty($data[AnalystInfoModel::$table])){
             if($update){//已有分析师信息，只更新不插入
-                $analyst_info_result = AnalystInfoModel::update($data[AnalystInfoModel::$table], $where);
+                $analyst_info_result = AnalystInfoModel::update($data[AnalystInfoModel::$table], $where)!==false;
             }else{//没有则插入
                 $analyst_info_result = AnalystInfoModel::add($data[AnalystInfoModel::$table]);
             }
@@ -197,11 +197,11 @@ class AnalystLogic extends AdminBaseLogic
 
         database()->pdo->beginTransaction();
         if(!empty($data[UserModel::$table])){
-            $user_result = UserModel::update($data[UserModel::$table], $where);
+            $user_result = UserModel::update($data[UserModel::$table], $where)!==false;
         }
 
         if(!empty($data[AnalystInfoModel::$table])){
-            $analyst_info_result = AnalystInfoModel::update($data[AnalystInfoModel::$table], $where);
+            $analyst_info_result = AnalystInfoModel::update($data[AnalystInfoModel::$table], $where)!==false;
         }
 
         if($user_result && $analyst_info_result){

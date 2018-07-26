@@ -112,10 +112,13 @@ class AnalystLogic extends AdminBaseLogic
         ];
 
         $data = [];
-        foreach ($add_filter as $table => $field)
+        foreach ($add_filter as $table => $fields)
         {
-            if(isset($params[$field]) && !empty($params[$field])){
-                $data[$table][$field] = $params[$field];
+
+            foreach ($fields as $field){
+                if(isset($params[$field]) && !empty($params[$field])){
+                    $data[$table][$field] = $params[$field];
+                }
             }
         }
 
@@ -176,10 +179,12 @@ class AnalystLogic extends AdminBaseLogic
         ];
 
         $data = [];
-        foreach ($add_filter as $table => $field)
+        foreach ($add_filter as $table => $fields)
         {
-            if(isset($params[$field]) && !empty($params[$field])){
-                $data[$table][$field] = $params[$field];
+            foreach ($fields as $field){
+                if(isset($params[$field]) && !empty($params[$field])){
+                    $data[$table][$field] = $params[$field];
+                }
             }
         }
 

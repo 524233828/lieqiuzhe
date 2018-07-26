@@ -9,6 +9,7 @@
 namespace Logic\Admin;
 
 
+use Exception\AnalystException;
 use Exception\BaseException;
 use Model\AnalystInfoModel;
 use Model\AnalystLevelOrderModel;
@@ -159,6 +160,13 @@ class AnalystLogic extends AdminBaseLogic
         if(empty($id))
         {
             BaseException::SystemError();
+        }
+
+        //查分析师表
+        $analyst_info = AnalystInfoModel::get($id);
+
+        if(empty($analyst_info)){//分析师不存在
+            AnalystException::userNotAnalyst();
         }
 
         //筛选字段

@@ -18,7 +18,11 @@ class AnalystController extends AdminBaseController
         $this->logic = AnalystLogic::getInstance();
 
         $this->add_valid = [
-
+            "nickname" => "null",
+            "avatar" => "null",
+            "ticket" => "null",
+            "tag" => "required",
+            "intro" => "required",
         ];
     }
 }

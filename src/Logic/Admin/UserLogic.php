@@ -52,6 +52,7 @@ class UserLogic extends AdminBaseLogic
             "user_type",
             "phone",
             "status",
+            "ticket",
             "create_time",
         ],$where);
 

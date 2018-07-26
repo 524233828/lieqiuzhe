@@ -9,6 +9,7 @@
 namespace Logic\Admin;
 
 
+use Exception\BaseException;
 use Model\AnalystInfoModel;
 use Model\AnalystLevelOrderModel;
 use Model\UserModel;
@@ -20,6 +21,7 @@ class AnalystLogic extends AdminBaseLogic
     protected $list_filter = [
         "nickname"
     ];
+
 
     public function listAction($params)
     {
@@ -87,11 +89,117 @@ class AnalystLogic extends AdminBaseLogic
 
     public function addAction($params)
     {
-        // TODO: Implement addAction() method.
+        $id = $params['id'];
+
+        if(empty($id))
+        {
+            BaseException::SystemError();
+        }
+
+        //查分析师表
+        $analyst_info = AnalystInfoModel::get($id);
+
+        $update = false;
+        if(!empty($analyst_info)){//已有分析师信息
+            $update = true;
+        }
+
+        //组装更改字段
+        $add_filter = [
+            UserModel::$table => ["avatar", "nickname"],
+            AnalystInfoModel::$table => ["ticket", "tag", "intro"]
+        ];
+
+        $data = [];
+        foreach ($add_filter as $table => $field)
+        {
+            if(isset($params[$field]) && !empty($params[$field])){
+                $data[$table][$field] = $params[$field];
+            }
+        }
+
+        //用户类型改为分析师
+        $data[UserModel::$table]["user_type"] = 1;
+
+        $where = ["id" => $id];
+
+        $user_result = true;
+        $analyst_info_result = true;
+
+        //写表操作
+        database()->pdo->beginTransaction();
+        if(!empty($data[UserModel::$table])){
+            $user_result = UserModel::update($data[UserModel::$table], $where);
+        }
+
+        if(!empty($data[AnalystInfoModel::$table])){
+            if($update){//已有分析师信息，只更新不插入
+                $analyst_info_result = AnalystInfoModel::update($data[AnalystInfoModel::$table], $where);
+            }else{//没有则插入
+                $analyst_info_result = AnalystInfoModel::add($data[AnalystInfoModel::$table]);
+            }
+        }
+
+        if($user_result && $analyst_info_result){
+            database()->pdo->commit();
+
+            return [];
+        }else{
+            database()->pdo->rollBack();
+
+            BaseException::SystemError();
+        }
     }
 
     public function updateAction($params)
     {
+
+        $id = $params['id'];
+
+        if(empty($id))
+        {
+            BaseException::SystemError();
+        }
+
+        //筛选字段
+        $add_filter = [
+            UserModel::$table => ["avatar", "nickname"],
+            AnalystInfoModel::$table => ["ticket", "tag", "intro"]
+        ];
+
+        $data = [];
+        foreach ($add_filter as $table => $field)
+        {
+            if(isset($params[$field]) && !empty($params[$field])){
+                $data[$table][$field] = $params[$field];
+            }
+        }
+
+
+        $where = ["id" => $id];
+
+        //写表操作
+        $user_result = true;
+        $analyst_info_result = true;
+
+        database()->pdo->beginTransaction();
+        if(!empty($data[UserModel::$table])){
+            $user_result = UserModel::update($data[UserModel::$table], $where);
+        }
+
+        if(!empty($data[AnalystInfoModel::$table])){
+            $analyst_info_result = AnalystInfoModel::update($data[AnalystInfoModel::$table], $where);
+        }
+
+        if($user_result && $analyst_info_result){
+            database()->pdo->commit();
+
+            return [];
+        }else{
+            database()->pdo->rollBack();
+
+            BaseException::SystemError();
+        }
 
     }
 }

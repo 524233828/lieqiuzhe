@@ -229,6 +229,8 @@ route()->group(['prefix' => '/admin', 'middleware' => 'dispatch'],function(){
 
     //分析师
     route()->get("/analyst","Admin\AnalystController@listAction");
+    route()->post("/analyst/update","Admin\AnalystController@updateAction");
+    route()->post("/analyst","Admin\AnalystController@addAction");
 
     //比赛
     route()->get("/match","Admin\MatchController@listAction");

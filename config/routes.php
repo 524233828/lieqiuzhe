@@ -275,4 +275,8 @@ route()->group(['prefix' => '/admin', 'middleware' => 'dispatch'],function(){
     route()->post("/video_cate/video","Admin\VideoCateController@addVideoByCate");
     route()->post("/video_cate/video/delete","Admin\VideoCateController@deleteVideoByCate");
 
+    //用户等级商品
+    route()->get("/user_level","Admin\UserLevelController@listAction");
+    route()->post("/user_level/update","Admin\UserLevelController@updateAction");
+
 });

@@ -19,6 +19,7 @@ class AnalystController extends AdminBaseController
 
         $this->add_valid = [
             "nickname" => "null",
+            "id" => "required|integer",
             "avatar" => "null",
             "ticket" => "null",
             "tag" => "required",

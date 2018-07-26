@@ -331,6 +331,7 @@ SQL;
         $sql = <<<SQL
 SELECT
 	r.id as rec_id,
+	r.analyst_id,
 	u.nickname,
 	u.avatar,
 	a.tag,

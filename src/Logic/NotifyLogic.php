@@ -18,15 +18,21 @@ class NotifyLogic extends BaseLogic
 {
     public function payNotify(ServerRequest $request)
     {
+        $log = myLog("NotifyLogic_payNotify");
         $out_trade_no = $request->getParam("out_trade_no");
 
+        $log->addDebug("out_trade_no:". $out_trade_no);
         $order = OrderModel::getOrderByOrderId($out_trade_no);
-
+        $log->addDebug("order", $order);
         call_user_func([$this,$order['pay_type']], $request, $order);
     }
 
-    private function alipay(ServerRequest $request, $order)
+    public function alipay(ServerRequest $request, $order)
     {
+        $log = myLog("NotifyLogic_alipay");
+
+        $log->addDebug("query_params:", $request->getQueryParams());
+        $log->addDebug("body:".$request->getBody()->getContents());
         //TODO: 验签
 
         //更新订单
@@ -49,7 +55,7 @@ class NotifyLogic extends BaseLogic
 
     }
 
-    private function wechat(ServerRequest $request, $order)
+    public function wechat(ServerRequest $request, $order)
     {
         //TODO: 验签
 

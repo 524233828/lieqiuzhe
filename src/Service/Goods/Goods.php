@@ -46,6 +46,8 @@ class Goods
 
     public static function coin($order_id)
     {
+        $log = myLog("Goods_coin");
+        $log->addDebug("order_id:".$order_id);
         //取出用户当前余额
         $order = OrderModel::getOrderByOrderId($order_id);
         $current_bill = UserBillModel::getCurrentBill($order['user_id']);
@@ -65,6 +67,7 @@ class Goods
         ];
 
         $result = UserBillModel::add($data);
+        $log->addDebug("result:".$result);
     }
 
 }

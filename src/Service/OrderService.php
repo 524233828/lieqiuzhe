@@ -17,8 +17,11 @@ class OrderService
 
     public static function updateOrder($order, $data)
     {
+        $log = myLog("OrderService_updateOrder");
         //更新订单状态
-        OrderModel::update($data,["order_id" => $order['order_id']]);
+        $result = OrderModel::update($data,["order_id" => $order['order_id']]);
+
+        $log->addDebug("result:".$result);
 
         //更新商品状态
         $gateway = Goods::$gateway[$order['product_id']];

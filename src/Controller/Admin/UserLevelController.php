@@ -10,13 +10,14 @@ namespace Controller\Admin;
 
 use FastD\Http\ServerRequest;
 use Logic\Admin\AdventureLogic;
+use Logic\Admin\UserLevelLogic;
 
 class UserLevelController extends AdminBaseController
 {
 
     public function __construct()
     {
-        $this->logic = AdventureLogic::getInstance();
+        $this->logic = UserLevelLogic::getInstance();
 
         $this->add_valid = [
             "price" => "required|url",

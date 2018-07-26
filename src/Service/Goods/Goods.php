@@ -29,11 +29,13 @@ class Goods
 
     public static function userLevel($order_id)
     {
+        $log = myLog("Goods_userLevel");
+        $log->addDebug("order_id:".$order_id);
         //更新用户等级购买表
         $user_level_order = UserLevelOrderModel::getUserLevelOrderByOrderId($order_id);
         $end_time = time() + $user_level_order['month'] * 2592000;
-        UserLevelOrderModel::update(['status' => 1, 'end_time' => $end_time],["order_id" => $order_id]);
-
+        $result = UserLevelOrderModel::update(['status' => 1, 'end_time' => $end_time],["order_id" => $order_id]);
+        $log->addDebug("result:".$result);
     }
 
     public static function analystLevel($order_id)

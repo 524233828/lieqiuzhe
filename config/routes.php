@@ -279,4 +279,8 @@ route()->group(['prefix' => '/admin', 'middleware' => 'dispatch'],function(){
     route()->get("/user_level","Admin\UserLevelController@listAction");
     route()->post("/user_level/update","Admin\UserLevelController@updateAction");
 
+    //分析师等级等级商品
+    route()->get("/analyst_level","Admin\AnalystLevelController@listAction");
+    route()->post("/analyst_level/update","Admin\AnalystLevelController@updateAction");
+
 });

@@ -195,7 +195,9 @@ class BuyLogic extends BaseLogic
         }else{
             $order = [
                 "out_trade_no" => $order_id,
-                "total_amount" => $num,
+                //TODO:测试暂时改成支付0.01
+//                "total_amount" => $num,
+                "total_amount" => 0.01,
                 "subject" => $info,
             ];
         }

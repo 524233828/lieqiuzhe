@@ -48,7 +48,7 @@ class RecommendController extends AdminBaseController
 
         $params['info_id'] = $info_id;
 
-        return $this->response(RecommendLogic::getInstance()->addRecommend($params));
+        return $this->response(RecommendLogic::getInstance()->addAction($params));
     }
 
 }

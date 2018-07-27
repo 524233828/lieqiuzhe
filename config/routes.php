@@ -51,7 +51,7 @@ route()->group(["prefix" => "/analyst", "middleware" => "dispatch"], function(){
 //发推荐选择页
 route()->group(["prefix" => "/recommend", "middleware" => "dispatch"], function(){
     route()->get("/match_list", 'RecommendMatchChoseController@matchList');
-    route()->get("/odd", 'RecommendController@matchInfo');
+    route()->get("/odd", 'RecommendController@matchInfo')->withAddMiddleware("login");
     route()->post("/add", 'RecommendController@addRecommend')->withAddMiddleware("login");
     route()->get("/detail", 'RecommendController@RecommendDetail');
 

@@ -36,10 +36,25 @@ class RecommendLogic extends BaseLogic
 
     public function matchInfo($odd_id)
     {
+        $uid = UserLogic::$user['id'];
+        $today = date("Y-m-d");
+
+        $start_time = strtotime($today);
+        $end_time = strtotime($today."+1 day");
+        $recommend_count = RecommendModel::countRecommend([
+            "create_time[>=]" => $start_time,
+            "create_time[<]" => $end_time,
+            "analyst_id" => $uid
+        ]);
+        $is_write = $this->isWrite($recommend_count)? 1 : 0;
         //TODO: 假数据
         $json = "{\"league_name\":\"西甲\",\"match_time\":1526825700,\"home\":\"毕尔巴鄂竞技\",\"home_flag\":\"http:\/\/zq.win007.com\/Image\/team\/images\/2013121171136.jpg\",\"away\":\"西班牙人\",\"away_flag\":\"http:\/\/zq.win007.com\/Image\/team\/images\/20140818190012.png\",\"option\":[{\"option_id\":4087,\"option_name\":\"主胜\",\"odds_rate\":\"1.00\"},{\"option_id\":4088,\"option_name\":\"客胜\",\"odds_rate\":\"0.89\"}],\"extra\":{\"first_handicap\":\"0.5\",\"first_home\":\"0.90\",\"first_away\":\"0.98\",\"current_handicap\":\"0\",\"current_home\":\"1.00\",\"current_away\":\"0.89\"},\"home_info\":[{\"id\":1,\"desc\":\"【阵容】毕尔巴鄂竞技俱乐部已证实主帅C.兹干达不会留任。另外球队目前3名后卫米克尔-多明戈斯、伊尼戈-马丁内斯及萨沃里特均因黄牌累积停赛，对防线影响极大。\"},{\"id\":2,\"desc\":\"【状态】毕尔巴鄂竞技的主场成绩位列西甲倒数第4，赛季18个主场虽然保持超过7成胜率，但以8个平局成为西甲主场战平最多的队伍，缺乏足够的主场气势。\"}],\"away_info\":[{\"id\":3,\"desc\":\"【阵容】至今仍未与球队续约的老将前锋塞尔吉奥-加西亚上战贡献1球1助攻，而伤愈复出的中场皮亚蒂更于尾段操刀12码入球，球队攻力不容小觑。\"},{\"id\":4,\"desc\":\"【主帅】西班牙人主帅戴维-加莱戈因在对阵马德里竞技的比赛投诉过激而被逐，赛后被追加停赛两场，本场仍然未能在场边指挥。\"}]}";
 
-        return json_decode($json, true);
+        $result = json_decode($json, true);
+
+        $result['is_write'] = $is_write;
+
+        return $result;
 
         $odd = OddModel::get($odd_id);
 
@@ -110,6 +125,8 @@ class RecommendLogic extends BaseLogic
             "away_info" => $away_info
         ];
 
+        $response['is_write'] = $is_write;
+
         return $response;
     }
 
@@ -146,10 +163,8 @@ class RecommendLogic extends BaseLogic
             "analyst_id" => $uid
         ]);
 
-        //TODO: 更换成根据分析师等级变动
-        $can_add = 5;
 
-        if($recommend_count >= $can_add)
+        if(!$this->isWrite($recommend_count))
         {
             AnalystException::analystLevelTooLow();
         }
@@ -486,5 +501,19 @@ class RecommendLogic extends BaseLogic
 
         return ["league_list" => $league_list, "match_list" => $list];
 
+    }
+
+    public function isWrite($recommend_count)
+    {
+
+        //TODO: 更换成根据分析师等级变动
+        $can_add = 5;
+
+        if($recommend_count >= $can_add)
+        {
+            return false;
+        }
+
+        return true;
     }
 }

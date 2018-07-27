@@ -38,11 +38,11 @@ class RecommendLogic extends AdminBaseLogic
 
     public function addAction($params)
     {
-        if(!UserModel::get($params['id'])) {
+        if(!UserModel::get($params['analyst_id'])) {
             UserException::UserNotFound();
         }
 
-        $uid = $params['id'];
+        $uid = $params['analyst_id'];
 
         $user = UserModel::getUserInfo($uid,['user_type']);
 

@@ -118,9 +118,12 @@ SQL;
         $team_table = TeamModel::$table;
         $columns = [
             'm.id as rec_id',
+            'm.id as analyst_id',
             'd.gb as league_name',
             'r.gb as home',
+            'r.flag as home_flag',
             'f.gb as away',
+            'f.flag as away_flag',
             'g.extra as extra',
             'm.title as rec_title',
             'm.`desc` as rec_desc',

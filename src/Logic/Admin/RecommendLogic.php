@@ -103,7 +103,7 @@ class RecommendLogic extends AdminBaseLogic
 
         if($recommend)
         {
-            return [''=>$recommend];
+            return ['rec_id'=>$recommend];
         }else{
             RecommendException::recommendFail();
         }

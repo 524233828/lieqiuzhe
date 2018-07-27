@@ -18,7 +18,7 @@ class AnalystLevelController extends AdminBaseController
         $this->logic = AnalystLevelLogic::getInstance();
 
         $this->add_valid = [
-            "price" => "required|url",
+            "price" => "required",
         ];
     }
 

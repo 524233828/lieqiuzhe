@@ -432,6 +432,11 @@ SQL;
         return $result[0]['num'];
     }
 
+    public static function fetchRecommendByOddId($odd_id, $columns = "*")
+    {
+        return self::fetch($columns, ["odd_id" => $odd_id]);
+    }
+
 
 
 }

@@ -20,7 +20,7 @@ class UserLevelController extends AdminBaseController
         $this->logic = UserLevelLogic::getInstance();
 
         $this->add_valid = [
-            "price" => "required|url",
+            "price" => "required",
         ];
     }
 

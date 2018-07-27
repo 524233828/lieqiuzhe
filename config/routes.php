@@ -283,4 +283,8 @@ route()->group(['prefix' => '/admin', 'middleware' => 'dispatch'],function(){
     route()->get("/analyst_level","Admin\AnalystLevelController@listAction");
     route()->post("/analyst_level/update","Admin\AnalystLevelController@updateAction");
 
+    //发推荐
+    route()->get("/recommend/odd","Admin\RecommendController@matchInfo");
+    route()->post("/recommend/add","Admin\RecommendController@addRecommend");
+
 });

@@ -62,3 +62,59 @@ function error($code)
 {
     throw new Exception(\Constant\ErrorCode::msg($code),$code);
 }
+
+/**
+ * 批量更新
+ *
+ * $data = [["id"=>xxx,"field"=>xxx],["id"=>xxx,"field"=>xxx]]
+ *
+ * @param string $table_name 表名
+ * @param array $data 更新数组
+ * @param string $field 主键字段
+ * @return boolean 返回影响行数
+ */
+function batch_update($table_name = '', $data = array(), $field = 'id') {
+    if (!$table_name || !$data || !$field) {
+        return false;
+    } else {
+        $sql = 'UPDATE ' . config()->get('database')['default']['prefix'] .$table_name;
+    }
+    $con = array();
+    $con_sql = array();
+    $fields = array();
+    foreach ($data as $key => $value) {
+        $x = 0;
+        foreach ($value as $k => $v) {
+            if ($k != $field && empty($con[$x]) && $x == 0) {
+                $con[$x] = " set {$k} = (CASE {$field} ";
+            } elseif ($k != $field && empty($con[$x]) && $x > 0) {
+                $con[$x] = " {$k} = (CASE {$field} ";
+            }
+            if ($k != $field) {
+                $temp = $value[$field];
+
+                empty($con_sql[$x]) && $con_sql[$x] = '';
+                $con_sql[$x] .= " WHEN '{$temp}' THEN '{$v}' ";
+                $x++;
+            }
+        }
+        $temp = $value[$field];
+        if (!in_array($temp, $fields)) {
+            $fields[] = $temp;
+        }
+    }
+    $num = count($con) - 1;
+    foreach ($con as $key => $value) {
+        foreach ($con_sql as $k => $v) {
+            if ($k == $key && $key < $num) {
+                $sql .= $value . $v . ' end),';
+            } elseif ($k == $key && $key == $num) {
+                $sql .= $value . $v . ' end)';
+            }
+        }
+    }
+    $str = implode(',', $fields);
+    $sql .= " where {$field} in({$str})";
+    $data = database()->query($sql);
+    return $data->rowCount();
+}

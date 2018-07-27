@@ -223,7 +223,9 @@ class MatchChangeService
         $msg->concernStopPush($match_id);
 
         //结算推荐单
+        $recommend = new RecommendService();
 
+        $recommend->settleRecommend($match_id);
 
     }
 }

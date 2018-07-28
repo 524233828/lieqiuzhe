@@ -8,6 +8,7 @@ use Model\AnalystInfoModel;
 use Model\FansModel;
 use Model\IconsModel;
 use Model\RecommendModel;
+use Model\UserBillModel;
 use Model\UserLevelOrderModel;
 use Model\UserModel;
 
@@ -57,7 +58,7 @@ class UserLogic extends BaseLogic
         $info['level_icon'] = $level_icon[0];
         $info['gifts'] = $info['ticket'];
         unset($info['ticket']);
-        $info['bill'] = 10;
+        $info['bill'] = UserBillModel::getCurrentBill($uid);
         $info['fans'] = $fans;
 
         return $info;

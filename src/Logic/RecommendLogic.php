@@ -194,7 +194,7 @@ class RecommendLogic extends BaseLogic
 
         if($recommend)
         {
-            return [''=>$recommend];
+            return ['rec_id'=>$recommend];
         }else{
             RecommendException::recommendFail();
         }

@@ -42,13 +42,13 @@ class OrderModel extends BaseModel
 SELECT 
   FROM_UNIXTIME(pay_time,'{$format}') as pay_date,
   sum(settlement_total_fee) as income
-FROM {$table} 
+FROM `{$table}`
 WHERE 
   `status`>0 
 AND
-  pay_time>=$start_time
+  pay_time>={$start_time}
 AND
-  pay_time<$end_time
+  pay_time<{$end_time}
 GROUP BY pay_date
 SQL;
         return database()->query($sql)->fetchAll();

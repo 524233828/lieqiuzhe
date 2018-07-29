@@ -399,7 +399,10 @@ class RecommendLogic extends BaseLogic
 
         foreach ($analyst_index_list as $analyst_id => $value)
         {
-            $level = isset($analyst_index_level[$analyst_id]['level'])? $analyst_index_level[$analyst_id]['level'] : 1;
+            $level = isset($analyst_index_level[$analyst_id]['level'])
+            && $analyst_index_level[$analyst_id]['level'] != 0
+                ? $analyst_index_level[$analyst_id]['level']
+                : 1;
             $analyst_index_list[$analyst_id]['level'] = $level;
             $analyst_index_list[$analyst_id]['icon'] = $level_icons[$analyst_index_level[$analyst_id]['level']];
         }

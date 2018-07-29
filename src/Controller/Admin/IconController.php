@@ -18,7 +18,7 @@ class IconController extends AdminBaseController
         $this->logic = IconLogic::getInstance();
 
         $this->add_valid = [
-            "recommend_num" => "required|integer",
+            "num" => "required|integer",
         ];
     }
 

@@ -31,7 +31,7 @@ class IncomeStaticLogic extends BaseLogic
 
         if(empty($start_date))
         {
-            $start_date = date("Ymd", time());
+            $start_date = date("Ymd", time()-31536000);
         }
 
         $start_time = strtotime($start_date);

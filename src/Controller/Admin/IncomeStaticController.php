@@ -26,7 +26,11 @@ class IncomeStaticController extends BaseController
      */
     public function incomeStatic(ServerRequest $request)
     {
-        return $this->response(IncomeStaticLogic::getInstance()->incomeStatic());
+        $start_date = $request->getParam("start_date", null);
+        $end_date = $request->getParam("end_date", null);
+        $format = $request->getParam("format", "month");
+
+        return $this->response(IncomeStaticLogic::getInstance()->incomeStatic($start_date, $end_date, $format));
     }
 
 }

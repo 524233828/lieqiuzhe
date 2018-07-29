@@ -288,4 +288,7 @@ route()->group(['prefix' => '/admin', 'middleware' => 'dispatch'],function(){
     route()->post("/recommend/add","Admin\RecommendController@addRecommend");
     route()->get("/recommend/list","Admin\RecommendController@RecommendList");
 
+    //收入统计
+    route()->get("/income_static","Admin\IncomeStaticController@incomeStatic");
+
 });

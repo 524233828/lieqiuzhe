@@ -236,6 +236,11 @@ class RecommendLogic extends BaseLogic
             }
             //获取等级和每天能看次数
             $current_level = UserLevelOrderModel::getUserCurrentLevel($uid);
+            if(!$current_level){
+                $current_level = 0;
+            }else{
+                $current_level = $current_level['level'];
+            }
             if($count > config()->get('user')[$current_level['level']]){
                 $res['rec_desc'] = '';
                 $res['option'] = [];

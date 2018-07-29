@@ -404,7 +404,7 @@ class RecommendLogic extends BaseLogic
                 ? $analyst_index_level[$analyst_id]['level']
                 : 1;
             $analyst_index_list[$analyst_id]['level'] = $level;
-            $analyst_index_list[$analyst_id]['icon'] = $level_icons[$analyst_index_level[$analyst_id]['level']];
+            $analyst_index_list[$analyst_id]['icon'] = $level_icons[$level];
         }
 
         $list = array_values($analyst_index_list);

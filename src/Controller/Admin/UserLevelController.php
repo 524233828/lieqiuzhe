@@ -22,6 +22,7 @@ class UserLevelController extends AdminBaseController
         $this->add_valid = [
             "price" => "required",
             "intro" => "null",
+            "recommend_num" => "required|integer",
         ];
     }
 

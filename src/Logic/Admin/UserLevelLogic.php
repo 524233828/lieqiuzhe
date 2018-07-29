@@ -21,6 +21,7 @@ class UserLevelLogic extends AdminBaseLogic
         "month",
         "price",
         "intro",
+        "recommend_num",
     ];
 
     public function listAction($params)
@@ -53,6 +54,7 @@ class UserLevelLogic extends AdminBaseLogic
             "month",
             "price",
             "intro",
+            "recommend_num",
         ],$where);
 
         return ["list"=>$list, "meta" => $pager->getPager($count)];

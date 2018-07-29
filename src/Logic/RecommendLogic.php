@@ -214,7 +214,8 @@ class RecommendLogic extends BaseLogic
         $res['hit_rate'] = $res['record'] == '' ? 0 : FuntionHelper::winRate($res['record']);
         $res['rec_time'] =date('m/d H:i', $res['rec_time']);
         $res['is_read'] = 1;
-        $res['extra'] = json_decode($res['extra'], true);
+        $extra = json_decode($res['extra'], true);
+        $res['extra'] = count($extra) == 0 ? '' : $extra;
 
         $res['is_fans'] = 0;
         if($uid) {

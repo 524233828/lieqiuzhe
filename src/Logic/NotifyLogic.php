@@ -48,7 +48,7 @@ class NotifyLogic extends BaseLogic
             "coupon_fee" => $coupon_fee,
             "transaction_id" => $request->getParam('trade_no'),
             "bank_type" => "",
-            "pay_time" => $request->getParam('gmt_payment'),
+            "pay_time" => strtotime($request->getParam('gmt_payment')),
             "status" => 1
         ];
         OrderService::updateOrder($order, $order_data);

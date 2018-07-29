@@ -241,7 +241,7 @@ class RecommendLogic extends BaseLogic
             }else{
                 $current_level = $current_level['level'];
             }
-            if($count > config()->get('user')[$current_level['level']]){
+            if($count > config()->get('user')[$current_level]){
                 $res['rec_desc'] = '';
                 $res['option'] = [];
                 $res['extra'] = [];

@@ -214,7 +214,8 @@ class RecommendLogic extends BaseLogic
         $res['hit_rate'] = $res['record'] == '' ? 0 : FuntionHelper::winRate($res['record']);
         $res['rec_time'] =date('m/d H:i', $res['rec_time']);
         $res['is_read'] = 1;
-        $res['extra'] = json_decode($res['extra'], true);
+        $extra = json_decode($res['extra'], true);
+        $res['extra'] = count($extra) == 0 ? '' : $extra;
 
         $res['is_fans'] = 0;
         if($uid) {
@@ -236,10 +237,15 @@ class RecommendLogic extends BaseLogic
             }
             //获取等级和每天能看次数
             $current_level = UserLevelOrderModel::getUserCurrentLevel($uid);
-            if($count > config()->get('user')[$current_level['level']]){
+            if(!$current_level){
+                $current_level = 0;
+            }else{
+                $current_level = $current_level['level'];
+            }
+            if($count > config()->get('user')[$current_level]){
                 $res['rec_desc'] = '';
-                $res['option'] = [];
-                $res['extra'] = [];
+                $res['option'] = null;
+                $res['extra'] = null;
                 $res['is_read'] = 0;
                 //如果不能看，填空部分内容
             }else{

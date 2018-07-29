@@ -440,6 +440,42 @@ SQL;
         return self::fetch($columns, ["odd_id" => $odd_id]);
     }
 
+    public static function getRecommends($start, $count = 20)
+    {
+        $match_table = MatchModel::$table;
+        $analyst_table = AnalystInfoModel::$table;
+        $odd_table = OddModel::$table;
+        $league_table = LeagueModel::$table;
+        $team_table = TeamModel::$table;
+        $columns = [
+            'm.id as rec_id',
+            'm.analyst_id',
+            'd.gb as league_name',
+            'r.gb as home',
+            'r.flag as home_flag',
+            'f.gb as away',
+            'f.flag as away_flag',
+            'g.extra as extra',
+            'm.title as rec_title',
+            'm.`desc` as rec_desc',
+            'm.`result` as result',
+            "FROM_UNIXTIME(h.start_time,'%m/%d %H:%i') as match_time",
+            'm.`option_id` as option_id',
+        ];
+        $column = is_array($columns) ? implode(",", $columns) : $columns;
+        $sql = <<<SQL
+SELECT {$column}
+FROM `recommend` as m
+LEFT JOIN `{$odd_table}` as g ON m.odd_id = g.id
+LEFT JOIN `{$match_table}` as h ON g.match_id = h.id
+LEFT JOIN `{$league_table}` as d ON d.id = h.league_id
+LEFT JOIN `{$team_table}` as r ON h.home_id = r.id
+LEFT JOIN `{$team_table}` as f ON h.away_id = f.id
+LEFT JOIN `{$analyst_table}` as k ON k.id = m.analyst_id
+LIMIT {$start}, {$count}
+SQL;
 
+        return database()->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
+    }
 
 }

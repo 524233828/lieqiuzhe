@@ -109,68 +109,19 @@ class RecommendLogic extends AdminBaseLogic
         }
     }
 
-    public function listAction($params)
+    public function listAction($page = 1, $size = 20)
     {
-        //列表分页参数
-        $page = isset($params['page'])?$params['page']:1;
-        $size = isset($params['size'])?$params['size']:20;
-
         $pager = new Pager($page, $size);
-
-        $where = null;
-
-        //检查请求参数中是否有筛选可用参数，有则按参数筛选
-        foreach ($this->list_filter as $k => $v){
-            if(isset($params[$v]))
-            {
-                $where[$k.".".$v] = $params[$v];
-            }
+        $start =  $size * ($page-1);
+        $rs = RecommendModel::getRecommends($start, $size);
+        $count = RecommendModel::countRecommend([]);
+        foreach ($rs as &$v) {
+            $result = RecommendModel::fetchOne($v['rec_id']);
+            $options = OptionModel::getOptionByOddId($result['odd_id'],['id','option','odds_rate']);
+            $v['option'] = $options;
+            $v['extra'] = json_decode($v['extra'], true);
         }
-
-        if(isset($params['home_name'])){
-            $where["h.gb"] = $params['home_name'];
-        }
-
-        if(isset($params['away_name'])){
-            $where["a.gb"] = $params['away_name'];
-        }
-
-        if(isset($params['status'])){
-            $where["m.status"] = $params['status'];
-        }
-
-        if(isset($params['start_time'])){
-            $start_time = strtotime($params['start_time']);
-            $end_time = strtotime($params['start_time']. "+1 day");
-            $where["m.start_time[>=]"] = $start_time;
-            $where["m.start_time[<]"] = $end_time;
-        }
-
-        //计算符合筛选参数的行数
-        $count = MatchModel::countMatch($where);
-
-        //分页
-        $where["LIMIT"] = [$pager->getFirstIndex(), $size];
-        $where["ORDER"] = ["start_time" => "DESC"];
-
-        $list = MatchModel::fetchMatch($where,[
-            "m.id",
-            "l.gb_short(league_name)",
-            "m.start_time(match_time)",
-            "h.gb(home)",
-            "a.gb(away)",
-            "m.status",
-            "m.home_score",
-            "m.away_score",
-            "m.is_recommend"
-        ]);
-
-        foreach ($list as $k=>$v)
-        {
-            $list[$k]['match_time'] = date("Y-m-d H:i:s", $v['match_time']);
-        }
-
-        return ["list"=>$list, "meta" => $pager->getPager($count)];
+        return ['list'=> $rs, 'meta'=>$pager->getPager($count)];
     }
 
     public function getAction($params)

@@ -51,4 +51,11 @@ class RecommendController extends AdminBaseController
         return $this->response(RecommendLogic::getInstance()->addAction($params));
     }
 
+    public function RecommendList(ServerRequest $request)
+    {
+        $page = $request->getParam("page", 1);
+        $size = $request->getParam("size", 20);
+
+        return $this->response(RecommendLogic::getInstance()->listAction($page, $size));
+    }
 }

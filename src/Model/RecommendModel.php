@@ -342,7 +342,8 @@ SELECT
 	l.id as league_id,
 	home.gb as home,
 	away.gb as away,
-	a.intro,
+-- 	a.intro,
+    r.desc as intro
 	a.ticket,
 	hit_rate.hit_rate,
 	hit_rate.win_str

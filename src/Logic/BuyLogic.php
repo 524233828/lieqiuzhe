@@ -331,7 +331,7 @@ class BuyLogic extends BaseLogic
 
     public function userLevelPriceList($level = null, $month = null)
     {
-        $list = AnalystLevelModel::fetchAnalystLevel($level, $month);
+        $list = UserLevelModel::fetchUserLevel($level, $month);
 
         return ["list" => $list];
     }

@@ -372,6 +372,39 @@ class RecommendLogic extends BaseLogic
 
         $list = RecommendModel::RecommendList($where,$where2,$order,null,$limit);
 
+        //获取当前等级图标，NMSL
+        $analyst_index_list = [];
+        $analyst_ids = [];
+        foreach ($list as $k => $v)
+        {
+            $analyst_index_list[$v['analyst_id']] = $v;
+            $analyst_ids[] = $v['analyst_id'];
+        }
+
+        $levels = AnalystLevelOrderModel::fetchAnalystCurrentLevel($analyst_ids);
+
+        $analyst_index_level = [];
+        foreach ($levels as $level){
+            $analyst_index_level[$level['uid']] = $level;
+        }
+
+        $icons = IconsModel::fetch("*", ["type" => 1]);
+
+        //["1" => "url"]
+        $level_icons = [];
+        foreach ($icons as $icon)
+        {
+            $level_icons[$icon['level']] = $icon['icon'];
+        }
+
+        foreach ($analyst_index_list as $analyst_id => $value)
+        {
+            $analyst_index_list[$analyst_id]['level'] = $analyst_index_level[$analyst_id]['level'];
+            $analyst_index_list[$analyst_id]['icon'] = $level_icons[$analyst_index_level[$analyst_id]['level']];
+        }
+
+        $list = array_values($analyst_index_list);
+
         return ["list" => $list, "meta" => $pager->getPager($count)];
     }
 

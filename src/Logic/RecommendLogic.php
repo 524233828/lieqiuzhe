@@ -244,8 +244,8 @@ class RecommendLogic extends BaseLogic
             }
             if($count > config()->get('user')[$current_level]){
                 $res['rec_desc'] = '';
-                $res['option'] = [];
-                $res['extra'] = [];
+                $res['option'] = null;
+                $res['extra'] = null;
                 $res['is_read'] = 0;
                 //如果不能看，填空部分内容
             }else{

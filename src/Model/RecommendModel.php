@@ -343,7 +343,7 @@ SELECT
 	home.gb as home,
 	away.gb as away,
 -- 	a.intro,
-    r.desc as intro
+    r.desc as intro,
 	a.ticket,
 	hit_rate.hit_rate,
 	hit_rate.win_str

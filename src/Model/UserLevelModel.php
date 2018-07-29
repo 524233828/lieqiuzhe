@@ -45,6 +45,7 @@ class UserLevelModel extends BaseModel
                 self::$table.".level",
                 self::$table.".month",
                 self::$table.".price",
+                self::$table.".intro",
                 IconsModel::$table.".icon",
             ],
             $where

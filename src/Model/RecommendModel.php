@@ -440,6 +440,24 @@ SQL;
         return self::fetch($columns, ["odd_id" => $odd_id]);
     }
 
+    public static function countRecommendByAnalystId(array $analyst_ids)
+    {
+        if(empty($analyst_ids)){
+            return [];
+        }
 
+        $analyst_id = implode("','",$analyst_ids);
 
+        $sql = <<<SQL
+SELECT
+  COUNT(*) as num,
+  analyst_id
+FROM `recommend`
+WHERE analyst_id IN ('{$analyst_id}')
+GROUP BY analyst_id
+SQL;
+
+        return database()->pdo->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
+
+    }
 }

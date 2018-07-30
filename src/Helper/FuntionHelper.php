@@ -33,7 +33,12 @@ class FuntionHelper
 
         $win = substr_count($record,'1');
         $all = strlen($record);
-        return sprintf("%01.2f", $win/$all*100).'%';
+        if($all>0){
+            return sprintf("%01.2f", $win/$all*100).'%';
+        }else{
+            return "0%";
+        }
+
     }
 
     public static function changeBaifenbi($record)

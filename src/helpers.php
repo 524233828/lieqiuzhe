@@ -118,3 +118,10 @@ function batch_update($table_name = '', $data = array(), $field = 'id') {
     $data = database()->query($sql);
     return $data->rowCount();
 }
+
+function levelEndTime($end_time){
+
+    $gap = $end_time - time();
+
+    return bcdiv($gap, 86400, 0);
+}

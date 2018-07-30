@@ -109,7 +109,7 @@ class BuyLogic extends BaseLogic
 
         $current_level = AnalystLevelOrderModel::getAnalystCurrentLevel(UserLogic::$user['id']);
 
-        if($current_level >= $level)
+        if($current_level['level'] >= $level)
         {
             UserException::userLevelExists();
         }

@@ -342,7 +342,8 @@ SELECT
 	l.id as league_id,
 	home.gb as home,
 	away.gb as away,
-	a.intro,
+-- 	a.intro,
+    r.desc as intro,
 	a.ticket,
 	hit_rate.hit_rate,
 	hit_rate.win_str
@@ -476,6 +477,27 @@ LIMIT {$start}, {$count}
 SQL;
 
         return database()->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public static function countRecommendByAnalystId(array $analyst_ids)
+    {
+        if(empty($analyst_ids)){
+            return [];
+        }
+
+        $analyst_id = implode("','",$analyst_ids);
+
+        $sql = <<<SQL
+SELECT
+  COUNT(*) as num,
+  analyst_id
+FROM `recommend`
+WHERE analyst_id IN ('{$analyst_id}')
+GROUP BY analyst_id
+SQL;
+
+        return database()->pdo->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
+
     }
 
 }

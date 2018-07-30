@@ -23,4 +23,35 @@ class OrderModel extends BaseModel
     {
         return database()->get(self::$table, $columns, ["order_id" => $order_id]);
     }
+
+    public static function incomeStaticSum()
+    {
+        return database()->sum(self::$table,"settlement_total_fee",["status[>]"=>0]);
+    }
+
+    public static function dailyIncome($start_time,$end_time, $format = "%Y-%m")
+    {
+        if($start_time>$end_time)
+        {
+            return [];
+        }
+
+        $table = self::$table;
+
+        $sql = <<<SQL
+SELECT 
+  FROM_UNIXTIME(pay_time,'{$format}') as pay_date,
+  sum(settlement_total_fee) as income
+FROM `{$table}`
+WHERE 
+  `status`>0 
+AND
+  pay_time>={$start_time}
+AND
+  pay_time<{$end_time}
+GROUP BY pay_date
+SQL;
+        return database()->query($sql)->fetchAll();
+
+    }
 }

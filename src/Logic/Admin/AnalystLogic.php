@@ -13,6 +13,7 @@ use Exception\AnalystException;
 use Exception\BaseException;
 use Model\AnalystInfoModel;
 use Model\AnalystLevelOrderModel;
+use Model\RecommendModel;
 use Model\UserModel;
 use Service\Pager;
 
@@ -66,11 +67,20 @@ class AnalystLogic extends AdminBaseLogic
             $ids[] = $v['id'];
         }
 
+        //获取分析师的等级
         $level_list = AnalystLevelOrderModel::fetchAnalystCurrentLevel($ids);
 
         foreach ($level_list as $value){
 
             $analyst_list[$value['uid']]['level'] = $value['level'];
+        }
+
+        //获取分析师发的单数
+        $count_recommend_list = RecommendModel::countRecommendByAnalystId($ids);
+
+        foreach ($count_recommend_list as $value)
+        {
+            $analyst_list[$value['analyst_id']]['recommend_count'] = $value['num'];
         }
 
         $list = array_values($analyst_list);

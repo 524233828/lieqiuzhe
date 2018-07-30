@@ -3,8 +3,8 @@
 namespace Logic;
 
 use Exception\UserException;
-use http\Exception;
 use Model\AnalystInfoModel;
+use Model\AnalystLevelOrderModel;
 use Model\FansModel;
 use Model\IconsModel;
 use Model\RecommendModel;
@@ -43,17 +43,27 @@ class UserLogic extends BaseLogic
     public function getUserInfo()
     {
         $uid = UserLogic::$user['id'];
-        $current_level = UserLevelOrderModel::getUserCurrentLevel($uid);
-        $current_level = $current_level ? $current_level['level'] : 1;
+
         $info = UserModel::getUserInfo($uid,['nickname','avatar','user_type','ticket','sex','phone']);
+
+        $fans = 0;
+        if(1 == $info['user_type']) {
+            $fans = FansModel::getCountFansByAnalystId($uid);
+            $current_level = AnalystLevelOrderModel::getAnalystCurrentLevel($uid);
+        }else{
+            $fans = FansModel::countFansByUserId($uid);
+            $current_level = UserLevelOrderModel::getUserCurrentLevel($uid);
+        }
+        $end_time = $current_level? $current_level['end_time'] : null;
+        if(!empty($end_time))
+        {
+            $info['level_end_date'] = levelEndTime($end_time);
+        }
+        $current_level = $current_level ? $current_level['level'] : 1;
 
         $level_icon = '';
         !$current_level && $current_level = 1;
         $current_level && $level_icon = IconsModel::fetch('icon', ['type'=> $info['user_type'],  'level' => $current_level]);
-        $fans = 0;
-        if(1 == $info['user_type']) {
-            $fans = FansModel::getCountFansByAnalystId($uid);
-        }
 
         $info['level'] = $current_level;
         $info['level_icon'] = $level_icon[0];

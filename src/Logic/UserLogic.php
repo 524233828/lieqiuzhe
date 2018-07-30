@@ -3,7 +3,6 @@
 namespace Logic;
 
 use Exception\UserException;
-use http\Exception;
 use Model\AnalystInfoModel;
 use Model\AnalystLevelOrderModel;
 use Model\FansModel;
@@ -52,6 +51,7 @@ class UserLogic extends BaseLogic
             $fans = FansModel::getCountFansByAnalystId($uid);
             $current_level = AnalystLevelOrderModel::getAnalystCurrentLevel($uid);
         }else{
+            $fans = FansModel::countFansByUserId($uid);
             $current_level = UserLevelOrderModel::getUserCurrentLevel($uid);
         }
 

@@ -47,4 +47,11 @@ class FansModel extends BaseModel
             'analyst_id' => $analyst_id,
         ]);
     }
+
+    public static function countFansByUserId($user_id)
+    {
+        return database()->count(self::$table, [
+            'user_id' => $user_id,
+        ]);
+    }
 }

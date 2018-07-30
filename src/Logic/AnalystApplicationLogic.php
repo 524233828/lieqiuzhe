@@ -27,7 +27,7 @@ class AnalystApplicationLogic extends BaseLogic
 
         $count = AnalystApplicationModel::count(["user_id"=>$data['user_id'], "status"=>0]);
 
-        if(!$count)
+        if($count)
         {
             error(ErrorCode::ANALYST_IN_REVIEW);
         }

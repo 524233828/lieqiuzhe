@@ -54,13 +54,13 @@ class UserLogic extends BaseLogic
             $fans = FansModel::countFansByUserId($uid);
             $current_level = UserLevelOrderModel::getUserCurrentLevel($uid);
         }
-
-        $current_level = $current_level ? $current_level['level'] : 1;
         $end_time = $current_level? $current_level['end_time'] : null;
         if(!empty($end_time))
         {
             $info['level_end_date'] = levelEndTime($end_time);
         }
+        $current_level = $current_level ? $current_level['level'] : 1;
+
         $level_icon = '';
         !$current_level && $current_level = 1;
         $current_level && $level_icon = IconsModel::fetch('icon', ['type'=> $info['user_type'],  'level' => $current_level]);

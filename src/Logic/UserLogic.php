@@ -56,6 +56,11 @@ class UserLogic extends BaseLogic
         }
 
         $current_level = $current_level ? $current_level['level'] : 1;
+        $end_time = $current_level? $current_level['end_time'] : null;
+        if(!empty($end_time))
+        {
+            $info['level_end_date'] = levelEndTime($end_time);
+        }
         $level_icon = '';
         !$current_level && $current_level = 1;
         $current_level && $level_icon = IconsModel::fetch('icon', ['type'=> $info['user_type'],  'level' => $current_level]);

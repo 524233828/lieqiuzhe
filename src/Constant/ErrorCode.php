@@ -60,6 +60,7 @@ class ErrorCode
     const ANALYST_ALREADY = 1110; // 已是分析师
     const ANALYST_IN_REVIEW = 1111; // 已是分析师
     const APPLICATION_CHECKED = 1112; // 已是分析师
+    const ANALYST_LIMIT_PUSH= 1113; // 已是分析师
 
     /**
      * 12xx推荐系统错误
@@ -142,6 +143,7 @@ class ErrorCode
         self::ANALYST_ALREADY =>    ['您已是分析师', Response::HTTP_BAD_REQUEST],
         self::ANALYST_IN_REVIEW =>    ['您的申请审核中', Response::HTTP_BAD_REQUEST],
         self::APPLICATION_CHECKED =>    ['已经审核过了', Response::HTTP_BAD_REQUEST],
+        self::ANALYST_LIMIT_PUSH =>    ['当前等级发推荐次数已用完', Response::HTTP_FORBIDDEN],
 
         //分析师 提示
 

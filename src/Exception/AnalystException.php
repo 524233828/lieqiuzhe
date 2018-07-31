@@ -80,4 +80,12 @@ class AnalystException extends BaseException
         );
     }
 
+    public static function analystLimitPush()
+    {
+        throw new self(
+            ErrorCode::msg(ErrorCode::ANALYST_LIMIT_PUSH),
+            ErrorCode::ANALYST_LIMIT_PUSH
+        );
+    }
+
 }

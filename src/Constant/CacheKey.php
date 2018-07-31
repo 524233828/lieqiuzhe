@@ -17,4 +17,5 @@ class CacheKey
     const BIND_PHONE_CODE_KEY = "qiuwen:bind_phone_code";
     const FORGET_PHONE_CODE_KEY = "qiuwen:forget_phone_code";
     const READ_COUNT = "qiuwen:readcount:";
+    const PUSH_COUNT = "qiuwen:pushcount:";
 }

@@ -37,20 +37,31 @@ class RecommendLogic extends BaseLogic
     public function matchInfo($odd_id)
     {
         $uid = UserLogic::$user['id'];
-        $today = date("Y-m-d");
 
-        $start_time = strtotime($today);
-        $end_time = strtotime($today."+1 day");
-        $recommend_count = RecommendModel::countRecommend([
-            "create_time[>=]" => $start_time,
-            "create_time[<]" => $end_time,
-            "analyst_id" => $uid
-        ]);
-        $is_write = $this->isWrite($recommend_count)? 1 : 0;
         //TODO: 假数据
         $json = "{\"league_name\":\"西甲\",\"match_time\":1526825700,\"home\":\"毕尔巴鄂竞技\",\"home_flag\":\"http:\/\/zq.win007.com\/Image\/team\/images\/2013121171136.jpg\",\"away\":\"西班牙人\",\"away_flag\":\"http:\/\/zq.win007.com\/Image\/team\/images\/20140818190012.png\",\"option\":[{\"option_id\":4087,\"option_name\":\"主胜\",\"odds_rate\":\"1.00\"},{\"option_id\":4088,\"option_name\":\"客胜\",\"odds_rate\":\"0.89\"}],\"extra\":{\"first_handicap\":\"0.5\",\"first_home\":\"0.90\",\"first_away\":\"0.98\",\"current_handicap\":\"0\",\"current_home\":\"1.00\",\"current_away\":\"0.89\"},\"home_info\":[{\"id\":1,\"desc\":\"【阵容】毕尔巴鄂竞技俱乐部已证实主帅C.兹干达不会留任。另外球队目前3名后卫米克尔-多明戈斯、伊尼戈-马丁内斯及萨沃里特均因黄牌累积停赛，对防线影响极大。\"},{\"id\":2,\"desc\":\"【状态】毕尔巴鄂竞技的主场成绩位列西甲倒数第4，赛季18个主场虽然保持超过7成胜率，但以8个平局成为西甲主场战平最多的队伍，缺乏足够的主场气势。\"}],\"away_info\":[{\"id\":3,\"desc\":\"【阵容】至今仍未与球队续约的老将前锋塞尔吉奥-加西亚上战贡献1球1助攻，而伤愈复出的中场皮亚蒂更于尾段操刀12码入球，球队攻力不容小觑。\"},{\"id\":4,\"desc\":\"【主帅】西班牙人主帅戴维-加莱戈因在对阵马德里竞技的比赛投诉过激而被逐，赛后被追加停赛两场，本场仍然未能在场边指挥。\"}]}";
 
         $result = json_decode($json, true);
+
+        $key = CacheKey::PUSH_COUNT.(date('Ymd')).':'.$uid;
+        if(redis()->exists($key)) {
+            $count = redis()->get($key);
+        }else{
+            $count = 0;
+        }
+        //获取等级和每天能发次数
+        $result['can_write_num'] = 0;
+        $is_write = 0;
+        if(UserLogic::$user['user_type'] == 1) {
+            $analyst_level = AnalystLevelOrderModel::getAnalystCurrentLevel($uid);
+            if(!$analyst_level){
+                $analyst_level = 0;
+            }else{
+                $analyst_level = $analyst_level['level'];
+            }
+            $result['can_write_num'] = config()->get('analyst')[$analyst_level] - $count;
+            $is_write = $result['can_write_num'] > 0 ? 1: 0;
+        }
 
         $result['is_write'] = $is_write;
 
@@ -112,6 +123,26 @@ class RecommendLogic extends BaseLogic
             ["odd_id" => $odd_id]
         );
 
+        $key = CacheKey::PUSH_COUNT.(date('Ymd')).':'.$uid;
+        if(redis()->exists($key)) {
+            $count = redis()->get($key);
+        }else{
+            $count = 0;
+        }
+        //获取等级和每天能看次数
+        $can_write_num = 0;
+        $is_write = 0;
+        if(UserLogic::$user['user_type'] == 1) {
+            $analyst_level = AnalystLevelOrderModel::getAnalystCurrentLevel($uid);
+            if(!$analyst_level){
+                $analyst_level = 0;
+            }else{
+                $analyst_level = $analyst_level['level'];
+            }
+            $can_write_num = config()->get('analyst')[$analyst_level] - $count;
+            $is_write = $can_write_num > 0 ? 1: 0;
+        }
+
         $response = [
             "league_name" => $league['league_name'],
             "match_time" => $match['match_time'],
@@ -122,7 +153,8 @@ class RecommendLogic extends BaseLogic
             "option" => $option,
             "extra" => json_decode($odd['extra'],true),
             "home_info" => $home_info,
-            "away_info" => $away_info
+            "away_info" => $away_info,
+            "can_write_num" => $can_write_num
         ];
 
         $response['is_write'] = $is_write;
@@ -151,22 +183,25 @@ class RecommendLogic extends BaseLogic
         }
 
 //        $analyst = AnalystInfoModel::getInfoByUserId($uid,['level']);
+
+        //校验是否能够看
+        $key = CacheKey::PUSH_COUNT.(date('Ymd')).':'.$uid;
+        if(redis()->exists($key)) {
+            $count = redis()->get($key);
+        }else{
+            $count = 0;
+        }
+        //获取等级和每天能看次数
         $analyst_level = AnalystLevelOrderModel::getAnalystCurrentLevel($uid);
-
+        if(!$analyst_level){
+            $analyst_level = 0;
+        }else{
+            $analyst_level = $analyst_level['level'];
+        }
         $today = date("Y-m-d");
-
-        $start_time = strtotime($today);
-        $end_time = strtotime($today."+1 day");
-        $recommend_count = RecommendModel::countRecommend([
-            "create_time[>=]" => $start_time,
-            "create_time[<]" => $end_time,
-            "analyst_id" => $uid
-        ]);
-
-
-        if(!$this->isWrite($recommend_count))
-        {
-            AnalystException::analystLevelTooLow();
+        if($count >= config()->get('analyst')[$analyst_level]){
+            AnalystException::analystLimitPush();
+            //如果不能发
         }
 
         $info_ids = explode(",", $params['info_id']);
@@ -194,6 +229,8 @@ class RecommendLogic extends BaseLogic
 
         if($recommend)
         {
+            $count  = $count + 1;
+            redis()->set($key, $count);
             return ['rec_id'=>$recommend];
         }else{
             RecommendException::recommendFail();
@@ -247,6 +284,7 @@ class RecommendLogic extends BaseLogic
                 $res['option'] = null;
                 $res['extra'] = null;
                 $res['is_read'] = 0;
+                $res['can_read_num'] = 0;
                 //如果不能看，填空部分内容
             }else{
                 //如果能看，减去能看次数，追加查看记录
@@ -257,12 +295,14 @@ class RecommendLogic extends BaseLogic
                     $count  = $count + 1;
                     redis()->set($key, $count);
                 }
+                $res['can_read_num'] = config()->get('user')[$current_level] - $count;
             }
         }else{
             $res['rec_desc'] = '';
-            $res['option'] = [];
-            $res['extra'] = [];
+            $res['option'] = null;
+            $res['extra'] = null;
             $res['is_read'] = 0;
+            $res['can_read_num'] = 0;
             //如果不能看，填空部分内容
         }
         unset($res['record']);

@@ -47,11 +47,10 @@ class UserLogic extends BaseLogic
         $info = UserModel::getUserInfo($uid,['nickname','avatar','user_type','ticket','sex','phone']);
 
         $fans = 0;
+        $fans = FansModel::countFansByUserId($uid);
         if(1 == $info['user_type']) {
-            $fans = FansModel::getCountFansByAnalystId($uid);
             $current_level = AnalystLevelOrderModel::getAnalystCurrentLevel($uid);
         }else{
-            $fans = FansModel::countFansByUserId($uid);
             $current_level = UserLevelOrderModel::getUserCurrentLevel($uid);
         }
         $end_time = $current_level? $current_level['end_time'] : null;

@@ -23,12 +23,10 @@ class RecommendController extends AdminBaseController
     {
         validator($request, [
             "odd_id" => "required",
-            "analyst_id" => "required"
         ]);
 
         $odd_id = $request->getParam("odd_id");
-        $uid = $request->getParam("analyst_id");
-        return $this->response(RecommendLogic::getInstance()->matchInfo($odd_id, $uid));
+        return $this->response(RecommendLogic::getInstance()->matchInfo($odd_id));
     }
 
 

@@ -28,7 +28,7 @@ class AnalystInfoModel extends BaseModel
             'm.id as analyst_id',
             'c.nickname as nickname',
             'c.avatar as avatar',
-            $analyst_table.'.ticket as ticket',
+            'm.ticket as ticket',
             'm.tag as tag',
             'm.intro as intro',
             'AVG(is_win) as hit_rate',

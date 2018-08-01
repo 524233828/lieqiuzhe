@@ -64,6 +64,7 @@ class AnalystLogic extends BaseLogic
         //饭票
         $analyst_info['gifts'] = $analyst_info['ticket'];
 
+        //TODO:假数据
         $analyst_info['medal'] = [
             [
                 'name' => '10连中',

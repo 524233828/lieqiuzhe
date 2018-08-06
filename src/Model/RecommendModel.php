@@ -23,6 +23,7 @@ class RecommendModel extends BaseModel
         $icon_table = IconsModel::$table;
         $columns = [
             'a.user_id as user_id',
+            'h.id as match_id',
             'c.nickname',
             'c.avatar',
             'a.tag',

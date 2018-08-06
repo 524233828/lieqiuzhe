@@ -41,7 +41,7 @@ class UserCenterLogic extends BaseLogic
         }
         $result = UserModel::update($data,["id" => $id]);
 
-        if($result === false){
+        if($result !== false){
             return [];
         }else{
             BaseException::SystemError();

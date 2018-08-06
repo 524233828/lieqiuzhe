@@ -73,7 +73,12 @@ class UserLogic extends AdminBaseLogic
             $ids[] = $v['id'];
         }
 
-        $level_list = UserLevelOrderModel::fetchUserCurrentLevel($ids);
+        $level_list = [];
+        if(!empty($ids)){
+            $level_list = UserLevelOrderModel::fetchUserCurrentLevel($ids);
+        }
+
+        
 
         foreach ($level_list as $value){
 

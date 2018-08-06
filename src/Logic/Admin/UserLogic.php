@@ -39,6 +39,14 @@ class UserLogic extends AdminBaseLogic
             }
         }
 
+        //只要app的用户
+        $where["openid_type"] = [
+            \Logic\LoginLogic::WECHAT_LOGIN,
+            \Logic\LoginLogic::QQ_LOGIN,
+            \Logic\LoginLogic::WEIBO_LOGIN,
+            \Logic\LoginLogic::PHONE_LOGIN,
+        ];
+
         //计算符合筛选参数的行数
         $count = UserModel::count($where);
 

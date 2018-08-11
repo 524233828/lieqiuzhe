@@ -421,7 +421,10 @@ class RecommendLogic extends BaseLogic
             $analyst_ids[] = $v['analyst_id'];
         }
 
-        $levels = AnalystLevelOrderModel::fetchAnalystCurrentLevel($analyst_ids);
+        $levels = [];
+        if(!empty($analyst_ids)){
+            $levels = AnalystLevelOrderModel::fetchAnalystCurrentLevel($analyst_ids);
+        }
 
         $analyst_index_level = [];
         foreach ($levels as $level){

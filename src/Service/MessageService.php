@@ -20,6 +20,7 @@ class MessageService
     /**
      * 开赛推送
      * @param $match_id
+     * @return bool
      */
     public function concernStartPush($match_id)
     {
@@ -53,6 +54,8 @@ class MessageService
             );
 
             $result = $umeng->sendNotificationToDevices($data);
+
+            return $result;
         }
 
     }
@@ -60,6 +63,7 @@ class MessageService
     /**
      * 完赛推送
      * @param $match_id
+     * @return bool
      */
     public function concernStopPush($match_id)
     {
@@ -93,6 +97,8 @@ class MessageService
             );
 
             $result = $umeng->sendNotificationToDevices($data);
+
+            return $result;
         }
     }
 }

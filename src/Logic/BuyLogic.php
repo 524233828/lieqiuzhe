@@ -14,6 +14,7 @@ use Exception\OrderException;
 use Exception\UserException;
 use Model\AnalystLevelModel;
 use Model\AnalystLevelOrderModel;
+use Model\IconsModel;
 use Model\OrderModel;
 use Model\UserBillModel;
 use Model\UserLevelModel;
@@ -326,12 +327,40 @@ class BuyLogic extends BaseLogic
     {
         $list = AnalystLevelModel::fetchAnalystLevel($level, $month);
 
+        $icon_list = IconsModel::fetch("*", ["type"=>1]);
+
+        $icon_index_list = [];
+        foreach ($icon_list as $key => $value)
+        {
+            $icon_index_list[$value['level']] = $value;
+        }
+
+        foreach ($list as $k => $v){
+            if(isset($icon_index_list[$v['level']]['intro'])){
+                $list[$k]['intro'] = $icon_index_list[$v['level']]['intro'];
+            }
+        }
+
         return ["list" => $list];
     }
 
     public function userLevelPriceList($level = null, $month = null)
     {
         $list = UserLevelModel::fetchUserLevel($level, $month);
+
+        $icon_list = IconsModel::fetch("*", [ "type" => 0 ]);
+
+        $icon_index_list = [];
+        foreach ($icon_list as $key => $value)
+        {
+            $icon_index_list[$value['level']] = $value;
+        }
+
+        foreach ($list as $k => $v){
+            if(isset($icon_index_list[$v['level']]['intro'])){
+                $list[$k]['intro'] = $icon_index_list[$v['level']]['intro'];
+            }
+        }
 
         return ["list" => $list];
     }

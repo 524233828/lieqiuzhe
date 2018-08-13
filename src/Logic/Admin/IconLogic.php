@@ -38,6 +38,7 @@ class IconLogic extends AdminBaseLogic
             "type",
             "icon",
             "num",
+            "intro"
         ],$where);
 
         return ["list"=>$list, "meta" => $pager->getPager($count)];
@@ -70,6 +71,10 @@ class IconLogic extends AdminBaseLogic
 
         if(isset($params['num'])){
             $data['num'] = $params['num'];
+        }
+
+        if(isset($params['intro'])){
+            $data['intro'] = $params['intro'];
         }
 
         $result = IconsModel::update($data, ["id" => $id]);

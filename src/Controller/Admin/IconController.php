@@ -19,6 +19,7 @@ class IconController extends AdminBaseController
 
         $this->add_valid = [
             "num" => "required|integer",
+            "intro" => "null",
         ];
     }
 

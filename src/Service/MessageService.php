@@ -118,7 +118,7 @@ class MessageService
         if(!empty($device_token)){
             $conf = config()->get("umeng");
             $data = array(
-                'ticker' => '您关注的比赛开始了',
+                'ticker' => '比赛结束',
                 'title' => '比赛结束',
                 'text' => "您关注的{$match['home']}vs{$match['away']}比赛已结束，终场比分为{$match['home_score']}:{$match['away_score']}",
                 'device_tokens' => $device_token,

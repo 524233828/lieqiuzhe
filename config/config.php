@@ -67,8 +67,8 @@ return [
     ],
 
     "umeng" => [
-        'appkey'            => '534ce13b56240b219b00106d', //按照友盟后台填写
-        'app_master_secret' => 'j96jq7s8vfdt9ldhsrivjxkzbwezi4uv', //按照友盟后台填写
+        'appkey'            => '5b515d76a40fa34aff0000c0', //按照友盟后台填写
+        'app_master_secret' => 'mjymtb4gwlgxeer4pol2ezl8fq9f2ghw', //按照友盟后台填写
     ],
 
     //会员设置

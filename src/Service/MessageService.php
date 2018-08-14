@@ -42,8 +42,6 @@ class MessageService
             }
         }
 
-        $device_token = ["39da1f74bd7389aea8708021d58d18e25548de39c7698fbbc3d495a35152411c"];
-
         //推送给友盟
         if(!empty($device_token)){
             $conf = config()->get("umeng");
@@ -69,18 +67,22 @@ class MessageService
                 false
             );
 
+            $extra = ["page_id" => 9, "params" => $match_id];
+
             $result_a = $android->sendListCast(
                 $device_token,
                 $data['ticker'],
                 $data['title'],
-                $data['text']
+                $data['text'],
+                $extra
             );
 
             $result_i = $ios->sendListCast(
                 $device_token,
                 $data['ticker'],
                 $data['title'],
-                $data['text']
+                $data['text'],
+                $extra
             );
             return $result_i || $result_a;
         }

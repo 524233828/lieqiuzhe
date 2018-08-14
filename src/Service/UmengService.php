@@ -27,13 +27,13 @@ class UmengService
         $this->production_mode = $production_mode;
     }
 
-    public function sendListCast($device_tokens,$ticker,$title,$text)
+    public function sendListCast($device_tokens, $ticker, $title, $text, $extra = [])
     {
 
         if($this->os == "android"){
-            $params = $this->getAndroidParams($device_tokens,$ticker,$title,$text);
+            $params = $this->getAndroidParams($device_tokens, $ticker, $title, $text, $extra);
         }else{
-            $params = $this->getIOSParams($device_tokens,$ticker,$title,$text);
+            $params = $this->getIOSParams($device_tokens, $ticker, $title, $text, $extra);
         }
 
         return $this->send($params);
@@ -53,9 +53,6 @@ class UmengService
 
         $url .= "?sign={$sign}";
 
-        var_dump($url);
-        var_dump($options['body']);
-
         $response = $http->request("POST", $url , $options);
         $body = $response->getBody()->getContents();
 
@@ -71,7 +68,7 @@ class UmengService
         return md5($method.$url.$body.$this->app_secret);
     }
 
-    public function getAndroidParams($device_tokens,$ticker,$title,$text)
+    public function getAndroidParams($device_tokens,$ticker,$title,$text,$extra = [])
     {
 
         $token = implode(",",$device_tokens);
@@ -94,10 +91,15 @@ class UmengService
             "production_mode" => $this->production_mode
         ];
 
+        if(!empty($extra))
+        {
+            $data['payload']['extra'] = $extra;
+        }
+
         return $data;
     }
 
-    public function getIOSParams($device_tokens,$ticker,$title,$text)
+    public function getIOSParams($device_tokens, $ticker, $title, $text, $extra = [])
     {
 
         $token = implode(",",$device_tokens);
@@ -117,6 +119,10 @@ class UmengService
             ],
             "production_mode" => $this->production_mode
         ];
+
+        foreach ($extra as $key => $value){
+            $data['payload'][$key] = $value;
+        }
 
         return $data;
     }

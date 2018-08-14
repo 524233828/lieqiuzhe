@@ -34,7 +34,7 @@ class UmengService
             $params = $this->getIOSParams($device_tokens,$ticker,$title,$text);
         }
 
-        $this->send($params);
+        return $this->send($params);
     }
 
     public function send($params)

@@ -117,17 +117,45 @@ class MessageService
         //推送给友盟
         if(!empty($device_token)){
             $conf = config()->get("umeng");
-            $umeng = new Client($conf);
-
             $data = array(
+                'ticker' => '您关注的比赛开始了',
                 'title' => '比赛结束',
                 'text' => "您关注的{$match['home']}vs{$match['away']}比赛已结束，终场比分为{$match['home_score']}:{$match['away_score']}",
                 'device_tokens' => $device_token,
             );
 
-            $result = $umeng->sendNotificationToDevices($data);
+            $android = new UmengService(
+                $conf['android']['appkey'],
+                $conf['android']['app_master_secret'],
+                "android",
+                false
+            );
 
-            return $result;
+            $ios = new UmengService(
+                $conf['ios']['appkey'],
+                $conf['ios']['app_master_secret'],
+                "ios",
+                false
+            );
+
+            $extra = ["page_id" => 9, "params" => $match_id, "url"=>""];
+
+            $result_a = $android->sendListCast(
+                $device_token,
+                $data['ticker'],
+                $data['title'],
+                $data['text'],
+                $extra
+            );
+
+            $result_i = $ios->sendListCast(
+                $device_token,
+                $data['ticker'],
+                $data['title'],
+                $data['text'],
+                $extra
+            );
+            return $result_i || $result_a;
         }
     }
 }

@@ -67,7 +67,7 @@ class MessageService
                 false
             );
 
-            $extra = ["page_id" => 9, "params" => $match_id];
+            $extra = ["page_id" => 9, "params" => $match_id, "url"=>""];
 
             $result_a = $android->sendListCast(
                 $device_token,

@@ -53,6 +53,9 @@ class UmengService
 
         $url .= "?sign={$sign}";
 
+        var_dump($url);
+        var_dump($options['body']);
+
         $response = $http->request("POST", $url , $options);
         $body = $response->getBody()->getContents();
 

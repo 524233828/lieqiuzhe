@@ -42,6 +42,8 @@ class MessageService
             }
         }
 
+        $device_token = ["39da1f74bd7389aea8708021d58d18e25548de39c7698fbbc3d495a35152411c"];
+
         //推送给友盟
         if(!empty($device_token)){
             $conf = config()->get("umeng");

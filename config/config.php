@@ -67,8 +67,14 @@ return [
     ],
 
     "umeng" => [
-        'appkey'            => '5b515d76a40fa34aff0000c0', //按照友盟后台填写
-        'app_master_secret' => 'mjymtb4gwlgxeer4pol2ezl8fq9f2ghw', //按照友盟后台填写
+        "ios" =>[
+            'appkey'            => '5b515d76a40fa34aff0000c0', //按照友盟后台填写
+            'app_master_secret' => 'mjymtb4gwlgxeer4pol2ezl8fq9f2ghw', //按照友盟后台填写
+        ],
+        "android" => [
+            'appkey'            => '5b515f5cb27b0a145b0000b5', //按照友盟后台填写
+            'app_master_secret' => 'bdre0g1luqxif40ww3q777v7vs2zl4hz', //按照友盟后台填写
+        ]
     ],
 
     //会员设置

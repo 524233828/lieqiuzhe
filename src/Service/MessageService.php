@@ -9,7 +9,6 @@
 namespace Service;
 
 
-use Hacklee\Umeng\UmengNotifyApi;
 use Logic\LoginLogic;
 use Model\MatchCollectionModel;
 use Model\MatchModel;
@@ -43,37 +42,41 @@ class MessageService
             }
         }
 
-        $tokens = implode(",",$device_token);
-
         //推送给友盟
         if(!empty($device_token)){
+            $conf = config()->get("umeng");
 
             $data = array(
+                'ticker' => '您关注的比赛开始了',
                 'title' => '您关注的比赛开始了',
                 'text' => "您关注的{$match['home']}vs{$match['away']}比赛开赛了",
                 'device_tokens' => $device_token,
             );
 
-            $conf = config()->get("umeng");
-            $android = new UmengNotifyApi(
-                "android",
+            $android = new UmengService(
                 $conf['android']['appkey'],
                 $conf['android']['app_master_secret']
             );
 
-            $ios = new UmengNotifyApi(
-                "ios",
+            $ios = new UmengService(
                 $conf['ios']['appkey'],
-                $conf['ios']['app_master_secret']
+                $conf['ios']['app_master_secret'],
+                "ios"
             );
 
-            $result = $android->setAndroidAfterOpen()
-                ->setAndroidText($data['text'])
-                ->setAndroidTitle($data['title'])
-                ->setDeviceTokens($tokens)
-                ->sendAndroidUnicast();
-
-            $ios->setDeviceTokens($tokens)->sendIOSUnicast();
+            $result = $android->sendListCast(
+                $device_token,
+                $data['ticker'],
+                $data['title'],
+                $data['text']
+            )
+            &&
+            $ios->sendListCast(
+                $device_token,
+                $data['ticker'],
+                $data['title'],
+                $data['text']
+            );
             return $result;
         }
 

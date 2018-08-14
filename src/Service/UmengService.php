@@ -17,12 +17,14 @@ class UmengService
     protected $app_key;
     protected $app_secret;
     protected $os;
+    protected $production_mode;
 
-    public function __construct($app_key, $app_secret, $os = "android")
+    public function __construct($app_key, $app_secret, $os = "android", $production_mode = true)
     {
         $this->app_key = $app_key;
         $this->app_secret = $app_secret;
         $this->os = $os;
+        $this->production_mode = $production_mode;
     }
 
     public function sendListCast($device_tokens,$ticker,$title,$text)
@@ -85,7 +87,8 @@ class UmengService
                     "play_lights" => "false",
                     "after_open" => "go_app"
                 ]
-            ]
+            ],
+            "production_mode" => $this->production_mode
         ];
 
         return $data;
@@ -108,7 +111,8 @@ class UmengService
                         "body" => $text
                     ]
                 ]
-            ]
+            ],
+            "production_mode" => $this->production_mode
         ];
 
         return $data;

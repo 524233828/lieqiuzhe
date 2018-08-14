@@ -55,29 +55,32 @@ class MessageService
 
             $android = new UmengService(
                 $conf['android']['appkey'],
-                $conf['android']['app_master_secret']
+                $conf['android']['app_master_secret'],
+                "android",
+                false
             );
 
             $ios = new UmengService(
                 $conf['ios']['appkey'],
                 $conf['ios']['app_master_secret'],
-                "ios"
+                "ios",
+                false
             );
 
-            $result = $android->sendListCast(
-                $device_token,
-                $data['ticker'],
-                $data['title'],
-                $data['text']
-            )
-            &&
-            $ios->sendListCast(
+            $result_a = $android->sendListCast(
                 $device_token,
                 $data['ticker'],
                 $data['title'],
                 $data['text']
             );
-            return $result;
+
+            $result_i = $ios->sendListCast(
+                $device_token,
+                $data['ticker'],
+                $data['title'],
+                $data['text']
+            );
+            return $result_i || $result_a;
         }
 
     }

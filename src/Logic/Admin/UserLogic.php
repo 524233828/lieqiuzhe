@@ -33,7 +33,7 @@ class UserLogic extends AdminBaseLogic
 
         //检查请求参数中是否有筛选可用参数，有则按参数筛选
         foreach ($this->list_filter as $v){
-            if(isset($params[$v]))
+            if(isset($params[$v]) && !empty($params[$v]))
             {
                 $where[$v] = $params[$v];
             }

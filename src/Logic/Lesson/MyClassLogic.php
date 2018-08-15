@@ -40,6 +40,20 @@ class MyClassLogic extends BaseLogic
             ClassException::ClassExpire();
         }
 
+        //计算学习进度
+        $view_count = $user_class['view_count'] + 1;
+
+        $learn_percent = learnPercentCount($view_count);
+
+        //记录查看数
+        BuyModel::updateUserClass(
+            ["id"=>$user_class['id']],
+            [
+                "view_count" => $view_count,
+                "learn_percent" => $learn_percent
+            ]
+        );
+
         //输出用户学习进度
         $class['learn_percent'] = $user_class["learn_percent"];
 

@@ -125,3 +125,10 @@ function levelEndTime($end_time){
 
     return bcdiv($gap, 86400, 0);
 }
+
+function learnPercentCount($view_count)
+{
+    $num = bcdiv($view_count, 10);
+
+    return bcmul($num , 100);
+}

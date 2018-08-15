@@ -97,6 +97,6 @@ class BuyModel extends BaseModel
 
     public static function updateUserClass($where = [], $data = [])
     {
-        return database("lesson")->update(self::BUY_CLASS_TABLE, $data, $where);
+        return database()->update(self::BUY_CLASS_TABLE, $data, $where);
     }
 }

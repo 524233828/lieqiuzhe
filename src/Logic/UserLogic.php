@@ -31,7 +31,7 @@ class UserLogic extends BaseLogic
             exit();
         }
 
-        database()->update("user", [
+        database()->update("analyst_info", [
             "ticket[+]" => 1
         ], [
             "id" => $user_id

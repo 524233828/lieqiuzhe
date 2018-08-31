@@ -23,26 +23,30 @@ class RegisterLogic extends BaseLogic
     public function sendCode($phone)
     {
 
+        //sms配置
         $config = config()->get("sms");
         $helper = new SignatureHelper();
 
-        $params["PhoneNumbers"] = $phone;
-
-        $params["SignName"] = $config['signName'];
-
-        $params["TemplateCode"] = "SMS_126650401";
-
+        //判断用户是否注册
         $my_user = UserModel::getUserByPhone($phone);
         if($my_user)
         {
             UserException::phoneExists();
         }
 
+        //判断验证码是否过期
         $key = CacheKey::REGISTER_CODE_KEY.":{$phone}";
 
         if(redis()->exists($key)){
             UserException::sendCodeTooMuch();
         }
+
+        //设置参数
+        $params["PhoneNumbers"] = $phone;
+
+        $params["SignName"] = $config['signName'];
+
+        $params["TemplateCode"] = "SMS_126650401";
 
         $time_out = 600;
 
@@ -60,6 +64,7 @@ class RegisterLogic extends BaseLogic
             $params["TemplateParam"] = json_encode($params["TemplateParam"], JSON_UNESCAPED_UNICODE);
         }
 
+        //发送短信
         $content = false;
 
         // 此处可能会抛出异常，注意catch

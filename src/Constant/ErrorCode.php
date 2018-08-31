@@ -103,6 +103,11 @@ class ErrorCode
     const VIDEO_CATE_NOT_EXISTS = 1701;
 
     /**
+     * 18xx 验证码系统错误
+     */
+    const SEND_MSG_FAIL = 1800;
+
+    /**
      * 错误代码与消息的对应数组
      *
      * @var array
@@ -172,7 +177,9 @@ class ErrorCode
 
         //视频系统错误
         self::VIDEO_CATE_EXISTS => ['该视频已在分类中', Response::HTTP_OK],
-        self::VIDEO_CATE_NOT_EXISTS => ['该视频不在分类中', Response::HTTP_OK]
+        self::VIDEO_CATE_NOT_EXISTS => ['该视频不在分类中', Response::HTTP_OK],
+
+        self::SEND_MSG_FAIL => ['发送短信失败', Response::HTTP_OK]
 
     ];
 

@@ -191,6 +191,12 @@ route()->group(['prefix' => '/system_notice', 'middleware' => 'dispatch'],functi
     route()->get("/list","SystemNoticeController@fetchAction");
 });
 
+//验证码系统
+route()->group(['prefix' => '/valid_code', 'middleware' => 'dispatch'],function(){
+
+    route()->get("/send","ValidCodeController@sendCode");
+});
+
 //后台
 
 //登录后台

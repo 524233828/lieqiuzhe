@@ -59,6 +59,7 @@ class ValidCodeService
         if(!$result){
             return ["status" => self::STATUS_SEND_FAIL];
         }else{
+            $this->lock($phone);
             return ["status" => self::STATUS_SUCCESS];
         }
 

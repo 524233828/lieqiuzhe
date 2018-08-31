@@ -103,7 +103,7 @@ class ValidationServiceProvider implements ServiceProviderInterface
             return '' === $parameters[0] ? error(ErrorCode::OUT_OF_RANGE) : ($size >= $parameters[0]);
         });
 
-        //中文字数限制
+        //无所谓
         Validator::addExtension("null", function($field, $value, array $parameters = []){
 
             return true;

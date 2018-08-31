@@ -116,7 +116,7 @@ class ValidCodeService
      */
     protected function isLock($phone)
     {
-        $key = self::SEND_LIMIT_TIME.":{$phone}";
+        $key = self::SEND_LIMIT_KEY.":{$phone}";
 
         if(redis()->exists($key)){
             $ttl = redis()->ttl($key);
@@ -133,7 +133,7 @@ class ValidCodeService
      */
     protected function lock($phone)
     {
-        $key = self::SEND_LIMIT_TIME.":{$phone}";
+        $key = self::SEND_LIMIT_KEY.":{$phone}";
         return RedisHelper::get($key, redis(), function(){
 
             return true;

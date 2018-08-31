@@ -48,7 +48,9 @@ class SmsService
 
         $params["TemplateCode"] = $template_code;
 
-        if(!empty($template_param) && is_array($template_param)) {
+        $params['TemplateParam'] = $template_param;
+
+        if(!empty($params['TemplateParam']) && is_array($params['TemplateParam'])) {
             $params["TemplateParam"] = json_encode($params["TemplateParam"], JSON_UNESCAPED_UNICODE);
         }
 

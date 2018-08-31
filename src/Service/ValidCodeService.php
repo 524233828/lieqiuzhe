@@ -122,7 +122,7 @@ class ValidCodeService
             return $ttl;
         }
 
-        return true;
+        return false;
     }
 
     /**

@@ -9,6 +9,7 @@
 namespace Logic;
 
 
+use Exception\UserException;
 use Helper\Aliyun\DySDKLite\SignatureHelper;
 use Service\SmsService;
 use Service\ValidCodeService;
@@ -45,6 +46,20 @@ class ValidCodeLogic extends BaseLogic
             default:
                 error(1800);
 
+        }
+    }
+
+    public function checkCode($phone, $code)
+    {
+        //验证码服务
+        $valid_code = new ValidCodeService();
+
+        $result = $valid_code->checkCode($phone, $code);
+
+        if($result){
+            return [];
+        }else{
+            UserException::codeInvalid();
         }
     }
 }

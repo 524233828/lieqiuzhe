@@ -195,6 +195,7 @@ route()->group(['prefix' => '/system_notice', 'middleware' => 'dispatch'],functi
 route()->group(['prefix' => '/valid_code', 'middleware' => 'dispatch'],function(){
 
     route()->post("/send","ValidCodeController@sendCode");
+    route()->post("/check","ValidCodeController@checkCode");
 });
 
 //后台

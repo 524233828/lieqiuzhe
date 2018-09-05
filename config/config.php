@@ -27,7 +27,7 @@ return [
     "sms" => [
         "accessKeyId" => "LTAIxmGYETDXXOwG",
         "accessKeySecret" => "YUZ96Jt0ghzoWfaFJGa4cHWAaD3ZNL",
-        "signName" => "阿里云短信测试专用"
+        "signName" => "球稳APP"
     ],
 
     "socialite" => [

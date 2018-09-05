@@ -22,7 +22,7 @@ class ValidCodeService
     const SEND_LIMIT_KEY = "qiuwen:valid_code:limit";
     const EXPIRE_TIME = 600;
     const SEND_LIMIT_TIME = 120;
-    const TEMPLATE = "SMS_126650401";
+    const TEMPLATE = "SMS_143925326";
 
     //定义状态
     const STATUS_SMS_NOT_FOUND = -1;

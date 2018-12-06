@@ -16,7 +16,7 @@ use Service\ValidCodeService;
 
 class ValidCodeLogic extends BaseLogic
 {
-    public function sendCode($phone)
+    public function sendCode($phone, $sign_name = null)
     {
         //sms配置
         $config = config()->get("sms");
@@ -25,7 +25,11 @@ class ValidCodeLogic extends BaseLogic
         $helper = new SignatureHelper();
 
         //短信服务
-        $sms = new SmsService($config['accessKeyId'], $config['accessKeySecret'],$config['signName']);
+        $sms = new SmsService(
+            $config['accessKeyId'],
+            $config['accessKeySecret'],
+            empty($sign_name)?$config['signName']:$sign_name
+        );
 
         $sms->setSignatureHelper($helper);
 

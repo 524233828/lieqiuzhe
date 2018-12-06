@@ -20,8 +20,9 @@ class ValidCodeController extends BaseController
         validator($request,["phone" => "required|mobile"]);
 
         $phone = $request->getParam("phone");
+        $sign_name = $request->getParam("sign_name", null);
 
-        return $this->response(ValidCodeLogic::getInstance()->sendCode($phone));
+        return $this->response(ValidCodeLogic::getInstance()->sendCode($phone, $sign_name));
     }
 
     public function checkCode(ServerRequest $request)
